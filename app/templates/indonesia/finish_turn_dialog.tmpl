@@ -1,0 +1,14 @@
+{{$game := $.Game}}
+<div id="dialog" title="Undo or Finish Turn">
+        <div class="dialog-content" style="height:2em;width:265px">
+                <p class="top-padding">Undo or finish turn.</p>
+                <div class="top-padding">
+                <form action="/{{$game.Stub}}/game/undo/{{$game.ID}}" id="undo-turn" class="pull-left" method="post">
+                        <input class="mybutton right-padding" name="commit" type="submit" value="Undo" /> 
+                </form> 
+                <form action="/{{$game.Stub}}/game/finish/{{$game.ID}}" id="finish-turn" class="pull-left" method="post">
+                        <input class="mybutton" name="commit" type="submit" value="Finish" /> 
+                </form> 
+                </div>
+        </div>
+</div>

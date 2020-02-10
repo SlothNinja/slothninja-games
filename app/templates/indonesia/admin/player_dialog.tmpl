@@ -1,0 +1,21 @@
+{{$game := $.Game}}
+{{if $.IsAdmin}}
+{{with $player := $game.SelectedPlayer}}
+<div id="dialog" title="Admin Player {{$player.Name}}">
+        <div class="dialog-content">
+                <div id="tabs">
+                        <ul>
+                                <li><a href="#tabs-admin-player">Player</a></li>
+                                <li><a href="#tabs-admin-player-technologies">Technologies</a></li>
+                                <li><a href="#tabs-admin-player-slots">Slots</a></li>
+                                <li><a href="#tabs-admin-player-company">Company</a></li>
+                        </ul>
+                        {{template "indonesia/admin/player_tab" .}}
+                        {{template "indonesia/admin/player_technologies_tab" .}}
+                        {{template "indonesia/admin/player_slots_tab" .}}
+                        {{template "indonesia/admin/player_company_tab" .}}
+                </div>
+        </div>
+</div>
+{{end}}
+{{end}}

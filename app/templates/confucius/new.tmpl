@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+{{template "shared/head_meta" .}}
+{{template "shared/head_title" .}}
+{{template "shared/head_link" .}}
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> 
+{{template "shared/head_script" .}}                
+</head> 
+<body class="two-col">
+<div id="container">
+        {{template "shared/header" .}}
+        {{template "shared/left_sidebar" .}}
+        {{with $game := .Game}}
+        <div id="main-content"> 
+                <div class="invitation"> 
+                        <div class="heading">
+                                <div>New Confucius Invitation</div> 
+                        </div>
+                        <div class="content-box"> 
+                                <div class="content"> 
+                                        <div id="left-column">
+                                                <div id="upper">
+                                                        <form action="/confucius/game" method="post">
+                                                                <div class="box-cover">
+                                                                        <img src="/images/confucius/confucius-box.jpg" alt="Confucius Box" class="confucius" />
+                                                                </div>
+                                                                <div id="form"> 
+                                                                        <div class="number-of-players-field">
+                                                                                <label for="num-players">Players:</label> 
+                                                                                <select id="num-players" name="num-players" style="width:6.5em">
+                                                                                        <option value="3">3</option> 
+                                                                                        <option value="4">4</option> 
+                                                                                        <option value="5" selected="selected">5</option>
+                                                                                </select> 
+                                                                        </div> 
+                                                                        <div class="basic-game">
+                                                                                <label for="basic-game">Basic/Advanced Game:</label> 
+                                                                                <select id="basic-game" name="basic-game" style="width:6.5em">
+                                                                                        <option value="true">Basic</option> 
+                                                                                        <option value="false" selected="selected">Advanced</option> 
+                                                                                </select> 
+                                                                        </div> 
+                                                                        <div class="admiral-variant">
+                                                                                <label for="admiral-variant">Admiral Variant:</label> 
+                                                                                <select id="admiral-variant" name="admiral-variant" style="width:6.5em">
+                                                                                        <option value="true" selected="selected">Yes</option> 
+                                                                                        <option value="false">No</option> 
+                                                                                </select> 
+                                                                        </div> 
+                                                                        <div class="title-field"> 
+                                                                                <label for="title">Title:</label> 
+                                                                                <span class="field">
+                                                                                        <input name="title" size="30" type="text" value={{$game.Title}} />
+                                                                                </span> 
+                                                                        </div> 
+                                                                        <div class="password"> 
+                                                                                <label for="password">Password:</label> 
+                                                                                <span class="field">
+                                                                                        <input name="password" size="30" type="text" value="" />
+                                                                                </span> 
+                                                                        </div> 
+                                                                        <div class="button">
+                                                                                <input class="mybutton" name="commit" type="submit" value="Create" /> 
+                                                                        </div>
+                                                                </div> 
+                                                        </form> 
+                                                </div>
+                                                <div id="lower"> 
+                                                        <ul> 
+                                                                <li> 
+                                                                Leave password blank, if you want to create a Public game which anyone can join.
+                                                                </li> 
+                                                                <li> 
+                                                                Provide a password, if you want to create a Private game that requires entry of the password to join.
+                                                                </li> 
+                                                        </ul> 
+                                                </div> 
+                                        </div> 
+                                        <div id="right-column"> 
+                                                <table class="strippedDataTable"> 
+                                                        <thead style="display:none">
+                                                                <th>
+                                                                </th>
+                                                                <th>
+                                                                </th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr> 
+                                                                <td>Designer</td> 
+                                                                <td>Alan Paull</td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Artists</td> 
+                                                                <td> 
+                                                                        <div>Anthony Boydell</div> 
+                                                                        <div>Charlie Paull</div> 
+                                                                </td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Publisher</td> 
+                                                                <td><a href="http://www.surprisedstaregames.co.uk/">Surprised Stare Games Ltd</a></td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Year Published</td> 
+                                                                <td>2008</td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>On-Line Developer</td> 
+                                                                <td>Jeff Huter</td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Permission Provided By</td> 
+                                                                <td>Alan Paull</td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Rules (pdf)</td> 
+                                                                <td><a href="../../rules/confucius-rules.pdf">Confucius (English)</a></td> 
+                                                        </tr> 
+                                                        </tbody>
+                                                </table> 
+                                        </div> 
+                                </div> 
+                        </div> 
+                </div> 
+        </div>
+        {{end}}
+        {{template "shared/footer" .}}
+</div>
+</body> 
+</html>

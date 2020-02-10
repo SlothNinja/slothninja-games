@@ -1,0 +1,42 @@
+<!-- Confucius Options Form Form --> 
+<div class="actions" id="options-action"> 
+        <fieldset> 
+                <legend>Confucius Options</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{.ID}}/options" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                </div> 
+                                {{range $index, $player := $.Players}}
+                                <div> 
+                                        <label for="player-{{$player.ID}}-color-options">{{$player.Name}}:</label> 
+                                        <select id="player-{{$player.ID}}-color-options" name="index-{{$player.ID}}">
+                                                {{range $j, $color := $.Colors}}
+                                                <option value="{{$j}}" {{if equal $player.Color.Int $j}}selected="selected"{{end}}>{{$color.String}}</option>
+                                                {{end}}
+                                        </select> 
+                                </div>
+                                {{end}}
+                                <div class="button">
+                                        <input name="commit" type="submit" value="Update Options" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select the number of junks you want to purchase.
+                                        </li> 
+                                        <li> 
+                                        Select Confucius card(s) with coins sufficient to pay for junks.
+                                        </li> 
+                                        <li> 
+                                        If you overpay, no change is given.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>

@@ -1,0 +1,48 @@
+<!-- Candidate Form -->
+<div class="actions" id="admin-candidate-action">
+        <fieldset>
+                <legend>Game State</legend>
+                <form action="/{{.Stub}}/admin/{{.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="candidate" />
+                        </div>
+                        <div class="left-column">
+                                <div class="name">
+                                        <label for="student_player">Player</label>
+                                        <select id="student_player" name="student_player">
+                                                {{with $candidate := $.Candidate}}
+                                                <option value="none" {{if $candidate.Player}}{{else}}selected="selected"{{end}}>None</option>
+                                                {{range $player := $.Players}}
+                                                <option value="{{$player.ID}}" {{if $candidate.Player}}{{if $player.Equal $candidate.Player}}selected="selected"{{end}}{{end}}>{{$player.Name}}</option>
+                                                {{end}}
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div class="name">
+                                        <label for="student_otherplayer">OtherPlayer</label>
+                                        <select id="student_otherplayer" name="student_otherplayer">
+                                                {{with $candidate := $.Candidate}}
+                                                <option value="none" {{if $candidate.OtherPlayer}}{{else}}selected="selected"{{end}}>None</option>
+                                                {{range $player := $.Players}}
+                                                <option value="{{$player.ID}}" {{if $candidate.OtherPlayer}}{{if $player.Equal $candidate.OtherPlayer}}selected="selected"{{end}}{{end}}>{{$player.Name}}</option>
+                                                {{end}}
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="removecandidate">Remove Candidate</label>
+                                        <select id="removecandidate" name="removecandidate">
+                                                <option value="none">None</option>
+                                                {{range $index, $candidate := $.Candidates}}
+                                                <option value="{{$index}}">{{$candidate.Variant}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div class="button">
+                                        <input name="commit" type="submit" value="Update Candidate" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>

@@ -1,0 +1,23 @@
+@mixin status-box {
+	#status-box {
+		@include column($blueprint-grid-columns, true);
+		padding-top:.5em;
+		padding-bottom:.5em;
+		label {
+			font-weight:bold;
+		}
+		.left-stats {
+			@include column($blueprint-grid-columns / 2);
+			.content {
+				padding-left:1em;
+			}
+		}
+		.right-stats {
+			@include column(($blueprint-grid-columns / 2), true);
+			.content {
+				padding-right:1em;
+				text-align:right;
+			}
+		}
+	}
+}

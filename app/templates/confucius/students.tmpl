@@ -1,0 +1,27 @@
+{{if $.Candidates}}
+{{with $student := index $.Candidates 0}}
+<div id="candidate">
+        <img src="/images/confucius/official-tile-{{$student.Variant}}-{{$student.Cost}}.jpg" alt="Official Tile" />
+</div>
+<div id="student-0">
+        <div class="marker">
+                {{with $player := $.PlayerByID $student.PlayerID}}
+                {{$player.DisplayBarrel}}
+                {{end}}
+        </div>
+</div>
+<div class="student-0-cards" style="font-size:18px;position:absolute;top:180px;left:100px">
+        Cards: {{len $student.PlayerCards}}
+</div>
+<div id="student-1">
+        <div class="marker">
+                {{with $player := $.PlayerByID $student.OtherPlayerID}}
+                {{$player.DisplayBarrel}}
+                {{end}}
+        </div>
+</div>
+<div class="student-1-cards" style="font-size:18px;position:absolute;top:394px;left:82px">
+        Cards: {{len $student.OtherPlayerCards}}
+</div>
+{{end}}
+{{end}}

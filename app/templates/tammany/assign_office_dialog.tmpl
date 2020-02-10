@@ -1,0 +1,24 @@
+{{$game := $.Game}}
+{{$office := $.Office}}
+<div id="dialog" title="Assign {{$office}}">
+        <div class="dialog-content">
+                {{range $index, $player := $game.Players}}
+                        {{if not $player.HasOffice}}
+                                <div>&nbsp;</div>
+                                <form class="myForm">
+                                        <input name="action" type="hidden" value="assign-office" />
+                                        <input name="area" type="hidden" value="{{$office.IDString}}" />
+                                        <input name="pid" type="hidden" value="{{$player.ID}}" />
+                                        <div class="mybutton submit">
+                                                <div class="icon">
+                                                        {{$player.BossImage}}
+                                                </div>
+                                                <div class="text">
+                                                        {{$player.Name}}
+                                                </div>
+                                        </div>
+                                </form>
+                        {{end}}
+                {{end}}
+        </div>
+</div>

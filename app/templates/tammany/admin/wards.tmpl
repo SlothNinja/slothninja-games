@@ -1,0 +1,61 @@
+{{$g := $.Game}}
+{{range $w := $g.Wards}}
+<!-- Ward {{$w.ID}} Form -->
+<div class="actions" id="ward-{{$w.ID}}-action">
+        <fieldset>
+                <legend>Ward {{$w.ID}}</legend>
+                <form action="/{{$g.Stub}}/game/admin/{{$g.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="ward">
+                                <input name="ward-id" type="hidden" value="{{$w.ID}}">
+                        </div>
+                        <div class="left-column">
+                                {{range $n, $cnt := $w.Immigrants}}
+                                <div>
+                                        <label for="ward-{{$w.ID}}-{{$n}}">{{$n}}</label>
+                                        <input id="ward-{{$w.ID}}-{{$n}}" name="{{$n}}" size="20" type="text" value="{{$cnt}}" />
+                                </div>
+                                {{end}}
+                                <h1>Bosses</h1>
+                                {{range $g.Players}}
+                                <div>
+                                        <label for="ward-{{$w.ID}}-player-{{.ID}}">{{.User.Name}}</label>
+                                        <input id="ward-{{$w.ID}}-player-{{.ID}}" name="bosses" size="20" type="text" value="{{$w.BossesFor .}}" />
+                                </div>
+                                {{end}}
+                                <h1>State</h1>
+                                <div>
+                                        <label for="ward-{{$w.ID}}-lockedup}}">Locked Up:</label>
+                                        <select id="ward-{{$w.ID}}-lockedup}}" name="lockedup">
+                                                {{if $w.LockedUp}}
+                                                        <option value="0">False</option>
+                                                        <option value="1" selected="selected">True</option>
+                                                {{else}}
+                                                        <option value="0" selected="selected">False</option>
+                                                        <option value="1">True</option>
+                                                {{end}}
+
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="ward-{{$w.ID}}-resolved}}">Resolved:</label>
+                                        <select id="ward-{{$w.ID}}-resolved}}" name="resolved">
+                                                {{if $w.Resolved}}
+                                                        <option value="0">False</option>
+                                                        <option value="1" selected="selected">True</option>
+                                                {{else}}
+                                                        <option value="0" selected="selected">False</option>
+                                                        <option value="1">True</option>
+                                                {{end}}
+
+                                        </select>
+                                </div>
+                                <div>
+                                        <input class="mybutton" name="commit" type="submit" value="Update Game" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>
+{{end}}

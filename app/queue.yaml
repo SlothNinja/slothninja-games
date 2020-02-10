@@ -1,0 +1,8 @@
+total_storage_limit: 1M
+queue:
+- name: default
+  rate: 1/s
+- name: mail
+  rate: 1/s
+- name: xmpp
+  rate: 1/s

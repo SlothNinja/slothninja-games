@@ -1,0 +1,24 @@
+@mixin passed($color, $top, $left) {
+        ##{$color}-passed-resources {
+                position:absolute;
+                top:$top;
+                left:$left;
+                height:75px;
+                width:60px;
+
+                img {
+                        width:20px;
+                        height:20px;
+                }
+
+                ##{$color}-passed-marker {
+                        position:relative;
+                        left:15px;
+                        top:20px;
+                        img {
+                                width:34px;
+                                height:34px;
+                        }
+                }
+        }
+}

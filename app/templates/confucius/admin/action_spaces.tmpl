@@ -1,0 +1,34 @@
+{{range $index, $actionSpace := $.ActionSpaces}}
+<!-- {{$actionSpace.Name}} State Form -->
+<div class="actions" id="admin-{{$actionSpace.Name}}-action">
+        <fieldset>
+                <legend>{{$actionSpace.Name}}</legend>
+                <form action="/{{$.Stub}}/admin/{{$.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="action-space" />
+                                <input name="sid" type="hidden" value="{{$actionSpace.ID.Int}}" />
+                        </div>
+                        <div class="left-column">
+                                {{range $player := $.Players }}
+                                <div class="name">
+                                        <label for="{{$actionSpace.Name}}-player-{{$player.ID}}">{{$player.Name}}</label>
+                                        <select id="{{$actionSpace.Name}}-player-{{$player.ID}}" name="player-{{$player.ID}}-cubes">
+                                                {{range $value := ints 0 5}}
+                                                {{with $cubes := $player.CubesIn $actionSpace}}
+                                                <option value="{{$value}}" {{if equal $value $cubes}}selected="selected"{{end}}>{{$value}}</option>
+                                                {{else}}
+                                                <option value="{{$value}}" {{if equal $value $cubes}}selected="selected"{{end}}>{{$value}}</option>
+                                                {{end}}
+                                                {{end}}
+                                        </select>
+                                </div>
+                                {{end}}
+                                <div class="button">
+                                        <input name="commit" type="submit" value="Update Action Space" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>
+{{end}}

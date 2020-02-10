@@ -1,0 +1,144 @@
+<!-- Game State Form -->
+<div class="actions" id="game-state-action">
+        <fieldset>
+                <legend>Game State</legend>
+                <form action="/{{.Stub}}/game/admin/{{.ID}}" method="post">
+                        <input name="action" type="hidden" value="game-state">
+                        <div class="upper-content">
+                                <div class="left-column">
+                                        <div>
+                                                <label for="title">Title</label>
+                                                <input id="title" name="title" size="20" type="text" value="{{.Title}}" />
+                                        </div>
+                                        {{range $index, $user := $.Users}}
+                                        <div>
+                                                <label for="user-ids">User {{$index}}</label>
+                                                <input id="user-ids" name="user-ids" size="20" type="text" value="{{$user.ID}}" />
+                                        </div>
+                                        {{end}}
+                                        {{range $index, $id := $.OrderIDS}}
+                                        <div>
+                                                <label for="order-ids">Order {{$index}}</label>
+                                                <input id="order-ids" name="order-ids" size="20" type="text" value="{{$id}}" />
+                                        </div>
+                                        {{end}}
+                                        <div>
+                                                <label for="phase">Phase</label>
+                                                <input id="phase" name="phase" size="20" type="text" value="{{.Phase}}" />
+                                        </div>
+                                        <div>
+                                                <label for="turn">Turn</label>
+                                                <input id="turn" name="turn" size="20" type="text" value="{{$.Turn}}" />
+                                        </div>
+                                        <div>
+                                                <label for="round">Round</label>
+                                                <input id="round" name="round" size="20" type="text" value="{{.Round}}" />
+                                        </div>
+                                        <div>
+                                                <label for="num-players">NumPlayers</label>
+                                                <input id="num-players" name="num-players" size="20" type="text" value="{{.NumPlayers}}" />
+                                        </div>
+                                        <div>
+                                                <label for="password">Password</label>
+                                                <input id="password" name="password" size="20" type="text" value="{{.Password}}" />
+                                        </div>
+                                        <div>
+                                                <label for="creator-id">CreatorID</label>
+                                                <input id="creator-id" name="creator-id" size="20" type="text" value="{{.CreatorID}}" />
+                                        </div>
+                                        <div>
+                                                <label for="junks">Junks</label>
+                                                <input id="junks" name="junks" size="20" type="text" value="{{.Junks}}" />
+                                        </div>
+                                </div>
+                                <div class="right-column">
+                                        <div>
+                                                <label for="cp-user-indices">Current Player</label>
+                                                <select id="cp-user-indices" name="cp-user-indices" multiple="multiple">
+                                                        <option value="-1" {{if len $.CurrentPlayerers | zero}}selected="selected"{{end}}>None</option>
+                                                        {{range $index, $player := $.Players}}
+                                                        <option value="{{$player.ID}}" {{if $player.IsCurrentPlayer}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="winner-ids">Winners</label>
+                                                <select id="winner-ids" name="winner-ids" multiple="multiple">
+                                                        <option value="-1" {{if len $.WinnerIDS | zero}}selected="selected"{{end}}>None</option>
+                                                        {{range $index, $player := $.Players}}
+                                                        <option value="{{$player.ID}}" {{if $player.IsWinner}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="chief-minister-id">Chief Minister</label>
+                                                <select id="chief-minister-id" name="chief-minister-id">
+                                                        <option value="-1" {{if $.ChiefMinister | not}}selected="selected"{{end}}>None</option>
+                                                        {{range $index, $player := $.Players}}
+                                                        <option value="{{$player.ID}}" {{if $player.IsChiefMinister}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="admiral-id">Admiral</label>
+                                                <select id="admiral-id" name="admiral-id">
+                                                        <option value="-1" {{if $.Admiral | not}}selected="selected"{{end}}>None</option>
+                                                        {{range $index, $player := $.Players}}
+                                                        <option value="{{$player.ID}}" {{if $player.IsAdmiral}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="general-id">General</label>
+                                                <select id="general-id" name="general-id">
+                                                        <option value="-1" {{if $.General | not}}selected="selected"{{end}}>None</option>
+                                                        {{range $index, $player := $.Players}}
+                                                        <option value="{{$player.ID}}" {{if $player.IsGeneral}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="status">Status</label>
+                                                <select id="status" name="status">
+                                                        {{range $i, $s := $.Statuses}}
+                                                        <option value="{{$s.Int}}" {{if equal $s.Int $.Status.Int}}selected="selected"{{end}}>{{$s.String}}</option>
+                                                        {{end}}
+
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="wall1">Wall</label>
+                                                <select id="wall1" name="wall">
+                                                        {{range $index := ints 0 9}}
+                                                        <option value="{{$index}}" {{if equal $.Wall $index}}selected="selected"{{end}} >
+                                                        {{$index}}
+                                                        </option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="addemperorcard">Add Emperor Card</label>
+                                                <select id="addemperorcard" name="addemperorcard">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $card := $.EmperorDeck}}
+                                                        <option value="{{$card.Type}}">{{$card.Title}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="removeemperorcard">Remove Emperor Card</label>
+                                                <select id="removeemperorcard" name="removeemperorcard">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $card := $.EmperorDeck}}
+                                                        <option value="{{$index}}">{{$card.Title}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="button">
+                                <input name="commit" type="submit" value="Update Game" class="mybutton" />
+                        </div>
+                </form>
+        </fieldset>
+</div>

@@ -1,0 +1,26 @@
+@mixin players {
+        #players-table {
+                @include table;
+                @include append-bottom(0.5em);
+                padding: 1em 1em 1em 1em;
+                th, td {
+                        text-align:center;
+                }
+                td.last-action {
+                        width:25%;
+                        text-align:left;
+                }
+                img.disc {
+                        width:24px;
+                        height:24px;
+                }
+                img.unit {
+                        width:30px;
+                        height:20px;
+                }
+                img.cube {
+                        width:9px;
+                        height:9px;
+                }
+        }
+}

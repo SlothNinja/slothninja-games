@@ -1,0 +1,9 @@
+{{$scribes := index $.Game.Areas 2}}
+{{$usedscribes := index $.Game.Areas 4}}
+<div>
+        {{template "atf/worker_box" $scribes}}
+        {{template "atf/worker_box" $usedscribes}}
+        {{template "atf/player_workers" $.Game.CurrentPlayer}}
+        {{template "shared/flashbox" .}}
+</div>
+{{template "atf/select_worker_to_move_dialog" $}}

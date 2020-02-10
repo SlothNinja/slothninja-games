@@ -1,0 +1,70 @@
+@mixin admin-box {
+        #admin-box {
+                @extend .ui-widget;
+                @extend .ui-widget-content;
+                @extend .ui-corner-all;
+                @include column($blueprint-grid-columns, true);
+                height: 50em;
+                label {
+                        font-weight:bold;
+                }
+                .left-column {
+                        @include column(7);
+                        margin-left:20px;
+                        fieldset {
+                                height: 45em;
+                        }
+                        .available-actions-box {
+                                @include column(7, true);
+                                @include prepend-top(1em);
+                                .first-action-set {
+                                        @include column(3);
+                                }
+                                .second-action-set {
+                                        @include column(3, true);
+                                        text-align:right;		
+                                }
+                        }
+                }
+                .right-column {
+                        @include prepend-top(1em);
+                        @include column(21, true);
+                        .upper-content {
+                                @include column(20, true);
+                                margin-left:5px;
+                                text-align:right;
+                                fieldset {
+                                        height: 45em;
+                                }
+                                .left-column {
+                                        @include column(9);
+                                        input {
+                                                width:94px;
+                                        }
+                                        select {
+                                                width:100px;
+                                        }
+                                }
+                                .right-column {
+                                        @include column(9, true);
+                                        input {
+                                                width:44px;
+                                        }
+                                        select {
+                                                width:100px;
+                                        }				
+                                }
+                        }
+                        .lower-content {
+                                @include column(20, true);
+                                @include prepend-top;
+                                text-align:center;
+                                .button {
+                                        input {
+                                                width:auto;
+                                        }
+                                }
+                        }
+                }
+        }	
+}

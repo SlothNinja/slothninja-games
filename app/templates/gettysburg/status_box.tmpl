@@ -1,0 +1,105 @@
+{{$g := $.Game}}
+{{$cu := $g.CurrentUser}}
+<!-- Status Box --> 
+<div id="status-box">
+        <div class="left-stats"> 
+                <div class="content"> 
+                        <div> 
+                                <strong>Name:</strong> <span data-bind='text: title'></span>
+                        </div>
+                        <div>
+                                <strong>Game ID:</strong> <span data-bind='text: id'></span>
+                        </div>
+                        <div>&nbsp;</div>
+                        <div> 
+                                <strong>Turn:</strong> July <span data-bind="text: turn"></span>
+                        </div>
+                        <div> 
+                                <strong>Period:</strong> <span data-bind="text: periodName"></span>
+                        </div>
+                        <div> 
+                                <strong>Round:</strong> <span data-bind="text: round"></span>
+                        </div>
+                        <div> 
+                                <strong>Phase:</strong> <span data-bind="text: phaseName"></span>
+                        </div> 
+                        <div> 
+                                <strong>SubPhase:</strong> <span data-bind="text: subPhaseName"></span>
+                        </div> 
+                        <div>&nbsp;</div>
+                        <div class="current-players">
+                                <strong>Current Player:</strong>
+                                <span data-bind="with: currentPlayer">
+                                        <span data-bind='html: link'></span>
+                                </span>
+                                <span data-bind="ifnot: currentPlayer">
+                                        None
+                                </span>
+                        </div>
+                </div> 
+                {{if $.Admin}}
+                <div class="top-padding">
+                        <button data-bind="jqButton: true, click: function(){put({'action': 'admin', 'subAction': 'getDialog', 'target': 'header', 'json': true})}">Admin Header</button>
+                </div>
+                <div class="top-padding">
+                        <button data-bind="jqButton: true, click: function(){put({'action': 'admin', 'subAction': 'getDialog', 'target': 'game', 'json': true})}">Admin Game</button>
+                </div>
+                {{end}}
+        </div> 
+        <div class="center-stats">
+                <div class="content">
+                        {{if $g.IsCurrentPlayerOrAdmin $cu}}
+                        <div class="left-box">
+                                <div class="content">
+                                        <div>&nbsp;</div> 
+                                        <button data-bind="jqButton: true, click: function(){put({'action': 'undo', 'json': true})}">Undo</button> 
+                                        <div>&nbsp;</div> 
+                                        <div>&nbsp;</div> 
+                                        <button data-bind="jqButton: true, click: function(){put({'action': 'redo', 'json': true})}">Redo</button> 
+                                </div>
+                        </div>
+                        <div class="center-box">
+                                <div class="content">
+                                        {{template "gettysburg/flash_notice" .}}
+                                </div>
+                        </div>
+                        <div class="right-box">
+                                <div class="content">
+                                        <div>&nbsp;</div> 
+                                        <button data-bind="jqButton: true, click: function(){put({'action': 'finish'})}">Finish</button> 
+                                        <div>&nbsp;</div> 
+                                        <div>&nbsp;</div> 
+                                        <button data-bind="jqButton: true, click: function(){put({'action': 'reset', 'json': true})}">Reset</button> 
+                                </div>
+                        </div>
+                        {{end}}
+                </div>
+        </div>
+        <div class="right-stats"> 
+                <div class="content"> 
+                        <div class="bottom-padding">
+                                <span style="vertical-align:middle">Artillery Fire Markers</span>
+                                <img style="vertical-align:middle" class="disc" src="/images/gettysburg/artillery_fire_marker.png"/>
+                                :
+                                <span style="vertical-align:middle" data-bind="text: artilleryFireMarkers"><span>
+                        </div>
+                        <div class="bottom-padding">
+                                <span style="vertical-align:middle">Disruption Markers</span>
+                                <img style="vertical-align:middle" class="disc" src="/images/gettysburg/disruption_marker.png"/>
+                                :
+                                <span style="vertical-align:middle" data-bind="text: disruptionMarkers"><span>
+                        </div>
+                        <div class="bottom-padding">
+                                <span style="vertical-align:middle">Entrenchment Sticks</span>
+                                <img style="vertical-align:middle" class="disc" src="/images/gettysburg/entrenchment-45.png"/>
+                                :
+                                <span style="vertical-align:middle" data-bind="text: entrenchmentSticks"><span>
+                        </div>
+                        {{if $.Admin}}
+                        <div class="top-padding">
+                                <button data-bind="jqButton: true, click: function(){put({'action': 'admin', 'subAction': 'save', 'json': true})}">Admin Save</button>
+                        </div>
+                        {{end}}
+                </div> 
+        </div> 
+</div>

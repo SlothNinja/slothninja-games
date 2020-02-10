@@ -1,0 +1,19 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+<map name="board-image" id="board-image-map">
+        <!-- Research Table Areas -->
+        {{if $cp.CanResearch | or $.Admin}}
+        <area href="#" shape="rect" data-key="research-1" coords="40,768,312,820" />
+        <area href="#" shape="rect" data-key="research-2" coords="40,823,312,875" />
+        <area href="#" shape="rect" data-key="research-3" coords="40,878,312,930" />
+        <area href="#" shape="rect" data-key="research-4" coords="40,930,312,984" />
+        <area href="#" shape="rect" data-key="research-5" coords="40,985,312,1037" />
+        {{end}}
+
+        {{range $index, $area := $game.Areas}}
+        <!-- Area {{$index}} -->
+        {{if $cp.CanClick $area | or $.Admin}}
+        <area href="#" shape="poly" data-key={{$area.Key $.Context}} coords={{$area.Coords}} />
+        {{end}}
+        {{end}}
+</map>

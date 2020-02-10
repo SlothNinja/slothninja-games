@@ -1,0 +1,161 @@
+{{$g := $.Game}}
+<!-- Game State Form -->
+<div class="actions" id="game-state-action">
+        <fieldset>
+                <legend>Game State</legend>
+                <form action="/{{$g.Stub}}/game/admin/{{$g.ID}}" method="post">
+                        <input name="action" type="hidden" value="game-state">
+                        <div class="upper-content">
+                                <div class="left-column">
+                                        <div>
+                                                <label for="title">Title</label>
+                                                <input id="title" name="title" size="20" type="text" value="{{$g.Title}}" />
+                                        </div>
+                                        {{range $index, $user := $g.Users}}
+                                        <div>
+                                                <label for="user-ids">User {{$index}}</label>
+                                                <input id="user-ids" name="user-ids" size="20" type="text" value="{{$user.ID}}" />
+                                        </div>
+                                        {{end}}
+                                        {{range $index, $id := $g.OrderIDS}}
+                                        <div>
+                                                <label for="order-ids">Order {{$index}}</label>
+                                                <input id="order-ids" name="order-ids" size="20" type="text" value="{{$id}}" />
+                                        </div>
+                                        {{end}}
+                                        <div>
+                                                <label for="phase">Phase</label>
+                                                <input id="phase" name="phase" size="20" type="text" value="{{$g.Phase}}" />
+                                        </div>
+                                        <div>
+                                                <label for="turn">Turn</label>
+                                                <input id="turn" name="turn" size="20" type="text" value="{{$g.Turn}}" />
+                                        </div>
+                                        <div>
+                                                <label for="round">Round</label>
+                                                <input id="round" name="round" size="20" type="text" value="{{$g.Round}}" />
+                                        </div>
+                                        <div>
+                                                <label for="num-players">NumPlayers</label>
+                                                <input id="num-players" name="num-players" size="20" type="text" value="{{$g.NumPlayers}}" />
+                                        </div>
+                                        <div>
+                                                <label for="password">Password</label>
+                                                <input id="password" name="password" size="20" type="text" value="{{$g.Password}}" />
+                                        </div>
+                                        <div>
+                                                <label for="creator-id">CreatorID</label>
+                                                <input id="creator-id" name="creator-id" size="20" type="text" value="{{$g.CreatorID}}" />
+                                        </div>
+                                        <div>
+                                                <label for="immigrantintransit">Immigrant In Transit</label>
+                                                <select id="immigrantintransit" name="immigrantintransit">
+                                                        {{if $g.ImmigrantInTransit}}
+                                                        <option value="-1">None</option>
+                                                        {{range $nationality := $g.Nationalities}}
+                                                        <option value="{{$nationality.Int}}" {{if $nationality.Equal $g.ImmigrantInTransit}}selected="selected"{{end}}>{{$nationality}}</option>
+                                                        {{end}}
+                                                        {{else}}
+                                                        <option value="-1" selected="selected">None</option>
+                                                        {{range $nationality := $g.Nationalities}}
+                                                        <option value="{{$nationality.Int}}">{{$nationality}}</option>
+                                                        {{end}}
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                </div>
+                                <div class="right-column">
+                                        <div>
+                                                <label for="cp-user-indices">Current Player</label>
+                                                <select id="cp-user-indices" name="cp-user-indices" multiple="multiple">
+                                                        <option value="-1" {{if len $g.CurrentPlayerers | zero}}selected="selected"{{end}}>None</option>
+                                                        {{range $index, $player := $g.Players}}
+                                                        <option value="{{$player.ID}}" {{if $player.IsCurrentPlayer}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="winner-ids">Winners</label>
+                                                <select id="winner-ids" name="winner-ids" multiple="multiple">
+                                                        <option value="-1" {{if len $g.WinnerIDS | zero}}selected="selected"{{end}}>None</option>
+                                                        {{range $index, $player := $g.Players}}
+                                                        <option value="{{$player.ID}}" {{if $player.IsWinner}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="slandered-player-id">Slandered Player</label>
+                                                <select id="slandered-player-id" name="slandered-player-id">
+                                                        {{if $g.SlanderedPlayer}}
+                                                        <option value="-1">None</option>
+                                                        {{range $index, $player := $g.Players}}
+                                                        <option value="{{$player.ID}}" {{if $player.Equal $g.SlanderedPlayer}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                                        {{end}}
+                                                        {{else}}
+                                                        <option value="-1" selected="selected">None</option>
+                                                        {{range $index, $player := $g.Players}}
+                                                        <option value="{{$player.ID}}">{{$player.Name}}</option>
+                                                        {{end}}
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="slander-nationality">Slander Nationality</label>
+                                                <select id="slander-nationality" name="slander-nationality">
+                                                        {{if $g.SlanderNationality}}
+                                                        <option value="-1">None</option>
+                                                        {{range $nationality := $g.Nationalities}}
+                                                        <option value="{{$nationality.Int}}" {{if $nationality.Equal $g.SlanderNationality}}selected="selected"{{end}}>{{$nationality}}</option>
+                                                        {{end}}
+                                                        {{else}}
+                                                        <option value="-1" selected="selected">None</option>
+                                                        {{range $nationality := $g.Nationalities}}
+                                                        <option value="{{$nationality.Int}}">{{$nationality}}</option>
+                                                        {{end}}
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="current-ward-id">Current Ward</label>
+                                                <select id="current-ward-id" name="current-ward-id">
+                                                        <option value="-1">None</option>
+                                                        {{range $index, $ward := $g.ActiveWards}}
+                                                        <option value="{{$ward.ID}}" {{if eq $ward.ID $g.CurrentWardID}}selected="selected"{{end}}>{{$ward.ID}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="selected-ward-id">Selected Ward</label>
+                                                <select id="selected-ward-id" name="selected-ward-id">
+                                                        <option value="-1">None</option>
+                                                        {{range $index, $ward := $g.ActiveWards}}
+                                                        <option value="{{$ward.ID}}" {{if $ward.Equal $g.SelectedWard}}selected="selected"{{end}}>{{$ward.ID}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="move-fromward-id">Move From Ward</label>
+                                                <select id="move-fromward-id" name="move-fromward-id">
+                                                        <option value="-1">None</option>
+                                                        {{range $index, $ward := $g.ActiveWards}}
+                                                        <option value="{{$ward.ID}}" {{if eq $ward.ID $g.MoveFromWardID}}selected="selected"{{end}}>{{$ward.ID}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="status">Status</label>
+                                                <select id="status" name="status">
+                                                        {{range $i, $s := $g.Statuses}}
+                                                        <option value="{{$s.Int}}" {{if equal $s.Int $g.Status.Int}}selected="selected"{{end}}>{{$s.String}}</option>
+                                                        {{end}}
+
+                                                </select>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="button">
+                                <input class="mybutton" name="commit" type="submit" value="Update Game" />
+                        </div>
+                </form>
+        </fieldset>
+</div>

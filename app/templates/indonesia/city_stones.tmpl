@@ -1,0 +1,28 @@
+{{$g := .}}
+<div id="city-stones" class="top-padding" style="height:5em">
+        <div>
+                <strong>Remaining City Stones:</strong>
+        </div>
+        {{if $g.CityStones}}
+        <div style="padding-top:3px">
+                <div class="pull-left left-padding" style="padding-top:3px">
+                        {{index $g.CityStones 0}}
+                </div>
+                <div class="pull-left">
+                        <img src="/images/indonesia/green-oval.png" width="20px" height="20px" />
+                </div>
+                <div class="pull-left left-padding" style="padding-top:3px">
+                        {{index $g.CityStones 1}}
+                </div>
+                <div class="pull-left">
+                        <img src="/images/indonesia/yellow-oval.png" widht="20px" height="20px" />
+                </div>
+                <div class="pull-left left-padding" style="padding-top:3px">
+                        {{index $g.CityStones 2}}
+                </div>
+                <div class="pull-left">
+                        <img src="/images/indonesia/red-oval.png" widht="20px" height="20px" />
+                </div>
+        </div>
+        {{end}}
+</div> 

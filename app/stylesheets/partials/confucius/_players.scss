@@ -1,0 +1,32 @@
+@mixin players {
+        #players-table {
+                @include table;
+                @include append-bottom(0.5em);
+                padding: 1em 1em 1em 1em;
+                th, td {
+                        text-align:center;
+                }
+                td.last-action {
+                        width:20%;
+                        text-align:left;
+                }
+                .emperor-reward-cards, .gift-cards, .confucius-cards {
+                        img {
+                                height:98px;
+                                width:70px;
+                        }
+                }
+                td.player, td.action-cubes-and-armies, td.emperor-reward-cards {
+                        width:10%;
+                }
+                td.gift-cards, td.confucius-cards {
+                        width:20%;
+                }
+                td.action-cubes-and-armies {
+                        img {
+                                height:30px;
+                                width:30px;
+                        }
+                }
+        }
+}

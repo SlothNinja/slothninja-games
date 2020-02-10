@@ -1,0 +1,11 @@
+{{$area := .}}
+<div id="{{$area.LName}}-city">
+        {{with $owner := $area.City.Owner}}
+        {{if $area.City.Built}}
+        <img src="/images/atf/{{$owner.Color}}_city_base.png" class="city-base" />
+        {{end}}
+        {{if $area.City.Expanded}}
+        <img src="/images/atf/{{$owner.Color}}_city_expansion.png" class="city-expansion" />
+        {{end}}
+        {{end}}
+</div>

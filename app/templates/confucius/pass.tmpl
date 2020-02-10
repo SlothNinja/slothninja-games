@@ -1,0 +1,35 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Pass Form --> 
+{{if $g.EnablePass $ctx}}
+    <div class="actions" id="pass-action"> 
+        <fieldset> 
+            <legend>Pass</legend> 
+            <div class="left-column"> 
+                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                    <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="pass" />
+                    </div> 
+                    <div class="button">
+                        <input class="mybutton" name="commit" type="submit" value="Pass" />
+                    </div> 
+                </form> 
+            </div> 
+            <div class="right-column"> 
+                <fieldset> 
+                    <legend>Action Details</legend> 
+                    <ul> 
+                        <li> 
+                        Pass for the rest of the round.
+                        </li> 
+                        <li> 
+                        You cannot pass if you have any action cubes.
+                        </li> 
+                    </ul> 
+                </fieldset> 
+            </div> 
+        </fieldset> 
+    </div>
+{{end}}

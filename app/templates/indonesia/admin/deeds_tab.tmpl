@@ -1,0 +1,30 @@
+{{$game := $.Game}}
+<div id="tabs-admin-deeds">
+        <form action="/indonesia/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="admin-header" />
+                </div>
+                <div>
+                        <label for="admin-add-available-deed">Add Available Deed:</label>
+                        <select id="admin-add-available-deed" name="AddAvailableDeed">
+                                <option value="none" selected="selected">None</option>
+                                {{range $i, $d := $game.Deeds}}
+                                <option value="{{$d.IDString}}"}}>{{$d}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-remove-available-deed">Remove Available Deed:</label>
+                        <select id="admin-remove-available-deed" name="RemoveAvailableDeed">
+                                <option value="none" selected="selected">None</option>
+                                {{range $i, $d := $game.AvailableDeeds}}
+                                <option value="{{$d.IDString}}"}}>{{$d}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>

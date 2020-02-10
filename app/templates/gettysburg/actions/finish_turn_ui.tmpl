@@ -1,0 +1,8 @@
+<div class="heading">
+        <div>Finish Turn</div>
+</div>
+{{if $.Game.CurrentPlayer.CanEntryBoxMove}}
+<div class="notice">Undo, reset, finish turn, or select entry box to move units.</div>
+{{else}}
+<div class="notice">Undo, reset, or finish turn.</div>
+{{end}}

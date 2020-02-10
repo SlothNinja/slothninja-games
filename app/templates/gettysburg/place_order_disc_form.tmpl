@@ -1,0 +1,17 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanPlaceOrderDiscIn $area}}
+<div id="tabs-place-order-disc">
+        <button data-bind="jqButton: true, click: function(){put({'action': 'place-order-disc', 'target': '{{$area.Key}}'})}">
+                <div class="right-padding" style="line-height:28px;float:left">
+                        Place
+                </div>
+                {{if eq $cp.Side.String "confederate"}}
+                <img class="disc" src="/images/gettysburg/confederate-order-disc.png">
+                {{else}}
+                <img class="disc" src="/images/gettysburg/union-order-disc.png">
+                {{end}}
+        </button>
+</div>
+{{end}}

@@ -1,0 +1,17 @@
+{{$player := .}}
+<div id="player-resources-{{$player.ID}}">
+        <table>
+                <tr>
+                        <td><img src="/images/atf/grain.png" alt="grain" /> {{index $player.Resources 0}}</td>
+                        <td><img src="/images/atf/wood.png" alt="wood" /> {{index $player.Resources 1}}</td>
+                        <td><img src="/images/atf/metal.png" alt="metal" /> {{index $player.Resources 2}}</td>
+                        <td><img src="/images/atf/textile.png" alt="textile" /> {{index $player.Resources 3}}</td>
+                </tr>
+                <tr>
+                        <td><img src="/images/atf/tool.png" alt="tool" /> {{index $player.Resources 4}}</td>
+                        <td><img src="/images/atf/oil.png" alt="oil" /> {{index $player.Resources 5}}</td>
+                        <td><img src="/images/atf/gold.png" alt="gold" /> {{index $player.Resources 6}}</td>
+                        <td><img src="/images/atf/lapis.png" alt="lapis" /> {{index $player.Resources 7}}</td>
+                </tr>
+        </table>
+</div>

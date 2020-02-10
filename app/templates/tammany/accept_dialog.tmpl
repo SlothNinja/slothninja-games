@@ -1,0 +1,14 @@
+{{$g := $.Game}}
+<div id="dialog" title="Join Game" data-modal="true">
+        <div class="dialog-content" style="width:200px">
+                <form class="top-padding" action="/{{$g.Stub}}/game/accept/{{$g.ID}}" method="post">
+                        <input id="password" name="password" type="text" value="Please Enter Password" />
+                        <div>
+                                &nbsp;
+                        </div>
+                        <div class="top-padding center" >
+                                <input type="submit" value="Accept" class="mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>

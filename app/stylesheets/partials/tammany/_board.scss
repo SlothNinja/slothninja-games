@@ -1,0 +1,65 @@
+@import "castle-garden";
+@import "wards";
+@import "zone-setup-box";
+@import "year-track";
+@import "points-track";
+@import "immigrant-count-boxes";
+@import "city-offices";
+
+#board {
+	position:relative;
+	z-index:1;
+	@include castle-garden;
+	@include wards;
+	@include zone-setup-box;
+	@include year-track;
+	@include points-track;
+	@include immigrant-count-boxes;
+        @include city-offices;
+}
+
+.mybutton, .radio {
+        .icon {
+                float:right;
+                margin-left:5px;
+                img {
+                        height:24px;
+                        width:24px;
+                }
+        }
+        .text {
+                float:left;
+        }
+}
+
+#dialog {
+        @include table;
+        @include column(8, true);
+        th, td {
+                text-align:center;
+        }
+        li {
+                width:110px;
+        }
+        .left-column {
+                @include column(4);
+        }
+        .right-column {
+                @include column(4, true);
+        }
+        .increment-button-0, .decrement-button-0, .increment-button-1, .decrement-button-1 {
+                margin: 5px 9px;
+                height: 20px;
+                width: 20px;
+                .ui-icon {
+                         background-image: url(images/ui-icons_ffffff_256x240.png);
+                }
+        }
+}
+
+.text.red, .text.purple, .text.black, .text.brown {
+        color:white;
+}
+.text.yellow {
+        color:black;
+}

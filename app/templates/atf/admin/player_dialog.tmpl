@@ -1,0 +1,133 @@
+{{$game := $.Game}}
+{{if $.IsAdmin}}
+{{with $player := $game.SelectedPlayer}}
+<div id="dialog" title="Admin Player {{$player.Name}}">
+        <div class="dialog-content">
+                <form action="/atf/game/admin/{{$game.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="action" type="hidden" value="admin-player" />
+                        </div>
+                        <div>
+                                <div class="pull-left">
+                                        <label for="admin-player-army">Army:</label>
+                                        <select id="admin-player-army" name="army">
+                                                {{range $v := ints 0 20}}
+                                                <option value="{{$v}}" {{if equal $player.Army $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div class="push-right">
+                                        <label for="admin-player-army-supply">Army Supply:</label>
+                                        <select id="admin-player-army-supply" name="army-supply">
+                                                {{range $v := ints 0 20}}
+                                                <option value="{{$v}}" {{if equal $player.ArmySupply $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                        </div>
+                        <div>
+                                <div class="pull-left">
+                                        <label for="admin-player-worker">Worker:</label>
+                                        <select id="admin-player-worker" name="worker">
+                                                {{range $v := ints 0 25}}
+                                                <option value="{{$v}}" {{if equal $player.Worker $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div class="push-right">
+                                        <label for="admin-player-worker-supply">Worker Supply:</label>
+                                        <select id="admin-player-worker-supply" name="worker-supply">
+                                                {{range $v := ints 0 25}}
+                                                <option value="{{$v}}" {{if equal $player.WorkerSupply $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                        </div>
+                        <div>
+                                <div class="pull-left">
+                                        <label for="admin-player-city">City:</label>
+                                        <select id="admin-player-city" name="city">
+                                                {{range $v := ints 0 4}}
+                                                <option value="{{$v}}" {{if equal $player.City $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div class="push-right">
+                                        <label for="admin-player-expansion">Expansion:</label>
+                                        <select id="admin-player-expansion" name="expansion">
+                                                {{range $v := ints 0 4}}
+                                                <option value="{{$v}}" {{if equal $player.Expansion $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                        </div>
+                        <div class="pull-left">
+                                <div>
+                                        <label for="admin-player-score">Score:</label>
+                                        <input type="text" size="4" id="admin-player-score" name="score" value="{{$player.Score}}"/>
+                                </div>
+                                <div>
+                                        <label for="admin-player-performed-action">Performed Action:</label>
+                                        <select id="admin-player-performed-action" name="performed-action">
+                                                <option value="false" {{if $player.PerformedAction | not}}selected="selected"{{end}}>False</option>
+                                                <option value="true" {{if $player.PerformedAction}}selected="selected"{{end}}>True</option>
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="admin-player-vp-passed">VP Passed:</label>
+                                        <select id="admin-player-vp-passed" name="vp-passed">
+                                                <option value="false" {{if $player.VPPassed | not}}selected="selected"{{end}}>False</option>
+                                                <option value="true" {{if $player.VPPassed}}selected="selected"{{end}}>True</option>
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="admin-player-passed">Passed:</label>
+                                        <select id="admin-player-passed" name="passed">
+                                                <option value="false" {{if $player.Passed | not}}selected="selected"{{end}}>False</option>
+                                                <option value="true" {{if $player.Passed}}selected="selected"{{end}}>True</option>
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="admin-player-paid-action-cost">Paid Action Cost:</label>
+                                        <select id="admin-player-paid-action-cost" name="paid-action-cost">
+                                                <option value="false" {{if $player.PaidActionCost | not}}selected="selected"{{end}}>False</option>
+                                                <option value="true" {{if $player.PaidActionCost}}selected="selected"{{end}}>True</option>
+                                        </select>
+                                </div>
+                                <div class="pull-left" style="height:16em">
+                                {{range $i := ints 0 7}}
+                                {{$name := $game.ResourceName $i}}
+                                {{$count := index $player.Resources $i}}
+                                <div>
+                                        <label for="admin-player-{{$name}}">{{$name}}:</label>
+                                        <select id="admin-player-{{$name}}" name="resources">
+                                                {{range $v := ints 0 12}}
+                                                <option value="{{$v}}" {{if equal $count $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                {{end}}
+                                </div>
+                                <div class="pull-left left-padding" style="height:16em">
+                                {{range $i := ints 0 7}}
+                                {{$name := $game.ResourceName $i}}
+                                {{$count := index $player.PassedResources $i}}
+                                <div>
+                                        <label for="admin-player-{{$name}}">passed {{$name}}:</label>
+                                        <select id="admin-player-{{$name}}" name="passed-resources">
+                                                {{range $v := ints 0 12}}
+                                                <option value="{{$v}}" {{if equal $count $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                {{end}}
+                                </div>
+                        </div>
+                        <div class="center">
+                                <input type="submit" value="Update" class="top-padding mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>
+{{end}}
+{{end}}

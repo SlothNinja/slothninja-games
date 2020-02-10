@@ -1,0 +1,12 @@
+<div id="castle-garden">
+        <div class="content">
+                {{range $nationality, $count := $.Game.CastleGarden}}
+                {{if $count}}
+                <div class="{{$nationality.LString}}">
+                        <img alt="{{$nationality.LString}}-cube" src="{{$nationality.CubeImage}}" />
+                        <div class="text">{{$count}}</div>
+                </div>
+                {{end}}
+                {{end}}
+        </div>
+</div>

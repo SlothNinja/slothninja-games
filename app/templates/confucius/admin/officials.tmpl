@@ -1,0 +1,77 @@
+{{range $ministry := .Ministries}}
+{{range $official := .Officials}}
+<!-- {{$ministry.Name}} Official {{$official.Seniority}} State Form -->
+<div class="actions" id="{{$ministry.Name}}-official-{{$official.Seniority}}-action">
+        <fieldset>
+                <legend>Ministry: {{$ministry.Name}} Official {{$official.Seniority}}</legend>
+                <form action="/{{$.Stub}}/admin/{{$.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="official" />
+                                <input name="mid" type="hidden" value="{{$ministry.ID}}" />
+                                <input name="seniority" type="hidden" value="{{$official.Seniority}}" />
+                        </div>
+                        <div class="left-column">
+                                <div>
+                                        <label for="{{$ministry.Name}}-official-{{$official.Seniority}}-cost">Cost</label>
+                                        <select id="{{$ministry.Name}}-official-{{$official.Seniority}}-cost" name="cost">
+                                                {{range $value := ints 0 7}}
+                                                <option value="{{$value}}" {{if equal $value $official.Cost}}selected="selected"{{end}}>{{$value}}<option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-official-{{$official.Seniority}}-variant">Variant</label>
+                                        <select id="{{$ministry.Name}}-official-{{$official.Seniority}}-variant" name="variant">
+                                                {{range $value := $.VariantIDS}}
+                                                <option value="{{$value}}" {{if $official.Variant.Equal $value}}selected="selected"{{end}}>{{$value}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-official-{{$official.Seniority}}-seniority">Seniority</label>
+                                        <select id="{{$ministry.Name}}-official-{{$official.Seniority}}-seniority" name="new-seniority">
+                                                {{range $value := $.Seniorities}}
+                                                <option value="{{$value}}" {{if $official.Seniority.Equal $value}}selected="selected"{{end}}>{{$value}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-official-{{$official.Seniority}}-playerid">Player</label>
+                                        <select id="{{$ministry.Name}}-official-{{$official.Seniority}}-playerid" name="playerid">
+                                                <option value="none" {{if $official.Player}}{{else}}selected="selected"{{end}}>None</option>
+                                                {{range $player := $.Players}}
+                                                <option value="{{$player.ID}}" {{if $official.Player}}{{if $player.Equal $official.Player}}selected="selected"{{end}}{{end}}>{{$player.Name}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-official-{{$official.Seniority}}-tempid">Temp Player</label>
+                                        <select id="{{$ministry.Name}}-official-{{$official.Seniority}}-tempid" name="tempid">
+                                                <option value="none" {{if $official.TempPlayer}}{{else}}selected="selected"{{end}}>None</option>
+                                                {{range $player := $.Players}}
+                                                <option value="{{$player.ID}}" {{if $official.TempPlayer}}{{if $player.Equal $official.TempPlayer}}selected="selected"{{end}}{{end}}>{{$player.Name}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-official-{{$official.Seniority}}-secured">Secured</label>
+                                        <select id="{{$ministry.Name}}-official-{{$official.Seniority}}-secured" name="secured">
+                                                {{if $official.Secured}}
+                                                <option value="false">false</option>
+                                                <option value="true" selected="selected">true</option>
+                                                {{else}}
+                                                <option value="false" selected="selected">false</option>
+                                                <option value="true">true</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div class="button">
+                                        <input name="commit" type="submit" value="Update Official" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>
+{{end}}
+{{end}}

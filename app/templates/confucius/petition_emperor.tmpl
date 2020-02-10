@@ -1,0 +1,104 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Peition Emperor Form --> 
+{{if $g.EnablePetitionEmperor $ctx}}
+<div class="actions" id="petition-emperor-action"> 
+        <fieldset> 
+                <legend>Petition Emperor</legend> 
+                <div class="left-column"> 
+                        {{$g.PetitionGiftOptions $g.CurrentPlayer}}
+                        <div class="petition-form" id="petition-form-none"></div>
+                        <div class="petition-form" id="petition-form-2">
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="move-junks" />
+                                        </div> 
+                                        {{$g.MoveJunkPlayerOptions "move-junks-from-player" "From:"}}
+                                        {{$g.PlayerOptions "move-junks-to-player" "To:"}}
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Move Junks" />
+                                        </div> 
+                                </form> 
+                        </div>
+                        <div class="petition-form" id="petition-form-3">
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="replace-student" />
+                                        </div> 
+                                        {{$g.ReplaceStudentOptions "replace-student-player" "Replace Student:"}}
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Replace Student" />
+                                        </div> 
+                                </form> 
+                        </div>
+                        <div class="petition-form" id="petition-form-4">
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="swap-officials" />
+                                        </div> 
+                                        {{$g.YourOfficialOptions "swap-your-official" "Your Official:"}}
+                                        {{$g.OtherOfficialOptions "swap-other-official" "Other Official:"}}
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Swap Officials" />
+                                        </div> 
+                                </form> 
+                        </div>
+                        <div class="petition-form" id="petition-form-5">
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="redeploy-army" />
+                                        </div> 
+                                        {{$g.FromLandOptions "from-land" "From Land:"}}
+                                        {{$g.ToLandOptions "to-land" "To Land:"}}
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Redeploy Army" />
+                                        </div> 
+                                </form> 
+                        </div>
+                        <div class="petition-form" id="petition-form-6">
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="replace-influence" />
+                                        </div> 
+                                        {{$g.ReplaceInfluenceOfficialOptions "replace-influence-official" "Official:"}}
+                                        {{$g.PlayerOptions "replace-influence-player" "Player:"}}
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Replace Influence" />
+                                        </div> 
+                                </form> 
+                        </div>
+                </div> 
+                <div class="right-column"> 
+                        <fieldset>
+                                <legend>Action Details</legend> 
+                                <div class="petition-directions" id="petition-directions-none">
+                                        <ul> 
+                                                {{range $j, $li := $g.PetitionDirections}}
+                                                <li> 
+                                                {{html $li}}
+                                                </li> 
+                                                {{end}}
+                                        </ul> 
+                                </div>
+                                {{range $index, $gift := $g.CurrentPlayer.GiftsBought}}
+                                <div class="petition-directions" id="petition-directions-{{$gift.Value.Int}}">
+                                        <ul> 
+                                                {{range $j, $li := $gift.PetitionDirections}}
+                                                <li>
+                                                {{html $li}}
+                                                </li> 
+                                                {{end}}
+                                        </ul> 
+                                </div>
+                                {{end}}
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

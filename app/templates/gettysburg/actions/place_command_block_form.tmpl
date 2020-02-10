@@ -1,0 +1,15 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $game.CurrentPlayer.CanPlaceCommandBlockIn $area}}
+<div id="tabs-place-command-block">
+        {{range $cb := $cp.UniqueBlocks}}
+                <button data-bind="jqButton: true, click: function() { put({ 'action': 'place-command-block', 'target': '{{$area.Key}}', 'command-block': '{{$cb.Value}}'}) }">
+                        <div class="right-padding" style="line-height:28px;float:left">
+                                Place
+                        </div>
+                        <img class="command-block" src="/images/gettysburg/{{$cb.Side}}-command-block-{{$cb.Value}}.png" />
+                </button>
+        {{end}}
+</div>
+{{end}}

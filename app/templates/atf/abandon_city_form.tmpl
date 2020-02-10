@@ -1,0 +1,13 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanAbandonCityIn $area}}
+<div id="tabs-abandon-city">
+        <form class="myForm">
+                <input name="action" type="hidden" value="abandon-city" />
+                <div class="center">
+                        <input type="submit" value="Abandon City" class="mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

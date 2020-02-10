@@ -1,0 +1,56 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $.IsAdmin}}
+<div id="tabs-admin">
+        <form action="/atf/game/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="action" type="hidden" value="admin-non-sumer-area" />
+                </div>
+                <div>
+                        <label for="armies">Armies:</label>
+                        <select id="armies" name="armies">
+                                {{range $i := ints 0 2}}
+                                <option value="{{$i}}" {{if equal $area.Armies $i}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="army-owner-id">ArmyOwner:</label>
+                        <select id="army-owner-id" name="army-owner-id">
+                                {{$owner := $area.ArmyOwner}}
+                                <option value="-1" {{if $owner | not}}selected="selected"{{end}}>None</option>
+                                {{range $i, $p := $game.Players}}
+
+                                <option value="{{$p.ID}}" {{if $owner}}{{if $p.Equal $owner}}selected="selected"{{end}}{{end}}>{{$p.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{range $pid := ints 0 2}}
+                {{$p := $game.PlayerByID $pid}}
+                <div>
+                        <label for="workers-{{$p.ID}}">{{$p.Name}} Workers:</label>
+                        <select id="workers-{{$p.ID}}" name="workers">
+                                {{range $w := ints 0 25}}
+                                <option value="{{$w}}" {{if $p.WorkersIn $area | equal $w}}selected="selected"{{end}}>{{$w}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{end}}
+                {{range $i, $v := $area.Trade}}
+                {{$name := $game.ResourceName $i}}
+                <div>
+                        <label for="trade-{{$name}}">Trade {{$name}}:</label>
+                        <select id="trade-{{$name}}" name="trade">
+                                <option value="-1" {{if equal $v -1}}selected="selected"{{end}}>No Trade</option>
+                                <option value="0" {{if equal $v 0}}selected="selected"{{end}}>Traded</option>
+                                <option value="1" {{if equal $v 1}}selected="selected"{{end}}>Trade</option>
+                        </select>
+                </div>
+                {{end}}
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

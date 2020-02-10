@@ -1,0 +1,44 @@
+{{$p := .p}}
+{{$admin := .admin}}
+{{$isAdmin := .isAdmin}}
+{{$g := .g}}
+{{$ctx := .ctx }}
+
+<tr id="player-row-{{$p.ID}}">
+        <td class="player">
+                <div class="gravatar">
+                        {{$g.GravatarFor $p}}
+                </div>
+                {{if $admin}}
+                <div id="admin-player-{{$p.ID}}" class="mybutton top-padding clickable">
+                        Admin Player
+                </div>
+                {{end}}
+                <div>
+                        {{$g.PlayerLinkByID $ctx $p.ID}}
+                </div>
+                <div class="left-padding top-padding" style="width:100px;text-align:left">
+                <div class="rupiah">
+                        {{template "indonesia/player_rupiah" $p}}
+                </div>
+                <div class="score">
+                        {{template "indonesia/player_score" $p}}
+                </div>
+                {{if equal $g.PhaseName "Operations"}}
+                <div class="op-income top-padding">
+                        {{template "indonesia/player_op_income" $p}}
+                </div>
+                {{end}}
+                <div class="research top-padding">
+                        {{template "indonesia/player_research" $p}}
+                </div>
+                </div>
+        </td>
+        <td class="last-action">
+                {{template "shared/last_actions_list3" data "g" $g "p" $p "ctx" $ctx}}
+        </td>
+        {{template "indonesia/player_slots" data "p" $p "admin" $admin "isAdmin" $isAdmin "ctx" $ctx}}
+        <td class="city-cards">
+                {{template "indonesia/player_hand" data "p" $p "admin" $admin "isAdmin" $isAdmin "ctx" $ctx}}
+        </td>
+</tr>

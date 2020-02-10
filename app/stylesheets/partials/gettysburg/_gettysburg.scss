@@ -1,0 +1,130 @@
+@import "players";
+@import "admin-box";
+@import "status-box";
+@import "units";
+@import "board";
+@import "command-blocks";
+
+body.gettysburg {
+        #container {
+                @include container;
+                @include prepend-top(1em);
+                width:1192px;
+                @include players;
+        };
+        #upper-content {
+        }
+        #lower-content {
+                @include column($blueprint-grid-columns, true);
+                .left-column {
+                        @include column($blueprint-grid-columns / 2);
+                        @include gamelog;
+                }
+                .right-column {
+                        @include column($blueprint-grid-columns / 2, true);
+                        @include chatbox;
+                }
+        };
+        #footer {
+                @include footer;
+        }
+        #sidebar {
+                // One fifth of the grid columns, rounding down. With 30 cols, this is 6.
+                $sidebar-columns: floor($blueprint-grid-columns / 6);
+                @include column($sidebar-columns);
+        };
+        #main-content {
+                @include column($blueprint-grid-columns, true);
+        };
+};
+
+//body.gettysburg {
+//        background:$main-background-color;
+//        line-height: 1.5;
+//        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+//        color: #333333;
+//        font-size: 75%;
+//        padding:1em;
+//        th {
+//                font-weight: bold;
+//        }
+//        table, th, td
+//        {
+//                border: 1px solid black;
+//        }
+//        td, th {
+//                padding: 6px;
+//                text-align:center;
+//        }
+//        #container {
+//                @include container;
+//        };
+//        #upper-content {
+//                @include status-box;
+//        }
+//        #lower-content {
+//                @include column($blueprint-grid-columns, true);
+//                .left-column {
+//                        @include column($blueprint-grid-columns / 2);
+//                        @include gamelog;
+//                }
+//                .right-column {
+//                        @include column($blueprint-grid-columns / 2, true);
+//                        @include chatbox;
+//                }
+//        };
+//        #footer {
+//                @include footer;
+//        }
+//        #sidebar {
+//                // One fifth of the grid columns, rounding down. With 30 cols, this is 6.
+//                $sidebar-columns: floor($blueprint-grid-columns / 6);
+//                @include column($sidebar-columns);
+//        };
+//        #content {
+//                @include column($blueprint-grid-columns, true);
+//                img.order-disc {
+//                        height: 25px;
+//                        width: 25px;
+//                }
+//                #reinforcements {
+//                        img.unit {
+//                                height: 20px;
+//                                width:	30px;
+//                        }
+//                        table {
+//                                border: 2;
+//                        }
+//                }
+//                #players, #recruitment {
+//                        @include append-bottom(1em);
+//                        padding: 1em 1em 0em 1em;
+//                        table, th, td {
+//                                border: 1px solid darken(#4297d7, 10%);
+//                                .current-player {
+//                                        width:5%
+//                                }
+//                                .player-name, .order-discs, .damage-cubes {
+//                                        width:15%;
+//                                }
+//                                .command-blocks {
+//                                        width:20%;
+//                                }
+//                                .last-action {
+//                                        width:30%;
+//                                }
+//                        }
+//                        img.command-block {
+//                                height: 30px;
+//                                width:	30px;				
+//                        }
+//                        img.unit {
+//                                height: 20px;
+//                                width:	30px;
+//                        }
+//                        th {
+//                                text-align:center;
+//                        }
+//                }
+//        }
+//}

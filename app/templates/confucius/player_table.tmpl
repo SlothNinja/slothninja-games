@@ -1,0 +1,111 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<div id="players-table"> 
+        <table class='strippedDataTable'>
+                <thead>
+                        <tr> 
+                                <th class="player-name">
+                                        <div>Player</div>
+                                        <div>[Score]</div>
+                                        <div>(Passed)</div>
+                                </th>
+                                <th class="action-cubes-and-armies">
+                                        <div>Action Cubes</div>
+                                        <div>Armies</div>
+                                </th>
+                                <th  class="last-action">
+                                        Action Summary
+                                </th>
+                                <th class="gift-cards"> 
+                                        Available Gift Cards
+                                </th>
+                                <th class="gift-cards"> 
+                                        <div>Bought/Received Gift Cards</div>
+                                        <div>Confucius Cards</div>
+                                </th> 
+                                <th class="emperor-reward-cards">
+                                        Emperor's Reward Cards
+                                </th> 
+                        </tr>
+                </thead>
+                <tbody>
+                        {{range $p := $g.Players}}
+                                {{ $isCurrent := $p.IsCurrentUser $.Context}}
+                        <tr>
+                                <td class="player">
+                                        <div class="gravatar">
+                                                {{$g.GravatarFor $p}}
+                                        </div>
+                                        <div>
+                                                {{$g.PlayerLinkByID $ctx $p.ID}}
+                                        </div>
+                                        <div>
+                                                [{{$p.Score}}]
+                                        </div>
+                                        {{if $p.Passed}}
+                                        <div>
+                                                (Passed)
+                                        </div>
+                                        {{end}}
+                                </td> 
+                                <td class="action-cubes-and-armies">
+                                        <div>
+                                                {{range ints 1 $p.ActionCubes}}
+                                                <img src="/images/confucius/{{$p.Color}}-action-cube-shadowed.png" alt="{{$p.Color}} Action Cube" />
+                                                {{end}}
+                                        </div>
+                                        <div>
+                                                {{range ints 1 $p.Armies}}
+                                                <img src="/images/confucius/{{$p.Color}}-army-shadowed.png" alt="{{$p.Color}} Army"/>
+                                                {{end}}
+                                        </div>
+                                </td>	
+                                <td class="last-action">
+                                        {{template "shared/last_actions_list" $p}}
+                                </td> 
+                                <td class="gift-cards"> 
+                                        <div>
+                                        {{range $card := $p.GiftCardHand}}
+                                        <img src="/images/confucius/gift-card-{{$p.Color}}-{{$card.Cost}}.jpg" alt="{{$p.Color}} {{$card.Cost}} Gift Card"/>
+                                        {{end}}
+                                        </div>
+                                </td> 
+                                <td class="gift-cards"> 
+                                        <div>
+                                        {{range $card := $p.GiftsBought}}
+                                        <img src="/images/confucius/gift-card-{{$p.Color}}-{{$card.Cost}}.jpg" alt="{{$p.Color}} {{$card.Cost}} Gift Card" />
+                                        {{end}}
+                                        {{range $card := $p.GiftsReceived}}
+                                        {{with $p := $card.Player}}
+                                        <img src="/images/confucius/gift-card-{{$p.Color}}-{{$card.Cost}}.jpg" alt="{{$p.Color}} {{$card.Cost}} Gift Card" />
+                                        {{end}}
+                                        {{end}}
+                                        </div>
+                                        <div>
+                                        {{range $card := $p.ConCardHand}}
+                                        {{if and $card.Revealed $isCurrent | or $.IsAdmin }}
+                                        <img src="/images/confucius/confucius-card-{{$card.Coins}}.jpg" alt="{{$card.Coins}} Coin Confucius Card"/>
+                                        {{else}}
+                                        <img src="/images/confucius/confucius-card-back.jpg" alt="Confucius Card Back Face" />
+                                        {{end}}
+                                        {{end}}
+                                        </div>
+                                </td> 
+                                <td class="emperor-reward-cards">
+                                        {{range $card := $p.EmperorHand}}
+                                        {{if and $card.Revealed $isCurrent | or $.IsAdmin }}
+                                        <img class="emperorcard{{$card.Type}}" src="/images/confucius/emperors-reward-card-{{$card.Type}}.jpg" alt="Emperor Card"/>
+                                        <div class="emperorcard{{$card.Type}}" title="{{$card.Title}}">
+                                                {{$card.Description}}
+                                        </div> 
+                                        {{else}}
+                                        <img src="/images/confucius/emperors-reward-card-back.jpg" alt="Emperor Card Back Face" />
+                                        {{end}}
+                                        {{end}}
+                                </td> 
+                        </tr>
+                        {{end}}
+                </tbody>
+        </table> 
+</div> 

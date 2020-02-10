@@ -1,0 +1,29 @@
+{{$g := $.Game}}
+{{$cu := $.CUser}}
+<!-- Board --> 
+<div id="board"> 
+        <!-- Board Map --> 
+        {{template "tammany/image_map" $}}
+        <div id="year-track">
+                <div id="year-{{$g.Year}}">
+                        <img alt="Turn_marker" src="/images/tammany/turn_marker.png" />
+                </div>
+        </div>
+        <div id="points-track">
+                {{range $index, $player := $g.Players}}
+                <div id="points-{{$player.Score}}">
+                        <div id="player-{{$player.ID}}">
+                                <img alt="{{$player.Color}}-ward-boss" src="/images/tammany/{{$player.Color}}-ward-boss.png" />
+                        </div>
+                </div>
+                {{end}}
+        </div>
+        {{template "tammany/wards" .}}
+        {{template "tammany/zone_setup_boxes" .}}
+        {{template "tammany/nationality_counts" .}}
+        {{template "tammany/castle_garden" .}}
+        {{template "tammany/offices" .}}
+        {{if $g.IsCurrentPlayerOrAdmin $cu}}
+        {{template "tammany/dialogs" .}}
+        {{end}}
+</div>

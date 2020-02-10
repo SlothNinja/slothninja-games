@@ -1,0 +1,32 @@
+{{range $index, $land := .ForeignLands}}
+<!-- {{$land.Name}} State Form -->
+<div class="actions" id="admin-{{$land.Name}}-action">
+        <fieldset>
+                <legend>Foreign Land: {{$land.Name}}</legend>
+                <form action="/{{$.Stub}}/admin/{{$.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="foreign-land" />
+                                <input name="lid" type="hidden" value="{{$index}}" />
+                        </div>
+                        <div class="left-column">
+                                <div>
+                                        <label for="resolved-{{$index}}">Resolved</label>
+                                        <select id="resolved-{{$index}}" name="resolved">
+                                                {{if $land.Resolved}}
+                                                <option value="false">false</option>
+                                                <option value="true" selected="selected">true</option>
+                                                {{else}}
+                                                <option value="false" selected="selected">false</option>
+                                                <option value="true">true</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div class="button">
+                                        <input name="commit" type="submit" value="Update Foreign Land" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>
+{{end}}

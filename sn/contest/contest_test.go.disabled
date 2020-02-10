@@ -1,0 +1,170 @@
+package contest
+
+import (
+	"bitbucket.org/SlothNinja/gaelic"
+	. "launchpad.net/gocheck"
+)
+
+type flattenTest struct {
+	in  []db.IDS
+	out db.IDS
+}
+
+var flattenTests = []*flattenTest{
+	&flattenTest{[]db.IDS{db.IDS{1}, db.IDS{2}, db.IDS{3}, db.IDS{4}, db.IDS{5}}, db.IDS{1, 2, 3, 4, 5}},
+	&flattenTest{[]db.IDS{db.IDS{1, 2}, db.IDS{3, 4}, db.IDS{5}}, db.IDS{1, 2, 3, 4, 5}},
+	&flattenTest{[]db.IDS{db.IDS{1, 2, 3, 4, 5}}, db.IDS{1, 2, 3, 4, 5}},
+	&flattenTest{[]db.IDS{db.IDS{1, 2}}, db.IDS{1, 2}},
+	&flattenTest{[]db.IDS{db.IDS{1}, db.IDS{2}}, db.IDS{1, 2}},
+}
+
+func (s *MySuite) TestFlatten(c *C) {
+	for _, ut := range flattenTests {
+		out := flatten(ut.in)
+		c.Check(out, DeepEquals, ut.out)
+	}
+}
+
+type genResourcesTestIn struct {
+	ratings RatingsMap
+	gid     db.ID
+	t       Type
+	places  []Users
+}
+
+type genResourcesTestOut struct {
+	resourcers db.Resourcers
+	err        error
+}
+
+type genResourcesTest struct {
+	in  *genResourcesTestIn
+	out *genResourcesTestOut
+}
+
+func (s *MySuite) TestGenResources(c *C) {
+	var genResourcesTests = []*genResourcesTest{
+		&genResourcesTest{
+			&genResourcesTestIn{
+				RatingsMap{
+					1: newRating(ctx, req, u1, Tammany, 1500, 350),
+					2: newRating(ctx, req, u2, Tammany, 1400, 200)},
+				1,
+				Tammany,
+				[]Users{{u1, u2}},
+			},
+			&genResourcesTestOut{
+				db.Resourcers{
+					newContest(ctx, req, u1, 1, Tammany, 1400, 200, 0.5),
+					newContest(ctx, req, u1, 1, Tammany, 1500, 350, 0.5),
+				},
+				nil,
+			},
+		},
+		&genResourcesTest{
+			&genResourcesTestIn{
+				RatingsMap{
+					1: newRating(ctx, req, u1, Tammany, 1500, 350),
+					2: newRating(ctx, req, u2, Tammany, 1400, 200)},
+				1,
+				Tammany,
+				[]Users{{u1}, {u2}},
+			},
+			&genResourcesTestOut{
+				db.Resourcers{
+					newContest(ctx, req, u1, 1, Tammany, 1400, 200, 1),
+					newContest(ctx, req, u2, 1, Tammany, 1500, 350, 0),
+				},
+				nil,
+			},
+		},
+		&genResourcesTest{
+			&genResourcesTestIn{
+				RatingsMap{
+					1: newRating(ctx, req, u1, Tammany, 1500, 350),
+					2: newRating(ctx, req, u2, Tammany, 1400, 200),
+					3: newRating(ctx, req, u2, Tammany, 1600, 100),
+					4: newRating(ctx, req, u2, Tammany, 1700, 30),
+					5: newRating(ctx, req, u2, Tammany, 1400, 100)},
+				1,
+				Tammany,
+				[]Users{{u0, u1}, {u2}, {u3}, {u4}},
+			},
+			&genResourcesTestOut{
+				db.Resourcers{
+					newContest(ctx, req, u0, 1, Tammany, 1400, 200, 0.5),
+					newContest(ctx, req, u1, 1, Tammany, 1500, 350, 0.5),
+
+					newContest(ctx, req, u0, 1, Tammany, 1600, 100, 1),
+					newContest(ctx, req, u2, 1, Tammany, 1500, 350, 0),
+
+					newContest(ctx, req, u0, 1, Tammany, 1700, 30, 1),
+					newContest(ctx, req, u3, 1, Tammany, 1500, 350, 0),
+
+					newContest(ctx, req, u0, 1, Tammany, 1400, 100, 1),
+					newContest(ctx, req, u4, 1, Tammany, 1500, 350, 0),
+
+					newContest(ctx, req, u1, 1, Tammany, 1600, 100, 1),
+					newContest(ctx, req, u2, 1, Tammany, 1400, 200, 0),
+
+					newContest(ctx, req, u1, 1, Tammany, 1700, 30, 1),
+					newContest(ctx, req, u3, 1, Tammany, 1400, 200, 0),
+
+					newContest(ctx, req, u1, 1, Tammany, 1400, 100, 1),
+					newContest(ctx, req, u4, 1, Tammany, 1400, 200, 0),
+
+					newContest(ctx, req, u2, 1, Tammany, 1700, 30, 1),
+					newContest(ctx, req, u3, 1, Tammany, 1600, 100, 0),
+
+					newContest(ctx, req, u2, 1, Tammany, 1400, 100, 1),
+					newContest(ctx, req, u4, 1, Tammany, 1600, 100, 0),
+
+					newContest(ctx, req, u2, 1, Tammany, 1400, 100, 1),
+					newContest(ctx, req, u4, 1, Tammany, 1700, 30, 0),
+				},
+				nil,
+			},
+		},
+	}
+
+	for _, ut := range genResourcesTests {
+		resourcers, err := genResources(ctx, ut.in.gid, ut.in.t, ut.in.places)
+		c.Assert(err, IsNil)
+		for i, r := range resourcers {
+                        e := r.(*Contest).Entity().(*Contest)
+			c.Check(e, DeepEquals, ut.out.resourcers[i].(*Contest).Entity())
+		}
+	}
+}
+
+func storeContests(c *C) {
+	res := db.Resourcers{
+		newContest(ctx, req, u0, 1, Tammany, 1400, 200, 0.5),
+		newContest(ctx, req, u1, 1, Tammany, 1500, 350, 0.5),
+
+		newContest(ctx, req, u0, 2, Tammany, 1400, 200, 1),
+		newContest(ctx, req, u1, 2, Tammany, 1500, 350, 0),
+
+		newContest(ctx, req, u0, 3, Tammany, 1400, 200, 0.5),
+		newContest(ctx, req, u1, 3, Tammany, 1500, 350, 0.5),
+		newContest(ctx, req, u0, 3, Tammany, 1600, 100, 1),
+		newContest(ctx, req, u2, 3, Tammany, 1500, 350, 0),
+		newContest(ctx, req, u0, 3, Tammany, 1700, 30, 1),
+		newContest(ctx, req, u3, 3, Tammany, 1500, 350, 0),
+		newContest(ctx, req, u0, 3, Tammany, 1400, 100, 1),
+		newContest(ctx, req, u4, 3, Tammany, 1500, 350, 0),
+		newContest(ctx, req, u1, 3, Tammany, 1600, 100, 1),
+		newContest(ctx, req, u2, 3, Tammany, 1400, 200, 0),
+		newContest(ctx, req, u1, 3, Tammany, 1700, 30, 1),
+		newContest(ctx, req, u3, 3, Tammany, 1400, 200, 0),
+		newContest(ctx, req, u1, 3, Tammany, 1400, 100, 1),
+		newContest(ctx, req, u4, 3, Tammany, 1400, 200, 0),
+		newContest(ctx, req, u2, 3, Tammany, 1700, 30, 1),
+		newContest(ctx, req, u3, 3, Tammany, 1600, 100, 0),
+		newContest(ctx, req, u2, 3, Tammany, 1400, 100, 1),
+		newContest(ctx, req, u4, 3, Tammany, 1600, 100, 0),
+		newContest(ctx, req, u3, 3, Tammany, 1400, 100, 1),
+		newContest(ctx, req, u4, 3, Tammany, 1700, 30, 0),
+	}
+	c.Assert(db.PutMulti(db.Default, res...), IsNil)
+}

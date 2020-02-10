@@ -1,0 +1,16 @@
+{{$g := $.Game}}
+{{$area := $g.SelectedArea}}
+{{$cp := $g.CurrentPlayer}}
+{{$company := $g.SelectedCompany}}
+{{$ctx := $.Context}}
+<div>
+        {{template "shared/flashbox" .}}
+        {{template "shared/gamelog3" $}}
+        {{template "shared/last_actions_list3" data "g" $g "p" $cp "ctx" $ctx}}
+        {{template "indonesia/areas" $}}
+        {{template "indonesia/image_map" $}}
+        {{template "indonesia/player_rupiah" $cp}}
+        {{template "indonesia/player_score" $cp}}
+        {{template "indonesia/player_company" data "company" $company "admin" $.IsAdmin "ctx" $.Context}}
+</div>
+{{template "indonesia/select_expansion_area_dialog" $}}

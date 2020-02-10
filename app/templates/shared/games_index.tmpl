@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+{{$v := $.VersionID}}
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+        <head>
+                <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> 
+                {{template "shared/head_meta" .}}
+                {{template "shared/head_title" .}}
+                {{template "shared/head_link" .}}
+                <script src="/js/application-compiled.js?{{$v}}" type="text/javascript"></script>
+        </head> 
+        <body class="bp two-col"> 
+                <div id="container">
+                        {{template "shared/header" .}}
+                        {{template "shared/left_sidebar" .}}
+                        <div id="main-content">
+                                <div class="game-table"> 
+                                        <div class="heading">
+                                                <div>{{$.Type}} Games: {{$.Status}}</div>
+                                        </div>
+                                        <div class="content-box">
+                                                <div class="content">
+                                                        {{template "shared/game_table" .}}
+                                                </div>
+                                        </div>
+                                </div> 
+                        </div> 
+                        {{template "shared/footer" .}}
+                </div> 
+        </body> 
+</html>

@@ -1,0 +1,25 @@
+{{$game := $.Game}}
+{{if $.IsAdmin}}
+<div id="dialog" title="Admin Supply Table">
+        <form action="/atf/game/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="action" type="hidden" value="admin-supply-table" />
+                </div>
+                {{range $i := ints 0 7}}
+                {{$name := $game.ResourceName $i}}
+                {{$count := index $game.Resources $i}}
+                <div>
+                        <label for="{{$name}}-supply">{{$name}}:</label>
+                        <select id="{{$name}}" name="resources">
+                                {{range $v := ints 0 12}}
+                                <option value="{{$v}}" {{if equal $count $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{end}}
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

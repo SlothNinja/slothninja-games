@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+{{template "shared/head_meta" .}}
+{{template "shared/head_title" .}}
+{{template "shared/head_link" .}}
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> 
+{{template "shared/head_script" .}}
+</head> 
+<body class="two-col">
+<div id="container">
+        {{template "shared/header" .}}
+        {{template "shared/left_sidebar" .}}
+        {{with $invitation := .Game}}
+        <div id="main-content"> 
+                <div class="invitation"> 
+                        <div class="heading">
+                                <div>New Gettysburg Game</div> 
+                        </div>
+                        <div class="content-box"> 
+                                <div class="content"> 
+                                        <div id="left-column">
+                                                <div id="upper">
+                                                        <form action="/gettysburg/game" method="post">
+                                                                <div class="box-cover">
+                                                                        <img src="/images/gettysburg/gettysburg-box.jpg" alt="Gettysburg Box" class="atf" />
+                                                                </div>
+                                                                <div id="form"> 
+                                                                        <div style="margin:0;padding:0;display:inline">
+                                                                                <input name="number_of_players" type="hidden" value="2" />
+                                                                        </div>
+                                                                        <div class="title-field"> 
+                                                                                <label for="title">Title:</label> 
+                                                                                <span class="field">
+                                                                                        <input name="Header.Title" size="30" type="text" value="{{$invitation.Title}}" />
+                                                                                </span> 
+                                                                        </div> 
+                                                                        <div class="join-as"> 
+                                                                                <label for="join-as">Join As:</label> 
+                                                                                <select id="join-as" name="State.JoinAs0">
+                                                                                        <option value="1">None</option>
+                                                                                        <option value="2">Confederate</option>
+                                                                                        <option value="3">Union</option>
+                                                                                        <option value="4">Random</option>
+                                                                                </select>
+                                                                        </div> 
+                                                                        <div class="password"> 
+                                                                                <label for="password">Password:</label> 
+                                                                                <span class="field">
+                                                                                        <input name="Header.Password" size="30" type="text" value="" />
+                                                                                </span> 
+                                                                        </div> 
+                                                                        <div class="button">
+                                                                                <input class="mybutton" name="commit" type="submit" value="Create" /> 
+                                                                        </div>
+                                                                </div> 
+                                                        </form> 
+                                                </div>
+                                                <div id="lower"> 
+                                                        <ul> 
+                                                                <li> 
+                                                                Leave password blank, if you want to create a Public game which anyone can join.
+                                                                </li> 
+                                                                <li> 
+                                                                Provide a password, if you want to create a Private game that requires entry of the password to join.
+                                                                </li> 
+                                                        </ul> 
+                                                </div> 
+                                        </div> 
+                                        <div id="right-column"> 
+                                                <table class="strippedDataTable"> 
+                                                        <thead style="display:none">
+                                                                <th>
+                                                                </th>
+                                                                <th>
+                                                                </th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr> 
+                                                                <td>Designer</td> 
+                                                                <td>Martin Wallace</td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Artists</td> 
+                                                                <td>Peter Dennis</td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Publisher</td> 
+                                                                <td><a href="http://www.treefroggames.com/">Treefrog Games</a></td>
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Year Published</td> 
+                                                                <td>2010</td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>On-Line Developer</td> 
+                                                                <td>Jeff Huter</td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Permission Provided By</td> 
+                                                                <td>Martin Wallace</td> 
+                                                        </tr> 
+                                                        <tr> 
+                                                                <td>Rules (pdf)</td> 
+                                                                <td>Gettysburg&nbsp;<a href="/rules/gettysburg-rules.pdf">(EN)</a></td> 
+                                                        </tr> 
+                                                        </tbody>
+                                                </table> 
+                                        </div> 
+                                </div> 
+                        </div> 
+                </div> 
+        </div>
+        {{end}}
+        {{template "shared/footer" .}}
+</div>
+</body> 
+</html>

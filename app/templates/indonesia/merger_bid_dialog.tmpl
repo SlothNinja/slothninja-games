@@ -1,0 +1,38 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$merger := $game.Merger}}
+<div id="dialog" title="Place Bid on the Proposed Merger">
+        <div class="dialog-content" style="width:280px">
+                <form class="myForm top-padding" action="/indonesia/game/show/{{$game.ID}}" method="post">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="merger-bid" />
+                        <div>Proposed Merger Of:</div>
+                        <div>{{$merger.Company1}}</div>
+                        <div>{{$merger.Company2}}</div>
+                        <div class="top-padding">
+                                <label for="bidder">High Bidder:</label>
+                                {{with $bidder := $merger.CurrentBidder}}
+                                {{$bidder.Name}}
+                                {{else}}None{{end}}
+                        </div>
+                        <div>
+                                <label for="high-bid">High Bid:</label>
+                                {{$merger.CurrentBid}}
+                        </div>
+                        <div>
+                                <label for="bid">Bid:</label>
+                                <select id="bid" name="bid">
+                                        {{if $cp.CanBidNone}}
+                                        <option value="none">None</option>
+                                        {{end}}
+                                        {{range $v := $merger.BidsFor $cp}}
+                                        <option value="{{$v}}">{{$v}}</option>
+                                        {{end}}
+                                </select>
+                        </div>
+                        <div class="top-padding center" >
+                                <input type="submit" value="Bid" class="mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>

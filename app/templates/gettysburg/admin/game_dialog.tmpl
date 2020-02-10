@@ -1,0 +1,15 @@
+<div class="dialog-content">
+        <div data-bind="text: selectedAreaID()"></div>
+        <div><label>Selected AreaID:
+                        <select data-bind="foreach: ko.utils.range(-1, 46), intValue: selectedAreaID">
+                                <option data-bind="text: $data, attr: { value: $data }"></option>
+                        </select>
+        </label></div>
+        <div><label>Order Disc AreaID:
+                        <select data-bind="options: availableAreaIDS, value: orderDiscAreaID"></select>
+        </label></div>
+        <div><label>Ordered Area IDS:</label><span data-bind="text: ko.toJSON(orderedAreaIDS)"></span></div>
+        <div class="top-padding">
+                <button data-bind="jqButton: true, click: function(){put({'action': 'admin', 'subAction': 'update', 'target': 'game', 'data': ko.toJSON(gState), 'json': true})}">Update Game</button>
+        </div>
+</div>

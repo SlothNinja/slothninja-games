@@ -1,0 +1,40 @@
+{{$c := .company}}
+{{$g := $c.Game}}
+{{$cp := $g.CurrentPlayer}}
+{{$ctx := .ctx}}
+{{$isAdmin := .isAdmin}}
+
+{{if $cp}}
+        {{ $isAdminOrCurrent := $cp.IsCurrentUser $ctx | or $isAdmin }}
+        {{ $canSelect := $cp.CanSelectCompany $c }}
+        {{ $clickable := and $isAdminOrCurrent $canSelect }}
+        <div id="player-{{$c.OwnerID}}-company-{{$c.Slot}}" {{if $clickable}}class="clickable"{{end}}>
+{{else}}
+        <div id="player-{{$c.OwnerID}}-company-{{$c.Slot}}">
+{{end}}
+
+{{if $c.IsProductionCompany}}
+        <div><strong>Type:</strong> {{$c.Goods}}</div>
+        <div><strong>Production:</strong> {{$c.Production}}</div>
+        <div><strong>Zones:</strong> {{len $c.Zones}}</div>
+{{else}}
+        <div><img class="ship" src="/images/indonesia/{{$c.ShipType.IDString}}.png"/></div>
+        <div><strong>Type:</strong>{{$c.Goods}}</div>
+        <div><strong>Ships:</strong> {{$c.Ships}}</div>
+        <div><strong>Hull Size:</strong> {{$c.HullSize}}</div>
+        <div><strong>Max Ships:</strong> {{$c.MaxShips}}</div>
+        <div><strong>Zones:</strong> {{len $c.Zones}}</div>
+{{end}}
+
+<div><strong>Deeds:</strong></div>
+{{range $deed := $c.Deeds}}
+        {{$klass := $deed.IDString}}
+        <div class="{{$klass}}" data-deedtip='{{$deed.Tip}}'>
+                {{if $c.Operated}}
+                        <img class="deed" src="/images/indonesia/{{$klass}}-back.png" />
+                {{else}}
+                        <img class="deed" src="/images/indonesia/{{$klass}}.png" />
+                {{end}}
+        </div>
+{{end}}
+</div>

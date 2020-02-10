@@ -1,0 +1,22 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div id="dialog" title="Select Player">
+        <div class="dialog-content" style="width:120px">
+                <p>Which player's hull size do you want to increase?</p>
+                {{range $p := $game.Players}}
+                <div>&nbsp;</div>
+                <form class="myForm">
+                        <input name="action" type="hidden" value="select-hull-player" />
+                        <input name="id" type="hidden" value="{{$p.ID}}" />
+                        <div class="mybutton submit">
+                                <div class="icon">
+                                        <img src="/images/indonesia/{{$p.Color}}-disc.png" />
+                                </div>
+                                <div class="text">
+                                        {{$p.Name}}
+                                </div>
+                        </div>
+                </form>
+                {{end}}
+        </div>
+</div>

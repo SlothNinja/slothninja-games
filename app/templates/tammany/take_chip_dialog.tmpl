@@ -1,0 +1,8 @@
+{{$game := $.Game}}
+{{if $game.InTakeChipPhase}}
+<div id="dialog" class="take-chip" title="Take Favor Chip">
+        <div class="dialog-content">
+                {{template "tammany/take_chip_form" $}}
+        </div>
+</div>
+{{end}}

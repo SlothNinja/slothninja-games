@@ -1,0 +1,27 @@
+<div>
+        The defending infantry/calvary units in area {{.AreaID}} fired and obtained the following results.
+</div>
+<div>
+        <table class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th>Unit</th>
+                                <th>Damage</th>
+                                <th>Modifier</th>
+                                <th>Die</th>
+                                <th>Result</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {{range $u := .Units}}
+                        <tr>
+                                <td>{{$u.ImageElement}}</td>
+                                <td>{{$u.Damage}}</td>
+                                <td>{{$u.Modifier}}</td>
+                                <td>{{$u.Die}}</td>
+                                <td>{{$u.Result}}</td>
+                        </tr>
+                        {{end}}
+                </tbody>
+        </table>
+</div>

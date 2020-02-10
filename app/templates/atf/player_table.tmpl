@@ -1,0 +1,26 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<div id="players-table">
+        <table class='strippedDataTable'>
+                <thead>
+                        <tr>
+                                <th class="player-name">
+                                        <div>Player</div>
+                                </th>
+                                <th class="last-action">Action Summary</th>
+                                <th class="score">Score</th>
+                                <th class="resources">Resources</th>
+                                <th class="armies">Armies</th>
+                                <th class="workers">Workers</th>
+                                <th class="cities">Cities</th>
+                                <th class="expansions">Expansions</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {{range $p := $g.Players}}
+                        {{template "atf/player_row" data "g" $g "p" $p "admin" $.Admin "ctx" $ctx}}
+                        {{end}}
+                </tbody>
+        </table>
+</div>

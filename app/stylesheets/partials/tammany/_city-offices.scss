@@ -1,0 +1,19 @@
+@mixin city-office($id, $top, $left) {
+        ##{$id} {
+                position:absolute;
+                top:$top;
+                left:$left;
+                img {
+                        height:28px;
+                        width:28px;
+                }
+        }
+}
+
+@mixin city-offices {
+        @include city-office(mayor, 168px, 950px);
+        @include city-office(deputy-mayor, 260px, 950px);
+        @include city-office(council-president, 355px, 950px);
+        @include city-office(chief-of-police, 488px, 950px);
+        @include city-office(precinct-chairman, 600px, 950px);
+};

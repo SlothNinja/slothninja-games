@@ -1,0 +1,33 @@
+{{$p := .p}}
+{{$chips := .chips}}
+{{$g := .g}}
+{{if $chips.Any}}
+        {{$c := $chips.NationalityCount}}
+        {{if eq $c 1}}
+                <div style="left:55px;height:30px;position:relative">
+        {{else if eq $c 2}}
+                <div style="left:40px;height:30px;position:relative">
+        {{else if eq $c 3}}
+                <div style="left:25px;height:30px;position:relative">
+        {{else}}
+                <div style="left:10px;height:30px;position:relative">
+        {{end}}
+        {{range $g.Nationalities}}
+                {{$count := index $chips .}}
+                {{if $count}}
+                        <div class="chip {{.LString}} float-left">
+                                <div class="img">
+                                        <img alt="{{.LString}}-chip" src="{{.ChipImage}}" />
+                                </div>
+                                <div class="text {{.LString}}">
+                                        {{$count}}
+                                </div>
+                        </div>
+                {{end}}
+        {{end}}
+                </div>
+{{else}}
+        <div class="bottom-padding">
+                None
+        </div>
+{{end}}

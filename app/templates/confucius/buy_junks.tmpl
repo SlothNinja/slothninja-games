@@ -1,0 +1,45 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Buy Junks Form --> 
+{{if $g.EnableBuyJunks $ctx}}
+<div class="actions" id="buy-junks-action"> 
+        <fieldset> 
+                <legend>Buy Junks</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="buy-junks" />
+                                </div> 
+                                <div> 
+                                        <label for="junks">Junks:</label> 
+                                        <select id="junks" name="junks">
+                                                {{$g.BuyJunksOptions}}
+                                        </select> 
+                                </div>
+                                {{$g.CoinOptions "buy-junks"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Buy Junks" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select the number of junks you want to purchase.
+                                        </li> 
+                                        <li> 
+                                        Select Confucius card(s) with coins sufficient to pay for junks.
+                                        </li> 
+                                        <li> 
+                                        If you overpay, no change is given.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

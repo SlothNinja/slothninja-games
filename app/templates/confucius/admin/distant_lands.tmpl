@@ -1,0 +1,42 @@
+{{$game := .}}
+{{range $index, $land := $game.DistantLands}}
+{{$lid := $land.NameID | ToLower}}
+<!-- {{$land.Name}} State Form -->
+<div class="actions" id="admin-distant-land-{{$lid}}-action">
+        <fieldset>
+                <legend>Foreign Land: {{$land.Name}}</legend>
+                <form action="/{{$game.Stub}}/admin/{{$game.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="distant-land" />
+                                <input name="lindex" type="hidden" value="{{$index}}" />
+                        </div>
+                        <div class="left-column">
+                                <div>
+                                        <label for="admin-land-chit-{{$lid}}">Chit</label>
+                                        <select id="admin-land-chit-{{$lid}}" name="chit">
+                                                <option value="none">None</option>
+                                                {{range $chit := ints 2 4}}
+                                                {{if equal $land.Chit.Value $chit}}
+                                                <option value="{{$chit}}" selected="selected">{{$chit}}</option>
+                                                {{else}}
+                                                <option value="{{$chit}}">{{$chit}}</option>
+                                                {{end}}
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="admin-playerids-{{$lid}}">Players</label>
+                                        <select id="admin-playerids-{{$lid}}" name="playerids" multiple="multiple">
+                                                <option value="none" {{if len $land.Players | zero}}selected="selected"{{end}}>None</option>
+                                                {{range $index, $player := $game.Players}}
+                                                <option value="{{$player.ID}}" {{if $land.Players.Include $player}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <input class="mybutton" name="commit" type="submit" value="Update Distant Land" />
+                        </div>
+                </form>
+        </fieldset>
+</div>
+{{end}}

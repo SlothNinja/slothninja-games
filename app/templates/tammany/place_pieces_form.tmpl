@@ -1,0 +1,71 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+{{$w := $.Ward}}
+{{$cu := $.CUser}}
+{{if $g.CanPlacePiecesIn $cu $w}}
+<div id="tabs-place-pieces">
+        <div class="row" style="height:45px;width:270px">
+                <form class="myForm" style="float:left">
+                        <input name="action" type="hidden" value="place-pieces" />
+                        <input name="area" type="hidden" value="ward-{{$w.ID}}" />
+                        <input name="bosses" type="hidden" value="1" />
+                        <div class="mybutton submit">
+                                <div class="text">
+                                        Place
+                                </div>
+                                <div class="icon">
+                                        {{$cp.BossImage}}
+                                </div>
+                        </div>
+                </form>
+                <form class="myForm" style="float:left">
+                        <input name="action" type="hidden" value="place-pieces" />
+                        <input name="area" type="hidden" value="ward-{{$w.ID}}" />
+                        <input name="bosses" type="hidden" value="2" />
+                        <div class="mybutton submit">
+                                <div class="text">
+                                        Place
+                                </div>
+                                <div class="icon">
+                                        {{$.Game.CurrentPlayer.BossImage}}
+                                        {{$.Game.CurrentPlayer.BossImage}}
+                                </div>
+                        </div>
+                </form>
+        </div>
+        {{range $nationality, $count := $.Game.CastleGarden}}
+        {{if $count}}
+        <div class="row" style="height:45px;width:270px">
+                <form class="myForm" style="float:left">
+                        <input name="action" type="hidden" value="place-pieces" />
+                        <input name="area" type="hidden" value="ward-{{$w.ID}}" />
+                        <input name="immigrant" type="hidden" value="{{$nationality.LString}}" />
+                        <div class="mybutton submit">
+                                <div class="text">
+                                        Place
+                                </div>
+                                <div class="icon">
+                                        <img alt="{{$nationality.LString}}-cube" src="{{$nationality.CubeImage}}" />
+                                </div>
+                        </div>
+                </form>
+                <form class="myForm" style="float:left">
+                        <input name="action" type="hidden" value="place-pieces" />
+                        <input name="area" type="hidden" value="ward-{{$w.ID}}" />
+                        <input name="bosses" type="hidden" value="1" />
+                        <input name="immigrant" type="hidden" value="{{$nationality.LString}}" />
+                        <div class="mybutton submit">
+                                <div class="text">
+                                        Place
+                                </div>
+                                <div class="icon">
+                                        <img alt="{{$nationality.LString}}-cube" src="{{$nationality.CubeImage}}" />
+                                        {{$.Game.CurrentPlayer.BossImage}}
+                                </div>
+                        </div>
+                </form>
+        </div>
+        {{end}}
+        {{end}}
+</div>
+{{end}}

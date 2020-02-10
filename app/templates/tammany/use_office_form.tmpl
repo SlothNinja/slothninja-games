@@ -1,0 +1,78 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+{{$w := $.Ward}}
+{{$cu := $.CUser}}
+{{if $g.CanUseOfficeIn $cu $w}}
+<div id="tabs-use-office">
+        {{if $g.CanLockup $cu $w}}
+        <form class="myForm">
+                <input name="action" type="hidden" value="place-lockup-marker" />
+                <input name="area" type="hidden" value={{$w.Key}} />
+                <div class="mybutton submit">
+                        <div class="text">
+                                Lock-Up
+                        </div>
+                        <div class="icon">
+                                <img alt="lockup-marker" src="/images/tammany/prez-chip.png" />
+                        </div>
+                </div>
+        </form>
+        {{end}}
+        {{if $g.CanMoveImmigrantFrom $cu $w}}
+        {{range $n, $cnt := $w.Immigrants}}
+        {{if $cnt}}
+        <form class="myForm">
+                <input name="action" type="hidden" value="move-from" />
+                <input name="area" type="hidden" value={{$w.Key}} />
+                <input name="immigrant" type="hidden" value={{$n.LString}} />
+                <div class="mybutton submit">
+                        <div class="text">
+                                Move
+                        </div>
+                        <div class="icon">
+                                <img alt="{{$n.LString}}-cube" src="{{$n.CubeImage}}" />
+                        </div>
+                </div>
+        </form>
+        {{end}}
+        {{end}}
+        {{end}}
+        {{if $g.CanMoveImmigrantTo $cu $w}}
+        {{with $n := $g.ImmigrantInTransit}}
+        <form class="myForm">
+                <input name="action" type="hidden" value="move-to" />
+                <input name="area" type="hidden" value={{$w.Key}} />
+                <input name="immigrant" type="hidden" value={{$n.LString}} />
+                <div class="mybutton submit">
+                        <div class="text">
+                                Place
+                        </div>
+                        <div class="icon">
+                                <img alt="{{$n.LString}}-cube" src="{{$n.CubeImage}}" />
+                        </div>
+                </div>
+        </form>
+        {{end}}
+        {{end}}
+        {{if $g.CanRemoveImmigrant $cu $w}}
+        {{range $n, $cnt := $w.Immigrants}}
+        {{if $cnt}}
+        <form class="myForm">
+                <input name="action" type="hidden" value="remove" />
+                <input name="area" type="hidden" value={{$w.Key}} />
+                <input name="immigrant" type="hidden" value="{{$n.LString}}" />
+                <div class="mybutton submit">
+                        <div class="text">
+                                Remove
+                        </div>
+                        <div class="icon">
+                                <img alt="{{$n.LString}}-cube" src="{{$n.CubeImage}}" />
+                        </div>
+                </div>
+        </form>
+        {{end}}
+        {{end}}
+        {{end}}
+        {{template "tammany/take_chip_form" $}}
+</div>
+{{end}}

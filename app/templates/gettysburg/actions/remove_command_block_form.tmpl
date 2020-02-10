@@ -1,0 +1,13 @@
+{{$game := $.Game}}
+{{$area := $game.SelectedArea}}
+{{if $.Game.CurrentPlayer.CanRemoveCommandBlockIn $area}}
+{{$cb := $area.CommandBlock}}
+<div id="tabs-remove-command-block">
+        <button data-bind="jqButton: true, click: function() { put({'action': 'remove-command-block', 'target': '{{$area.Key}}', 'json': true})}">
+                <div style="float:left;padding:5px">
+                        Remove
+                </div>
+                <img class="command-block" src="/images/gettysburg/{{$cb.Side}}-command-block-{{$cb.Value}}.png" />
+        </button>
+</div>
+{{end}}

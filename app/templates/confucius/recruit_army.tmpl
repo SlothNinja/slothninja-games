@@ -1,0 +1,48 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Recruit Army Form  --> 
+{{if $g.EnableRecruitArmy $ctx}}
+<div class="actions" id="recruit-army-action"> 
+        <fieldset> 
+                <legend>Recruit Army</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="recruit-army" />
+                                </div> 
+                                <div> 
+                                        <label for="army">Army:</label> 
+                                        <select id="army" name="army">
+                                                {{$g.RecruitArmyOptions}}
+                                        </select> 
+                                </div>
+                                {{$g.LicenseOptions "recruit-army"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Recruit Army" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        An army costs 6 licenses.
+                                        </li> 
+                                        <li> 
+                                        If you have a bribed official in Bingbu Ministry, then an army costs only 4 licenses.
+                                        </li> 
+                                        <li> 
+                                        Select Confucius card(s) with licenses sufficient to pay for army.
+                                        </li> 
+                                        <li> 
+                                        If you overpay, no change is given.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

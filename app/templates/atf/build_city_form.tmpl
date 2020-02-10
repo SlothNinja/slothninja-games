@@ -1,0 +1,13 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanBuildCityIn $area}}
+<div id="tabs-build-city">
+        <div class="dialog-content">
+                <form class="myForm center">
+                        <input name="action" type="hidden" value="build-city" />
+                        <input type="submit" value="Build City" class="mybutton" />
+                </form>
+        </div>
+</div>
+{{end}}

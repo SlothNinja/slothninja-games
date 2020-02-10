@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+        <head>
+                {{template "shared/head_meta" .}}
+                {{template "shared/head_title" .}}
+                {{template "shared/head_link" .}}
+                <link href="/stylesheets/confucius-screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> 
+                {{template "shared/head_script" .}}
+                <script src="/javascripts/confucius.js" type="text/javascript"></script> 
+        </head> 
+        <body class="confucius bp"> 
+                <div id="container">
+                        {{template "shared/header" .}}
+                        <div id="upper-content">
+                                {{template "confucius/status_box" .}}
+                                {{if .Admin}}
+                                {{template "confucius/admin/box" .}}
+                                {{else}}
+                                {{template "confucius/command_box" .}}
+                                {{end}}
+                        </div> 
+                        <div id="main-content">
+                                {{template "confucius/board" .}}
+                                <div class="content-box">
+                                        <div class="content"> {{template "confucius/player_table" .}}</div>
+                                </div>
+                        </div>
+                        <div id="lower-content">
+                                <div class="left-column">
+                                        {{template "shared/gamelog" .}}
+                                </div> 
+                                <div class="right-column">
+                                        {{template "shared/messagelog" .}}
+                                </div> 
+                        </div>
+                        {{template "shared/footer" .}}
+                </div>
+        </body> 
+</html>

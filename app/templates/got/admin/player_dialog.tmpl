@@ -1,0 +1,36 @@
+{{$game := $.Game}}
+{{if $.IsAdmin}}
+{{with $player := $game.SelectedPlayer}}
+<div id="dialog" title="Admin Player {{$player.Name}}">
+        <div class="dialog-content">
+                <form action="/got/game/admin/{{$game.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="admin-player" />
+                        </div>
+                        <div>
+                                <label for="admin-player-score">Score:</label>
+                                <input type="text" size="4" id="admin-player-score" name="Player.Score" value="{{$player.Score}}"/>
+                        </div>
+                        <div>
+                                <label for="admin-player-performed-action">Performed Action:</label>
+                                <select id="admin-player-performed-action" name="Player.PerformedAction">
+                                        <option value="false" {{if $player.PerformedAction | not}}selected="selected"{{end}}>False</option>
+                                        <option value="true" {{if $player.PerformedAction}}selected="selected"{{end}}>True</option>
+                                </select>
+                        </div>
+                        <div>
+                                <label for="admin-player-passed">Passed:</label>
+                                <select id="admin-player-passed" name="Player.Passed">
+                                        <option value="false" {{if $player.Passed | not}}selected="selected"{{end}}>False</option>
+                                        <option value="true" {{if $player.Passed}}selected="selected"{{end}}>True</option>
+                                </select>
+                        </div>
+                        <div class="center">
+                                <input type="submit" value="Update" class="top-padding mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>
+{{end}}
+{{end}}

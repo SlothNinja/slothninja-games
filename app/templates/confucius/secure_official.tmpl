@@ -1,0 +1,43 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Secure Official Action Form --> 
+{{if $g.EnableSecureOfficial $ctx}}
+<div class="actions" id="secure-official-action"> 
+        <fieldset> 
+                <legend>Secure Official</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="secure-official" />
+                                </div>
+                                {{$g.SecuredOfficialOptions "secure-official" "Official:"}}
+                                {{$g.CoinOptions "secure-official"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Secure Official" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select official you want to secure.
+                                        </li> 
+                                        <li> 
+                                        Select Confucius card(s) with coins sufficient to pay for securing official.
+                                        </li> 
+                                        <li> 
+                                        Your cost including any discount is provided in parentheses.
+                                        </li> 
+                                        <li> 
+                                        If you overpay, no change is given.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

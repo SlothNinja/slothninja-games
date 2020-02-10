@@ -1,0 +1,5 @@
+<div data-bind="with: selectedArea">
+        <div class="bottom-padding">Are you sure you want to resolve the assault in area <span data-bind="text: id"></span>?</div>
+        <div class="bottom-padding">This action cannot be undone.</div>
+        <button data-bind="jqButton: true, click: function() { $root.put( { 'action': 'start-assault', 'target': key } ) } ">Yes</button>
+</div>

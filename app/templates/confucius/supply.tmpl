@@ -1,0 +1,37 @@
+<div id="supply"> 
+        <div class="content">
+                <table>
+                        <tr>
+                                <th colspan="3">
+                                        Supply
+                                </th>
+                        </tr>
+                        <tr>
+                                <td class="junks">
+                                        <div class="junk">
+                                                <img src="/images/confucius/junk.png" alt="Junk"/>
+                                        </div>
+                                        <div>
+                                                {{$.Junks}}
+                                        </div>
+                                </td> 
+                                <td class="confucius-cards">
+                                        <div class="image">
+                                                <img class="confucius-cards-draw" src="/images/confucius/confucius-card-back.jpg" alt="Confucius Card Back Face" />
+                                        </div>
+                                        <div>
+                                                {{len $.ConDeck}} / {{len $.ConDiscardPile}}
+                                        </div>
+                                </td> 
+                                <td class="emperors-reward-cards">
+                                        <div class="image">
+                                                <img src="/images/confucius/emperors-reward-card-back.jpg" alt="Emperors Reward Card Back Face" />
+                                        </div>
+                                        <div>
+                                                {{len $.EmperorDeck}} / {{len $.EmperorDiscard}}
+                                        </div>
+                                </td> 
+                        </tr>
+                </table>
+        </div>
+</div> 

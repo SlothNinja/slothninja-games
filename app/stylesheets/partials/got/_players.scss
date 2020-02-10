@@ -1,0 +1,14 @@
+@mixin players {
+	#players-table, #supply-table {
+                @include table;
+                @include append-bottom(0.5em);
+		padding: 1em 1em 1em 1em;
+                th, td {
+                        text-align:center;
+                }
+		td.last-action {
+			width:25%;
+			text-align:left;
+		}
+	}
+}

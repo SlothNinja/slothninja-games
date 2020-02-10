@@ -1,0 +1,120 @@
+@mixin table {
+        table {
+                width:100%;
+                ul {
+                        margin-left:15px;
+                } 
+                img {
+                        height:28px;
+                        width:28px;
+                }
+                td.player {
+                        padding:10px 0px;
+                }
+                .gravatar {
+                        img {
+                                margin:0px;
+                                padding:0px;
+                                height:40px;
+                                width:40px;
+                        }
+                }
+                .player-office {
+                        margin:5px;
+                }
+                .img {
+                        position:relative;
+                }
+                .text {
+                        position:relative;
+                        text-align:center;
+                        top:-24px;
+                        left:0px;
+                }
+                .chip, .boss {
+                        margin:0px 5px;
+                        height:28px;
+                        width:28px;
+                }
+                .float-left {
+                        float:left;
+                }
+
+                a.winner, a.current-player {
+                        font-weight:bold;
+                        color: darken(blue, 5%);
+                }
+                a.winner.me, a.current-player.me {
+                        color: darken(red, 20%);
+                }
+        }
+}
+
+.black-border {
+        border: 5px solid #000000;
+}
+
+.red-border {
+        border: 5px solid #dd0228;
+}
+
+.purple-border {
+        border: 5px solid #562B85;
+}
+
+.yellow-border {
+        border: 5px solid #FFF800;
+}
+
+.green-border {
+        border: 5px solid #719136;
+}
+
+.white-border {
+        border: 5px solid #FFFFFF;
+}
+
+.brown-border {
+        border: 5px solid #6f593D;
+}
+
+.orange-border {
+        border: 5px solid #F27E28;
+}
+
+.game-table {
+        position:relative;
+        $content-columns: ceil(5 * $blueprint-grid-columns / 6);
+        @include column($content-columns, true);
+        .content-box {
+                $content-columns: ceil(5 * $blueprint-grid-columns / 6);
+                @include column($content-columns, true);
+                .content {
+                        height: 47em;
+                        overflow:auto;
+                        table a.winner, table a.current-player {
+                                font-weight:bold;
+                                color: darken(#312E25, 5%);
+                        }
+                        table a.winner.me, table a.current-player.me {
+                                font-weight:bold;
+                                color: darken(red, 20%);
+                        }
+                }
+        }
+}
+
+.content-box {
+        @extend .ui-widget;
+        @extend .ui-widget-content;
+        @extend .ui-corner-all;
+        @include append-bottom(0.5em);
+        .content {
+                padding:2px;
+        }
+}
+
+table img {
+        height:28px;
+        width:28px;
+}

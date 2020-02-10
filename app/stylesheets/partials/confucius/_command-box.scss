@@ -1,0 +1,50 @@
+@import 'available-actions-box';
+@import 'action-forms';
+
+@mixin command-box {
+        #command-box {
+                @extend .ui-widget;
+                @extend .ui-widget-content;
+                @extend .ui-corner-all;
+                @include append-bottom(0.5em);
+                @include column($blueprint-grid-columns, true);
+                height: 22em;
+                .left-column {
+                        @include column(13);
+                        @include available-actions-box;
+                        .explanation-box {
+                                @include column(8, true);
+                                @include prepend-top(1.2em);
+                                .button-set {
+                                        margin-left:3em;
+                                }
+                        }
+                }
+                .right-column {
+                        @include column(16, true);
+                        @include bribe-official;
+                        @include secure-official;
+                        @include nominate-student;
+                        @include tutor-student;
+                        @include place-student;
+                        @include force-exam;
+                        @include buy-junks;
+                        @include start-voyage;
+                        @include recruit-army;
+                        @include invade-land;
+                        @include no-action;
+                        @include commercial;
+                        @include tax-income;
+                        @include give-gift;
+                        @include buy-gift;
+                        @include transfer-influence;
+                        @include pass;
+                        @include discard;
+                        @include choose-chief-minister;
+                        @include emperor-reward;
+                        @include petition-emperor;
+                        @include options;
+                        @include temp-transfer;
+                }
+        }	
+}

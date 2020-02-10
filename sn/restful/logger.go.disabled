@@ -1,0 +1,22 @@
+package restful
+
+import (
+	"appengine"
+	"github.com/go-martini/martini"
+	"net/http"
+	"time"
+)
+
+// Logger returns a middleware handler that logs the request as it goes in and the response as it goes out.
+func Logger() martini.Handler {
+	return func(mc martini.Context, req *http.Request, res http.ResponseWriter) {
+		ctx := appengine.NewContext(req)
+		start := time.Now()
+		ctx.Infof("Started %s %s", req.Method, req.URL.Path)
+
+		rw := res.(martini.ResponseWriter)
+		mc.Next()
+
+		ctx.Infof("Completed %v %s in %v\n", rw.Status(), http.StatusText(rw.Status()), time.Since(start))
+	}
+}

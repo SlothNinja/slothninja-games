@@ -1,0 +1,46 @@
+<script type="text/javascript">
+var initData = {{.Game}};
+var dialogData = initData.dialog || {};
+var phaseNames = {{.Game.JPhaseNames}}
+var subPhaseNames = {{.Game.JSubPhaseNames}}
+
+delete initData.dialog;
+var viewModel = new gettysburg.create(initData);
+ko.applyBindings(viewModel);
+
+var dialogViewModel = new myDialogViewModel(dialogData);
+if ($("#dialog").length > 0) {
+        ko.applyBindings(dialogViewModel, $("#dialog")[0]);
+} else {
+        if (!$.isEmptyObject(dialogData)) {
+                $("#board").append("<div id='dialog' data-bind='jqDialog: dialogViewModel, dialogVisible: true'>" + dialogData.content + "</div>");
+                ko.applyBindings(dialogViewModel, $("#dialog")[0]);
+
+        }
+}
+
+var areas = $("#areas");
+var units = $(".unit");
+
+// A single click handler for all 'img.unit' elements
+$("#areas").on("click", "img.unit", function() {
+        var context = ko.contextFor(this);
+        var index = context.$index;
+        var areaID = "area-" + context.$parent.id;
+        var $ajaxTarget = window.location.href;
+        var unitID = context.$data.id;
+
+        $.ajax({
+                url: $ajaxTarget,
+                data: { "area": areaID, "action": "select-unit", "unit": unitID }, 
+                dataType: "json",
+                success: function(data) {
+                        gettysburg.myUpdate(data);
+                },
+                type: "PUT",
+                error: function(data) {
+                        window.location.href = $ajaxTarget;
+                },
+        }); 
+});
+</script>

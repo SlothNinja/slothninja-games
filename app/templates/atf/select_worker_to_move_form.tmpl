@@ -1,0 +1,17 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div id="tabs-select-worker-to-move">
+        <div class="dialog-content">
+                <form class="myForm">
+                        {{if $cp.Worker}}
+                        <p>Click on area to select worker to move or click "From Stock" button.</p> 
+                        <input name="action" type="hidden" value="from-stock" />
+                        <div class="center">
+                                <input type="submit" value="From Stock" class="top-padding mybutton" />
+                        </div>
+                        {{else}}
+                        <p>Click on area to select worker to move.</p> 
+                        {{end}}
+                </form>
+        </div>
+</div>

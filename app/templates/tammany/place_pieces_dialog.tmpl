@@ -1,0 +1,25 @@
+{{$g := $.Game}}
+{{$w := $.Ward}}
+{{$cp := $g.CurrentPlayer}}
+{{$cu := $.CUser}}
+<div id="dialog" title="Actions For Ward {{$w.ID}}">
+        <div class="dialog-content">
+                <div id="tabs">
+
+                        <ul>
+                                {{if $g.CanPlacePiecesIn $cu $w}}
+                                <li><a href="#tabs-place-pieces">Place Pieces</a></li>
+                                {{end}}
+                                {{if $g.CanUseOfficeIn $cu $w}}
+                                <li><a href="#tabs-use-office">Use Office</a></li>
+                                {{end}}
+                                {{if $g.CanSlander $cu $w}}
+                                <li><a href="#tabs-slander">Slander</a></li>
+                                {{end}}
+                        </ul>
+                        {{template "tammany/place_pieces_form" $}}
+                        {{template "tammany/use_office_form" $}}
+                        {{template "tammany/slander_form" $}}
+                </div>
+        </div>
+</div>

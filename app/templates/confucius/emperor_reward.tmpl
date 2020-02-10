@@ -1,0 +1,186 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Emperor Reward Form --> 
+{{if $g.EnableEmperorReward $ctx}}
+<div class="actions" id="emperor-reward-action"> 
+        <fieldset> 
+                <legend>Emperor's Reward</legend> 
+                <div class="left-column"> 
+                        <label for="reward-card">Reward Card:</label> 
+                        <select id="reward-card" name="reward-card">
+                                <option value="none">None</option>
+                                {{range $index, $card := $g.CurrentPlayer.EmperorHand}}
+                                <option value="{{$card.Type}}">{{$card.Title}}</option>
+                                {{end}}
+                        </select>
+                        <div class="reward-form" id="none"></div>
+                        <div class="reward-form" id="reward-card-0">
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="take-cash" />
+                                        </div> 
+                                        <input name="reward-card" class="reward-card" value="0" type="hidden">
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Take Cash" />
+                                        </div> 
+                                </form> 
+                        </div>
+                        <div class="reward-form" id="reward-card-1"> 
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="take-gift" />
+                                        </div> 
+                                        <input name="reward-card" class="reward-card" value="1" type="hidden">
+                                        {{$g.GiftCardHandOptions "take-gift" "Gift:"}}
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Take Gift" />
+                                        </div> 
+                                </form> 
+                        </div> 
+                        <div class="reward-form" id="reward-card-2"> 
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="take-extra-action" />
+                                        </div> 
+                                        <input name="reward-card" class="reward-card" value="2" type="hidden">
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Take Extra Action" />
+                                        </div> 
+                                </form> 
+                        </div> 
+                        {{range $card := $g.BriberyCards}}
+                        <div class="reward-form" id="reward-card-{{$card.Type}}"> 
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="take-bribery-reward" />
+                                        </div> 
+                                        <input name="reward-card" class="reward-card" value="{{$card.Type}}" type="hidden">
+                                        {{with $id := printf "take-bribery-reward-official-%d" $card.Type}}
+                                        {{$g.BriberyRewardOfficialOptions $id "Official:" $card}}
+                                        {{end}}
+                                        {{$g.CoinOptions "take-bribery-reward"}}
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Take Bribery Reward" />
+                                        </div> 
+                                </form> 
+                        </div> 
+                        {{end}}
+                        <div class="reward-form" id="reward-card-8"> 
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="avenge-emperor" />
+                                        </div> 
+                                        <input name="reward-card" class="reward-card" value="8" type="hidden">
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Avenge Emperor" />
+                                        </div> 
+                                </form> 
+                        </div> 
+                        <div class="reward-form" id="reward-card-9"> 
+                                <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="take-army" />
+                                        </div> 
+                                        <input name="reward-card" class="reward-card" value="9" type="hidden">
+                                        <div class="button">
+                                                <input class="mybutton" name="commit" type="submit" value="Take Army" />
+                                        </div> 
+                                </form> 
+                        </div> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset>
+                                <legend>Action Details</legend> 
+                                <div class="reward-directions" id="reward-card-none">
+                                        <ul> 
+                                                <li> 
+                                                Select Emperor's Reward card.
+                                                </li> 
+                                                <li> 
+                                                No action cube required to play Emperor's Reward card.
+                                                </li> 
+                                        </ul> 
+                                </div>
+                                <div class="reward-directions" id="reward-card-0">
+                                        <ul> 
+                                                <li> 
+                                                Take 4 Confucius Cards.
+                                                </li> 
+                                                <li> 
+                                                No action cube used.
+                                                </li> 
+                                        </ul> 
+                                </div>
+                                <div class="reward-directions" id="reward-card-1">
+                                        <ul> 
+                                                <li>
+                                                Choose one of your "not bought" gifts and turn it into a "bought" gift for no cost.
+                                                </li> 
+                                                <li> 
+                                                No action cube used.
+                                                </li> 
+                                        </ul> 
+                                </div>
+                                <div class="reward-directions" id="reward-card-2">
+                                        <ul> 
+                                                <li>
+                                                Take any Actions Box action except the Imperial Favour action without playing any action cubes.
+                                                </li> 
+                                                <li> 
+                                                This can be a 0, 1 or 2 cube action and can be a repeat of a previous action.
+                                                </li> 
+                                                <li>
+                                                All other restrictions on the actions apply.
+                                                </li>
+                                        </ul> 
+                                </div>
+                                {{range $card := $g.BriberyCards}}
+                                <div class="reward-directions" id="reward-card-{{$card.Type}}">
+                                        <ul> 
+                                                <li>
+                                                Gift obligations do not apply to this action.
+                                                </li>
+                                                <li>
+                                                Select either unbribed official or an unsecured official of another player.
+                                                </li>
+                                                <li>
+                                                No action cube used.
+                                                </li>
+                                        </ul> 
+                                </div>
+                                {{end}}
+                                <div class="reward-directions" id="reward-card-8">
+                                        <ul> 
+                                                <li>
+                                                Avenge Emperor and gain 2 VP.
+                                                </li> 
+                                                <li>
+                                                Must have army in military colonies.
+                                                </li>
+                                                <li> 
+                                                No action cube used.
+                                                </li> 
+                                        </ul> 
+                                </div>
+                                <div class="reward-directions" id="reward-card-9">
+                                        <ul> 
+                                                <li>
+                                                Place one of your armies in the military colonies for no cost.
+                                                </li> 
+                                                <li> 
+                                                No action cube used.
+                                                </li> 
+                                        </ul> 
+                                </div>
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

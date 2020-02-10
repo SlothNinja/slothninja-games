@@ -1,0 +1,9 @@
+{{$game := $.Game}}
+{{$area := $game.SelectedArea}}
+{{if $game.CurrentPlayer.CanResolveAssaultIn $area}}
+<div id="tabs-resolve-assault">
+        <div class="bottom-padding">Are you sure you want to resolve the assault in area {{$area.ID}}?</div>
+        <div class="bottom-padding">This action cannot be undone.</div>
+        <button data-bind="jqButton: true, click: function() { put( { 'action': 'start-assault', 'target': '{{$area.Key}}' } ) } ">Yes</button>
+</div>
+{{end}}

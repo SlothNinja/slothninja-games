@@ -1,0 +1,9 @@
+<div>
+{{template "atf/area_workers" $.Game.SelectedArea}}
+{{template "atf/area_workers" index $.Game.Areas 3}}
+{{template "atf/player_workers" $.Game.CurrentPlayer}}
+{{template "shared/flashbox" .}}
+{{template "shared/gamelog" .}}
+{{template "shared/last_actions_list" $.Game.CurrentPlayer}}
+{{template "atf/player_resources" $.Game.CurrentPlayer}}
+</div>

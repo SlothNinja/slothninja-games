@@ -1,0 +1,23 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanPlaceArmyIn $area}}
+{{if $area.Armies}}
+{{else}}
+<div id="tabs-place-armies">
+        <div>Select the number of armies to place in {{$area.ID}}.</div>
+        <form class="top-padding myForm">
+                <input name="action" type="hidden" value="place-armies" />
+                <div>
+                        <label for="placed-armies">Armies:</label>
+                        <select id="placed-armies" name="placed-armies">
+                                {{range $i := ints 1 2}}
+                                <option value="{{$i}}">{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <input type="submit" value="Place Armies" class="top-padding mybutton" />
+        </form>
+</div>
+{{end}}
+{{end}}

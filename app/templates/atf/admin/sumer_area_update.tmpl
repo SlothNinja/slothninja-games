@@ -1,0 +1,8 @@
+{{$game := $.Game}}
+{{$area := $game.SelectedArea}}
+<div>
+        <div id="{{$area.LName}}" class="area">
+                {{template "atf/city" $area}}
+                {{template "atf/area_armies" $area}}
+        </div>
+</div>

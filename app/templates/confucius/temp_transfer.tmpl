@@ -1,0 +1,45 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Transfer Influence Form --> 
+{{if $g.EnableTempTransfer $ctx}}
+<div class="actions" id="temp-transfer-action"> 
+        <fieldset> 
+                <legend>Temporary Transfer of Influence</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="temp-transfer-influence" />
+                                </div>
+                                <div> 
+                                        <label for="player">Player:</label> 
+                                        <select id="temp-transfer-player" name="temp-transfer-player">
+                                                {{range $index, $player := $g.CurrentPlayer.TempPlayers}}
+                                                <option value="{{$player.ID}}">{{$player.Name}} ({{$player.Color}})</option>
+                                                {{end}}
+                                        </select> 
+                                </div> 
+                                <div>&nbsp;</div>
+                                <input class="mybutton" name="commit" type="submit" value="Transfer Influence" />
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select bribed official.
+                                        </li> 
+                                        <li> 
+                                        Select player to transfer influence.
+                                        </li> 
+                                        <li>
+                                        Gift from player will be canceled.
+                                        </li>
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

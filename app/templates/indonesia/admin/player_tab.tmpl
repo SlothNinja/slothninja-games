@@ -1,0 +1,44 @@
+{{with $player := .}}
+{{$game := $player.Game}}
+<div id="tabs-admin-player">
+        <form action="/indonesia/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="admin-player" />
+                </div>
+                <div>
+                        <label for="admin-player-performed-action">Performed Action:</label>
+                        <select id="admin-player-performed-action" name="Player.PerformedAction">
+                                <option value="false" {{if $player.PerformedAction | not}}selected="selected"{{end}}>False</option>
+                                <option value="true" {{if $player.PerformedAction}}selected="selected"{{end}}>True</option>
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-player-passed">Passed:</label>
+                        <select id="admin-player-passed" name="Player.Passed">
+                                <option value="false" {{if $player.Passed | not}}selected="selected"{{end}}>False</option>
+                                <option value="true" {{if $player.Passed}}selected="selected"{{end}}>True</option>
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-player-rupiah">Rupiah:</label>
+                        <input type="text" value="{{$player.Rupiah}}" id="admin-player-rupiah" name="Rupiah"/>
+                </div>
+                <div>
+                        <label for="admin-player-op-income">Operation Income:</label>
+                        <input type="text" value="{{$player.OpIncome}}" id="admin-player-op-income" name="OpIncome"/>
+                </div>
+                <div>
+                        <label for="admin-player-bid">Bid:</label>
+                        <input type="text" value="{{$player.Bid}}" id="admin-player-bid" name="Bid"/>
+                </div>
+                <div>
+                        <label for="admin-player-bank">Bank:</label>
+                        <input type="text" value="{{$player.Bank}}" id="admin-player-bank" name="Bank"/>
+                </div>
+                <div class="center">
+                        <input type="submit" value="Update" class="top-padding mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

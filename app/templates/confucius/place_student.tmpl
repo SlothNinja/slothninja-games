@@ -1,0 +1,39 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Place Student Action Form --> 
+{{if $g.EnablePlaceStudent $ctx}}
+<div class="actions" id="place-student-action"> 
+        <fieldset> 
+                <legend>Place Student</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="place-student" />
+                                </div>
+                                {{$g.PlaceStudentOptions}}
+                                <div style="margin:10px">
+                                        <input class="mybutton" name="commit" type="submit" value="Place Student" />
+                                </div>
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select empty spot in ministry.
+                                        </li>
+                                        <li>
+                                        If no empty spot, select any spot in target ministry without secured marker.
+                                        </li> 
+                                        <li> 
+                                        If all spots in target ministry have secured marker, select any ministry spot without a secured marker.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

@@ -1,0 +1,31 @@
+<div>
+        {{.Player.Name}} fired artillery and obtained the following results:
+</div>
+<div class="top-padding">
+        <table class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th>Fired From</th>
+                                <th>Target Area</th> 
+                                <th>Targeted Units</th>
+                                <th>Damage</th>
+                                <th>Modifier</th>
+                                <th>Die</th>
+                                <th>Result</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {{range $art := .Artillery}}
+                        <tr>
+                                <td>{{$art.FireFromID}}</td>
+                                <td>{{$art.TargetAreaID}}</td>
+                                <td>{{$art.TargetUnits}}</td>
+                                <td>{{$art.Damage}}</td>
+                                <td>{{$art.Modifier}}</td>
+                                <td>{{$art.Die}}</td>
+                                <td>{{$art.Result}}</td>
+                        </tr>
+                        {{end}}
+                </tbody>
+        </table>
+</div>

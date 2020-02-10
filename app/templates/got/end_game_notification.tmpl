@@ -1,0 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+        <head>
+                <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+        </head>
+        <body bgcolor="#ffffff" text="#000000">
+                {{range $i, $r := $.Results}}
+                <div style="height:3em">
+                        <div style="height:3em;float:left;padding-right:1em">{{$r.Place}}.</div>
+                        <div style="height:1em">{{$r.Name}} scored {{$r.Score}} points.</div>
+                        <div style="height:1em">Glicko {{$r.Inc}} (-> {{$r.GLO}})</div>
+                </div>
+                {{end}}
+                <p></p>
+                <p>Congratulations: {{$.Winners}}.</p>
+        </body>
+</html>

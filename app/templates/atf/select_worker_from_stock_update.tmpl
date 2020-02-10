@@ -1,0 +1,7 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div>
+        {{template "atf/player_workers" $cp}}
+        {{template "shared/flashbox" .}}
+</div>
+{{template "atf/select_area_to_place_worker_dialog"}}

@@ -1,0 +1,68 @@
+{{$g := $.Game}}
+{{$cu := $.CUser}}
+{{$ctx := $.Context}}
+
+<!-- Status Box --> 
+<div id="status-box">
+        <div class="left-stats"> 
+                <div class="content"> 
+                        <div> 
+                                <strong>Name:</strong> {{$g.Title}}
+                        </div>
+                        {{if $g.TwoThiefVariant}}
+                        <div>
+                                (Two Thief Variant)
+                        </div>
+                        {{end}}
+                        <div>
+                                <strong>Game ID:</strong> {{$g.ID}}
+                        </div>
+                        <div class="current-players"> 
+                                <strong>{{$g.CurrentPlayerLabel}}:</strong> {{$g.CurrentPlayerLinks $ctx}}
+                        </div> 
+                        {{if $.Admin}}
+                        <div class="clickable mybutton top-padding" id="admin-header">
+                                Admin Header
+                        </div>
+                        {{end}}
+                </div> 
+        </div> 
+        <div class="center-stats">
+                <div class="content">
+                        {{if $g.IsCurrentPlayerOrAdmin $cu}}
+                        <div class="left-box">
+                                <div class="content">
+                                        <form action="/{{$g.Stub}}/game/undo/{{$g.ID}}" id="undo-turn" method="post">
+                                                <input class="mybutton" name="commit" type="submit" value="Undo" /> 
+                                        </form> 
+                                </div>
+                        </div>
+                        <div class="center-box">
+                                <div class="content">
+                                        {{template "shared/flashbox" .}}
+                                </div>
+                        </div>
+                        <div class="right-box">
+                                <div class="content">
+                                        <form action="/{{$g.Stub}}/game/finish/{{$g.ID}}" id="finish-turn" method="post">
+                                                <input class="mybutton" name="commit" type="submit" value="Finish" /> 
+                                        </form> 
+                                </div>
+                        </div>
+                        {{end}}
+                </div>
+        </div>
+        <div class="right-stats"> 
+                <div class="content"> 
+                        <div> 
+                                <strong>Turn:</strong> {{$g.Turn}}
+                        </div>
+                        <div id="phase"> 
+                                <strong>Phase:</strong> {{$g.PhaseName}}
+                        </div> 
+                        <div id="jewels">
+                                <strong>Jewels:</strong> {{$g.Jewels.Type}}
+                        </div>
+                </div> 
+        </div> 
+</div>

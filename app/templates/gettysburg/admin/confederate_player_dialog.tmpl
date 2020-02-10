@@ -1,0 +1,8 @@
+<div>
+        <div data-bind="with: confederatePlayer">
+        {{template "gettysburg/admin/player_dialog"}}
+        <div class="top-padding">
+                <button data-bind="jqButton: true, click: function(){$root.put({'action': 'admin', 'subAction': 'update', 'target': 'confederate-player', 'data': ko.toJSON($data), 'json': true})}">Update Player</button>
+        </div>
+        </div>
+</div>

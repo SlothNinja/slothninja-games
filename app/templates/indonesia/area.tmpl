@@ -1,0 +1,7 @@
+{{$area := .}}
+{{if $area.IsLand}}
+        {{template "indonesia/land_area" $area}}
+{{end}}
+{{if $area.IsSea}}
+        {{template "indonesia/sea_area" $area}}
+{{end}}

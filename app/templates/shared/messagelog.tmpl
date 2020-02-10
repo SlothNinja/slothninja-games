@@ -1,0 +1,24 @@
+{{$g := $.Game}}
+{{$cu := $.CUser}}
+<!-- Chatbox --> 
+<div id="chatbox"> 
+        <div class="heading"> 
+                Message Log:
+        </div> 
+        <div class="content"> 
+                {{range $m := $.MessageLog.Messages}}
+                {{template "shared/message" data "g" $g "message" $m "map" $.ColorMap "ctx" $.Context}}
+                {{end}}
+        </div> 
+        {{with $cu}}
+        <div class="form">
+                <div id="creatorid" class="{{$cu.ID}}" style="display:none"></div>
+                <div>
+                        <textarea id="message" name="message" cols="30" rows="2"></textarea>
+                </div>
+                <div data-bind="jqButton: true" class="mybutton post-new-message"> 
+                        Post
+                </div>
+        </div>
+        {{end}}
+</div> 

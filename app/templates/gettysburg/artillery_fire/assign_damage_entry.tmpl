@@ -1,0 +1,23 @@
+<div>
+        {{.Player.Name}} assigned damage to the units in area {{.AreaID}} as follows:
+</div>
+<div>
+        <table class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th>Unit</th>
+                                <th>Damage</th>
+                                <th>New Damage</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {{range $u := .Units}}
+                                <tr>
+                                        <td>{{$u.ImageElement}}</td>
+                                        <td>{{$u.Damage}}</td>
+                                        <td>{{$u.BU.NewDamage}}</td>
+                                </tr>
+                        {{end}}
+                </tbody>
+        </table>
+</div>

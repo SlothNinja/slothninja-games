@@ -1,0 +1,9 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$company := $game.SelectedCompany}}
+<div id="dialog" title="Company Expansion">
+        <div class="dialog-content" style="width:200px">
+                <p>Select up to {{$cp.Expansions}} expansion area(s) for company.</p>
+                <p>Each expansion area costs {{$company.Goods.Price}} rupiah.</p>
+        </div>
+</div>

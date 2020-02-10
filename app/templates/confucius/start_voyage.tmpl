@@ -1,0 +1,47 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Start Voyage Form --> 
+{{if $g.EnableStartVoyage $ctx}}
+<div class="actions" id="start-voyage-action"> 
+        <fieldset> 
+                <legend>Start Voyage</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="start-voyage" />
+                                </div> 
+                                <div> 
+                                        <label for="start-vogage-junks">Junks:</label> 
+                                        <select id="start-vogage-junks" name="junks">
+                                                {{range $index := ints 0 $g.CurrentPlayer.Junks}}
+                                                <option value="{{$index}}">{{$index}}</option>
+                                                {{end}}
+                                        </select> 
+                                </div>
+                                {{$g.LicenseOptions "start-voyage"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Start Voyage" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select the number of junks you want to sail.
+                                        </li> 
+                                        <li> 
+                                        Select Confucius card(s) with licenses sufficient to sail junks.
+                                        </li> 
+                                        <li> 
+                                        If you overpay, no change is given.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

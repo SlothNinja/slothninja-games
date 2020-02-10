@@ -1,0 +1,232 @@
+@import "worker-boxes";
+@import "passed-resources";
+
+@mixin equipment-rating($index) {
+        #equipment-rating-#{$index} {
+                position:absolute;
+                top:73px;
+                left:462px + ($index*47px);
+
+                img {
+                        width:34px;
+                        height:34px;
+                }
+        }
+}
+
+@mixin equipment-resources($color, $index) {
+        #equipment-resources-#{$color} {
+                position:absolute;
+                top:120px;
+                left:415px + ($index*82px);
+                width:70px;
+                img {
+                        width:20px;
+                        height:20px;
+                }
+        }
+}
+
+#board {
+        position:relative;
+        z-index:1;
+
+        img#map {
+                width:1190px;
+                height:1029px;
+        }
+
+        @for $index from 0 through 2 {
+                @include equipment-rating($index);
+        }
+
+        $i: 0;
+        @each $color in "red", "purple", "green" {
+                @include equipment-resources($color, $i);
+                $i: $i + 1;
+        }
+
+        @include passed("red", 222px, 930px);
+        @include passed("purple", 222px, 1000px);
+        @include passed("green", 222px, 1068px);
+}
+
+.text.yellow {
+        color:yellow;
+}
+.text.white {
+        color:white;
+}
+.text.black {
+        color:black;
+}
+.text.green {
+        color:green;
+}
+.text.purple {
+        color:purple;
+}
+
+img.city-base {
+        position:absolute;
+        height:40px;
+        width:40px;
+}
+
+img.city-expansion {
+        position:absolute;
+        left:10px;
+        top:10px;
+        height:20px;
+        width:20px;
+}
+
+.city-box {
+        position:absolute;
+        height:30px;
+        width:30px;
+        z-index:100;
+}
+
+@mixin sumer-area($id, $top, $left) {
+        position:absolute;
+        top: $top;
+        left: $left;
+        ##{$id}-city {
+                position:relative;
+        }
+        ##{$id}-armies {
+                position:relative;
+                top:5px;
+                left:-40px;
+                @include army;
+        }
+}
+
+#sippar {
+        @include sumer-area(sippar, 320px, 220px);
+}
+
+#babylon {
+        @include sumer-area(babylon, 420px, 300px);
+}
+
+#nippur {
+        @include sumer-area(nippur, 480px, 460px);
+}
+
+#shuruppak {
+        @include sumer-area(shuruppak, 550px, 360px);
+}
+
+#umma{
+        @include sumer-area(umma, 550px, 560px);
+}
+
+#uruk {
+        @include sumer-area(uruk, 680px, 500px);
+}
+
+#lagash{
+        @include sumer-area(lagash, 660px, 700px);
+}
+
+#ur{
+        @include sumer-area(ur, 730px, 610px);
+}
+
+#eridu {
+        @include sumer-area(eridu, 790px, 730px);
+}
+
+@mixin worker-entry-box {
+        position:absolute;
+        height:30px;
+        width:30px;
+}
+
+@mixin non-sumer-box($id) {
+        ##{$id}-workers-0 {
+                top:5px;
+                left:5px;
+                @include worker;
+        }
+        ##{$id}-workers-1 {
+                top:40px;
+                left:5px;
+                @include worker;
+        }
+        ##{$id}-workers-2 {
+                top:5px;
+                left:40px;
+                @include worker;
+        }
+}
+
+@mixin non-sumer-area($id, $top, $left) {
+        position:absolute;
+        top: $top;
+        left: $left;
+        ##{$id}-workers {
+                position:relative;
+                @include non-sumer-box($id);
+        }
+        ##{$id}-armies {
+                position:relative;
+                top:40px;
+                left:40px;
+                @include army;
+        }
+};
+
+#egypt {
+        @include non-sumer-area(egypt, 500px, 90px);
+}
+
+#amorites {
+        @include non-sumer-area(amorites, 390px, 110px);
+}
+
+#hittites{
+        @include non-sumer-area(hittites, 120px, 55px);
+}
+
+#mittani{
+        @include non-sumer-area(mittani, 120px, 215px);
+}
+
+#assyria{
+        @include non-sumer-area(assyria, 240px, 315px);
+}
+
+#kassites{
+        @include non-sumer-area(kassites, 310px, 490px);
+}
+
+#guti{
+        @include non-sumer-area(guti, 380px, 620px);
+}
+
+#elam{
+        @include non-sumer-area(elam, 520px, 780px);
+}
+
+#chaldea{
+        @include non-sumer-area(chaldea, 880px, 500px);
+}
+
+#larsa{
+        @include non-sumer-area(larsa, 780px, 400px);
+}
+
+#isin{
+        @include non-sumer-area(isin, 680px, 250px);
+}
+
+#akkad{
+        @include non-sumer-area(akkad, 560px, 160px);
+}
+
+#dilmun{
+        @include non-sumer-area(dilmun, 880px, 780px);
+}

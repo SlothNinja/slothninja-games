@@ -1,0 +1,13 @@
+{{$area := .}}
+{{$game := $area.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div id="area-{{$area.ID}}" >
+        <div class="ship-box">
+                {{range $index, $shipper := $area.Shippers}}
+                        {{$type := $shipper.ShipType}}
+                        {{$t := $type.IDString}}
+                        {{$color := $shipper.Color}}
+                        <img id="ship-{{$area.ID}}-{{$index}}" class="ship {{$color}}-border ship-{{$index}} {{if $cp.CanClickShipOf $shipper}}clickable{{end}}" data-shiptip="{{$shipper.ShipTip}}" src="/images/indonesia/{{$t}}.png"/>
+                {{end}}
+        </div>
+</div>

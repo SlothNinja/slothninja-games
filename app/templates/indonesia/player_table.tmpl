@@ -1,0 +1,24 @@
+{{$g := $.Game}}
+<div id="players-table">
+        <table class='strippedDataTable'>
+                <thead>
+                        <tr>
+                                <th class="player-name">
+                                        <div>Player</div>
+                                </th>
+                                <th class="last-action">Action Summary</th>
+                                <th class="slot">Slot 1</th>
+                                <th class="slot">Slot 2</th>
+                                <th class="slot">Slot 3</th>
+                                <th class="slot">Slot 4</th>
+                                <th class="slot">Slot 5</th>
+                                <th class="CityCards">City Cards</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {{range $p := $g.Players}}
+                        {{template "indonesia/player_row" data "g" $g "p" $p "admin" $.Admin "isAdmin" $.IsAdmin "ctx" $.Context}}
+                        {{end}}
+                </tbody>
+        </table>
+</div>

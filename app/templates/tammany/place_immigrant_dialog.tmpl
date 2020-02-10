@@ -1,0 +1,23 @@
+{{$player := $.Game.CurrentPlayer}}
+{{$ward := $.Ward}}
+<div id="dialog" title="Place Immigrant in Ward {{$ward.ID}}">
+        <div class="dialog-content">
+                <div style="height:45px;width:270px">
+                        {{range $nationality := $.Game.Nationalities}}
+                        <form class="myForm" style="float:left">
+                                <input name="action" type="hidden" value="place-pieces" />
+                                <input name="area" type="hidden" value="ward-{{$ward.ID}}" />
+                                <input name="immigrant" type="hidden" value="{{$nationality.LString}}" />
+                                <div class="mybutton submit top-padding">
+                                        <div class="text">
+                                                Place
+                                        </div>
+                                        <div class="icon">
+                                                <img alt="{{$nationality.LString}}-cube" src="{{$nationality.CubeImage}}" />
+                                        </div>
+                                </div>
+                        </form>
+                        {{end}}
+                </div>
+        </div>
+</div>

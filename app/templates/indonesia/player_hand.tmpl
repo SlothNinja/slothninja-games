@@ -1,0 +1,12 @@
+{{$p := .p}}
+{{$ctx := .ctx}}
+{{$isCurrent := $p.IsCurrentUser $ctx}}
+{{$isAdmin := .isAdmin }}
+
+{{if $p.IsCurrentUser $ctx | or $isAdmin}}
+        {{$p.DisplayHand}}
+{{else}}
+        <div>
+                <strong>Cards:</strong> {{len $p.CityCards}}
+        </div>
+{{end}}

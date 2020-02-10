@@ -1,0 +1,93 @@
+@mixin score-horizontal($score) {
+        #red-score-track-#{$score}, #red-score-track-#{$score +70}, #red-score-track-#{$score +140} {
+                position:absolute;
+                img {
+                        width:10px;
+                        height:10px;
+                }
+                top:30px;
+                left:($score * 29.5px) + 26px;
+        }
+
+        #green-score-track-#{$score}, #green-score-track-#{$score +70}, #green-score-track-#{$score +140} {
+                position:absolute;
+                img {
+                        width:10px;
+                        height:10px;
+                }
+                top:37px;
+                left:($score * 29.5px) + 33px;
+        }
+
+        #purple-score-track-#{$score}, #purple-score-track-#{$score +70}, #purple-score-track-#{$score +140} {
+                position:absolute;
+                img {
+                        width:10px;
+                        height:10px;
+                }
+                top:30px;
+                left:($score * 29.5px) + 40px;
+        }
+}
+
+@mixin score-vertical($score) {
+        #red-score-track-#{$score}, #red-score-track-#{$score +70}, #red-score-track-#{$score +140} {
+                position:absolute;
+                img {
+                        width:10px;
+                        height:10px;
+                }
+                top:(($score - 38) * 28.5px) + 30px;
+                left:1147px;
+        }
+
+        #green-score-track-#{$score}, #green-score-track-#{$score +70}, #green-score-track-#{$score +140} {
+                position:absolute;
+                img {
+                        width:10px;
+                        height:10px;
+                }
+                top:(($score - 38) * 28.5px) + 37px;
+                left:1154px;
+        }
+
+        #purple-score-track-#{$score}, #purple-score-track-#{$score +70}, #purple-score-track-#{$score +140} {
+                position:absolute;
+                img {
+                        width:10px;
+                        height:10px;
+                }
+                top:(($score - 38) * 28.5px) + 30px;
+                left:1161px;
+        }
+}
+
+
+
+@for $score from 0 through 38 {
+        @include score-horizontal($score);
+}
+
+@for $score from 39 through 70 {
+        @include score-vertical($score);
+}
+
+@mixin score-plus($color, $score, $top, $left) {
+##{$color}-score-#{$score}-plus {
+        position:absolute;
+        img {
+                width:10px;
+                height:10px;
+        }
+        top:$top;
+        left:$left;
+}
+}
+
+@include score-plus("red", 70, 975px, 1140px);
+@include score-plus("green", 70, 985px, 1140px);
+@include score-plus("purple", 70, 995px, 1140px);
+
+@include score-plus("red", 140, 975px, 1160px);
+@include score-plus("green", 140, 985px, 1160px);
+@include score-plus("purple", 140, 995px, 1160px);

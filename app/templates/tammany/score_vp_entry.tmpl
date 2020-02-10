@@ -1,0 +1,31 @@
+{{$g := .g}}
+{{$e := .entry}}
+<div>
+        <div class="bottom-padding">
+        <ul>
+                {{range $pid, $result := $e.ElectionResults.PlayerResults}} 
+                        {{$player := $g.PlayererByID $pid}}
+                        {{with $result.WardIDS}}
+				<li>
+                                        {{$player.Name}} scored {{$result.Score}} points for winning wards
+                                        {{$result.WardIDS.String}}.
+                                </li>
+                        {{else}}
+				<li>
+                                        {{$player.Name}} scored 0 points.
+                                </li>
+                        {{end}}
+                {{end}}
+        </ul>
+        </div>
+
+        {{with $m := $g.PlayerByID $e.ElectionResults.MayorID}}
+                <div>
+                        {{$m.Name}} scored 3 points for becoming mayor.
+                </div>
+        {{else}}
+                <div class="top-padding">
+                        No one became mayor.
+                </div>
+        {{end}}
+</div>

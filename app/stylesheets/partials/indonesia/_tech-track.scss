@@ -1,0 +1,126 @@
+@mixin tech-box($id, $row, $column, $scale) {
+        $voffset: $scale*27.5px*($row - 1);
+        $hoffset: $scale*27.5px*($column - 1);
+        #tech-#{$id}-#{$column}-0 {
+                position:absolute;
+                top:$scale*0px+$voffset;
+                left:$scale*0px+$hoffset;
+        }
+        #tech-#{$id}-#{$column}-1 {
+                position:absolute;
+                top:$scale*13px+$voffset;
+                left:$scale*13px+$hoffset;
+        }
+        #tech-#{$id}-#{$column}-2 {
+                position:absolute;
+                top:$scale*0px+$voffset;
+                left:$scale*13px+$hoffset;
+        }
+        #tech-#{$id}-#{$column}-3 {
+                position:absolute;
+                top:$scale*13px+$voffset;
+                left:$scale*0px+$hoffset;
+        }
+        #tech-#{$id}-#{$column}-4 {
+                position:absolute;
+                top:$scale*6.5px+$voffset;
+                left:$scale*6.5px+$hoffset;
+        }
+}
+
+@mixin tech-row($id, $row, $scale) {
+        @for $column from 1 through 5 {
+                @include tech-box($id, $row, $column, $scale);
+        }
+}
+
+#tech-track {
+        position:absolute;
+        .container {
+                position:relative;
+        }
+}
+
+
+@mixin tech-company-hull-box($column, $scale) {
+        $hoffset: $scale*27.5px*($column - 1);
+        #tech-hull-company-#{$column}-red-ship-a {
+                position:absolute;
+                top:$scale*135px;
+                left:$scale*0px+$hoffset;
+                img {
+                        height:6px*$scale;
+                        width:13px*$scale;
+                }
+        }
+        #tech-hull-company-#{$column}-yellow-ship-a {
+                position:absolute;
+                top:$scale*143px;
+                left:$scale*0px+$hoffset;
+                img {
+                        height:6px*$scale;
+                        width:13px*$scale;
+                }
+        }
+        #tech-hull-company-#{$column}-blue-ship-a {
+                position:absolute;
+                top:$scale*151px;
+                left:$scale*0px+$hoffset;
+                img {
+                        height:6px*$scale;
+                        width:13px*$scale;
+                }
+        }
+        #tech-hull-company-#{$column}-red-ship-b {
+                position:absolute;
+                top:$scale*135px;
+                left:$scale*14px+$hoffset;
+                img {
+                        height:6px*$scale;
+                        width:13px*$scale;
+                }
+        }
+        #tech-hull-company-#{$column}-yellow-ship-b {
+                position:absolute;
+                top:$scale*143px;
+                left:$scale*14px+$hoffset;
+                img {
+                        height:6px*$scale;
+                        width:13px*$scale;
+                }
+        }
+        #tech-hull-company-#{$column}-blue-ship-b {
+                position:absolute;
+                top:$scale*151px;
+                left:$scale*14px+$hoffset;
+                img {
+                        height:6px*$scale;
+                        width:13px*$scale;
+                }
+        }
+}
+@mixin tech-track($scale) {
+        top:$scale*386px;
+        left:$scale*22px;
+        img {
+                width:$scale*12px;
+        }
+        $row:0;
+        @each $id in turn-order-bid, slots, mergers, expansions, hull {
+                $row:$row+1;
+                @include tech-row($id, $row, $scale);
+        }
+        @include tech-company-hull-box(1, $scale);
+        @include tech-company-hull-box(2, $scale);
+        @include tech-company-hull-box(3, $scale);
+        @include tech-company-hull-box(4, $scale);
+        @include tech-company-hull-box(5, $scale);
+}
+
+#board #tech-track {
+        @include tech-track(1);
+}
+
+#board.zoom-left #tech-track, #board.zoom-right #tech-track {
+        @include tech-track(2);
+}

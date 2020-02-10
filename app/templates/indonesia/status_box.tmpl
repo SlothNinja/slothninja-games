@@ -1,0 +1,116 @@
+{{$g := $.Game}}
+{{$cu := $.CUser}}
+{{$ctx := $.Context}}
+
+<!-- Status Box --> 
+<div id="status-box">
+        <div class="left-stats"> 
+                <div class="content"> 
+                        <div> 
+                                <strong>Name:</strong> {{$g.Title}}
+                        </div>
+                        <div>
+                                <strong>Game ID:</strong> {{$g.ID}}
+                        </div>
+                        <div class="current-players" style="height:4em"> 
+                                <strong>{{$g.CurrentPlayerLabel}}:</strong> {{$g.CurrentPlayerLinks $ctx}}
+                                {{if $.Admin}}
+                                <div class="clickable mybutton top-padding" id="admin-header">
+                                        Admin Header
+                                </div>
+                                <form action="/indonesia/admin/{{$g.ID}}" method="post">
+                                        <div style="margin:0;padding:0;display:inline">
+                                                <input name="_method" type="hidden" value="PUT" />
+                                                <input name="action" type="hidden" value="admin-patch" />
+                                        </div>
+                                        <div>
+                                                <input type="submit" value="Patch" class="mybutton" />
+                                        </div>
+                                </form>
+                                {{end}}
+                        </div> 
+                        {{template "indonesia/city_stones" $g}}
+                        <div>
+                                <div data-tip="Zoom All" id="zoom-all" class="pull-left mybutton">
+                                        A
+                                </div>
+                                <div data-tip="Zoom Left" id="zoom-left" class="pull-left mybutton">
+                                        L
+                                </div>
+                                <div data-tip="Zoom Center" id="zoom-center" class="pull-left mybutton">
+                                        C
+                                </div>
+                                <div data-tip="Zoom Right" id="zoom-right" class="pull-left mybutton">
+                                        R
+                                </div>
+                        </div>
+                </div> 
+        </div> 
+        <div class="center-stats">
+                <div class="content">
+                        {{if $g.IsCurrentPlayerOrAdmin $cu}}
+                        <div class="left-box">
+                                <div class="content">
+                                        <form action="/{{$g.Stub}}/game/undo/{{$g.ID}}" id="undo-turn" method="post">
+                                                <input class="mybutton" name="commit" type="submit" value="Undo" /> 
+                                        </form> 
+                                </div>
+                        </div>
+                        <div class="center-box">
+                                <div class="content">
+                                        {{template "shared/flashbox" .}}
+                                </div>
+                        </div>
+                        <div class="right-box">
+                                <div class="content">
+                                        <div>&nbsp;</div> 
+                                        <form action="/{{$g.Stub}}/game/finish/{{$g.ID}}" id="finish-turn" method="post">
+                                                <input class="mybutton" name="commit" type="submit" value="Finish" /> 
+                                        </form> 
+                                </div>
+                        </div>
+                        {{end}}
+                </div>
+        </div>
+        <div class="right-stats"> 
+                <div class="content"> 
+                        <div> 
+                                <strong>Era:</strong> {{$g.Era}} &nbsp;&nbsp;
+                                <strong>Turn:</strong> {{$g.Turn}}
+                        </div>
+                        <div id="round">
+                                <strong>Round:</strong> {{$g.Round}}
+                        </div>
+                        <div id="phase" class="top-padding"> 
+                                <strong>Phase</strong>
+                        </div> 
+                        {{if eq $g.PhaseName "Game Over"}}
+                                <div class="highlighted top-padding">Game Over></div>
+                        {{else}}
+                                <div {{if eq $g.PhaseName "New Era"}}class="highlighted"{{end}} >
+                                        New Era
+                                </div>
+                                        <div {{if eq $g.PhaseName "Bid For Turn Order"}}class="highlighted"{{end}} >
+                                        Bid For Turn Order
+                                </div>
+                                <div {{if eq $g.PhaseName "Mergers"}}class="highlighted"{{end}} >
+                                        Mergers
+                                </div>
+                                <div {{if eq $g.PhaseName "Acquisitions"}}class="highlighted"{{end}} >
+                                        Acquisitions
+                                </div>
+                                <div {{if eq $g.PhaseName "Research"}}class="highlighted"{{end}} >
+                                        Research & Development
+                                </div>
+                                {{$op := eq $g.PhaseName "Operations"}}
+                                {{$exp := eq $g.PhaseName "Company Expansion"}}
+                                <div {{if or $op $exp}}class="highlighted"{{end}} >
+                                        Operations
+                                </div>
+                                <div {{if eq $g.PhaseName "City Growth"}}class="highlighted"{{end}} >
+                                        City Growth
+                                </div>
+                        {{end}}
+                </div> 
+        </div>
+</div>

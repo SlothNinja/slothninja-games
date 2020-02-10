@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w4.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+        <head>
+                {{template "shared/head_meta" .}}
+                {{template "shared/head_title" .}}
+                {{template "shared/head_link" .}}
+                <link href="/stylesheets/indonesia-screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> 
+                {{template "shared/head_script" .}}
+                <script src="/javascripts/indonesia.js" type="text/javascript"></script> 
+        </head> 
+        <body class="indonesia bp">
+                <div id="container">
+                        {{template "shared/header" .}}
+                        <div id="upper-content">
+                                {{template "indonesia/status_box" .}}
+                        </div> 
+                        <div id="main-content">
+                                <div class="content-box">
+                                        <div id="map-container" style="position:relative;height:561px">
+                                                <div id="map-content-box" style="position:absolute">
+                                                        {{template "indonesia/board" .}}
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="content-box">
+                                        <div class="content">{{template "indonesia/player_table" .}}</div>
+                                </div>
+                        </div>
+                        <div id="lower-content">
+                                <div class="left-column">
+                                        {{template "shared/gamelog3" .}}
+                                </div> 
+                                <div class="right-column">
+                                        {{template "shared/messagelog" .}}
+                                </div> 
+                        </div>
+                        {{template "shared/footer" .}}
+                </div>
+        </body>
+</html>

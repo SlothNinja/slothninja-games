@@ -1,0 +1,62 @@
+{{range $key, $ministry := .Ministries}}
+<div id="{{$ministry.Name}}">
+        <div class="content">
+                {{range $index, $official := .Officials}}
+                <div class="ministry-box-{{$official.Seniority}}">
+                        <div class="content">
+                                <img src="/images/confucius/official-tile-{{$official.Variant}}-{{$official.Cost}}.jpg" alt="{{$official.Cost}} Cost Official Tile"/>
+                                {{with $player := $official.Player}}
+                                <div class="marker">
+                                        {{if $official.Secured}}
+                                        {{$player.DisplaySecuredBarrel}}
+                                        {{else}}
+                                        {{$player.DisplayBarrel}}
+                                        {{end}}
+                                </div>
+                                {{with $tempplayer := $official.TempPlayer}}
+                                {{if $player.Equal $tempplayer}}
+                                {{else}}
+                                <div class="temp-marker">
+                                        {{$tempplayer.DisplayTempBarrel}}
+                                </div>
+                                {{end}}
+                                {{end}}
+                                {{end}}
+                        </div>
+                </div>
+                {{end}}
+                {{with $player := $ministry.Minister}}
+                <div class="minister-player">
+                        <div class="marker">
+                                <img src="/images/confucius/{{$player.Color}}-barrel-shadowed.png" alt="{{$player.Color}} Barrel" />
+                        </div>
+                        <div class="text {{$player.TextColor}}">
+                                S
+                        </div>
+                </div>
+                {{else}}
+                <div class="minister-chit">
+                        {{with $value := $ministry.MinisterChit.Value}}
+                        <img src="/images/confucius/ministry-{{$value}}VP-chit.jpg" alt="{{$value}}VP Chit" />
+                        {{end}}
+                </div>
+                {{end}}
+                {{with $player := $ministry.Secretary}}
+                <div class="secretary-player">
+                        <div class="marker">
+                                <img src="/images/confucius/{{$player.Color}}-barrel-shadowed.png" alt="{{$player.Color}} Barrel" />
+                        </div>
+                        <div class="text {{$player.TextColor}}">
+                                S
+                        </div>
+                </div>
+                {{else}}
+                <div class="secretary-chit">
+                        {{with $value := $ministry.SecretaryChit.Value}}
+                        <img src="/images/confucius/ministry-{{$value}}VP-chit.jpg" alt="{{$value}}VP Chit" />
+                        {{end}}
+                </div>
+                {{end}}
+        </div>
+</div>
+{{end}}

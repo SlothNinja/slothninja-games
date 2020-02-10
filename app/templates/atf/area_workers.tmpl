@@ -1,0 +1,11 @@
+{{$area := .}}
+<div id="{{$area.LName}}-workers">
+        {{range $p := $.Game.Players}}
+        {{with $w := $p.WorkersIn $area}}
+        <div id="{{$area.LName}}-workers-{{$p.ID}}">
+                <img alt="{{$p.Color}} Worker" src="/images/atf/{{$p.Color}}_worker.png" />
+                <div class="text {{$p.TextColor}}">{{$w}}</div>
+        </div>
+        {{end}}
+        {{end}}
+</div>

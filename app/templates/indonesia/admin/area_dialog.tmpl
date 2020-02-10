@@ -1,0 +1,156 @@
+{{$game := $.Game}}
+{{$area := $game.SelectedArea}}
+{{if $.IsAdmin}}
+<div id="dialog" title="Admin Area {{$area.ID}} in {{$area.Province}}">
+        <form action="/indonesia/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="admin-area" />
+                </div>
+                <div>
+                        <label for="admin-area-used">Used:</label>
+                        <select id="admin-area-used" name="Used">
+                                <option value="false" {{if not $area.Used}}selected="selected"{{end}}>False</option>
+                                <option value="true" {{if $area.Used}}selected="selected"{{end}}>True</option>
+                        </select>
+
+                </div>
+                {{if $area.City}}
+                <div>
+                        <label for="admin-area-city-size">City Size:</label>
+                        <select id="admin-area-city-size" name="City.Size">
+                                {{range $i := ints 0 3}}
+                                <option value="{{$i}}" {{if equal $area.City.Size $i}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+                        </select>
+
+                </div>
+                {{range $i, $count := $area.City.Delivered}}
+                <div>
+                        {{$goods := $game.ToGoods $i}}
+                        <label for="admin-area-city-delivered-{{$i}}">Delivered {{$goods}}:</label>
+                        <select id="admin-area-city-delivered-{{$i}}" name="City.Delivered">
+                                {{range $j := ints 0 3}}
+                                <option value="{{$j}}" {{if equal $count $j}}selected="selected"{{end}}>{{$j}}</option>
+                                {{end}}
+                        </select>
+
+                </div>
+                {{end}}
+                {{end}}
+                {{if $area.Producer}}
+                <div>
+                        <label for="admin-area-remove-producer">Remove Producer:</label>
+                        <select id="admin-area-remove-producer" name="RemoveProducer">
+                                <option value="false" selected="selected">False</option>
+                                <option value="true" >True</option>
+                        </select>
+
+                </div>
+                <div>
+                        <label for="admin-area-producer-ownerid">Owner:</label>
+                        <select id="admin-area-producer-ownerid" name="Producer.OwnerID">
+                                {{range $index, $player := $game.Players}}
+                                <option value="{{$player.ID}}" {{if equal $area.Producer.OwnerID $player.ID}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-area-producer-slot">Slot:</label>
+                        <select id="admin-area-producer-slot" name="Producer.Slot">
+                                {{range $i := ints 1 5}}
+                                <option value="{{$i}}" {{if equal $area.Producer.Slot $i}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-area-producer-goods">Goods:</label>
+                        <select id="admin-area-producer-goods" name="Producer.Goods">
+                                {{range $i := ints 0 4}}
+                                {{$goods := $game.ToGoods $i}}
+                                <option value="{{$i}}" {{if equal $area.Producer.Goods.String $goods.String}}selected="selected"{{end}}>{{$goods}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{else}}
+                <div>
+                        <label for="admin-area-add-producer-for">Add Producer For:</label>
+                        <select id="admin-area-add-producer-for" name="AddProducerFor">
+                                <option value="none" selected="selected">None</option>
+                                {{range $player := $game.Players}}
+                                {{range $company := $player.Companies}}
+                                {{if equal $company.Goods.String "Shipping" | not}}
+                                <option value="{{$player.ID}}-{{$company.Slot}}">{{$player.Name}} Slot {{$company.Slot}}</option>
+                                {{end}}
+                                {{end}}
+                                {{end}}
+                        </select>
+
+                </div>
+                {{end}}
+                <div>
+                        <label for="admin-area-add-shipper-for">Add Shipper For:</label>
+                        <select id="admin-area-add-shipper-for" name="AddShipperFor">
+                                <option value="none" selected="selected">None</option>
+                                {{range $player := $game.Players}}
+                                {{range $company := $player.Companies}}
+                                {{if equal $company.Goods.String "Shipping"}}
+                                <option value="{{$player.ID}}-{{$company.Slot}}">{{$player.Name}} Slot {{$company.Slot}}</option>
+                                {{end}}
+                                {{end}}
+                                {{end}}
+                        </select>
+
+                </div>
+                <div>
+                        <label for="admin-area-remove-shipper">Remove Shipper:</label>
+                        <select id="admin-area-remove-shipper" name="RemoveShipper">
+                                <option value="none" selected="selected">None</option>
+                                {{range $index, $shipper := $area.Shippers}}
+                                <option value="{{$index}}">{{$index}}</option>
+                                {{end}}
+                        </select>
+
+                </div>
+                {{range $index, $shipper := $area.Shippers}}
+                <div>
+                        <label for="admin-area-shipper-{{$index}}-ownerid">Shipper {{$index}} Owner:</label>
+                        <select id="admin-area-shipper-{{$index}}-ownerid" name="Shippers.{{$index}}.OwnerID">
+                                {{range $index, $player := $game.Players}}
+                                <option value="{{$player.ID}}" {{if equal $shipper.OwnerID $player.ID}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-area-shipper-{{$index}}-slot">Slot:</label>
+                        <select id="admin-area-shipper-{{$index}}-slot" name="Shippers.{{$index}}.Slot">
+                                {{range $i := ints 1 5}}
+                                <option value="{{$i}}" {{if equal $shipper.Slot $i}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-area-shipper-{{$index}}-delivered">Delivered:</label>
+                        <select id="admin-area-shipper-{{$index}}-delivered" name="Shippers.{{$index}}.Delivered">
+                                {{range $i := ints 0 5}}
+                                <option value="{{$i}}" {{if equal $shipper.Delivered $i}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-area-shipper-{{$index}}-ship-type">Ship Type:</label>
+                        <select id="admin-area-shipper-{{$index}}-ship-type" name="Shippers.{{$index}}.ShipType">
+                                {{range $i := ints 1 6}}
+                                {{$type := $game.ToShipType $i}}
+                                <option value="{{$i}}" {{if equal $shipper.ShipType.String $type.String}}selected="selected"{{end}}>{{$type}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{end}}
+                <div>&nbsp;</div>
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

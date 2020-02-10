@@ -1,0 +1,14 @@
+@mixin footer {
+        @include column($blueprint-grid-columns, true);
+        @extend .ui-widget;
+        @extend .ui-widget-content;
+        @extend .ui-corner-all;
+        @include append-bottom(1em);
+        .content {
+                padding: 0.5em;
+        }
+        div {
+                font-size: 0.9em;
+                text-align: center;
+        }
+}

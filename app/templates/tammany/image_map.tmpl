@@ -1,0 +1,19 @@
+{{$g := $.Game}}
+{{$cu := $.CUser}}
+<img alt="Map" height="1377" id="map" src="/images/tammany/map.jpg" width="1190" id="board-image" class="clickmap" usemap="#board-image" style="z-index:1000" />
+{{with $cp := $g.CurrentPlayerFor $cu}}
+        {{if $g.IsCurrentPlayerOrAdmin $cu}}
+                <map name="board-image">
+                        {{range $w := index $g.Wards}}
+                                {{if $g.CanSelectWard $cu $w}}
+                                        <area shape="poly" href="#" key={{$w.Key}} coords={{$w.Coords}} />
+                                {{end}}
+                        {{end}}
+                        {{range $o := index $g.AssignableOffices}}
+                                {{if $g.CanSelectOffice $cu $o}}
+                                        <area shape="poly" href="#" key={{$o.Key}} coords={{$o.Coords}} />
+                                {{end}}
+                        {{end}}
+                </map>
+        {{end}}
+{{end}}

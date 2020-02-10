@@ -1,0 +1,15 @@
+{{$game := $.Game}}
+<div class="heading">
+        <div>{{$game.SubPhaseName}}</div>
+</div>
+<div class="notice">
+        <div class="bottom-padding">
+                Select a unit in area <span data-bind="text: orderedAreas()[0].id"></span> to move.
+        </div>
+        <div class="bottom-padding">
+                Or, click button below to stop moving units.
+        </div>
+        <button class="left-padding" data-bind="jqButton: true, click: function() { $root.put({ action: 'entry-box-stop-moving-units', target: orderedAreas()[0].key }) }">
+                Stop Moving Units
+        </button>
+</div>

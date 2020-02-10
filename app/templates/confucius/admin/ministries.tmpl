@@ -1,0 +1,94 @@
+{{range $id, $ministry := .Ministries}}
+<!-- {{$ministry.Name}} Ministry State Form -->
+<div class="actions" id="ministry-{{$id}}-action">
+        <fieldset>
+                <legend>Ministry: {{$ministry.Name}}</legend>
+                <form action="/{{$.Stub}}/admin/{{$.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="ministry" />
+                                <input name="mid" type="hidden" value="{{$id}}" />
+                        </div>
+                        <div class="left-column">
+                                <div>
+                                        <label for="{{$ministry.Name}}-minister-value">Minister Value</label>
+                                        <select id="{{$ministry.Name}}-minister-value" name="minister-value">
+                                                {{with $value := $ministry.MinisterChit.Value}}
+                                                        <option value="none">None</option>
+                                                        {{range $v := ints 4 8}}
+                                                        <option value="{{$v}}" {{if equal $value $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                        {{end}}
+                                                {{else}}
+                                                        <option value="none" selected="selected">None</option>
+                                                        {{range $v := ints 4 8}}
+                                                        <option value="{{$v}}">{{$v}}</option>
+                                                        {{end}}
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-minister-playerid">Minister Player</label>
+                                        <select id="{{$ministry.Name}}-minister-playerid" name="minister-playerid">
+                                                <option value="none" {{if $ministry.Minister}}{{else}}selected="selected"{{end}}>None</option>
+                                                {{range $player := $.Players}}
+                                                <option value="{{$player.ID}}" {{if $ministry.Minister}}{{if $player.Equal $ministry.Minister}}selected="selected"{{end}}{{end}}>{{$player.Name}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-secretary-value">Secretary Value</label>
+                                        <select id="{{$ministry.Name}}-secretary-value" name="secretary-value">
+                                                {{with $value := $ministry.SecretaryChit.Value}}
+                                                        <option value="none">None</option>
+                                                        {{range $v := ints 4 8}}
+                                                        <option value="{{$v}}" {{if equal $value $v}}selected="selected"{{end}}>{{$v}}</option>
+                                                        {{end}}
+                                                {{else}}
+                                                        <option value="none" selected="selected">None</option>
+                                                        {{range $v := ints 4 8}}
+                                                        <option value="{{$v}}">{{$v}}</option>
+                                                        {{end}}
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-secretary-playerid">Secretary Player</label>
+                                        <select id="{{$ministry.Name}}-secretary-playerid" name="secretary-playerid">
+                                                <option value="none" {{if $ministry.Secretary}}{{else}}selected="selected"{{end}}>None</option>
+                                                {{range $player := $.Players}}
+                                                <option value="{{$player.ID}}" {{if $ministry.Secretary}}{{if $player.Equal $ministry.Secretary}}selected="selected"{{end}}{{end}}>{{$player.Name}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-resolved">Resolved</label>
+                                        <select id="{{$ministry.Name}}-resolved" name="resolved">
+                                                {{if .Resolved}}
+                                                <option value="false">false</option>
+                                                <option value="true" selected="selected">true</option>
+                                                {{else}}
+                                                <option value="false" selected="selected">false</option>
+                                                <option value="true">true</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="{{$ministry.Name}}-inprogress">InProgress</label>
+                                        <select id="{{$ministry.Name}}-inprogress" name="inprogress">
+                                                {{if .InProgress}}
+                                                <option value="false">false</option>
+                                                <option value="true" selected="selected">true</option>
+                                                {{else}}
+                                                <option value="false" selected="selected">false</option>
+                                                <option value="true">true</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div class="button">
+                                        <input name="commit" type="submit" value="Update Ministry" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>
+{{end}}

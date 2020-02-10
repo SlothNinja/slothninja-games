@@ -1,0 +1,40 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Invade Land Form --> 
+{{if $g.EnableInvadeLand $ctx}}
+<div class="actions" id="invade-land-action"> 
+        <fieldset> 
+                <legend>Invade Land</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="invade-land" />
+                                </div> 
+                                {{$g.InvadeLandOptions "invade-land" "Land:"}}
+                                {{$g.CoinOptions "invade-land"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Invade Land" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select box of land you want to invade.
+                                        </li> 
+                                        <li> 
+                                        Select Confucius card(s) with coins sufficient to pay for invasion of that land.
+                                        </li> 
+                                        <li> 
+                                        If you overpay, no change is given.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

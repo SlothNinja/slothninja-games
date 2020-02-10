@@ -1,0 +1,8 @@
+{{$g := $.Game}}
+<div>
+{{template "shared/flashbox" .}}
+
+{{$cu := $.CUser}}
+{{$cp := $g.CurrentPlayerFor $cu}}
+{{template "tammany/favor_chip_table" data "g" $g "p" $cp "cu" $cu }}
+</div>

@@ -1,0 +1,65 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanPlaceWorkersIn $area}}
+<div id="tabs-place-workers">
+        <div class="dialog-content">
+                <form class="myForm">
+                        <input name="action" type="hidden" value="place-workers" />
+                        <label for="paid-resource">Pay:</label>
+                        <div class="radio" id="paid-resource">
+                                <div>
+                                        {{range $i := ints 0 3}}
+                                        {{$resource := $.Game.ResourceName $i}}
+                                        {{$count := index $cp.Resources $i}}
+                                        {{$disabled := not $count}}
+                                        <input type="radio" id="paid-resource-{{$resource}}" name="paid-resource" value="{{$resource}}"{{if $disabled}}disabled{{end}} />
+                                        <label for="paid-resource-{{$resource}}">
+                                                <div class="icon">
+                                                        <img src="/images/atf/{{$resource}}.png" alt="{{$resource}}" height="28px" width="28px" />
+                                                </div>
+                                        </label>
+                                        {{end}}
+                                </div>
+                                <div>
+                                        {{range $i := ints 4 7}}
+                                        {{$resource := $.Game.ResourceName $i | ToLower}}
+                                        {{$count := index $cp.Resources $i}}
+                                        {{$disabled := not $count}}
+
+                                        <input type="radio" id="paid-resource-{{$resource}}" name="paid-resource" value="{{$resource}}"{{if $disabled}}disabled{{end}} />
+                                        <label for="paid-resource-{{$resource}}">
+                                                <div class="icon">
+                                                        <img src="/images/atf/{{$resource}}.png" alt="{{$resource}}" height="28px" width="28px" />
+                                                </div>
+                                        </label>
+                                        {{end}}
+                                </div>
+                        </div>
+                        <div>&nbsp;</div>
+                        <label for="placed-workers">Place:</label>
+                        <div class="radio" id="placed-workers">
+                                <input type="radio" id="placed-workers-1" name="place-workers" value="1" />
+                                <label for="placed-workers-1"><div>1</div></label>
+
+                                <input type="radio" id="placed-workers-2" name="place-workers" value="2" />
+                                <label for="placed-workers-2"><div>2</div></label>
+
+                                <input type="radio" id="placed-workers-3" name="place-workers" value="3" />
+                                <label for="placed-workers-3"><div>3</div></label>
+
+                                <input type="radio" id="placed-workers-4" name="place-workers" value="4" />
+                                <label for="placed-workers-4"><div>4</div></label>
+
+                                <input type="radio" id="placed-workers-5" name="place-workers" value="5" />
+                                <label for="placed-workers-5"><div>5</div></label>
+                        </div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div class="center">
+                                <input type="submit" value="Place Workers" class="mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>
+{{end}}

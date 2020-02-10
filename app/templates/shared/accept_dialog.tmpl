@@ -1,0 +1,18 @@
+{{$game := $.Game}}
+<div id="accept-dialog"> 
+        <form action="accept" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="accept" />
+                        <input id="user_id" name="user_id" style="display:none" type="text" value="200002" /> 
+                        <div>
+                                &nbsp;
+                        </div>
+                        <input id="password" name="password" type="text" value="Please Enter Password" />
+                        <div>
+                                &nbsp;
+                        </div>
+                        <input class="mybutton" name="commit" type="submit" value="Accept" />
+                </div>
+        </form>
+</div>

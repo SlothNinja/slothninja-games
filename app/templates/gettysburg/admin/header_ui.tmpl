@@ -1,0 +1,58 @@
+<div class="dialog-content">
+        <div><label>Title:
+                        <input type="text" data-bind="value: title" />
+        </label></div>
+        <div><label>Turn:
+                        <select data-bind="value: turn, foreach: ko.utils.range(1, 3)">
+                                <option data-bind="text: $data"></option>
+                        </select>
+        </label></div>
+        <div><label>Phase:
+                        <select data-bind="value: phase">
+                                {{range $key, $name := .Game.JPhaseNames}}
+                                <option value={{$key}}>{{$name}}</option>
+                                {{end}}
+                        </select>
+        </label></div>
+        <div><label>SubPhase:
+                        <select data-bind="value: subPhase">
+                                {{range $key, $name := .Game.JLSubPhaseNames}}
+                                <option value={{$key}}>{{$name}}</option>
+                                {{end}}
+                        </select>
+        </label></div>
+        <div><label>Round:
+                        <select data-bind="value: round, foreach: ko.utils.range(0, 100)">
+                                <option data-bind="text: $data"></option>
+                        </select>
+        </label></div>
+        <div><label>Status:
+                        <select data-bind="value: status">
+                                <option value=0>None</option>
+                                <option value=1>Recruiting</option>
+                                <option value=2>Completed</option>
+                                <option value=3>Running</option>
+                                <option value=4>Abandoned</option>
+                                <option value=5>Aborted</option>
+                        </select>
+        </label></div>
+        <div><label>Current Player:
+                        <select data-bind="value: cpUserIndices">
+                                <option value=-1>None</option>
+                                {{range $p := .Game.Players}}
+                                <option value={{$p.ID}}>{{$p.Name}}</option>
+                                {{end}}
+                        </select>
+        </label></div>
+        <div><label>Winner:
+                        <select data-bind="value: winnerIndices">
+                                <option value=-1>None</option>
+                                {{range $p := .Game.Players}}
+                                <option value={{$p.ID}}>{{$p.Name}}</option>
+                                {{end}}
+                        </select>
+        </label></div>
+        <div class="top-padding">
+                <button data-bind="jqButton: true, click: function(){put({'action': 'admin', 'subAction': 'update', 'target': 'header', 'data': ko.toJSON(header), 'json': true})}">Update Header</button>
+        </div>
+</div>

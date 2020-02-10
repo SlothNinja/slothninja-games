@@ -1,0 +1,79 @@
+{{$game := $.Game}}
+{{$empire := $game.SelectedEmpire}}
+{{if $.IsAdmin}}
+<div id="dialog" title="Admin {{$empire.AreaID}} Empire">
+        <form action="/atf/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="admin-empire" />
+                </div>
+                <div>
+                        <label for="armies">Armies:</label>
+                        <select id="armies" name="Armies">
+                                {{range $v := ints 0 20}}
+                                <option value="{{$v}}" {{if equal $empire.Armies $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                
+                </div>
+                <div>
+                        <label for="rating">Rating:</label>
+                        <select id="rating" name="Rating">
+                                {{range $v := ints 0 4}}
+                                <option value="{{$v}}" {{if equal $empire.Rating $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                
+                </div>
+                <div>
+                        <label for="ownerid">Owner</label>
+                        <select id="ownerid" name="OwnerID">
+                                {{with $v := -1}}
+                                <option value={{$v}} {{if equal $empire.OwnerID $v}}selected="selected"{{end}}>None</option>
+                                {{end}}
+                                {{range $index, $player := $game.Players}}
+                                <option value={{$player.ID}} {{if equal $player.ID $empire.OwnerID}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{/*
+                <div>
+                        <label for="ownerid">OwnerID:</label>
+                        <select id="ownerid" name="OwnerID">
+                                {{range $v := ints -1 2}}
+                                <option value="{{$v}}" {{if equal $empire.OwnerID $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                
+                </div>
+                */}}
+                {{range $i := ints 0 7}}
+                {{$name := $game.ResourceName $i}}
+                {{if $empire.Equipment}}
+                {{$count := index $empire.Equipment $i}}
+                <div>
+                        <label for="{{$name}}-equip">{{$name}}:</label>
+                        <select id="{{$name}}-equip" name="Equipment">
+                                {{range $v := ints 0 12}}
+                                <option value="{{$v}}" {{if equal $count $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{else}}
+                {{$count := 0}}
+                <div>
+                        <label for="{{$name}}-equip">{{$name}}:</label>
+                        <select id="{{$name}}-equip" name="Equipment">
+                                {{range $v := ints 0 12}}
+                                <option value="{{$v}}" {{if equal $count $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{end}}
+                {{end}}
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

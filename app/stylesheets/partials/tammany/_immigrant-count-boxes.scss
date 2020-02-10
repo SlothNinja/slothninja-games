@@ -1,0 +1,67 @@
+@mixin immigrant-count-box {
+	position:absolute;
+	height:60px;
+	width:60px;
+	z-index:2;
+	img {
+		width:24px;
+		height:24px;
+	}
+	.text {
+		position:relative;
+		top:-22px;
+		left:0px;
+		text-align:center;
+	}
+	.content {
+		position:relative;
+	}
+	.player-0 {
+		position:absolute;
+		top:0px;
+		left:0px;
+	}
+	.player-1 {
+		position:absolute;
+		top:0px;
+		left:36px;
+	}
+	.player-2 {
+		position:absolute;
+		top:18px;
+		left:19px;
+	}
+	.player-3 {
+		position:absolute;
+		top:36px;
+		left:0px;
+	}
+	.player-4 {
+		position:absolute;
+		top:36px;
+		left:36px;
+	}
+}
+
+@mixin immigrant-count-boxes {
+	#irish-count {
+		top:570px;
+		left:95px;
+		@include immigrant-count-box;
+	}
+	#english-count {
+		top:634px;
+		left:95px;
+		@include immigrant-count-box;
+	}
+	#german-count {
+		top:697px;
+		left:95px;
+		@include immigrant-count-box;
+	}
+	#italian-count {
+		top:762px;
+		left:95px;
+		@include immigrant-count-box;
+	}
+}

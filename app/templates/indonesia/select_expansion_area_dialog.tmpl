@@ -1,0 +1,23 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$company := $game.SelectedCompany}}
+<div id="dialog" title="Company Expansion">
+        <div class="dialog-content" style="width:200px">
+                {{if $cp.CanFreeExpansion}}
+                <p class="top-padding">The selected company must expand into {{$game.RequiredExpansions}} areas for free.</p>
+                <p class="top-padding">You have {{$cp.RemainingExpansions}} expansions remaining.</p>
+                <p class="top-padding">Select area for company expansion.</p>
+                {{else}}
+                <p>The selected company may expand into {{$cp.Expansions}} expansion area(s) for  Rp{{$company.Goods.Price}} each.</p>
+                <p class="top-padding">You have {{$cp.RemainingExpansions}} expansions remaining.</p>
+                <p class="top-padding">Select area for company expansion or stop expanding.</p>
+                <form class="myForm top-padding" action="/indonesia/game/show/{{$game.ID}}" method="post">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="stop-expanding" />
+                        <div class="top-padding center" >
+                                <input type="submit" value="Stop Expanding" class="mybutton" />
+                        </div>
+                </form>
+                {{end}}
+        </div>
+</div>

@@ -1,0 +1,12 @@
+{{$player := .}}
+<div id="player-research-{{$player.ID}}">
+        {{range $tech, $value := $player.Technologies}}
+        <div class="{{$tech}} right">
+                {{if equal $tech.IDString "turn-order-bid"}}
+                <strong>Bid:</strong> &times;{{$player.Multiplier}}
+                {{else}}
+                <strong>{{$tech}}:</strong> {{$value}}
+                {{end}}
+        </div>
+        {{end}}
+</div>

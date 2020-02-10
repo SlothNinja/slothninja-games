@@ -1,0 +1,20 @@
+{{range $key, $space := .ActionSpaces}}
+<div id="{{$space.Name}}">
+        <div class="content">
+                {{range $pid, $cubes := .Cubes}}
+                {{if $cubes}}
+                <div class="action-cube-{{$pid}}">
+                        <div class="content">
+                                {{with $.PlayerByID $pid}}
+                                <img src="/images/confucius/{{.Color}}-action-cube-shadowed.png" alt="{{.Color}} Action Cube" />
+                                <div class="text {{.TextColor}}">
+                                        {{$cubes}}
+                                </div>
+                                {{end}}
+                        </div>
+                </div>
+                {{end}}
+                {{end}}
+        </div>
+</div>
+{{end}}

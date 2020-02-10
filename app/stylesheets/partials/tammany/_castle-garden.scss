@@ -1,0 +1,11 @@
+@import "immigrant-box";
+
+@mixin castle-garden {
+	#castle-garden {
+		position:absolute;
+		top:1220px;
+		left:50px;
+		z-index:2;
+		@include immigrant-box;
+	}
+}

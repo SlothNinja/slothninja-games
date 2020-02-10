@@ -1,0 +1,91 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+<div id="dialog" title="Actions For {{$area.Name}}">
+        <div class="dialog-content">
+                <div id="tabs">
+                        <ul>
+                                {{if $.Admin}}
+                                        {{if $.IsAdmin}}
+                                        <li><a href="#tabs-admin">Admin</a></li>
+                                        {{end}}
+                                {{else}}
+                                        {{if $cp.CanPayActionCost $area}}
+                                        <li><a href="#tabs-pay-action-cost">Pay Action Cost</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanPlaceWorkersIn $area}}
+                                        <li><a href="#tabs-place-workers">Place Workers</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanBuildCityIn $area}}
+                                        <li><a href="#tabs-build-city">Build City</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanAbandonCityIn $area}}
+                                        <li><a href="#tabs-abandon-city">Abandon City</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanStartEmpireIn $area}}
+                                        <li><a href="#tabs-start-empire">Start Empire</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanBuyArmiesForArmyIn $area}}
+                                        <li><a href="#tabs-buy-armies">Buy Armies</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanEquipArmyIn $area}}
+                                        <li><a href="#tabs-equip-army">Equip Army</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanPlaceArmyIn $area}}
+                                        {{if $area.Armies}}
+                                        <li><a href="#tabs-start-empire-warning">Start Empire Warning</a></li>
+                                        {{else}}
+                                        <li><a href="#tabs-place-armies">Place Armies</a></li>
+                                        {{end}}
+                                        {{end}}
+
+                                        {{if $cp.CanTradeIn $area}}
+                                        <li><a href="#tabs-trade">Trade</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanExpandEmpireIn $area}}
+                                        <li><a href="#tabs-expand-empire">Expand Empire</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanExpandCityIn $area}}
+                                        <li><a href="#tabs-expand-city">Expand City</a></li>
+                                        {{end}}
+
+                                        <li><a href="#tabs-finish">Undo/Finish</a></li>
+                                {{end}}
+                        </ul>
+                        {{if $.Admin}}
+                                {{if $area.IsSumer }}
+                                {{template "atf/admin/sumer_area_form" $}}
+                                {{end}}
+                                {{if $area.IsNonSumer}}
+                                {{template "atf/admin/non_sumer_area_form" $}}
+                                {{end}}
+                                {{if $area.IsWorkerBox}}
+                                {{template "atf/admin/worker_box_form" $}}
+                                {{end}}
+                        {{else}}
+                                {{template "atf/pay_action_cost_form" $}}
+                                {{template "atf/place_workers_form" $}}
+                                {{template "atf/build_city_form" $}}
+                                {{template "atf/abandon_city_form" $}}
+                                {{template "atf/start_empire_form" $}}
+                                {{template "atf/buy_armies_form" $}}
+                                {{template "atf/equip_army_form" $}}
+                                {{template "atf/place_armies_form" $}}
+                                {{template "atf/start_empire_warning_form" $}}
+                                {{template "atf/trade_form" $}} 
+                                {{template "atf/expand_empire_form" $}}
+                                {{template "atf/expand_city_form" $}}
+                                {{template "atf/finish_turn_form" $}}
+                        {{end}}
+                </div>
+        </div>
+</div>

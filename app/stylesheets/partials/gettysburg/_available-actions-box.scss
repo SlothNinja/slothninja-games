@@ -1,0 +1,15 @@
+@mixin available-actions-box {
+	.available-actions-box {
+		@include column(8, true);
+		@include prepend-top(1em);
+		margin-left: 20px;
+		.action-set {
+			@include column(7, true);
+		}
+		span .button-to {
+			float:left;
+			:width:auto;
+			margin:1em;
+		}
+	}
+}

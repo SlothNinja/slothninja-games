@@ -1,0 +1,14 @@
+<div id="bought-junks">
+        <div class="content">
+                {{range $index, $player := $.Players}}
+                {{if $player.Junks}}
+                <div class="{{$player.Color}}-junks">
+                        <img src="/images/confucius/junk.png" alt="Junk" />
+                        <div class="text">
+                                {{$player.Junks}}
+                        </div>
+                </div>
+                {{end}}
+                {{end}}
+        </div>
+</div>

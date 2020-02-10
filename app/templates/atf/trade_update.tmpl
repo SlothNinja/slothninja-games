@@ -1,0 +1,11 @@
+{{$game := $.Game}}
+{{$area := $game.SelectedArea}}
+{{$cp := $game.CurrentPlayer}}
+<div>
+        {{template "atf/area_workers" $area}}
+        {{template "shared/flashbox" .}}
+        {{template "shared/gamelog" .}}
+        {{template "shared/last_actions_list" $cp}}
+        {{template "atf/player_resources" $cp}}
+        {{template "atf/supply_resources_update" $}}
+</div>

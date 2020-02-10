@@ -1,0 +1,43 @@
+{{$p := .p}}
+{{$g := .g}}
+{{$admin := .admin}}
+{{$ctx := .ctx}}
+
+<tr id="player-row-{{$p.ID}}">
+        <td class="player">
+                {{if $admin}}
+                <div id="admin-player-row-{{$p.ID}}" class="mybutton clickable">
+                        Admin Player
+                </div>
+                {{end}}
+                <div class="gravatar">
+                        {{$g.GravatarFor $p}}
+                </div>
+                <div>
+                        {{$g.PlayerLinkByID $ctx $p.ID}}
+                </div>
+                <td class="last-action">
+                        {{template "shared/last_actions_list" $p}}
+                </td>
+                <td>
+                        <div id="player-score-{{$p.ID}}">
+                                {{$p.Score}}
+                        </div>
+                </td>
+                <td>
+                        {{template "atf/player_resources" $p}}
+                </td>
+                <td>
+                        {{template "atf/player_armies" $p}}
+                </td>
+                <td>
+                        {{template "atf/player_workers" $p}}
+                </td>
+                <td>
+                        {{template "atf/player_city_bases" $p}}
+                </td>
+                <td>
+                        {{template "atf/player_city_expansions" $p}}
+                </td>
+        </td>
+</tr>

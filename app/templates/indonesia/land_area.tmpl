@@ -1,0 +1,15 @@
+{{$area := .}}
+{{$game := $area.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div id="area-{{$area.ID}}" >
+        {{with $city := $area.City}}
+                {{$color := $area.City.Color}}
+                <img data-citytip="{{$area.CityTip}}" id="city-{{$area.ID}}" class="city {{if $cp.CanClickCityIn $area}}clickable{{end}}" src="/images/indonesia/{{$color}}-oval.png"/>
+        {{end}}
+        {{with $producer := $area.Producer}}
+                {{$goods := $producer.Goods}}
+                {{$id := $goods.IDString}}
+                {{$color := $area.GoodsColor}}
+                <img class="goods {{$color}}-border {{if $cp.CanClickGoodsIn $area}}clickable{{end}}" id="area-{{$area.ID}}-{{$id}}" data-goodstip="{{$area.Tooltip}}" src={{if $area.Used}}"/images/indonesia/{{$id}}-back.png"{{else}}"/images/indonesia/{{$id}}.png"{{end}}/>
+        {{end}}
+</div>

@@ -1,0 +1,35 @@
+@import "board";
+@import "players";
+
+body.got {
+        #container {
+                @include container;
+                @include prepend-top(1em);
+                width:1192px;
+                @include players;
+        };
+        #upper-content {
+        }
+        #lower-content {
+                @include column($blueprint-grid-columns, true);
+                .left-column {
+                        @include column($blueprint-grid-columns / 2);
+                        @include gamelog;
+                }
+                .right-column {
+                        @include column($blueprint-grid-columns / 2, true);
+                        @include chatbox;
+                }
+        };
+        #footer {
+                @include footer;
+        }
+        #sidebar {
+                // One fifth of the grid columns, rounding down. With 30 cols, this is 6.
+                $sidebar-columns: floor($blueprint-grid-columns / 6);
+                @include column($sidebar-columns);
+        };
+        #main-content {
+                @include column($blueprint-grid-columns, true);
+        };
+};

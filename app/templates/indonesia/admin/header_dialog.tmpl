@@ -1,0 +1,23 @@
+{{$g := $.Game}}
+{{if $.IsAdmin}}
+<div id="dialog" title="Admin Header">
+        <div class="dialog-content">
+                <div id="tabs">
+                        <ul>
+                                <li><a href="#tabs-admin-header">Header</a></li>
+                                {{if $g.CityStones}}
+                                        <li><a href="#tabs-admin-cities">Cities</a></li>
+                                {{end}}
+                                <li><a href="#tabs-admin-mergers">Mergers</a></li>
+                                <li><a href="#tabs-admin-deeds">Deeds</a></li>
+                        </ul>
+                        {{template "indonesia/admin/header_tab" .}}
+                        {{if $g.CityStones}}
+                                {{template "indonesia/admin/cities_tab" .}}
+                        {{end}}
+                        {{template "indonesia/admin/mergers_tab" .}}
+                        {{template "indonesia/admin/deeds_tab" .}}
+                </div>
+        </div>
+</div>
+{{end}}

@@ -1,0 +1,42 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+{{$w := $.Ward}}
+{{$cu := $.CUser}}
+{{if $g.CanSlander $cu $w}}
+<div id="tabs-slander">
+        <form class="myForm">
+                <input name="action" type="hidden" value="slander" />
+                <input name="area" type="hidden" value="ward-{{$w.ID}}" />
+                <label for="slander-nationality">Play:</label>
+                <div class="radio" id="slander-nationality">
+                        {{range $n, $cnt := $w.Immigrants}}
+                        {{if $cnt}}
+                        {{if $cp.ChipsFor $n}}
+                        <input type="radio" id="slander-nationality-{{$n.Int}}" name="slander-nationality" value="{{$n.Int}}" />
+                        <label for="slander-nationality-{{$n.Int}}">
+                                <div class="icon">
+                                        <img alt="{{$n.LString}}-chip" src="{{$n.ChipImage}}" />
+                                </div>
+                        </label>
+                        {{end}}
+                        {{end}}
+                        {{end}}
+                </div>
+                <label for="slandered-player">To Slander:</label>
+                <div class="radio" id="slandered-player">
+                        {{range $id, $cnt := $w.OtherBosses $cp}}
+                        {{with $player := $g.PlayerByID $id}}
+                        <input type="radio" id="slandered-player-{{$id}}" name="slandered-player" value="{{$id}}"/>
+                        <label for="slandered-player-{{$id}}">
+                                <div class="icon">
+                                        {{$player.BossImage}}
+                                </div>
+                        </label>
+                        {{end}}
+                        {{end}}
+                </div>
+                <div>&nbsp;</div>
+                <input type="submit" value="Slander" class="mybutton" />
+        </form>
+</div>
+{{end}}

@@ -1,0 +1,220 @@
+@mixin points-box {
+	position:absolute;
+	z-index:2;
+	width:45px;
+	height:45px;
+	top:30px;
+	img {
+		height:16px;
+		width:16px;
+	}
+	#player-0 {
+		position:relative;
+		left:5px;
+		top:5px;
+	}
+	#player-1 {
+		position:relative;
+		left:30px;
+		top:5px;
+	}
+	#player-2 {
+		position:relative;
+		left:5px;
+		top:30px;
+	}
+	#player-3 {
+		position:relative;
+		left:30px;
+		top:30px;
+	}
+	#player-4 {
+		position:relative;
+		left:18px;
+		top:17px;
+	}
+}
+
+@mixin points-track {
+	#points-0 {
+		@include points-box;
+		left:30px;
+	}
+	#points-1, #points-41 {
+		@include points-box;
+		left:79px;		
+	}
+	#points-2, #points-42 {
+		@include points-box;
+		left:126px;		
+	}
+	#points-3, #points-43 {
+		@include points-box;
+		left:172px;		
+	}
+	#points-4, #points-44 {
+		@include points-box;
+		left:218px;		
+	}
+	#points-5, #points-45 {
+		@include points-box;
+		left:266px;		
+	}
+	#points-6, #points-46 {
+		@include points-box;
+		left:312px;		
+	}
+	#points-7, #points-47 {
+		@include points-box;
+		left:358px;		
+	}
+	#points-8, #points-48 {
+		@include points-box;
+		left:406px;		
+	}
+	#points-9, #points-49 {
+		@include points-box;
+		left:452px;		
+	}
+	#points-10, #points-50 {
+		@include points-box;
+		left:498px;		
+	}
+	#points-11, #points-51 {
+		@include points-box;
+		left:546px;		
+	}
+	#points-12, #points-52 {
+		@include points-box;
+		left:592px;		
+	}
+	#points-13, #points-53 {
+		@include points-box;
+		left:638px;		
+	}
+	#points-14, #points-54 {
+		@include points-box;
+		left:688px;		
+	}
+	#points-15, #points-55 {
+		@include points-box;
+		left:732px;		
+	}
+	#points-16, #points-56 {
+		@include points-box;
+		left:780px;		
+	}
+	#points-17, #points-57 {
+		@include points-box;
+		left:826px;		
+	}
+	#points-18, #points-58 {
+		@include points-box;
+		left:872px;		
+	}
+	#points-19, #points-59 {
+		@include points-box;
+		left:920px;		
+	}
+	#points-20, #points-60 {
+		@include points-box;
+		left:966px;		
+	}
+	#points-21, #points-61 {
+		@include points-box;
+		left:1012px;		
+	}
+	#points-22, #points-62 {
+		@include points-box;
+		left:1058px;		
+	}
+	#points-23, #points-63 {
+		@include points-box;
+		left:1106px;		
+	}
+	#points-24, #points-64 {
+		@include points-box;
+		left:1106px;
+		top:78px;
+	}
+	#points-25, #points-65 {
+		@include points-box;
+		left:1106px;
+		top:124px;
+	}
+	#points-26, #points-66 {
+		@include points-box;
+		left:1106px;
+		top:170px;
+	}
+	#points-27, #points-67 {
+		@include points-box;
+		left:1106px;
+		top:217px;
+	}
+	#points-28, #points-68 {
+		@include points-box;
+		left:1106px;
+		top:263px;
+	}
+	#points-29, #points-69 {
+		@include points-box;
+		left:1106px;
+		top:309px;
+	}
+	#points-30, #points-70 {
+		@include points-box;
+		left:1106px;
+		top:356px;
+	}
+	#points-31, #points-71 {
+		@include points-box;
+		left:1106px;
+		top:402px;
+	}
+	#points-32, #points-72 {
+		@include points-box;
+		left:1106px;
+		top:449px;
+	}
+	#points-33, #points-73 {
+		@include points-box;
+		left:1106px;
+		top:496px;
+	}
+	#points-34, #points-74 {
+		@include points-box;
+		left:1106px;
+		top:542px;
+	}
+	#points-35, #points-75 {
+		@include points-box;
+		left:1106px;
+		top:589px;
+	}
+	#points-36, #points-76 {
+		@include points-box;
+		left:1106px;
+		top:635px;
+	}
+	#points-37, #points-77 {
+		@include points-box;
+		left:1106px;
+		top:682px;
+	}
+	#points-38, #points-78 {
+		@include points-box;
+		left:1106px;
+		top:728px;
+	}
+	#points-39, #points-79 {
+		@include points-box;
+		left:1106px;
+		top:775px;
+	}
+	#points-40, #points-80 {
+		@include points-box;
+		left:1106px;
+		top:821px;
+	}
+}

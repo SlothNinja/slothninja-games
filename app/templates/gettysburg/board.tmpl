@@ -1,0 +1,16 @@
+{{$game := $.Game}}
+<!-- Board --> 
+<div id="board"> 
+        <!-- Board Map --> 
+        {{/*
+        <img src="/images/gettysburg/confederate-map.jpg" width="1190" border="0" id="board-image" usemap="#board-image" style="z-index:1000" data-bind="imageMapster: globalMap, onClick: clickHandler"/>
+        */}}
+        <img src="/images/gettysburg/confederate-map.jpg" class="clickmap" width="1190" border="0" id="board-image" style="z-index:1000" usemap="#board-image" style="z-index:1000" />
+        {{template "gettysburg/image_map" $}}
+        {{/*
+        <img src="/images/gettysburg/confederate-map.jpg" width="1190" border="0" id="board-image" style="z-index:1000" style="z-index:1000" />
+        */}}
+        {{template "gettysburg/areas"}}
+        {{template "gettysburg/day_marker"}}
+        {{template "gettysburg/available_orders_boxes"}}
+</div>

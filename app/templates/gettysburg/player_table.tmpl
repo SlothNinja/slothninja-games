@@ -1,0 +1,123 @@
+<div id="players-table">
+        <table class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th class="player-name">Player</th>
+                                <th class="last-action">Action Summary</th>
+                                <th class="command-blocks">Available Command Blocks</th>
+                                <th class="u-command-blocks">Unavailable Command Blocks</th>
+                                <th class="order-discs">Order Discs</th>
+                                <th class="cubes">Damage Cubes</th>
+                        </tr>
+                </thead>
+                <tbody>
+                <tr class="confederate">
+                        <td data-bind="with: confederatePlayer" class="player">
+                                <div class="bottom-padding">Confederacy</div>
+                                <div class="gravatar" data-bind="html: gravatar"></div>
+                                <div data-bind="html: link"></div>
+                                {{if $.Admin}}
+                                <div class="top-padding">
+                                        <button data-bind="jqButton: true, click: function(){$root.put({'action': 'admin', 'subAction': 'getDialog', 'target': 'confederate-player', 'json': true})}">Admin Player</button>
+                                </div>
+                                {{end}}
+                        </td>
+                        <td data-bind="with: confederatePlayer" class="last-action">
+                                <ul data-bind="foreach: log">
+                                        <li data-bind="html: $data"></li>
+                                </ul>
+                        </td>
+                        <td data-bind="with: confederatePlayer">
+                                <span data-bind="foreach: commandBlocks">
+                                        <img data-bind="attr: {src: link}"/>
+                                </span>
+                        </td>
+                        <td data-bind="with: confederatePlayer">
+                                <span data-bind="foreach: uCommandBlocks">
+                                        <img data-bind="attr: {src: link}"/>
+                                </span>
+                        </td>
+                        <td data-bind="with: confederatePlayer">
+                                <div class="bottom-padding">
+                                        <img style="vertical-align:middle" class="disc" src="/images/gettysburg/confederate-order-disc.png"/>
+                                        :
+                                        <span style="vertical-align:middle" data-bind="text: uOrderDiscs().confederateSingle"></span>
+                                </div>
+                        </td>
+                        <td>
+                                <div class="bottom-padding">
+                                        <img style="vertical-align:middle" class="cube" src="/images/gettysburg/confederate-regular-infantry-cube.png"/>
+                                        :
+                                        <span style="vertical-align:middle" data-bind="text: confederateRegularInfantryCubeCount"></span>
+                                </div>
+                                <div class="bottom-padding">
+                                        <img style="vertical-align:middle" class="cube" src="/images/gettysburg/confederate-elite-infantry-cube.png"/>
+                                        :
+                                        <span style="vertical-align:middle" data-bind="text: confederateEliteInfantryCubeCount"></span>
+                                </div>
+                        </td>
+                </tr>
+                <tr class="union">
+                        <td data-bind="with: unionPlayer" class="player">
+                                <div class="bottom-padding">Union</div>
+                                <div class="gravatar" data-bind="html: gravatar"></div>
+                                <div data-bind="html: link"></div>
+                                {{if $.Admin}}
+                                <div class="top-padding">
+                                        <button data-bind="jqButton: true, click: function(){$root.put({'action': 'admin', 'subAction': 'getDialog', 'target': 'union-player', 'json': true})}">Admin Player</button>
+                                </div>
+                                {{end}}
+                        </td>
+                        <td data-bind="with: unionPlayer" class="last-action">
+                                <ul data-bind="foreach: log">
+                                        <li data-bind="html: $data"></li>
+                                </ul>
+                        </td>
+                        <td data-bind="with: unionPlayer">
+                                <span data-bind="foreach: commandBlocks">
+                                        <img data-bind="attr: {src: link}"/>
+                                </span>
+                        </td>
+                        <td data-bind="with: unionPlayer">
+                                <span data-bind="foreach: uCommandBlocks">
+                                        <img data-bind="attr: {src: link}"/>
+                                </span>
+                        </td>
+                        <td data-bind="with: unionPlayer">
+                                <div class="bottom-padding">
+                                        <img style="vertical-align:middle" class="disc" src="/images/gettysburg/union-order-disc.png"/>
+                                        :
+                                        <span style="vertical-align:middle" data-bind="text: uOrderDiscs().unionSingle"></span>
+                                </div>
+                                <div class="bottom-padding">
+                                        <img style="vertical-align:middle" class="disc" src="/images/gettysburg/union-forced-pass-disc.png"/> 
+                                        :
+                                        <span style="vertical-align:middle" data-bind="text: uOrderDiscs().unionForcedPass"></span>
+                                </div>
+                        </td>
+                        <td>
+                                <div class="bottom-padding">
+                                        <img style="vertical-align:middle" class="cube" src="/images/gettysburg/union-inferior-infantry-cube.png"/>
+                                        :
+                                        <span style="vertical-align:middle" data-bind="text: unionInferiorInfantryCubeCount"></span>
+                                </div>
+                                <div class="bottom-padding">
+                                        <img style="vertical-align:middle" class="cube" src="/images/gettysburg/union-regular-infantry-cube.png"/>
+                                        :
+                                        <span style="vertical-align:middle" data-bind="text: unionRegularInfantryCubeCount"></span>
+                                </div>
+                                <div class="bottom-padding">
+                                        <img style="vertical-align:middle" class="cube" src="/images/gettysburg/union-elite-infantry-cube.png"/>
+                                        :
+                                        <span style="vertical-align:middle" data-bind="text: unionEliteInfantryCubeCount"></span>
+                                </div>
+                                <div class="bottom-padding">
+                                        <img style="vertical-align:middle" class="cube" src="/images/gettysburg/union-regular-cavalry-cube.png"/>
+                                        :
+                                        <span style="vertical-align:middle" data-bind="text: unionRegularCavalryCubeCount"></span>
+                                </div>
+                        </td>
+                </tr>
+                </tbody>
+        </table>
+</div>

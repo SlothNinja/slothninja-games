@@ -1,0 +1,51 @@
+@mixin inset-box {
+        @extend .ui-widget-content;
+        @include append-bottom(1em);
+        position:absolute;
+        width:200px;
+        height:85px;
+        border: 2px solid black;
+        background: #E7D3BA;
+        .content {
+                padding-left:1.5em;
+                table, th, td {
+                        padding:0px;
+                        padding-bottom:3px;
+                        border: none;
+                        text-align: center;
+                        img {
+                                height:40px;
+                        }
+                        .junk {
+                                img {
+                                        height:40px;
+                                        width:54px;
+                                }
+                        }
+                }
+                th, td {
+                        width: 33%;
+                }
+                th {
+                        padding-top:0.5em;
+                        padding-bottom:0.5em;
+                        font-weight:bold;
+                }
+        }
+}
+
+@mixin supply {
+        #supply {
+                @include inset-box;
+                left:250px;
+                top:14px;
+        }
+}
+
+@mixin player-aid {
+        #player-aid {
+                @include inset-box;
+                left:736px;
+                top:14px;
+        }
+}

@@ -1,0 +1,39 @@
+{{$game := $.Game}}
+<div id="dialog" title="Join Game" data-modal="true">
+        <div class="dialog-content" style="width:200px">
+                <form class="top-padding" action="/{{$game.Stub}}/game/{{$game.ID}}/accept" method="post">
+                        <input name="_method" type="hidden" value="PUT" />
+                        {{if eq $game.JoinAs0.String "not-set"}}
+                        <div class="join-as"> 
+                                <label for="join-as">Join As:</label> 
+                                <select id="join-as" name="JoinAs0">
+                                        <option value="2">Confederacy</option>
+                                        <option value="3">Union</option>
+                                        <option value="4">Random</option>
+                                </select>
+                        </div> 
+                        {{else if eq $game.JoinAs0.String "none"}}
+                        <div class="join-as"> 
+                                <label for="join-as">Join As:</label> 
+                                <select id="join-as" name="JoinAs1">
+                                        <option value="2">Confederacy</option>
+                                        <option value="3">Union</option>
+                                        <option value="4">Random</option>
+                                </select>
+                        </div> 
+                        {{end}}
+                        <div>
+                                &nbsp;
+                        </div>
+                        {{if $game.Password}}
+                        <input id="password" name="password" type="text" value="Please Enter Password" />
+                        <div>
+                                &nbsp;
+                        </div>
+                        {{end}}
+                        <div class="top-padding center" >
+                                <input type="submit" value="Accept" class="mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>

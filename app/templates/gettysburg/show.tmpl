@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w4.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+{{$v := $.Context.VersionID}}
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+{{template "shared/head_meta" .}}
+{{template "shared/head_title" .}}
+{{template "shared/head_link" .}}
+{{/*
+<script src="/javascripts/js/jquery-1.9.1.js?{{$v}}" type="text/javascript"></script> 
+<script src="/javascripts/js/jquery-ui.min.js?{{$v}}" type="text/javascript"></script> 
+<script src="/javascripts/js/jquery.form.js?{{$v}}" type="text/javascript"></script> 
+<script src="/javascripts/js/DataTables/media/js/jquery.dataTables.js?{{$v}}" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/js/jquery.imagemapster.min.js?{{$v}}" type="text/javascript"></script>
+<script src="/javascripts/js/knockout-3.1.0.js?{{$v}}" type="text/javascript"></script> 
+<script src="/javascripts/gettysburg.js?{{$v}}" type="text/javascript"></script> 
+*/}}
+<link href="/stylesheets/gettysburg-screen.css?{{$v}}" media="screen, projection" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" data-main="/scripts/init.js" src="/scripts/require.js"></script>
+</head> 
+<body class="gettysburg bp">
+<div id="container">
+        {{template "shared/header" .}}
+        <div id="upper-content">
+                {{template "gettysburg/status_box" .}}
+        </div> 
+        <div id="main-content">
+                {{template "gettysburg/board" .}}
+                <div class="content-box">
+                        <div class="content">{{template "gettysburg/player_table" .}}</div>
+                </div>
+        </div>
+        <div id="lower-content">
+                <div class="left-column">
+                        {{template "shared/gamelog" .}}
+                </div> 
+                <div class="right-column">
+                        {{template "shared/messagelog" .}}
+                </div> 
+        </div>
+        {{template "shared/footer" .}}
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+../public/js/lib/jquery-2.1.4.js
+../public/js/lib/jquery-ui.js
+../public/DataTables-1.10-3.7/media/js/jquery.dataTables.js
+../public/DataTables-1.10-3.7/media/js/dataTables.jqueryui.js
+../public/javascripts/js/jquery.form.js
+../public/js/lib/imagemapster.js
+../public/js/lib/knockout.js
+../public/js/lib/unapplyBindings.js
+../public/javascripts/application.js
+../public/js/lib/lodash.js
+../public/js/lib/put.js
+../public/js/lib/customHandlers/jqButton.js
+../public/js/lib/customHandlers/jqSpinner.js
+../public/js/lib/customHandlers/jqTabs.js

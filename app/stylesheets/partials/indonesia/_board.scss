@@ -1,0 +1,426 @@
+#board {
+        position:relative;
+        z-index:1;
+}
+
+.icon {
+        float:left;
+        img {
+                height:24px;
+                width:24px;
+        }
+}
+
+.text.yellow {
+        color:yellow;
+}
+.text.white {
+        color:white;
+}
+.text.black {
+        color:black;
+}
+.text.green {
+        color:green;
+}
+.text.purple {
+        color:purple;
+}
+
+#board img.goods {
+        position:absolute;
+        height:12px;
+        width:12px;
+        z-index:2000;
+}
+
+@mixin goods-border($name, $color) {
+        $width: 2px;
+        $scale: 2;
+        #board img.goods.#{$name}-border {
+                border: $width solid $color;
+        }
+
+        #board.zoom-left img.goods.#{$name}-border, #board.zoom-center img.goods.#{$name}-border, #board.zoom-right img.goods.#{$name}-border {
+                border: $scale*$width solid $color;
+        }
+
+}
+
+@include goods-border("black", #000000);
+@include goods-border("purple", #562B85);
+@include goods-border("green", #719136);
+@include goods-border("white", #FFFFFF);
+@include goods-border("orange", #F27E28);
+
+#board.zoom-left img.goods, #board.zoom-center img.goods, #board.zoom-right img.goods {
+        $scale: 2;
+        position:absolute;
+        height:$scale*12px;
+        width:$scale*12px;
+}
+
+#board img.deed {
+        position:absolute;
+        height:24px;
+        width:24px;
+        z-index:2000;
+}
+
+#board.zoom-left img.deed, #board.zoom-center img.deed, #board.zoom-right img.deed {
+        $scale: 2;
+        position:absolute;
+        height:$scale*24px;
+        width:$scale*24px;
+}
+
+@mixin deed($id, $top, $left) {
+        #board .#{$id} {
+                position:absolute;
+                height:24px;
+                width:24px;
+                top:$top;
+                left:$left;
+                border:2px solid black;
+        }
+        #board.zoom-left .#{$id}, #board.zoom-center .#{$id}, #board.zoom-right .#{$id} {
+                $scale: 2;
+                position:absolute;
+                height:$scale*24px;
+                width:$scale*24px;
+                top:$scale*$top;
+                left:$scale*$left;
+        }
+}
+
+#available-deeds {
+        position:absolute;
+        top:0px;
+        left:0px;
+        .container {
+                position:relative;
+        }
+}
+
+@include deed(a-sulawesi-selatan-shipping, 347px, 615px);
+@include deed(a-maluku-spice, 337px, 845px);
+@include deed(a-halmahera-spice, 167px, 815px);
+@include deed(a-halmahera-shipping, 217px, 815px);
+@include deed(a-lampung-shipping, 337px, 320px);
+@include deed(a-jawa-barat-rice, 357px, 360px);
+@include deed(a-jawa-timur-shipping, 377px, 475px);
+@include deed(a-bali-rice, 472px, 530px);
+
+@include deed(b-aceh-rice, 30px, 70px);
+@include deed(b-jawa-barat-shipping, 357px, 360px);
+@include deed(b-jawa-tengah-spice, 457px, 360px);
+@include deed(b-sumatera-utara-shipping, 77px, 160px);
+@include deed(b-sumatera-barat-rubber, 237px, 70px);
+@include deed(b-sulawesi-tengah-spice, 235px, 615px);
+@include deed(b-riau-rubber, 125px, 220px);
+@include deed(b-kalimantan-barat-rubber, 200px, 350px);
+@include deed(b-kalimantan-timur-rice, 135px, 630px);
+
+@include deed(c-sumatera-selatan-spice, 240px, 350px);
+@include deed(c-sulawesi-tenggara-rice, 347px, 770px);
+@include deed(c-sarawak-oil, 30px, 490px);
+@include deed(c-papua-rubber, 157px, 1045px);
+@include deed(c-papua-oil, 157px, 1085px);
+@include deed(c-maluku-oil, 337px, 845px);
+@include deed(c-kalimantan-selatan-oil, 315px, 585px);
+
+#board img.city {
+        position:absolute;
+        height:20px;
+        width:20px;
+        z-index:2000;
+}
+
+#board.zoom-left img.city, #board.zoom-center img.city, #board.zoom-right img.city {
+        $scale: 2;
+        position:absolute;
+        height:$scale*20px;
+        width:$scale*20px;
+}
+
+@mixin area($id, $top, $left) {
+        #board #area-#{$id} {
+                position:absolute;
+                top:$top;
+                left:$left;
+        }
+        #board.zoom-left #area-#{$id}, #board.zoom-center #area-#{$id}, #board.zoom-right #area-#{$id} {
+                $scale: 2;
+                position:absolute;
+                top:$scale*$top;
+                left:$scale*$left;
+        }
+}
+
+#areas {
+        position:absolute;
+        top:0px;
+        left:0px;
+        .container {
+                position:relative;
+        }
+}
+
+@include area(0, 65px, 35px);
+@include area(1, 85px, 85px);
+@include area(2, 105px, 70px);
+@include area(3, 132px, 40px);
+
+@include area(4, 120px, 120px);
+@include area(5, 150px, 150px);
+@include area(6, 180px, 130px);
+@include area(7, 195px, 95px);
+
+@include area(8, 180px, 195px);
+@include area(9, 195px, 257px);
+@include area(10, 215px, 217px);
+@include area(11, 220px, 190px);
+@include area(12, 200px, 170px);
+
+@include area(13, 223px, 160px);
+@include area(14, 253px, 180px);
+@include area(15, 277px, 143px);
+@include area(16, 247px, 113px);
+@include area(17, 270px, 215px);
+@include area(18, 250px, 235px);
+@include area(19, 267px, 257px);
+
+@include area(20, 295px, 195px);
+@include area(21, 310px, 217px);
+@include area(22, 330px, 230px);
+
+@include area(23, 290px, 230px);
+@include area(24, 282px, 268px);
+@include area(25, 272px, 298px);
+@include area(26, 288px, 348px);
+@include area(27, 322px, 288px);
+@include area(28, 312px, 268px);
+@include area(29, 322px, 250px);
+
+@include area(30, 352px, 250px);
+@include area(31, 350px, 273px);
+@include area(32, 350px, 293px);
+@include area(33, 370px, 273px);
+
+@include area(34, 385px, 298px);
+@include area(35, 378px, 320px);
+@include area(36, 388px, 341px);
+@include area(37, 400px, 363px);
+@include area(38, 423px, 357px);
+@include area(39, 413px, 330px);
+@include area(40, 400px, 314px);
+@include area(41, 415px, 387px);
+@include area(42, 405px, 422px);
+@include area(43, 430px, 420px);
+@include area(44, 405px, 450px);
+@include area(45, 405px, 480px);
+@include area(46, 435px, 500px);
+@include area(47, 435px, 480px);
+@include area(48, 430px, 457px);
+@include area(49, 430px, 439px);
+
+@include area(50, 440px, 522px);
+@include area(51, 440px, 537px);
+
+@include area(52, 450px, 560px);
+@include area(53, 455px, 600px);
+@include area(54, 485px, 660px);
+@include area(55, 450px, 680px);
+@include area(56, 445px, 775px);
+@include area(57, 425px, 815px);
+@include area(58, 455px, 810px);
+@include area(59, 480px, 770px);
+
+@include area(60, 425px, 880px);
+@include area(61, 425px, 950px);
+@include area(62, 375px, 1010px);
+@include area(63, 305px, 930px);
+@include area(64, 295px, 905px);
+@include area(65, 295px, 875px);
+@include area(66, 305px, 825px);
+@include area(67, 265px, 807px);
+@include area(68, 265px, 780px);
+
+@include area(69, 355px, 1150px);
+@include area(70, 325px, 1070px);
+@include area(71, 295px, 1010px);
+@include area(72, 245px, 990px);
+@include area(73, 232px, 917px);
+@include area(74, 240px, 1062px);
+@include area(75, 280px, 1130px);
+
+@include area(76, 252px, 855px);
+@include area(77, 222px, 845px);
+@include area(78, 190px, 860px);
+@include area(79, 165px, 853px);
+@include area(80, 142px, 872px);
+@include area(81, 173px, 875px);
+
+@include area(82, 350px, 730px);
+@include area(83, 325px, 710px);
+@include area(84, 290px, 700px);
+
+@include area(85, 350px, 652px);
+@include area(86, 308px, 655px);
+@include area(87, 280px, 637px);
+
+@include area(88, 190px, 675px);
+@include area(89, 250px, 655px);
+@include area(90, 245px, 705px);
+@include area(91, 235px, 735px);
+@include area(92, 215px, 718px);
+
+@include area(93, 180px, 737px);
+@include area(94, 175px, 772px);
+
+@include area(95, 120px, 570px);
+@include area(96, 170px, 590px);
+@include area(97, 160px, 520px);
+@include area(98, 200px, 560px);
+@include area(99, 230px, 570px);
+
+@include area(100, 275px, 550px);
+@include area(101, 303px, 550px);
+@include area(102, 295px, 530px);
+
+@include area(103, 205px, 493px);
+@include area(104, 275px, 493px);
+@include area(105, 290px, 465px);
+@include area(106, 275px, 450px);
+@include area(107, 245px, 525px);
+
+@include area(108, 205px, 443px);
+@include area(109, 255px, 420px);
+@include area(110, 175px, 390px);
+
+@include area(111, 145px, 427px);
+@include area(112, 110px, 507px);
+@include area(113, 60px, 527px);
+@include area(114, 65px, 602px);
+
+@include area(136, 415px, 380px);
+@include area(137, 425px, 400px);
+
+#board img.ship {
+        position:absolute;
+        height:1em;
+        z-index:2000;
+}
+
+#board.zoom-left img.ship, #board.zoom-center img.ship, #board.zoom-right img.ship {
+        $scale: 2;
+        position:absolute;
+        height:$scale*1em;
+}
+
+@mixin ship-border($name, $color) {
+        $width: 3px;
+        $scale: 2;
+        #board img.ship.#{$name}-border {
+                border-style: none;
+                border-bottom: $width solid $color;
+        }
+
+        #board.zoom-left img.ship.#{$name}-border, #board.zoom-center img.ship.#{$name}-border, #board.zoom-right img.ship.#{$name}-border {
+                border-bottom: $scale*$width solid $color;
+        }
+
+}
+
+@include ship-border("black", #000000);
+@include ship-border("purple", #562B85);
+@include ship-border("green", #719136);
+@include ship-border("white", #FFFFFF);
+@include ship-border("orange", #F27E28);
+
+@mixin ship($id, $index, $top, $left) {
+        #area-#{$id} img.ship-#{$index} {
+                position:absolute;
+        }
+
+        #board #area-#{$id} img.ship-#{$index} {
+                top:$top;
+                left:$left;
+        }
+
+        #board.zoom-left #area-#{$id} img.ship-#{$index}, #board.zoom-center #area-#{$id} img.ship-#{$index}, #board.zoom-right #area-#{$id} img.ship-#{$index} {
+                $scale: 2;
+                top:$scale*$top;
+                left:$scale*$left;
+        }
+}
+
+@mixin ship-box($id, $top, $left) {
+        #area-#{$id} .ship-box {
+                position:absolute;
+                height:35px;
+                width:80px;
+                top:$top;
+                left:$left;
+                img {
+                        position:relative;
+                }
+        }
+
+        #board.zoom-left #area-#{$id} .ship-box, #board.zoom-center #area-#{$id} .ship-box, #board.zoom-right #area-#{$id} .ship-box {
+                $scale: 2;
+                top:$scale*$top;
+                left:$scale*$left;
+                height:35px*$scale;
+                width:80px*$scale;
+                img {
+                        position:relative;
+                }
+        }
+}
+
+@include ship-box(115, 15px, 30px);
+@include ship-box(116, 270px, 60px);
+@include ship-box(117, 470px, 240px);
+@include ship-box(118, 470px, 400px);
+@include ship-box(119, 500px, 560px);
+@include ship-box(120, 510px, 780px);
+@include ship-box(121, 370px, 850px);
+@include ship-box(122, 460px, 1000px);
+@include ship-box(123, 205px, 1095px);
+@include ship-box(124, 95px, 830px);
+@include ship-box(125, 80px, 700px);
+@include ship-box(126, 80px, 300px);
+@include ship-box(127, 95px, 150px);
+@include ship-box(128, 150px, 245px);
+@include ship-box(130, 305px, 365px);
+@include ship-box(131, 350px, 305px);
+@include ship-box(133, 350px, 505px);
+@include ship-box(134, 385px, 710px);
+
+@include ship(129, 0, 245px, 310px);
+@include ship(129, 1, 260px, 310px);
+@include ship(129, 2, 305px, 320px);
+@include ship(129, 3, 315px, 305px);
+@include ship(129, 4, 325px, 320px);
+@include ship(129, 5, 335px, 305px);
+
+@include ship(132, 0, 390px, 445px);
+@include ship(132, 1, 380px, 420px);
+@include ship(132, 2, 393px, 470px);
+@include ship(132, 3, 375px, 395px);
+@include ship(132, 4, 395px, 498px);
+@include ship(132, 5, 416px, 500px);
+
+@include ship(135, 0, 210px, 735px);
+@include ship(135, 1, 210px, 760px);
+@include ship(135, 2, 225px, 760px);
+@include ship(135, 3, 245px, 750px);
+@include ship(135, 4, 260px, 730px);
+@include ship(135, 5, 280px, 725px);
+
+#dialog img.deed {
+        height:90px;
+        width:90px;
+        border:2px solid black;
+}

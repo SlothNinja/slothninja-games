@@ -1,0 +1,11 @@
+{{range $i, $area := $.Game.Areas}}
+{{if $area.IsSumer}}
+{{template "atf/sumer_area" $area}}
+{{end}}
+{{if $area.IsNonSumer}}
+{{template "atf/non_sumer_area" $area}}
+{{end}}
+{{if $area.IsWorkerBox}}
+{{template "atf/worker_box" $area}}
+{{end}}
+{{end}}

@@ -1,0 +1,13 @@
+{{$a := .a}}
+{{$g := .g}}
+{{$cp := .cp}}
+{{$ctx := .ctx}}
+{{$rid := $a.RowIDString}}
+{{$cid := $a.ColIDString}}
+{{$card := $a.Card}}
+<div {{if $card}}data-tip="{{$card.ToolTip}}"{{end}} class="board-space {{if $card}}{{$card.IDString}}{{end}} pull-left {{if $cp}}{{if $g.CanClick $ctx $cp $a}}clickable{{end}}{{end}}" id="area-{{$rid}}-{{$cid}}">
+        {{with $p := $g.PlayerByID $a.Thief}}
+        {{$color := $p.Color}}
+        <div class="thief {{$color}}"></div>
+        {{end}}
+</div>

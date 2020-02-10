@@ -1,0 +1,33 @@
+<div class="heading">
+        <div>Select First Targeted Units</div>
+</div>
+<div class="notice" style="height:6em">
+        <div style="float:left">
+        <table style="width:300px" data-bind="with: orderedAreas()[0]" class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th>Unit</th>
+                                <th>Damage</th>
+                                <th>Target</th>
+                        </tr>
+                </thead>
+                <tbody data-bind="foreach: { data: artilleryFor($root.currentPlayer()), as: 'art' }">
+                <tr>
+                        <td>
+                                <img class="unit" data-bind="attr: { src: art.link() }" />
+                        </td>
+                        <td data-bind="text: art.damage">
+                        </td>
+                        <td>
+                                <select data-bind="options: $root.targetTypes(), value: art.targetUnits"></select>
+                        </td>
+                </tr>
+                </tbody>
+        </table>
+        </div>
+        <div style="float:right">
+        <button class="top-padding" data-bind="jqButton: true, click: function() { $root.put({ action: 'artillery-fire-unit-type-1', units: ko.toJSON(orderedAreas()[0].artilleryFor($root.currentPlayer())) }) }">
+                Select Targets
+        </button>
+        </div>
+</div>

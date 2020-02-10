@@ -1,0 +1,100 @@
+@mixin union-discs($id, $top, $left, $child) {
+        ##{$id} img:nth-child(#{$child}) {
+                position:absolute;
+                width:24px;
+                height:24px;
+                left:$left;
+                top:$top;
+                z-index:20+$child;
+        }
+}
+
+img.command-block {
+        width:28px;
+        height:28px;
+}
+
+img.disc {
+        width:24px;
+        height:24px;
+}
+
+img.double-disc {
+        width:30px;
+        height:33px;
+}
+
+#board {
+        position:relative;
+        z-index:1;
+        #confederate-single-order-discs-box {
+                position:absolute;
+                top:990px;
+                left:270px;
+                z-index:2;				
+                img {
+                        width:24px;
+                        height:24px;
+                }
+        }
+        #confederate-double-order-discs-box {
+                position:absolute;
+                top:986px;
+                left:800px;
+                z-index:2;
+                img {
+                        width:30px;
+                        height:33px;
+                }
+        }
+        #union-order-discs-box {
+                z-index:2;
+        }
+        @for $i from 1 through 10 {
+                @include union-discs("union-discs-1", 20px, 1126px - ($i * 14), $i);
+                @include union-discs("union-discs-2", 20px, 726px - ($i * 14), $i);
+        }
+        @for $i from 1 through 8 {
+                @include union-discs("union-discs-3", 20px, 1126px - ($i * 14), $i);
+        }
+        @for $i from 1 through 5 {
+                @include union-discs("union-discs-4", 20px, 1126px - ($i * 14), $i);
+        }
+}				
+
+#day-marker {
+        position:absolute;
+        top:20px;
+        z-index:2;
+}
+
+@for $day from 1 through 3 {
+        #day-marker.july-#{$day} {
+                left:380px-(54px * ($day - 1));
+        }
+}
+
+table.stylized {
+        @extend .ui-widget;
+        border: 1px solid black;
+        thead tr {
+                @extend .ui-state-default;
+        }
+        tbody {
+                @extend .ui-widget-content;
+        }
+        tr:nth-child(odd) {
+                @extend .ui-widget-content;
+                background-image: none;
+                background-color: #F5F3E5;
+        }
+        tr:nth-child(even) {
+                @extend .ui-widget-content;
+                background-image: none;
+                background-color: darken(#F5F3E5, 10%);
+        }
+        img.unit {
+                height:20px;
+                width:30px;
+        }
+}

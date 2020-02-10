@@ -1,0 +1,10 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+{{with $cp := $g.CurrentPlayer}}
+        {{if $g.CanPlaceThief $ctx $cp}}
+                {{template "got/place_thief_dialog" $}}
+        {{end}}
+        {{if $g.CanSelectCard $ctx $cp}}
+                {{template "got/show_hand_dialog" $}}
+        {{end}}
+{{end}}

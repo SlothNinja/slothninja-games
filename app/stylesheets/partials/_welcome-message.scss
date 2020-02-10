@@ -1,0 +1,55 @@
+.welcome-message, .available-games {
+        $content-columns: ceil(5 * $blueprint-grid-columns / 6);
+        .content {
+                @extend .ui-widget;
+                @extend .ui-widget-content;
+                @extend .ui-corner-all;
+                @include column($content-columns, true);
+                @include append-bottom(0.5em);
+        }
+}
+
+.heading {
+        $content-columns: ceil(5 * $blueprint-grid-columns / 6);
+        @extend .ui-widget;
+        @extend .ui-widget-header;
+        @extend .ui-corner-all;
+        @extend .ui-state-default;
+        @include column($content-columns, true);
+        @include append-bottom(0.5em);
+        div {
+                text-align:center;
+                padding: 0.5em;
+        };
+};
+
+.welcome-message .content {
+        height: 14em;
+        div {
+                padding: 1em 3em 0em 3em;
+        };
+};
+
+.available-games {
+        .content {
+                height:33em;
+                #left-column {
+                        width:340px;
+                        float:left;
+                        @include prepend-top(5em);
+                }
+                #center-column {
+                        width:310px;
+                        float:left;
+                        @include prepend-top(8em);
+                }
+                #right-column {
+                        width:340px;
+                        float:left;
+                        @include prepend-top(5em);
+                }
+        }
+}
+.available-games div {
+        text-align:center;
+}

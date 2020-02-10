@@ -1,0 +1,18 @@
+{{$p := .}}
+{{$game := $p.Game}}
+<div id="{{$p.Color}}-passed-resources">
+        {{if $p.Passed}}
+        {{if $p.PassedResources.Value}}
+        {{range $i, $count := $p.PassedResources}}
+        {{$resource := $game.ResourceName $i}}
+        {{range $j := ints 1 $count}}
+        <img src="/images/atf/{{$resource}}.png" alt="{{$resource}}" />
+        {{end}}
+        {{end}}
+        {{else}}
+        <div id="{{$p.Color}}-passed-marker">
+                <img alt="{{$p.Color}} Disc" src="/images/atf/{{$p.Color}}_disc.png" />
+        </div>
+        {{end}}
+        {{end}}
+</div>

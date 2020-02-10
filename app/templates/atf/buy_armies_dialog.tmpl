@@ -1,0 +1,6 @@
+{{$game := $.Game}}
+{{$player := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+<div id="dialog" title="Buy Armies for {{$area.Name}} Empire">
+        {{template "atf/buy_armies_form" $}}
+</div>

@@ -1,0 +1,7 @@
+<div>
+{{template "shared/flashbox" .}}
+{{template "shared/gamelog_entry3" data "g" $.Game "entry" $.Game.Log.Last "ctx" $.Context}}
+{{template "shared/last_actions_list3" data "g" $.Game "p" $.Game.CurrentPlayer "ctx" $.Context}}
+{{template "tammany/offices" .}}
+{{template "tammany/player_office" $.Player}}
+</div>

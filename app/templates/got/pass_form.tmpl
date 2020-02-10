@@ -1,0 +1,11 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+<div id="tabs-pass">
+        <div class="dialog-content">
+                <form class="myForm center">
+                        <input name="action" type="hidden" value="pass" />
+                        <input type="submit" value="Pass" class="mybutton" />
+                </form>
+        </div>
+</div>

@@ -1,0 +1,141 @@
+{{$g := $.Game}}
+{{range $index, $p := $g.Players}}
+<!-- {{.Name}} Player State Form -->
+<div class="actions" id="player-{{$index}}-action">
+        <fieldset>
+                <legend>Player: {{.Name}}</legend>
+                <form action="/{{$g.Stub}}/game/admin/{{$g.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="player" />
+                                <input name="pid" type="hidden" value="{{$p.ID}}" />
+                        </div>
+                        <div class="upper-content">
+                                <div class="left-column">
+                                        <div>
+                                                <label for="id-{{$index}}">ID</label>
+                                                <input id="id-{{$index}}" name="idf" type="text" size="5" value="{{$p.ID}}" />
+                                        </div>
+                                        <div>
+                                                <label for="score-{{$index}}">Score</label>
+                                                <select id="score-{{$index}}" name="score">
+                                                        {{range $value := ints 0 60}}
+                                                        <option value="{{.}}" {{if equal . $p.Score}}selected="selected"{{end}}>{{.}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        {{range $i, $n := $g.Nationalities}}
+                                        <div>
+                                                <label for="{{$n.LString}}">{{$n}} Chips:</label>
+                                                <input id="{{$n.LString}}" name="chips" type="text" size="5" value="{{index $p.Chips $n}}" />
+                                        </div>
+                                        {{end}}
+                                        {{range $i, $n := $g.Nationalities}}
+                                        <div>
+                                                <label for="played-{{$n.LString}}">Played {{$n}} Chips:</label>
+                                                <input id="played-{{$n.LString}}" name="played-chips" type="text" size="5" value="{{index $p.PlayedChips $n}}" />
+                                        </div>
+                                        {{end}}
+                                </div>
+                                <div class="right-column">
+                                        <div>
+                                                <label for="performedaction-{{$index}}">PerformedAction</label>
+                                                <select id="performedaction-{{$index}}" name="performed-action">
+                                                        {{if .PerformedAction}}
+                                                        <option value="false">false</option>
+                                                        <option value="true" selected="selected">true</option>
+                                                        {{else}}
+                                                        <option value="false" selected="selected">false</option>
+                                                        <option value="true">true</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="candidate-{{$index}}">Candidate</label>
+                                                <select id="candidate-{{$index}}" name="candidate">
+                                                        {{if .Candidate}}
+                                                        <option value="false">false</option>
+                                                        <option value="true" selected="selected">true</option>
+                                                        {{else}}
+                                                        <option value="false" selected="selected">false</option>
+                                                        <option value="true">true</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="office-{{$index}}">Office</label>
+                                                <select id="office-{{$index}}" name="office">
+                                                        {{range $office := $p.Game.Offices}}
+                                                        {{if eq $p.Office $office}}
+                                                        <option value="{{$office.Value}}" selected="selected">{{$office}}</option>
+                                                        {{else}}
+                                                        <option value="{{$office.Value}}">{{$office}}</option>
+                                                        {{end}}
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="usedoffice-{{$index}}">UsedOffice</label>
+                                                <select id="usedoffice-{{$index}}" name="used-office">
+                                                        {{if .UsedOffice}}
+                                                        <option value="false">false</option>
+                                                        <option value="true" selected="selected">true</option>
+                                                        {{else}}
+                                                        <option value="false" selected="selected">false</option>
+                                                        <option value="true">true</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="placedbosses-{{$index}}">PlacedBosses</label>
+                                                <select id="placedbosses-{{$index}}" name="placed-bosses">
+                                                        <option value="0" {{if eq $p.PlacedBosses 0}}selected="selected"{{end}}>0</option>
+                                                        <option value="1" {{if eq $p.PlacedBosses 1}}selected="selected"{{end}}>1</option>
+                                                        <option value="2" {{if eq $p.PlacedBosses 2}}selected="selected"{{end}}>2</option>
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="placedimmigrants-{{$index}}">PlacedImmigrants</label>
+                                                <select id="placedimmigrants-{{$index}}" name="placed-immigrants">
+                                                        <option value="0" {{if eq $p.PlacedImmigrants 0}}selected="selected"{{end}}>0</option>
+                                                        <option value="1" {{if eq $p.PlacedImmigrants 1}}selected="selected"{{end}}>1</option>
+                                                        <option value="2" {{if eq $p.PlacedImmigrants 2}}selected="selected"{{end}}>2</option>
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="hasbid-{{$index}}">HasBid</label>
+                                                <select id="hasbid-{{$index}}" name="has-bid">
+                                                        {{if .HasBid}}
+                                                        <option value="false">false</option>
+                                                        <option value="true" selected="selected">true</option>
+                                                        {{else}}
+                                                        <option value="false" selected="selected">false</option>
+                                                        <option value="true">true</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        {{range $term, $chip := .SlanderChips}}
+                                        <div>
+                                                <label for="slanderchip{{$term}}-{{$index}}">Slander Chip {{$term}}</label>
+                                                <select id="slanderchip{{$term}}-{{$index}}" name="slanderchip{{$term}}">
+                                                        {{if $chip}}
+                                                        <option value="false">false</option>
+                                                        <option value="true" selected="selected">true</option>
+                                                        {{else}}
+                                                        <option value="false" selected="selected">false</option>
+                                                        <option value="true">true</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        {{end}}
+                                </div>
+                        </div>
+                        <div class="button">
+                                <div>
+                                        <input class="mybutton" name="commit" type="submit" value="Update Player" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>
+{{end}}

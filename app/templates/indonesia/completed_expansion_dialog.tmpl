@@ -1,0 +1,18 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$company := $game.SelectedCompany}}
+<div id="dialog" title="Completed Operations">
+        <div class="dialog-content" style="width:265px">
+                <p class="top-padding">
+                The {{$company.HTML}} company has completed operations.
+                </p>
+                <div class="top-padding">
+                        <form action="/{{$.Game.Stub}}/game/undo/{{$.Game.ID}}" id="undo-turn" class="pull-left" method="post">
+                                <input class="mybutton right-padding" name="commit" type="submit" value="Undo" /> 
+                        </form> 
+                        <form action="/{{$.Game.Stub}}/game/finish/{{$.Game.ID}}" id="finish-turn" class="pull-left" method="post">
+                                <input class="mybutton" name="commit" type="submit" value="Finish" /> 
+                        </form> 
+                </div>
+        </div>
+</div>

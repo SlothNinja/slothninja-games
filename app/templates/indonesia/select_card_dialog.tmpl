@@ -1,0 +1,8 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div id="dialog" title="Select City Card">
+        <div class="dialog-content" style="width:200px">
+                <p>Select Card To Play.</p>
+                {{$cp.PlayCardDisplay}}
+        </div>
+</div>

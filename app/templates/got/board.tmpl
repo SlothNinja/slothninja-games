@@ -1,0 +1,6 @@
+{{$g := $.Game}}
+<!-- Board --> 
+<div id="board" {{if equal $g.NumPlayers 2}}class="p2"{{end}}> 
+        {{template "got/areas" $}}
+        {{template "got/default_dialog" $}}
+</div>

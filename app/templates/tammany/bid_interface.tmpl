@@ -1,0 +1,44 @@
+{{$p := .p}}
+{{$w := .w}}
+{{$index := 0}}
+<td>
+        Your Bid:
+</td>
+<td>
+        <div class="boss">
+                {{$p.BossImage}}
+                <div class="text {{$p.Color}}">{{$w.BossesFor $p}}</div>
+        </div>
+</td>
+<td>
+        <div>
+                {{range $n, $count := $w.Immigrants}}
+                {{if $count}}
+                {{with $chips := $p.ChipsFor $n}}
+                <div class="chip-widget float-left">
+                        <div class="increment-button-{{$index}} max-{{$chips}}"></div>
+                        <div class="chip {{$n.LString}}">
+                                <div class="img">
+                                        <img alt="{{$n.LString}}-chip" src="{{$n.ChipImage}}" />
+                                </div>
+                                <div class="text {{$n.LString}}">
+                                        0 
+                                </div>
+                                <input name="{{$n.LString}}-{{$index}}" type="hidden" value="0" />
+                        </div>
+                        <div class="decrement-button-{{$index}}"></div>
+                </div>
+                {{else}}
+                <input name="{{$n.LString}}-{{$index}}" type="hidden" value="0" />
+                {{end}}
+                {{else}}
+                <input name="{{$n.LString}}-{{$index}}" type="hidden" value="0" />
+                {{end}}
+                {{end}}
+        </div>
+</td>
+<td>
+        <div class="total">
+                {{$w.BossesFor $p}}
+        </div>
+</td>

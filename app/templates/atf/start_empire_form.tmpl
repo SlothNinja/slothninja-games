@@ -1,0 +1,13 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanStartEmpireIn $area}}
+<div id="tabs-start-empire">
+        <div class="dialog-content center">
+                <form class="myForm">
+                        <input name="action" type="hidden" value="start-empire" />
+                        <input type="submit" value="Start Empire" class="mybutton" />
+                </form>
+        </div>
+</div>
+{{end}}

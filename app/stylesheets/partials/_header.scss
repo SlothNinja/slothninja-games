@@ -1,0 +1,71 @@
+#header {
+        @include column($blueprint-grid-columns, true);
+        @include append-bottom(6px);
+        @extend .ui-widget;
+        @extend .ui-widget-content;
+        @extend .ui-corner-all;
+        #banner-logo {
+                @include column($blueprint-grid-columns, true);
+                .left {
+                        height:95px;
+                        @include column(15);
+                        .logo {
+                                margin:1em 2em;
+                                img {
+                                        height:70px;
+                                        width:140px;
+                                }
+                        }
+                }
+                .right {
+                        @include column(15, true);
+                        .confucius {
+                                height:95px;
+                                background-color:black;
+                                position:relative;
+                                img {
+                                        height:90px;
+                                        margin:2px;
+                                }
+                                .company-logo {
+                                        position:absolute;
+                                        left:530px;
+                                }
+                                .game-logo {
+                                        position:absolute;
+                                        left:120px;
+                                }
+                        }
+                }
+        }
+
+        #banner-line {
+                @include column($blueprint-grid-columns, true);
+                font-weight:bold;
+                .left {
+                        @include column(8);
+                }
+                .center {
+                        @include column(14);
+                        text-align:center;				
+                }
+                .right {
+                        @include column(8, true);
+                        text-align: right;				
+                }
+                .content {
+                        padding: 0.5em;
+                }
+        }
+}
+
+.announcement {
+        @include column($blueprint-grid-columns, true);
+        @include append-bottom(6px);
+        padding:.8em;
+        border:2px solid #ddd;
+        background:#FFF6BF;
+        color:#514721;
+        border-color:#FFD324;
+        text-align:center;
+}

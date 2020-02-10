@@ -1,0 +1,20 @@
+{{$game := $.Game}}
+<div id="tech-track">
+        <div class="container">
+                {{range $p := $game.Players}}
+                {{range $tech, $value := $p.Technologies}}
+                {{$id := $tech.IDString}}
+                <div id="tech-{{$id}}-{{$value}}-{{$p.ID}}">
+                        <img src="/images/indonesia/{{$p.Color}}-disc.png" />
+                </div>
+                {{end}}
+                {{range $company := $p.Companies}}
+                {{if $company.IsShippingCompany}}
+                <div id="tech-hull-company-{{$company.HullSize}}-{{$company.ShipType.IDString}}">
+                <img class="ship" src="/images/indonesia/{{$company.ShipType.IDString}}.png"/>
+                </div>
+                {{end}}
+                {{end}}
+                {{end}}
+        </div>
+</div>

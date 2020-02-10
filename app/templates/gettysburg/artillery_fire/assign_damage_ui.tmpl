@@ -1,0 +1,41 @@
+<div class="heading">
+        <div>Assign Damage</div>
+</div>
+<div class="notice" data-bind="foreach: { data: orderedAreas(), as: 'area' }">
+        <div>
+                You must assign <span data-bind="text: newDamage"></span> hit to your units in area <span data-bind="text: id"></span>.
+        </div>
+        <table class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th>Unit</th>
+                                <th>Damage</th>
+                                <th>Assign</th>
+                                <th>Total</th>
+                        </tr>
+                </thead>
+                <tbody data-bind="foreach: { data: hitUnits(), as: 'unit' }">
+                <tr>
+                        <td>
+                                <img class="unit" data-bind="attr: { src: unit.link() }" />
+                        </td>
+                        <td data-bind="text: unit.damage">
+                        </td>
+                        <td>
+                        <div data-bind="ifnot: unit.kind == 'artillery'">
+                                <input data-bind="jqSpinner: unit.newDamage, min: 0, max: $parent.newDamage(), update: $root.assignDamage" type="text" />
+                        </div>
+                        <div data-bind="if: unit.kind == 'artillery'">
+                                <input data-bind="jqSpinner: unit.newDamage, min: 0, max: $parent.newDamage()" />
+                        </div>
+                        </td>
+                        <td>
+                                <div data-bind="text: unit.totalDamage"></div>
+                        </td>
+                </tr>
+                </tbody>
+        </table>
+        <button data-bind="jqButton: true, click: function() { $root.put({ 'action': 'assign-damage', 'target': key, 'units': ko.toJSON(hitUnits) }) }">
+                Assign
+        </button>
+</div>

@@ -1,0 +1,15 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+<div>
+        {{template "shared/flashbox" .}}
+        {{template "shared/gamelog" $}}
+        {{template "shared/last_actions_list" $cp}}
+        {{template "atf/player_resources" $cp}}
+        {{template "atf/supply_resources_update" $}}
+        {{template "atf/player_city_expansions" $cp}}
+        {{template "atf/city" $area}}
+        <div id="player-score-{{$cp.ID}}">
+                {{$cp.Score}}
+        </div>
+</div>

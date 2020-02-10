@@ -1,0 +1,913 @@
+@mixin immigrant {
+	position:absolute;
+	z-index:2;
+	img {
+		height:24px;
+		width:24px;
+	}
+	.text {
+		position:relative;
+		top:-22px;
+		left:8px;
+		color:white;
+	}
+	.english {
+		color:black;
+	}
+}
+
+@mixin boss {
+	position:absolute;
+	z-index:2;
+	img {
+		height:28px;
+		width:28px;
+	}
+	.text {
+		position:relative;
+		top:-24px;
+		left:10px;
+	}
+}
+
+@mixin lock-up {
+	position:absolute;
+	z-index:2;
+	img { 
+		height:28px;
+		width:28px;
+	}
+}
+
+@mixin halo {
+	position:absolute;
+	z-index:20;
+        height:70px;
+        width:70px;
+        .content {
+                height:70px;
+                width:70px;
+                img { 
+                        height:60px;
+                        width:60px;
+                }
+        }
+}
+
+@mixin wards {
+	#ward-1 {
+		.irish {
+			@include immigrant;
+			top:995px;
+			left:220px;			
+		}
+		.english {
+			@include immigrant;
+			top:995px;
+			left:194px;			
+		}
+		.german {
+			@include immigrant;
+			top:995px;
+			left:246px;			
+		}
+		.italian {
+			@include immigrant;
+			top:995px;
+			left:168px;			
+		}
+		.boss-0 {
+			@include boss;
+			top:1070px;
+			left:220px;
+		}
+		.boss-1 {
+			@include boss;
+			top:1070px;
+			left:190px;
+		}
+		.boss-2 {
+			@include boss;
+			top:1070px;
+			left:250px;
+		}
+		.boss-3 {
+			@include boss;
+			top:1070px;
+			left:160px;
+		}
+		.boss-4 {
+			@include boss;
+			top:1070px;
+			left:280px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:1030px;
+			left:280px;
+		}
+                .halo {
+                        @include halo;
+			top:1012px;
+			left:199px;
+                }
+	}
+	#ward-2 {
+		.irish {
+			@include immigrant;
+			top:930px;
+			left:320px;
+		}
+		.english {
+			@include immigrant;
+			top:930px;
+			left:294px;
+		}
+		.german {
+			@include immigrant;
+			top:906px;
+			left:320px;
+		}
+		.italian {
+			@include immigrant;
+			top:906px;
+			left:294px;
+		}
+		.boss-0 {
+			@include boss;
+			top:965px;
+			left:360px;
+		}
+		.boss-1 {
+			@include boss;
+			top:935px;
+			left:360px;
+		}
+		.boss-2 {
+			@include boss;
+			top:995px;
+			left:360px;
+		}
+		.boss-3 {
+			@include boss;
+			top:995px;
+			left:330px;
+		}
+		.boss-4 {
+			@include boss;
+			top:965px;
+			left:390px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:965px;
+			left:294px;
+		}
+                .halo {
+                        @include halo;
+			top:947px;
+			left:306px;
+                }
+	}
+	#ward-3 {
+		.irish {
+			@include immigrant;
+			top:813px;
+			left:230px;
+		}
+		.english {
+			@include immigrant;
+			top:813px;
+			left:204px;
+		}
+		.german {
+			@include immigrant;
+			top:787px;
+			left:230px;
+		}
+		.italian {
+			@include immigrant;
+			top:787px;
+			left:204px;
+		}
+		.boss-0 {
+			@include boss;
+			top:870px;
+			left:195px;
+		}
+		.boss-1 {
+			@include boss;
+			top:840px;
+			left:195px;
+		}
+		.boss-2 {
+			@include boss;
+			top:900px;
+			left:195px;
+		}
+		.boss-3 {
+			@include boss;
+			top:900px;
+			left:225px;
+		}
+		.boss-4 {
+			@include boss;
+			top:840px;
+			left:260px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:820px;
+			left:290px;
+		}
+                .halo {
+                        @include halo;
+			top:848px;
+			left:212px;
+                }
+	}
+	#ward-4 {
+		.irish {
+			@include immigrant;
+			top:900px;
+			left:405px;
+		}
+		.english {
+			@include immigrant;
+			top:900px;
+			left:379px;
+		}
+		.german {
+			@include immigrant;
+			top:876px;
+			left:405px;
+		}
+		.italian {
+			@include immigrant;
+			top:876px;
+			left:379px;
+		}
+		.boss-0 {
+			@include boss;
+			top:910px;
+			left:470px;
+		}
+		.boss-1 {
+			@include boss;
+			top:940px;
+			left:470px;
+		}
+		.boss-2 {
+			@include boss;
+			top:880px;
+			left:470px;
+		}
+		.boss-3 {
+			@include boss;
+			top:880px;
+			left:440px;
+		}
+		.boss-4 {
+			@include boss;
+			top:850px;
+			left:470px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:930px;
+			left:410px;
+		}
+                .halo {
+                        @include halo;
+			top:892px;
+			left:418px;
+                }
+	}
+	#ward-5 {
+		.irish {
+			@include immigrant;
+			top:660px;
+			left:260px;
+		}
+		.english {
+			@include immigrant;
+			top:660px;
+			left:234px;
+		}
+		.german {
+			@include immigrant;
+			top:634px;
+			left:260px;
+		}
+		.italian {
+			@include immigrant;
+			top:634px;
+			left:234px;
+		}
+		.boss-0 {
+			@include boss;
+			top:740px;
+			left:280px;
+		}
+		.boss-1 {
+			@include boss;
+			top:740px;
+			left:250px;
+		}
+		.boss-2 {
+			@include boss;
+			top:740px;
+			left:310px;
+		}
+		.boss-3 {
+			@include boss;
+			top:740px;
+			left:220px;
+		}
+		.boss-4 {
+			@include boss;
+			top:740px;
+			left:340px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:700px;
+			left:340px;
+		}
+                .halo {
+                        @include halo;
+			top:683px;
+			left:258px;
+                }
+	}
+	#ward-6 {
+		.irish {
+			@include immigrant;
+			top:770px;
+			left:415px;
+		}
+		.english {
+			@include immigrant;
+			top:770px;
+			left:389px;
+		}
+		.german {
+			@include immigrant;
+			top:744px;
+			left:415px;
+		}
+		.italian {
+			@include immigrant;
+			top:744px;
+			left:389px;
+		}
+		.boss-0 {
+			@include boss;
+			top:810px;
+			left:365px;
+		}
+		.boss-1 {
+			@include boss;
+			top:810px;
+			left:335px;
+		}
+		.boss-2 {
+			@include boss;
+			top:810px;
+			left:395px;
+		}
+		.boss-3 {
+			@include boss;
+			top:840px;
+			left:380px;
+		}
+		.boss-4 {
+			@include boss;
+			top:840px;
+			left:350px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:790px;
+			left:470px;
+		}
+                .halo {
+                        @include halo;
+			top:793px;
+			left:404px;
+                }
+	}
+	#ward-7 {
+		.irish {
+			@include immigrant;
+			top:855px;
+			left:770px;
+		}
+		.english {
+			@include immigrant;
+			top:855px;
+			left:744px;
+		}
+		.german {
+			@include immigrant;
+			top:829px;
+			left:770px;
+		}
+		.italian {
+			@include immigrant;
+			top:829px;
+			left:744px;
+		}
+		.boss-0 {
+			@include boss;
+			top:855px;
+			left:590px;
+		}
+		.boss-1 {
+			@include boss;
+			top:855px;
+			left:560px;
+		}
+		.boss-2 {
+			@include boss;
+			top:855px;
+			left:620px;
+		}
+		.boss-3 {
+			@include boss;
+			top:855px;
+			left:530px;
+		}
+		.boss-4 {
+			@include boss;
+			top:855px;
+			left:650px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:890px;
+			left:560px;
+		}
+                .halo {
+                        @include halo;
+			top:837px;
+			left:677px;
+                }
+	}
+	#ward-8 {
+		.irish {
+			@include immigrant;
+			top:645px;
+			left:400px;
+		}
+		.english {
+			@include immigrant;
+			top:645px;
+			left:374px;
+		}
+		.german {
+			@include immigrant;
+			top:619px;
+			left:400px;
+		}
+		.italian {
+			@include immigrant;
+			top:619px;
+			left:374px;
+		}
+		.boss-0 {
+			@include boss;
+			top:530px;
+			left:300px;
+		}
+		.boss-1 {
+			@include boss;
+			top:530px;
+			left:270px;
+		}
+		.boss-2 {
+			@include boss;
+			top:530px;
+			left:330px;
+		}
+		.boss-3 {
+			@include boss;
+			top:530px;
+			left:240px;
+		}
+		.boss-4 {
+			@include boss;
+			top:530px;
+			left:360px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:570px;
+			left:300px;
+		}
+                .halo {
+                        @include halo;
+			top:563px;
+			left:333px;
+                }
+	}
+	#ward-9 {
+		.irish {
+			@include immigrant;
+			top:300px;
+			left:340px;
+		}
+		.english {
+			@include immigrant;
+			top:300px;
+			left:314px;
+		}
+		.german {
+			@include immigrant;
+			top:274px;
+			left:340px;
+		}
+		.italian {
+			@include immigrant;
+			top:274px;
+			left:314px;
+		}
+		.boss-0 {
+			@include boss;
+			top:390px;
+			left:310px;
+		}
+		.boss-1 {
+			@include boss;
+			top:390px;
+			left:280px;
+		}
+		.boss-2 {
+			@include boss;
+			top:390px;
+			left:340px;
+		}
+		.boss-3 {
+			@include boss;
+			top:390px;
+			left:250px;
+		}
+		.boss-4 {
+			@include boss;
+			top:390px;
+			left:370px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:420px;
+			left:310px;
+		}
+                .halo {
+                        @include halo;
+			top:329px;
+			left:299px;
+                }
+	}
+	#ward-10 {
+		.irish {
+			@include immigrant;
+			top:710px;
+			left:590px;
+		}
+		.english {
+			@include immigrant;
+			top:710px;
+			left:564px;
+		}
+		.german {
+			@include immigrant;
+			top:684px;
+			left:590px;
+		}
+		.italian {
+			@include immigrant;
+			top:684px;
+			left:564px;
+		}
+		.boss-0 {
+			@include boss;
+			top:765px;
+			left:570px;
+		}
+		.boss-1 {
+			@include boss;
+			top:765px;
+			left:540px;
+		}
+		.boss-2 {
+			@include boss;
+			top:765px;
+			left:600px;
+		}
+		.boss-3 {
+			@include boss;
+			top:790px;
+			left:585px;
+		}
+		.boss-4 {
+			@include boss;
+			top:790px;
+			left:555px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:730px;
+			left:625px;
+		}
+                .halo {
+                        @include halo;
+			top:723px;
+			left:556px;
+                }
+	}
+	#ward-11 {
+		.irish {
+			@include immigrant;
+			top:570px;
+			left:850px;
+		}
+		.english {
+			@include immigrant;
+			top:570px;
+			left:824px;
+		}
+		.german {
+			@include immigrant;
+			top:544px;
+			left:850px;
+		}
+		.italian {
+			@include immigrant;
+			top:544px;
+			left:824px;
+		}
+		.boss-0 {
+			@include boss;
+			top:660px;
+			left:820px;
+		}
+		.boss-1 {
+			@include boss;
+			top:660px;
+			left:790px;
+		}
+		.boss-2 {
+			@include boss;
+			top:660px;
+			left:850px;
+		}
+		.boss-3 {
+			@include boss;
+			top:660px;
+			left:880px;
+		}
+		.boss-4 {
+			@include boss;
+			top:660px;
+			left:760px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:620px;
+			left:790px;
+		}
+                .halo {
+                        @include halo;
+			top:603px;
+			left:817px;
+                }
+	}
+	#ward-13 {
+		.irish {
+			@include immigrant;
+			top:750px;
+			left:710px;
+		}
+		.english {
+			@include immigrant;
+			top:750px;
+			left:684px;
+		}
+		.german {
+			@include immigrant;
+			top:724px;
+			left:710px;
+		}
+		.italian {
+			@include immigrant;
+			top:724px;
+			left:684px;
+		}
+		.boss-0 {
+			@include boss;
+			top:770px;
+			left:830px;
+		}
+		.boss-1 {
+			@include boss;
+			top:770px;
+			left:800px;
+		}
+		.boss-2 {
+			@include boss;
+			top:770px;
+			left:860px;
+		}
+		.boss-3 {
+			@include boss;
+			top:800px;
+			left:845px;
+		}
+		.boss-4 {
+			@include boss;
+			top:800px;
+			left:815px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:780px;
+			left:684px;
+		}
+                .halo {
+                        @include halo;
+			top:754px;
+			left:735px;
+                }
+	}
+	#ward-14 {
+		.irish {
+			@include immigrant;
+			top:640px;
+			left:510px;
+		}
+		.english {
+			@include immigrant;
+			top:640px;
+			left:484px;
+		}
+		.german {
+			@include immigrant;
+			top:614px;
+			left:510px;
+		}
+		.italian {
+			@include immigrant;
+			top:614px;
+			left:484px;
+		}
+		.boss-0 {
+			@include boss;
+			top:710px;
+			left:470px;
+		}
+		.boss-1 {
+			@include boss;
+			top:710px;
+			left:440px;
+		}
+		.boss-2 {
+			@include boss;
+			top:710px;
+			left:500px;
+		}
+		.boss-3 {
+			@include boss;
+			top:740px;
+			left:470px;
+		}
+		.boss-4 {
+			@include boss;
+			top:740px;
+			left:500px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:660px;
+			left:440px;
+		}
+                .halo {
+                        @include halo;
+			top:662px;
+			left:461px;
+                }
+	}
+	#ward-15 {
+		.irish {
+			@include immigrant;
+			top:370px;
+			left:520px;
+		}
+		.english {
+			@include immigrant;
+			top:370px;
+			left:494px;
+		}
+		.german {
+			@include immigrant;
+			top:344px;
+			left:520px;
+		}
+		.italian {
+			@include immigrant;
+			top:344px;
+			left:494px;
+		}
+		.boss-0 {
+			@include boss;
+			top:450px;
+			left:505px;
+		}
+		.boss-1 {
+			@include boss;
+			top:450px;
+			left:475px;
+		}
+		.boss-2 {
+			@include boss;
+			top:450px;
+			left:535px;
+		}
+		.boss-3 {
+			@include boss;
+			top:450px;
+			left:445px;
+		}
+		.boss-4 {
+			@include boss;
+			top:450px;
+			left:565px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:480px;
+			left:505px;
+		}
+                .halo {
+                        @include halo;
+			top:395px;
+			left:491px;
+                }
+	}
+	#ward-17 {
+		.irish {
+			@include immigrant;
+			top:460px;
+			left:720px;
+		}
+		.english {
+			@include immigrant;
+			top:460px;
+			left:694px;
+		}
+		.german {
+			@include immigrant;
+			top:434px;
+			left:720px;
+		}
+		.italian {
+			@include immigrant;
+			top:434px;
+			left:694px;
+		}
+		.boss-0 {
+			@include boss;
+			top:530px;
+			left:700px;
+		}
+		.boss-1 {
+			@include boss;
+			top:530px;
+			left:670px;
+		}
+		.boss-2 {
+			@include boss;
+			top:530px;
+			left:730px;
+		}
+		.boss-3 {
+			@include boss;
+			top:530px;
+			left:640px;
+		}
+		.boss-4 {
+			@include boss;
+			top:530px;
+			left:760px;
+		}
+		.lock-up-box {
+			@include lock-up;
+			top:560px;
+			left:700px;
+		}
+                .halo {
+                        @include halo;
+			top:473px;
+			left:684px;
+                }
+	}
+}

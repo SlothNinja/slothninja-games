@@ -1,0 +1,10 @@
+{{$game := $.Game}}
+<div id="turn-track">
+        <div class="container">
+                {{range $i, $p := $game.Players}}
+                <div id="turn-track-player-{{$i}}">
+                        <img src="/images/indonesia/{{$p.Color}}-disc.png" />
+                </div>
+                {{end}}
+        </div>
+</div>

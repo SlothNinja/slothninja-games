@@ -1,0 +1,41 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+{{$cu := $.CUser}}
+{{if $g.IsCurrentPlayerOrAdmin $cu}}
+        {{if $cp.CanSelectCard}}
+                {{template "indonesia/select_card_dialog" $}}
+        {{end}}
+        {{if $cp.CanPlaceCity}}
+                {{template "indonesia/place_city_dialog" $}}
+        {{end}}
+        {{if $cp.CanBid}}
+                {{template "indonesia/turn_order_bid_dialog" $}}
+        {{end}}
+        {{if $cp.CanAcquireCompany}}
+                {{template "indonesia/acquire_company_dialog" $}}
+        {{end}}
+        {{if $cp.CanResearch}}
+                {{template "indonesia/research_dialog" $}}
+        {{end}}
+        {{if $cp.CanSelectCompanyToOperate}}
+                {{template "indonesia/select_company_dialog" $}}
+        {{end}}
+        {{if $cp.CanSelectGood}}
+                {{template "indonesia/select_production_area_dialog" $}}
+        {{end}}
+        {{if $cp.CanAnnounceMerger}}
+                {{template "indonesia/announce_merger_dialog" $}}
+        {{end}}
+        {{if $cp.CanAnnounceSecondCompany}}
+                {{template "indonesia/announce_merger2_dialog" $}}
+        {{end}}
+        {{if $cp.CanBidOnMerger}}
+                {{template "indonesia/merger_bid_dialog" $}}
+        {{end}}
+        {{if $cp.CanCreateSiapFaji}}
+                {{template "indonesia/create_siap_faji_dialog" $}}
+        {{end}}
+        {{if equal $g.PhaseName "City Growth"}}
+                {{template "indonesia/city_growth_dialog" $}}
+        {{end}}
+{{end}}

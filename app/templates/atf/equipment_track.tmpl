@@ -1,0 +1,18 @@
+{{$game := $.Game}}
+<div id="equipment-track">
+        {{range $index, $empire := $game.StartedEmpires}}
+        {{with $owner := $empire.Owner}}
+        <div id="equipment-rating-{{$index}}">
+                <img alt="{{$owner.Color}} Disc" src="/images/atf/{{$owner.Color}}_disc.png" />
+        </div>
+        <div id="equipment-resources-{{$owner.Color}}">
+                {{range $i, $count := $empire.Equipment}}
+                {{$resource := $game.ResourceName $i}}
+                {{range $j := ints 1 $count}}
+                <img src="/images/atf/{{$resource}}.png" alt="{{$resource}}" />
+                {{end}}
+                {{end}}
+        </div>
+        {{end}}
+        {{end}}
+</div>

@@ -1,0 +1,36 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Commercial Income Form --> 
+{{if $g.EnableCommercial $ctx}}
+<div class="actions" id="commercial-action"> 
+        <fieldset> 
+                <legend>Commercial Income</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="commercial" />
+                                </div>
+                                {{$g.CoinOptions "commercial"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Commercial" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select Confucius card(s) with up to 4 coins.
+                                        </li> 
+                                        <li> 
+                                        Receive cards equal to the number of coins plus 1.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

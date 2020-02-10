@@ -1,0 +1,105 @@
+@mixin command-block($id, $top, $left, $width) {
+        #area-#{$id} .command-box {
+                position: absolute;
+                top: $top;
+                left: $left;
+                width: $width;
+                pointer-events: none;
+                .command-block {
+                        position: relative;
+                }
+                .order-discs {
+                        position: relative;
+                        img {
+                                position: absolute;
+                                height: 24px;
+                                width: 24px;
+                        }
+                        img.disc-1 {
+                                left:0px;
+                        }
+                        img.disc-2 {
+                                left:10px;
+                        }
+                        img.disc-3 {
+                                left:20px;
+                        }
+                        img.disc-4 {
+                                left:30px;
+                        }
+                        img.disc-5 {
+                                left:40px;
+                        }
+                }
+        }
+        #area-#{$id} .artillery-box {
+                position: absolute;
+                top: $top;
+                left: $left + 28px;
+                width: $width;
+                pointer-events: none;
+                img {
+                        height: 24px;
+                        width: 24px;
+                }
+        }
+        #area-#{$id} .disrupted-box {
+                position: absolute;
+                top: $top;
+                left: $left + 40px;
+                width: $width;
+                pointer-events: none;
+                img {
+                        height: 24px;
+                        width: 24px;
+                }
+        }
+}
+
+@include command-block(0, 968px, 16px, 30px);
+@include command-block(1, 595px, 13px, 70px);
+@include command-block(2, 290px, 13px, 70px);
+@include command-block(3, 60px, 13px, 70px);
+@include command-block(4, 50px, 1040px, 30px);
+@include command-block(5, 250px, 1100px, 70px);
+@include command-block(6, 590px, 1100px, 70px);
+@include command-block(7, 850px, 14px, 70px);
+@include command-block(8, 710px, 14px, 70px);
+@include command-block(9, 810px, 180px, 70px);
+@include command-block(10, 610px, 80px, 70px);
+@include command-block(11, 700px, 240px, 70px);
+@include command-block(12, 825px, 435px, 70px);
+@include command-block(13, 450px, 20px, 70px);
+@include command-block(14, 500px, 280px, 70px);
+@include command-block(15, 525px, 530px, 70px);
+@include command-block(16, 620px, 480px, 70px);
+@include command-block(17, 700px, 435px, 70px);
+@include command-block(18, 590px, 725px, 70px);
+@include command-block(19, 800px, 690px, 70px);
+@include command-block(20, 650px, 930px, 70px);
+@include command-block(21, 770px, 850px, 70px);
+@include command-block(22, 880px, 930px, 70px);
+@include command-block(23, 310px, 90px, 70px);
+@include command-block(24, 290px, 180px, 70px);
+@include command-block(25, 400px, 260px, 70px);
+@include command-block(26, 395px, 530px, 70px);
+@include command-block(27, 490px, 750px, 70px);
+@include command-block(28, 435px, 770px, 70px);
+@include command-block(29, 470px, 960px, 70px);
+@include command-block(30, 560px, 930px, 70px);
+@include command-block(31, 70px, 130px, 70px);
+@include command-block(32, 65px, 400px, 70px);
+@include command-block(33, 210px, 420px, 70px);
+@include command-block(34, 298px, 380px, 70px);
+@include command-block(35, 60px, 550px, 70px);
+@include command-block(36, 160px, 580px, 70px);
+@include command-block(37, 260px, 620px, 70px);
+@include command-block(38, 60px, 650px, 70px);
+@include command-block(39, 140px, 750px, 70px);
+@include command-block(40, 230px, 790px, 70px);
+@include command-block(41, 350px, 770px, 70px);
+@include command-block(42, 55px, 745px, 70px);
+@include command-block(43, 100px, 860px, 70px);
+@include command-block(44, 220px, 1010px, 70px);
+@include command-block(45, 350px, 1000px, 70px);
+@include command-block(46, 350px, 1000px, 70px);

@@ -1,0 +1,19 @@
+{{$g := $.Game}}
+{{$area := $g.SelectedArea}}
+{{$cp := $g.CurrentPlayer}}
+{{$company := $g.SelectedCompany}}
+{{$zone := $company.ZoneFor $area}}
+{{$ctx := $.Context}}
+
+<div>
+        {{template "shared/flashbox" .}}
+        {{template "shared/gamelog3" $}}
+        {{template "shared/last_actions_list3" data "g" $g "p" $cp "ctx" $ctx}}
+        {{range $a := $company.Areas}}
+        {{template "indonesia/area" $a}}
+        {{end}}
+        {{range $a := $zone.AdjacentSeaAreas}}
+        {{template "indonesia/area" $a}}
+        {{end}}
+</div>
+{{template "indonesia/select_ship_dialog" $}}

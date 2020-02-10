@@ -1,0 +1,13 @@
+{{$area := $.Game.SelectedArea}}
+{{$cp := $.Game.CurrentPlayer}}
+{{$op := $.Game.OtherPlayer}}
+<div>
+{{template "shared/flashbox" .}}
+{{template "shared/gamelog" .}}
+{{template "shared/last_actions_list" $cp}}
+{{template "atf/player_armies" $cp}}
+{{template "atf/supply_armies" $cp}}
+{{template "atf/sumer_area" $area}}
+{{template "atf/player_city_bases" $op}}
+{{template "atf/player_city_expansions" $op}}
+</div>

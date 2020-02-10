@@ -1,0 +1,63 @@
+<div id="tabs-admin-area">
+        <div data-bind="with: selectedArea">
+                <div><label>New Damage:
+                                <select data-bind="foreach: ko.utils.range(0,20), intValue: newDamage">
+                                        <option data-bind="text: $data"></option>
+                                </select>
+                </label></div>
+                <div>
+                        <label>Order Discs:
+                                <select data-bind="foreach: ko.utils.range(0,5), intValue: orderDiscs">
+                                        <option data-bind="text: $data"></option>
+                                </select>
+                        </label>
+                </div>
+                <div>
+                        <label>Disrupted:
+                                <select data-bind="options: $root.boolOptions, value: disrupted"></select>
+                        </label>
+                </div>
+                <div>
+                        <label>Artillery Fire Marker:
+                                <select data-bind="booleanValue: artilleryFireMarker">
+                                        <option value="false">false</option>
+                                        <option value="true">true</option>
+                                </select>
+                        </label>
+                </div>
+                <div data-bind="if: orderDiscs().confederateDouble">
+                        Confederate Double: <span data-bind="text: orderDiscs().confederateDouble"></span>
+                </div>
+                <div class="top-padding" data-bind="foreach: units">
+                        <div><label>ID:
+                                        <span data-bind="text: id"></span>
+                        </label></div>
+                        <div><label>NewDamage:
+                                        <select data-bind="foreach: ko.utils.range(0, 20), intValue: newDamage">
+                                                <option data-bind="text: $data"></option>
+                                        </select>
+                        </label></div>
+                        <div><label>Hit:
+                                        <select data-bind="booleanValue: hit">
+                                                <option value="false">false</option>
+                                                <option value="true">true</option>
+                                        </select>
+                        </label></div>
+                        <div><label>Selected:
+                                        <select data-bind="booleanValue: selected">
+                                                <option value="false">false</option>
+                                                <option value="true">true</option>
+                                        </select>
+                        </label></div>
+                        <div><label>Selectable:
+                                        <select data-bind="booleanValue: selectable">
+                                                <option value="false">false</option>
+                                                <option value="true">true</option>
+                                        </select>
+                        </label></div>
+                </div>
+                <div class="top-padding">
+                        <button data-bind="jqButton: true, click: function(){$root.put({'action': 'admin', 'subAction': 'update', 'target': 'area', 'data': ko.toJSON($data), 'json': true})}">Update Area</button>
+                </div>
+        </div>
+</div>

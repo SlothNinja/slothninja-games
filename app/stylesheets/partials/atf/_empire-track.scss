@@ -1,0 +1,28 @@
+@mixin empire($turn, $index) {
+        #empire-#{$turn}-#{$index} {
+                position:absolute;
+                top:($turn - 1) * 49px;
+                left:$index * 56px;
+        }
+}
+
+#empire-track {
+        position:absolute;
+        top:780px;
+        left:92px;
+
+        img {
+                width:34px;
+                height:34px;
+        }
+
+        .container {
+                position:relative;
+        }
+}
+
+@for $turn from 1 through 5 {
+        @for $index from 0 through 2 {
+                @include empire($turn, $index);
+        }
+}

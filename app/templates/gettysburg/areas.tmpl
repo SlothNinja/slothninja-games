@@ -1,0 +1,29 @@
+<!-- Areas -->
+<div id="areas" data-bind="foreach: { data: areas, as: 'area' }">
+        <div data-bind="attr: { id: key }">
+                <div class="units" data-bind="foreach: { data: units, as: 'unit' }">
+                        <div class="unit" data-bind="css: { damaged: totalDamage() > 0, selectable: selectable(), selected: selected()}" >
+                                <img class="unit" data-bind="attr: { src: unit.link() }" />
+                                <div class="cubes" data-bind="if: unit.cubelink">
+                                        <span data-bind="foreach: ko.utils.range(1, unit.totalDamage())">
+                                                <img class="cube" data-bind="attr: { src: unit.cubelink }" />
+                                        </span>
+                                </div>
+                        </div>
+                </div>
+                <div class="command-box" data-bind="with: commandBlock">
+                        <div class="command-block" data-bind="with: area.commandBlock">
+                                <img class="command-block" data-bind="attr: { src: link }"/>
+                        </div>
+                        <div class="order-discs" data-bind="foreach: ko.utils.range(1, $parent.orderDiscs)">
+                                <img data-bind="attr: { class: 'disc-' + $data, src: '/images/gettysburg/' + $parent.side() + '-order-disc.png' }"/>
+                        </div>
+                </div>
+                <div class="artillery-box" data-bind="if: area.artilleryFireMarker">
+                        <img src="/images/gettysburg/artillery_fire_marker.png"/>
+                </div>
+                <div class="disrupted-box" data-bind="if: area.disrupted">
+                        <img src="/images/gettysburg/disruption_marker.png"/>
+                </div>
+        </div>
+</div>

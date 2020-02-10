@@ -1,0 +1,57 @@
+<!-- Header -->
+<div id="header"> 
+        <div id="banner-logo"> 
+                <div class="left">
+                        <div class="logo">
+                                <a href="/">
+                                        <img alt="Slothninja Games" src="/images/slothninja_logo.png" /> 
+                                </a>
+                        </div>
+                </div>
+                <div class="right">
+                </div>
+        </div> 
+        <div id="banner-line"> 
+                <div class="left"> 
+                        <div class="content">
+                                <div class="greeting">
+                                        {{if $.CUser}}
+                                        Hello {{$.CUser.Link}}
+                                        {{LogoutURL $.Context "/" "(Logout)"}}
+                                        {{else}}
+                                        Hello Guest
+                                        {{$req := $.Context.Value 0}}
+                                        {{$path := $req.URL.String}}
+                                        {{LoginURL $.Context $path "(Login)"}}
+                                        {{end}}
+                                </div> 
+                        </div> 
+                </div> 
+                <div class="center"> 
+                        <div class="content">
+                                {{with $user := $.CUser}}
+                                <a href="/">Home</a> 
+                                &nbsp;&loz;&nbsp;
+                                <a href="/games/running/user/{{$user.ID}}">Your Games</a> 
+                                &nbsp;&loz;&nbsp;
+                                <a href="http://groups.google.com/group/slothninja">Forum</a> 
+                                &nbsp;&loz;&nbsp;
+                                <a href="/user/show/{{$user.ID}}">Your Account</a> 
+                                &nbsp;&loz;&nbsp;
+                                <a href="mailto:webmaster@slothninja.com">Contact</a>
+                                {{else}}
+                                <a href="/">Home</a> 
+                                &nbsp;&loz;&nbsp;
+                                <a href="http://groups.google.com/group/slothninja">Forum</a> 
+                                &nbsp;&loz;&nbsp;
+                                <a href="mailto:webmaster@slothninja.com">Contact</a>
+                                {{end}}
+                        </div>
+                </div> 
+                <div class="right"> 
+                        <div class="content">
+                                <div class="date">{{today}}</div> 
+                        </div> 
+                </div> 
+        </div> 
+</div>

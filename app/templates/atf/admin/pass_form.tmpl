@@ -1,0 +1,26 @@
+{{$game := $.Game}}
+{{$p := $game.SelectedPlayer}}
+{{if $.IsAdmin}}
+<div id="tabs-admin">
+        <form action="/atf/admin/{{$game.ID}}" method="post">
+                <input name="_method" type="hidden" value="PUT" />
+                <input name="action" type="hidden" value="admin-pass" />
+                {{range $i := ints 0 7}}
+                {{$name := $game.ResourceName $i}}
+                {{$haveCount := index $p.Resources $i}}
+                {{$passedCount := index $p.PassedResources $i}}
+                <div>
+                        <label for="pass-{{$name}}">{{$name}}:</label>
+                        <select id="pass-{{$name}}" name="PassedResources">
+                                {{range $j := ints 0 12}}
+                                <option value="{{$j}}" {{if equal $j $passedCount}}selected="selected"{{end}}>{{$j}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{end}}
+                <div class="center">
+                        <input type="submit" value="Update" class="top-padding mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

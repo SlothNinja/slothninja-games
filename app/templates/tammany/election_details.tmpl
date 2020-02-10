@@ -1,0 +1,42 @@
+{{$e := .entry}}
+{{$g := .g}}
+{{$ctx := .ctx}}
+
+<div>
+        Election Details:
+</div>
+<table class="strippedDataTable">
+        <thead>
+                <th>Player</th>
+                <th>Bosses</th>
+                <th>Played Chips</th>
+                <th>Total</th>
+        </thead>
+        <tbody>
+        {{range $p := $g.Players}}
+                {{$pid := $p.ID}}
+                {{$bosses := index $e.Bosses $pid}}
+                {{if $bosses}}
+                        {{$chips := index $e.PlayedChips $pid}}
+                        {{$total := add $bosses $chips.Count}}
+                <tr>
+                        <td>
+                                <div class="gravatar">
+                                        {{$g.GravatarFor $p}}
+                                </div>
+                                <div>
+                                        {{$g.PlayerLinkByID $ctx $p.ID}}
+                                </div>
+                        </td>
+                        <td>{{$bosses}}</td>
+                        <td style="width:150px">
+                                <div>
+                                        {{template "tammany/chips_table" data "g" $g "p" $p "chips" $chips}}
+                                </div>
+                        </td>
+                        <td>{{$total}}</td>
+                </tr>
+                {{end}}
+        {{end}}
+        </tbody>
+</table>

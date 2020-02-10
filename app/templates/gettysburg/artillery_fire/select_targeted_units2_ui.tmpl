@@ -1,0 +1,10 @@
+<div class="dialog-content">
+        <div data-bind="with: targetArea0">
+                <div>Select targeted unit type for area <span data-bind="text: id"></span>.</div>
+                <div data-bind="foreach: targetTypes">
+                        <button class="top-padding" data-bind="jqButton: true, click: function() { $root.put({ action: 'artillery-fire-unit-type-2', target: $parent.key, kind: $data }) }">
+                                <span data-bind="text: $data"></span>
+                        </button>
+                </div>
+        </div>
+</div>

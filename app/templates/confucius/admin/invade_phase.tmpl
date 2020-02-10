@@ -1,0 +1,19 @@
+<!-- Invoke Invade Phase -->
+<div class="actions" id="invoke-invade-phase-action">
+        <fieldset>
+                <legend>Invoke Invade Action</legend>
+                <form action="/{{$.Stub}}/admin/{{$.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="invoke-invade-phase" />
+                        </div>
+                        <div class="upper-content">
+                        </div>
+                        <div class="lower-content">
+                                <div class="button">
+                                        <input name="commit" type="submit" value="Invoke Invade Phase" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>

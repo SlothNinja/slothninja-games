@@ -1,0 +1,10 @@
+<div id="tabs-finish">
+        <div class="dialog-content" style="height:2em;width:300px">
+                <form action="/{{$.Game.Stub}}/game/undo/{{$.Game.ID}}" id="undo-turn" class="pull-left" method="post">
+                        <input class="mybutton right-padding" name="commit" type="submit" value="Undo" /> 
+                </form> 
+                <form action="/{{$.Game.Stub}}/game/finish/{{$.Game.ID}}" id="finish-turn" class="pull-left" method="post">
+                        <input class="mybutton" name="commit" type="submit" value="Finish" /> 
+                </form> 
+        </div>
+</div>

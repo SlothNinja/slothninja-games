@@ -1,0 +1,38 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+<!-- Nominate Student Form --> 
+{{if $g.EnableNominateStudent $ctx}}
+<div class="actions" id="nominate-student-action"> 
+        <fieldset> 
+                <legend>Nominate Student</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="nominate-student" />
+                                </div>
+                                {{$g.CoinOptions "nominate-student"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Nominate Student" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        You can't nominate a student if you already have a marker in one of the student spaces.
+                                        </li> 
+                                        <li> 
+                                        You can't nominate a student if both student spaces are filled.
+                                        </li> 
+                                        <li> 
+                                        Nominating a student costs two coins.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

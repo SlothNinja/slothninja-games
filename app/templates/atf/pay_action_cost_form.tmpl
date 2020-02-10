@@ -1,0 +1,32 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanPayActionCost $area}}
+<div id="tabs-pay-action-cost">
+        <form class="myForm">
+                <div>&nbsp;</div>
+                <div>
+                        <input name="action" type="hidden" value="pay-action-cost" />
+                        <label for="pay-action-cost">Pay:</label>
+                        <select id="pay-action-cost" name="Resource">
+                                {{if $cp.Army}}
+                                <option value="8">army</option>
+                                {{end}}
+                                {{if $cp.Worker}}
+                                <option value="9">worker</option>
+                                {{end}}
+                                {{range $r := ints 0 7}}
+                                {{$count := index $cp.Resources $r}}
+                                {{$name := $game.ResourceName $r}}
+                                {{if $count}}
+                                <option value="{{$r}}">{{$name}}</option>
+                                {{end}}
+                                {{end}}
+                        </select>
+                </div>
+                <div class="center">
+                        <input type="submit" value="Pay Cost" class="top-padding mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

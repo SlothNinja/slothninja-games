@@ -1,0 +1,102 @@
+{{$game := $.Game}}
+{{if $.IsAdmin}}
+{{$company := $game.SelectedCompany}}
+{{$player := $game.SelectedPlayer}}
+<div id="dialog" title="Admin Company of {{$player.Name}} in Slot {{$company.Slot}}">
+        <div class="dialog-content">
+                <form action="/indonesia/admin/{{$game.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="admin-company" />
+                        </div>
+                        <div>
+                                <label for="admin-company-slot">Slot:</label>
+                                <select id="admin-company-slot" name="Slot">
+                                        {{range $i := ints 1 5}}
+                                        <option value="{{$i}}" {{if equal $company.Slot $i}}selected="selected"{{end}}>{{$i}}</option>
+                                        {{end}}
+                                </select>
+                        </div>
+                        <div>
+                                <label for="admin-company-merged">Merged:</label>
+                                <select id="admin-company-merged" name="Merged">
+                                        <option value="false" {{if not $company.Merged}}selected="selected"{{end}}>False</option>
+                                        <option value="true" {{if $company.Merged}}selected="selected"{{end}}>True</option>
+                                </select>
+                        </div>
+                        <div>
+                                <label for="admin-company-operated">Operated:</label>
+                                <select id="admin-company-operated" name="Operated">
+                                        <option value="false" {{if not $company.Operated}}selected="selected"{{end}}>False</option>
+                                        <option value="true" {{if $company.Operated}}selected="selected"{{end}}>True</option>
+                                </select>
+                        </div>
+                        <div>
+                                <label for="admin-company-ship-type">Ship Type:</label>
+                                <select id="admin-company-ship-type" name="ShipType">
+                                        {{range $i := ints 1 6}}
+                                        {{$type := $game.ToShipType $i}}
+                                        <option value="{{$i}}" {{if equal $company.ShipType.String $type.String}}selected="selected"{{end}}>{{$type}}</option>
+                                        {{end}}
+                                </select>
+                        </div>
+                        <div>
+                                <label for="admin-company-add-deed">Add Deed:</label>
+                                <select id="admin-company-add-deed" name="AddDeed">
+                                        <option value="none" selected="selected">None</option>
+                                        {{range $i, $d := $game.Deeds}}
+                                        <option value="{{$d.IDString}}"}}>{{$d}}</option>
+                                        {{end}}
+                                </select>
+                        </div>
+                        {{with $zones := $company.Zones}}
+                        {{range $i, $zone := $zones}}
+                        <div>&nbsp;</div>
+                        <div>Zone {{$i}}:
+                                {{range $id := $zone.AreaIDS}}
+                                {{$id}}
+                                {{end}}
+                        </div>
+                        <div>
+                                <label for="admin-company-add-area-zone-{{$i}}">Add Area To Zone {{$i}}:</label>
+                                <select id="admin-company-add-area-zone-{{$i}}" name="AddAreaZone-{{$i}}">
+                                        <option value="none" selected="selected"}}>None</option>
+                                        {{range $j := ints 0 136}}
+                                        <option value="{{$j}}"}}>Area {{$j}}</option>
+                                        {{end}}
+                                </select>
+                        </div>
+                        <div>
+                                <label for="admin-company-remove-area-zone-{{$i}}">Remove Area From Zone {{$i}}:</label>
+                                <select id="admin-company-removeadd-area-zone-{{$i}}" name="RemoveAreaZone-{{$i}}">
+                                        <option value="none" selected="selected"}}>None</option>
+                                        {{range $id := $zone.AreaIDS}}
+                                        <option value="{{$id}}"}}>Area {{$id}}</option>
+                                        {{end}}
+                                </select>
+                        </div>
+                        <div>
+                                <label for="admin-company-remove-zone">Remove Zone:</label>
+                                <select id="admin-company-remove-zone" name="RemoveZone">
+                                        <option value="-1" selected="selected"}}>None</option>
+                                        {{range $i, $zone := $zones}}
+                                        <option value="{{$i}}"}}>{{$i}}</option>
+                                        {{end}}
+                                </select>
+                        </div>
+                        {{end}}
+                        {{end}}
+                        <div>
+                                <label for="admin-company-add-zone">Add Zone:</label>
+                                <select id="admin-company-add-zone" name="AddZone">
+                                        <option value="false" selected="selected"}}>False</option>
+                                        <option value="true" >True</option>
+                                </select>
+                        </div>
+                        <div class="center">
+                                <input type="submit" value="Update" class="top-padding mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>
+{{end}}

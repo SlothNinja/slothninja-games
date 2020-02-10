@@ -1,0 +1,22 @@
+{{$p := .p}}
+{{$g := .g}}
+{{$cu := .cu}}
+<div class="favor-chip-table" id="favor-chip-table-player-{{$p.ID}}">
+        {{if $g.PlayerIsUser $p $cu | or $cu.IsAdmin }}
+                {{if not $p.HasBid}}
+                        <div class="chips-container" style="height:35px">
+                                {{template "tammany/chips_table" data "g" $g "p" $p "chips" $p.RemainingChips}}
+                        </div>
+                {{else}}
+                        <div class="chips-container" style="height:35">
+                                {{template "tammany/chips_table" data "g" $g "p" $p "chips" $p.RemainingChips}}
+                        </div>
+                        <hr />
+                        <div>
+                                {{template "tammany/chips_table" data "g" $g "p" $p "chips" $p.PlayedChips}}
+                        </div>
+                {{end}}
+        {{else}}
+                {{template "tammany/chips_table" data "g" $g "p" $p "chips" $p.Chips}}
+        {{end}}
+</div>

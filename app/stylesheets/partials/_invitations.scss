@@ -1,0 +1,67 @@
+.invitation {
+        .content-box {
+                $content-columns: ceil(5 * $blueprint-grid-columns / 6);
+                @extend .ui-widget;
+                @extend .ui-widget-content;
+                @extend .ui-corner-all;
+                @include column($content-columns, true);
+                @include append-bottom(0.5em);
+                .content {
+                        padding:2px;
+                        height: 42.5em;
+                        overflow:auto;
+                        #left-column {
+                                @include column(12);
+                                #upper {
+                                        @include column(12, true);
+                                        height:16em;
+                                        .box-cover {
+                                                @include column(3);
+                                                height:16em;
+                                                img.confucius {
+                                                        width:180px;
+                                                        padding:1em;
+                                                }
+                                                img.tammany, img.atf {
+                                                        width:120px;
+                                                        height:168px;
+                                                        padding:1em;
+                                                }
+                                        }
+                                        #form {
+                                                @include column(8, true);
+                                                @include prepend-top(2em);
+                                                height:16em;
+                                                text-align:right;
+                                                label {
+                                                        font-weight:bold;
+                                                }
+                                                select {
+                                                        width:155px;
+                                                }
+                                                .field input {
+                                                        width:150px;
+                                                }
+                                                .button {
+                                                        @include prepend-top;
+                                                        @include append-bottom;
+                                                        text-align:center;
+                                                }
+                                        }
+                                }
+                                #lower {
+                                        @extend .ui-widget;
+                                        @include column(12, true);
+                                        ul {
+                                                margin-left:2em;
+                                        }
+                                }
+                        }
+                        #right-column {
+                                @include column(11, true);
+                                @include prepend(1);
+                                @include prepend-top;
+                        }
+                }
+        }
+}

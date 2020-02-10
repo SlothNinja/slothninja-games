@@ -1,0 +1,167 @@
+{{$g := $.Game}}
+{{$cu := $.CUser}}
+{{if $g.IsCurrentPlayerOrAdmin $cu}}
+<map name="board-image" id="board-image-map" data-bind="foreach: areas">
+        {{/*
+        <area data-bind="click: function(){if (selectable()) {$root.put({action: 'select-area', target: key})}}, attr: { shape: shape, coords: coords, 'data-key': key }" />
+        <area data-bind="attr: { shape: shape, coords: coords, 'data-key': key }" />
+        */}}
+        {{range $area := $g.Areas}}
+        <area href="#" shape={{$area.Shape}} coords={{$area.Coords}}>
+        {{end}}
+</map>
+{{/*
+<img src="/images/atf/map.jpg" width="1190" height="1029" border="0" id="board-image" class="clickmap" usemap="#board-image" style="z-index:1000" />
+<map name="board-image">
+	<area href="#" shape="rect" data-key="area-0" coords="15,1097,174,1155">
+        <area href="#" shape="rect" data-key="area-1" coords="14,684,92,773">
+        <area href="#" shape="rect" data-key="area-2" coords="14,327,74,485">
+        <area href="#" shape="rect" data-key="area-3" coords="18,23,135,111">
+        <area href="#" shape="rect" data-key="area-4" coords="1081,59,1178,133">
+        <area href="#" shape="rect" data-key="area-5" coords="1246,320,1327,388">
+        <area href="#" shape="rect" data-key="area-6" coords="1244,703,1329,769">
+        <area href="#" shape="poly" data-key="area-7" coords="172,1118,172,1098,16,1097,16,924,286,1116">
+        <area href="#" shape="poly" data-key="area-8" coords="216,888,146,1014,16,923,16,775,34,776">
+        <area href="#" shape="poly" data-key="area-9" coords="144,1013,216,887,604,1118,286,1116">
+        <area href="#" shape="poly" data-key="area-10" coords="244,705,299,746,215,890,35,775,93,775,93,687,16,686,15,636">
+        <area href="#" shape="poly" data-key="area-11" coords="511,894,437,1021,216,888,300,747">
+        <area href="#"
+	area12: imapParams{"poly", coords(513, 897, 824, 1116, 598, 1116, 436, 1022)},
+        <area href="#"
+	area13: imapParams{"poly", coords(322, 544, 243, 706, 14, 637, 14, 494)},
+        <area href="#"
+	area14: imapParams{"poly", coords(609, 573, 458, 854, 244, 709, 325, 544)},
+        <area href="#"
+	area15: imapParams{"poly", coords(811, 646, 820, 772, 554, 674, 609, 571)},
+        <area href="#"
+	area16: imapParams{"poly", coords(820, 774, 834, 789, 842, 792, 854, 811, 882, 827, 903, 838, 947, 862, 928,
+        <area href="#"
+		879, 887, 884, 855, 908, 735, 870, 712, 850, 657, 847, 628, 807, 573, 784, 555, 784, 512, 757, 555,
+        <area href="#"
+		676)},
+        <area href="#"
+	area17: imapParams{"poly", coords(782, 883, 725, 1044, 458, 857, 513, 755, 535, 770, 561, 786, 582, 788, 616,
+        <area href="#"
+		811, 629, 812, 651, 838, 664, 849, 715, 851, 742, 873)},
+        <area href="#"
+	area18: imapParams{"poly", coords(1059, 888, 1029, 879, 1011, 863, 991, 851, 948, 858, 861, 815, 841, 791,
+        <area href="#"
+		820, 772, 810, 647, 1038, 709)},
+        <area href="#"
+	area19: imapParams{"poly", coords(823, 1113, 726, 1045, 780, 885, 849, 907, 873, 899, 884, 889, 926, 878, 947,
+        <area href="#"
+		862, 1021, 1050, 1011, 1079, 999, 1108, 966, 1112, 959, 1116)},
+        <area href="#"
+	area20: imapParams{"poly", coords(1329, 947, 1318, 948, 1305, 965, 1305, 979, 1294, 989, 1250, 969, 1241, 946,
+        <area href="#"
+		1168, 936, 1152, 926, 1121, 925, 1060, 891, 1037, 709, 1329, 810)},
+        <area href="#"
+	area21: imapParams{"poly", coords(998, 853, 1029, 882, 1058, 890, 1131, 928, 1151, 929, 1168, 936, 1240, 945,
+        <area href="#"
+		1253, 971, 1294, 987, 1270, 1011, 1219, 1028, 1219, 1046, 1203, 1053, 1152, 1028, 1106, 980, 1074,
+        <area href="#"
+		976, 1026, 1053, 947, 861)},
+        <area href="#"
+	area22: imapParams{"poly", coords(960, 1115, 1000, 1109, 1022, 1057, 1046, 1011, 1080, 976, 1107, 980, 1163,
+        <area href="#"
+		1033, 1205, 1057, 1221, 1046, 1221, 1026, 1271, 1008, 1303, 980, 1306, 966, 1321, 949, 1332, 947,
+        <area href="#"
+        <area href="#"
+		1330, 1114)},
+        <area href="#"
+	area23: imapParams{"poly", coords(75, 504, 71, 307, 87, 311, 124, 349, 154, 347, 170, 337, 197, 324, 203, 528,
+        <area href="#"
+		203, 528, 203, 528)},
+        <area href="#"
+	area24: imapParams{"poly", coords(203, 522, 194, 326, 214, 302, 242, 289, 267, 292, 286, 276, 298, 276, 312,
+        <area href="#"
+		283, 339, 280, 339, 266, 368, 268, 382, 252, 393, 252, 453, 343, 450, 372, 403, 373, 404, 434, 440,
+        <area href="#"
+		434, 396, 551)},
+        <area href="#"
+	area25: imapParams{"poly", coords(608, 572, 392, 552, 439, 434, 454, 434, 455, 461, 475, 461, 475, 473, 512,
+        <area href="#"
+		475)},
+        <area href="#"
+	area26: imapParams{"poly", coords(709, 452, 863, 505, 811, 647, 606, 571, 515, 477, 515, 439, 559, 439, 557,
+        <area href="#"
+		392, 625, 361)},
+        <area href="#"
+	area27: imapParams{"poly", coords(862, 505, 1061, 622, 1037, 708, 810, 645)},
+        <area href="#"
+	area28: imapParams{"poly", coords(1059, 620, 864, 505, 923, 508, 948, 516, 974, 526, 1008, 530, 1026, 512,
+        <area href="#"
+		1059, 501, 1075, 503, 1087, 490)},
+        <area href="#"
+	area29: imapParams{"poly", coords(1329, 696, 1060, 621, 1086, 491, 1125, 500, 1128, 515, 1172, 538, 1187,
+        <area href="#"
+		569, 1203, 576, 1213, 586, 1265, 586, 1295, 555, 1329, 564)},
+        <area href="#"
+	area30: imapParams{"poly", coords(1332, 811, 1037, 708, 1060, 623, 1331, 699, 1244, 704, 1245, 771, 1331, 774)},
+        <area href="#"
+	area31: imapParams{"poly", coords(464, 229, 441, 241, 429, 238, 382, 253, 371, 270, 338, 265, 338, 279, 315,
+        <area href="#"
+		288, 299, 276, 279, 277, 267, 290, 235, 289, 192, 327, 169, 339, 159, 348, 129, 351, 89, 309, 13,
+        <area href="#"
+		308, 15, 111, 133, 112, 131, 22, 297, 18, 298, 63, 431, 61)},
+        <area href="#"
+	area32: imapParams{"poly", coords(615, 57, 619, 219, 599, 234, 573, 238, 557, 219, 519, 232, 499, 221, 477,
+        <area href="#"
+        <area href="#"
+		222, 466, 229, 432, 61)},
+        <area href="#"
+	area33: imapParams{"poly", coords(452, 346, 391, 250, 428, 240, 440, 242, 478, 225, 501, 221, 522, 231, 557,
+        <area href="#"
+		220, 575, 236, 594, 233, 620, 217, 625, 361, 557, 392, 525, 392, 525, 372, 496, 371, 495, 343)},
+        <area href="#"
+	area34: imapParams{"poly", coords(404, 370, 451, 369, 453, 344, 494, 343, 496, 369, 523, 370, 525, 392, 555,
+        <area href="#"
+		392, 560, 440, 517, 440, 516, 480, 476, 479, 475, 461, 455, 461, 453, 431, 402, 434)},
+        <area href="#"
+	area35: imapParams{"poly", coords(719, 59, 718, 173, 698, 174, 664, 166, 649, 178, 620, 216, 615, 61)},
+        <area href="#"
+	area36: imapParams{"poly", coords(624, 361, 617, 219, 637, 201, 666, 168, 697, 177, 720, 172, 748, 183, 764,
+        <area href="#"
+        <area href="#"
+		178, 764, 264)},
+        <area href="#"
+	area37: imapParams{"poly", coords(764, 264, 868, 398, 865, 505, 714, 453, 625, 364)},
+        <area href="#"
+	area38: imapParams{"poly", coords(846, 59, 839, 167, 810, 167, 796, 163, 755, 183, 732, 179, 718, 174, 719,
+        <area href="#"
+		61)},
+        <area href="#"
+	area39: imapParams{"poly", coords(764, 179, 793, 164, 810, 168, 855, 162, 865, 147, 902, 144, 909, 126, 930,
+		127, 961, 118, 950, 234, 815, 321, 763, 263)},
+        <area href="#"
+	area40: imapParams{"poly", coords(816, 329, 949, 236, 1105, 399, 865, 394)},
+        <area href="#"
+	area41: imapParams{"poly", coords(867, 394, 1102, 400, 1086, 495, 1072, 499, 1058, 499, 1024, 514, 1010, 531,
+        <area href="#"
+		970, 530, 947, 514, 915, 508, 863, 508)},
+        <area href="#"
+	area42: imapParams{"poly", coords(1080, 61, 1080, 101, 1053, 96, 1040, 87, 995, 87, 959, 120, 935, 129, 917,
+        <area href="#"
+		124, 907, 126, 901, 143, 865, 146, 851, 162, 839, 162, 848, 60)},
+        <area href="#"
+	area43: imapParams{"poly", coords(1328, 164, 1011, 301, 949, 235, 960, 118, 994, 87, 1041, 88, 1059, 99,
+        <area href="#"
+		1080, 97, 1080, 133, 1172, 133, 1183, 139, 1201, 141, 1211, 144, 1240, 134, 1237, 123, 1237, 101,
+        <area href="#"
+		1233, 73, 1245, 58, 1326, 59)},
+        <area href="#"
+	area44: imapParams{"poly", coords(1327, 317, 1245, 317, 1244, 380, 1099, 398, 1012, 303, 1329, 165)},
+        <area href="#"
+	area45: imapParams{"poly", coords(1328, 566, 1295, 558, 1269, 575, 1266, 582, 1209, 586, 1203, 578, 1184,
+        <area href="#"
+		566, 1170, 535, 1128, 515, 1124, 502, 1096, 493, 1086, 493, 1102, 399, 1245, 378, 1245, 387, 1328,
+        <area href="#"
+		390)},
+        <area href="#"
+	area46: imapParams{"poly", coords(1246, 58, 1232, 74, 1233, 87, 1236, 98, 1236, 122, 1238, 134, 1224, 139,
+        <area href="#"
+		1211, 145, 1201, 142, 1175, 134, 1180, 134, 1178, 57)},
+        <area href="#"
+</map>
+        */}}
+{{end}}

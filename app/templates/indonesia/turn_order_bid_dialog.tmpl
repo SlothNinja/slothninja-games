@@ -1,0 +1,42 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div id="dialog" title="Place Turn Order Bid">
+        <div class="dialog-content" style="width:280px">
+                {{if index $game.Players 0 | $cp.Equal | not}}
+                <table class='strippedDataTable'>
+                        <thead>
+                                <tr>
+                                        <th>Player</th>
+                                        <th>Bid</th>
+                                        <th>Multipler</th>
+                                        <th>Total</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                        {{range $p := $game.Players}}
+                        {{if equal $p.Bid -1 | not}}
+                        <tr>
+                                <td>{{$p.Name}}</td>
+                                <td>{{$p.Bid}}</td>
+                                <td>&times; {{$p.Multiplier}}</td>
+                                <td>{{$p.TotalBid}}</td>
+                        </tr>
+                        {{end}}
+                        {{end}}
+                        </tbody>
+                </table>
+                {{end}}
+                <form class="myForm top-padding" action="/indonesia/game/show/{{$game.ID}}" method="post">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="turn-order-bid" />
+                        <div>
+                                <label for="bid">Bid:</label>
+                                <input type="text" value="0" id="bid" name="Bid"/>
+
+                        </div>
+                        <div class="top-padding center" >
+                                <input type="submit" value="Bid" class="mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>

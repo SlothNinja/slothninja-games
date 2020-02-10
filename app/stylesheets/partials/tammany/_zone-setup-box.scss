@@ -1,0 +1,18 @@
+@import "immigrant-box";
+
+@mixin zone-setup-box {
+	#zone2-setup-box {
+		position:absolute;
+		top:250px;
+		left:90px;
+		z-index:2;
+		@include immigrant-box;
+	}
+	#zone3-setup-box {
+		position:absolute;
+		top:360px;
+		left:90px;
+		z-index:2;
+		@include immigrant-box;
+	}
+}

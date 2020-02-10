@@ -1,0 +1,24 @@
+<div id="flash-box">
+        {{with $ns := $.Notices}}
+        <div class="notice">
+                <ul>
+                        {{range $i, $n := $ns}}
+                        <li>
+                        {{$n}}
+                        </li>
+                        {{end}}
+                </ul>
+        </div>
+        {{end}}
+        {{with $es := $.Errors}}
+        <div class="error">
+                <ul>
+                        {{range $i, $e := $es}}
+                        <li>
+                        {{$e}}
+                        </li>
+                        {{end}}
+                </ul>
+        </div>
+        {{end}}
+</div>

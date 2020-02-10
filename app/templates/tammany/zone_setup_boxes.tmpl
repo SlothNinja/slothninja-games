@@ -1,0 +1,21 @@
+<div id="zone2-setup-box">
+        <div class="content">
+                {{range $nationality, $count := $.Game.Zone2ImmigrantDisplay}}
+                <div class="{{$nationality.LString}}">
+                        <img alt="{{$nationality.LString}}-cube" src="{{$nationality.CubeImage}}" />
+                        <div class="text">{{$count}}</div>
+                </div>
+                {{end}}
+        </div>
+</div>
+
+<div id="zone3-setup-box">
+        <div class="content">
+                {{range $nationality, $count := $.Game.Zone3ImmigrantDisplay}}
+                <div class="{{$nationality.LString}}">
+                        <img alt="{{$nationality.LString}}-cube" src="{{$nationality.CubeImage}}" />
+                        <div class="text">{{$count}}</div>
+                </div>
+                {{end}}
+        </div>
+</div>

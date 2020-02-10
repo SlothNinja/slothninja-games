@@ -1,0 +1,13 @@
+<div>
+{{template "shared/flashbox" .}}
+{{template "shared/gamelog" .}}
+{{template "shared/last_actions_list" $.Game.CurrentPlayer}}
+{{template "atf/player_armies" $.Game.CurrentPlayer}}
+{{template "atf/supply_armies" $.Game.CurrentPlayer}}
+{{$area := $.Game.SelectedArea}}
+{{if $area.IsSumer}}
+{{template "atf/sumer_area" $area}}
+{{else}}
+{{template "atf/non_sumer_area" $area}}
+{{end}}
+</div>

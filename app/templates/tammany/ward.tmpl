@@ -1,0 +1,27 @@
+{{$g := .g}}
+{{$w := .w}}
+<div id="ward-{{$w.ID}}" class="ward">
+        {{range $n, $cnt := $w.Immigrants}}
+                {{if $cnt}}
+                        <div class="{{$n.LString}}">
+                                <img alt="{{$n.LString}}-cube" src="{{$n.CubeImage}}" />
+                                <div class="text {{$n.LString}}">{{$cnt}}</div>
+                        </div>
+                {{end}}
+        {{end}}
+        {{range $pid, $cnt := $w.Bosses}}
+                {{with $p := $g.PlayerByID $pid}}
+                        {{if $cnt}}
+                                <div class="boss-{{$pid}}">
+                                        {{$p.BossImage}}
+                                        <div class="text {{$p.Color}}">{{$cnt}}</div>
+                                </div>
+                        {{end}}
+                {{end}}
+        {{end}}
+        {{if $w.LockedUp}}
+                <div class="lock-up-box">
+                        <img alt="Prez-chip" src="/images/tammany/prez-chip.png" />
+                </div>
+        {{end}}
+</div>

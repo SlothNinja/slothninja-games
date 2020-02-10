@@ -1,0 +1,106 @@
+{{$g := $.Game}}
+{{if $.IsAdmin}}
+<div id="dialog" title="Admin Header">
+        <form action="/atf/game/admin/{{$g.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="action" type="hidden" value="admin-header" />
+                </div>
+                <div>
+                        <label for="admin-title">Title:</label>
+                        <input type="text" value="{{$g.Title}}" id="admin-title" name="title"/>
+
+                </div>
+                <div>
+                        <label for="admin-turn">Turn:</label>
+                        <select id="admin-turn" name="turn">
+                                {{range $v := ints 0 5}}
+                                <option value="{{$v}}" {{if equal $g.Turn $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-num-players">NumPlayers:</label>
+                        <select id="admin-num-players" name="num-players">
+                                {{range $v := ints 1 5}}
+                                <option value="{{$v}}" {{if equal $g.NumPlayers $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-phase">Phase:</label>
+                        <select id="admin-phase" name="phase">
+                                {{range $v, $n := $g.PhaseNames}}
+                                <option value="{{$v.Int}}" {{if equal $g.Phase.Int $v.Int}}selected="selected"{{end}}>{{$n}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-round">Round:</label>
+                        <input type="text" value="{{$g.Round}}" id="admin-round" name="round"/>
+                </div>
+                <div>
+                        <label for="admin-password">Password:</label>
+                        <input type="text" value="{{$g.Password}}" id="admin-password" name="password"/>
+                </div>
+                <div>
+                        <label for="admin-creator-id">Creator ID:</label>
+                        <input type="text" value="{{$g.CreatorID}}" id="admin-creator-id" name="creator-id"/>
+
+                </div>
+                {{range $index, $uid := $g.UserIDS}}
+                <div>
+                        <label for="admin-userid-{{$index}}">User {{$index}}:</label>
+                        <input type="text" value="{{$uid}}" id="admin-userid-{{$index}}" name="user-ids"/>
+                </div>
+                {{end}}
+                {{range $index, $uid := $g.OrderIDS}}
+                <div>
+                        <label for="admin-orderid-{{$index}}">Order {{$index}}:</label>
+                        <input type="text" value="{{$uid}}" id="admin-orderid-{{$index}}" name="order-ids"/>
+                </div>
+                {{end}}
+                <div>
+                        <label for="admin-cp-user-indices">Current Player</label>
+                        <select id="admin-cp-user-indices" name="cp-user-indices" multiple="multiple">
+                                {{range $index, $player := $g.Players}}
+                                <option value="{{$player.ID}}" {{if $player.IsCurrentPlayer}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-winner-indices">Winners</label>
+                        <select id="admin-winner-indices" name="winner-ids" multiple="multiple">
+                                {{range $index, $player := $g.Players}}
+                                <option value="{{$player.ID}}" {{if $player.IsWinner}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-status">Status</label>
+                        <select id="admin-status" name="status">
+                                {{range $i, $s := $g.Statuses}}
+                                <option value="{{$s.Int}}" {{if equal $s.Int $.Game.Status.Int}}selected="selected"{{end}}>{{$s.String}}</option>
+                                {{end}}
+
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-continue">Continue</label>
+                        <select id="admin-continue" name="State.Continue">
+                                <option value="false" {{if not $g.Continue}}selected="selected"{{end}}>False</option>
+                                <option value="true" {{if $g.Continue}}selected="selected"{{end}}>True</option>
+
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-multiaction">MultiAction:</label>
+                        <input type="text" value="{{$g.MultiAction}}" id="admin-multiaction" name="State.MultiAction"/>
+
+                </div>
+                <div>&nbsp;</div>
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

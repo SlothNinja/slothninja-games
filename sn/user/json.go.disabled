@@ -1,0 +1,16 @@
+package user
+
+import "encoding/json"
+
+type jUser struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+func (u *User) MarshalJSON() ([]byte, error) {
+	j := &jUser{
+		ID:   u.ID(),
+		Name: u.Name,
+	}
+	return json.Marshal(j)
+}

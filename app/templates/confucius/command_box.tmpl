@@ -1,0 +1,43 @@
+{{$g := $.Game}}
+{{$cu := $.CUser}}
+{{$ctx := $.Context}}
+
+<!-- Command Box --> 
+{{if $g.IsCurrentPlayerOrAdmin $cu}}
+<div id="command-box"> 
+        <div class="left-column">
+                {{template "confucius/available_actions_box" .}}
+        </div> 
+        <div class="right-column">
+                {{with $player := $g.CurrentPlayer}}
+                        {{if not $player.PerformedAction}}
+                                {{if $g.EnableActions $ctx}}
+                                        {{if $g.EnableBribeOfficial $ctx}}{{template "confucius/bribe_official" $}}{{end}}
+                                        {{if $g.EnableSecureOfficial $ctx}}{{template "confucius/secure_official" $}}{{end}}
+                                        {{if $g.EnableNominateStudent $ctx}}{{template "confucius/nominate_student" $}}{{end}}
+                                        {{if $g.EnableForceExam $ctx}}{{template "confucius/force_exam" $}}{{end}}
+                                        {{if $g.EnableBuyJunks $ctx}}{{template "confucius/buy_junks" $}}{{end}}
+                                        {{if $g.EnableStartVoyage $ctx}}{{template "confucius/start_voyage" $}}{{end}}
+                                        {{if $g.EnableRecruitArmy $ctx}}{{template "confucius/recruit_army" $}}{{end}}
+                                        {{if $g.EnableInvadeLand $ctx}}{{template "confucius/invade_land" $}}{{end}}
+                                        {{if $g.EnableBuyGift $ctx}}{{template "confucius/buy_gift" $}}{{end}}
+                                        {{if $g.EnableGiveGift $ctx}}{{template "confucius/give_gift" $}}{{end}}
+                                        {{if $g.EnableTransferInfluence $ctx}}{{template "confucius/transfer_influence" $}}{{end}}
+                                        {{if $g.EnableCommercial $ctx}}{{template "confucius/commercial" $}}{{end}}
+                                        {{if $g.EnableTaxIncome $ctx}}{{template "confucius/tax_income" $}}{{end}}
+                                        {{if $g.EnableNoAction $ctx}}{{template "confucius/no_action" $}}{{end}}
+                                        {{if $g.EnablePass $ctx}}{{template "confucius/pass" $}}{{end}}
+                                        {{if $g.EnableEmperorReward $ctx}}{{template "confucius/emperor_reward" $}}{{end}}
+                                        {{if $g.EnablePetitionEmperor $ctx}}{{template "confucius/petition_emperor" $}}{{end}}
+                                {{else}}
+                                        {{if $g.EnableTempTransfer $ctx}}{{template "confucius/temp_transfer" $}}{{end}}
+                                        {{if $g.EnableDiscard $ctx}}{{template "confucius/discard" $}}{{end}}
+                                        {{if $g.EnablePlaceStudent $ctx}}{{template "confucius/place_student" $}}{{end}}
+                                {{end}}
+                                {{if $g.EnableChooseChiefMinister $ctx}}{{template "confucius/choose_chief_minister" $}}{{end}}
+                                {{if $g.EnableTutorStudent $ctx}}{{template "confucius/tutor_student" $}}{{end}}
+                        {{end}}
+                {{end}}
+        </div> 
+</div>
+{{end}}

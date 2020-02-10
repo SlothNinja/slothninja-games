@@ -1,0 +1,3360 @@
+/* line 74, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/reset/_utilities.scss */
+html {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* line 75, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary, blockquote, q, th, td, caption, table, body, div, span, object, iframe, p,
+pre, a, abbr, acronym, address,
+code, del, dfn, em, img,
+dl, dt, dd, ol, ul, li, fieldset,
+form, label, legend, tbody, tfoot, thead, tr, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+/* line 76, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 77, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/reset/_utilities.scss */
+blockquote, q {
+  quotes: "" "";
+}
+/* line 56, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/reset/_utilities.scss */
+blockquote:before, q:before, blockquote:after, q:after {
+  content: "";
+}
+
+/* line 78, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/reset/_utilities.scss */
+th, td, caption {
+  float: none !important;
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 79, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/reset/_utilities.scss */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+
+/* line 80, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 14, ../../stylesheets/partials/_base.scss */
+fieldset {
+  padding: 1em;
+}
+/* line 19, ../../stylesheets/partials/_base.scss */
+fieldset legend {
+  text-align: left;
+  font-weight: bold;
+}
+
+/* line 25, ../../stylesheets/partials/_base.scss */
+ul {
+  margin-left: 1em;
+}
+
+/* line 44, ../../stylesheets/partials/_base.scss */
+.mybutton.left-padding {
+  margin-left: 10px;
+}
+
+/* line 48, ../../stylesheets/partials/_base.scss */
+.mybutton.right-padding {
+  margin-right: 10px;
+}
+
+/* line 52, ../../stylesheets/partials/_base.scss */
+.mybutton.top-padding {
+  margin-top: 10px;
+}
+
+/* line 56, ../../stylesheets/partials/_base.scss */
+.mybutton.bottom-padding {
+  margin-bottom: 10px;
+}
+
+/* line 60, ../../stylesheets/partials/_base.scss */
+.left-padding {
+  margin-left: 1em;
+}
+
+/* line 64, ../../stylesheets/partials/_base.scss */
+.right-padding {
+  margin-right: 1em;
+}
+
+/* line 68, ../../stylesheets/partials/_base.scss */
+.top-padding {
+  margin-top: 1em;
+}
+
+/* line 72, ../../stylesheets/partials/_base.scss */
+.bottom-padding {
+  margin-bottom: 1em;
+}
+
+/* line 76, ../../stylesheets/partials/_base.scss */
+.center {
+  float: none;
+  text-align: center;
+}
+
+/* line 89, ../../stylesheets/partials/_base.scss */
+#status-box {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+  margin-bottom: 0.5em;
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #status-box {
+  overflow-x: hidden;
+}
+/* line 97, ../../stylesheets/partials/_base.scss */
+#status-box label {
+  font-weight: bold;
+}
+/* line 100, ../../stylesheets/partials/_base.scss */
+#status-box .left-stats {
+  float: left;
+  margin-right: 10px;
+  width: 230px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #status-box .left-stats {
+  overflow-x: hidden;
+}
+/* line 102, ../../stylesheets/partials/_base.scss */
+#status-box .left-stats .content {
+  height: 13em;
+  padding-left: 1em;
+}
+/* line 107, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats {
+  float: left;
+  margin-right: 10px;
+  width: 710px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #status-box .center-stats {
+  overflow-x: hidden;
+}
+/* line 109, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content {
+  padding-left: 1em;
+  height: 12em;
+}
+/* line 112, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content .left-box {
+  float: left;
+}
+/* line 114, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content .left-box .content {
+  height: 8em;
+}
+/* line 116, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content .left-box .content .mybutton {
+  width: 65px;
+}
+/* line 121, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content .center-box {
+  float: left;
+}
+/* line 123, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content .center-box .content {
+  width: 520px;
+}
+/* line 125, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content .center-box .content #flash-box > div {
+  height: 11.5em;
+  overflow: auto;
+  border: 5px solid black;
+  padding: 4px;
+}
+/* line 133, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content .right-box {
+  float: left;
+}
+/* line 135, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content .right-box .content {
+  height: 8em;
+}
+/* line 137, ../../stylesheets/partials/_base.scss */
+#status-box .center-stats .content .right-box .content .mybutton {
+  width: 65px;
+}
+/* line 144, ../../stylesheets/partials/_base.scss */
+#status-box .right-stats {
+  float: left;
+  margin-right: 0;
+  width: 230px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #status-box .right-stats {
+  overflow-x: hidden;
+}
+/* line 146, ../../stylesheets/partials/_base.scss */
+#status-box .right-stats .content {
+  height: 12em;
+  padding-right: 1em;
+  text-align: right;
+}
+/* line 150, ../../stylesheets/partials/_base.scss */
+#status-box .right-stats .content .highlighted {
+  color: #990000;
+  font-weight: bold;
+}
+
+/* line 159, ../../stylesheets/partials/_base.scss */
+#flash-box .heading {
+  margin-bottom: 0.5em;
+}
+/* line 165, ../../stylesheets/partials/_base.scss */
+#flash-box .heading div {
+  text-align: center;
+  padding: 0.5em;
+}
+/* line 170, ../../stylesheets/partials/_base.scss */
+#flash-box .error, #flash-box .notice, #flash-box .success {
+  padding: .8em;
+  border: 2px solid #ddd;
+}
+/* line 174, ../../stylesheets/partials/_base.scss */
+#flash-box .error {
+  background: #FBE3E4;
+  color: #8a1f11;
+  border-color: #FBC2C4;
+}
+/* line 179, ../../stylesheets/partials/_base.scss */
+#flash-box .notice {
+  background: #FFF6BF;
+  color: #514721;
+  border-color: #FFD324;
+}
+/* line 184, ../../stylesheets/partials/_base.scss */
+#flash-box .success {
+  background: #E6EFC2;
+  color: #264409;
+  border-color: #C6D880;
+}
+/* line 189, ../../stylesheets/partials/_base.scss */
+#flash-box .error a {
+  color: #8a1f11;
+}
+/* line 192, ../../stylesheets/partials/_base.scss */
+#flash-box .notice a {
+  color: #514721;
+}
+/* line 195, ../../stylesheets/partials/_base.scss */
+#flash-box .success a {
+  color: #264409;
+}
+
+/* line 207, ../../stylesheets/partials/_base.scss */
+hr.colspacer {
+  background: #dddddd;
+  color: #dddddd;
+  clear: both;
+  float: none;
+  width: 100%;
+  height: 0.1em;
+  margin: 0 0 1.45em;
+  border: none;
+  background: white;
+  color: white;
+  visibility: hidden;
+  margin: 12px;
+}
+
+/* line 212, ../../stylesheets/partials/_base.scss */
+.irish, .german, .italian, .slander-chip {
+  color: white;
+}
+
+/* line 216, ../../stylesheets/partials/_base.scss */
+body {
+  margin: 0;
+  padding: 0 0 20px;
+  min-height: 100%;
+  font-family: "Arial", "Helvetica", "Verdana", "sans-serif";
+  font-size: 12px;
+}
+
+/* line 224, ../../stylesheets/partials/_base.scss */
+#lock-id {
+  height: 0px;
+  width: 0px;
+  padding: 0px;
+  margin: 0px;
+  display: none;
+}
+
+/* line 232, ../../stylesheets/partials/_base.scss */
+.pull-left {
+  float: left;
+}
+
+/* line 236, ../../stylesheets/partials/_base.scss */
+.push-right {
+  float: right;
+}
+
+/* line 240, ../../stylesheets/partials/_base.scss */
+.clear-fix {
+  float: none;
+}
+
+/*! jQuery UI - v1.10.3 - 2013-05-15
+* http://jqueryui.com
+* Includes: jquery.ui.core.css, jquery.ui.resizable.css, jquery.ui.selectable.css, jquery.ui.accordion.css, jquery.ui.autocomplete.css, jquery.ui.button.css, jquery.ui.datepicker.css, jquery.ui.dialog.css, jquery.ui.menu.css, jquery.ui.progressbar.css, jquery.ui.slider.css, jquery.ui.spinner.css, jquery.ui.tabs.css, jquery.ui.tooltip.css
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=segoe%20ui%2C%20Arial%2C%20sans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=6px&bgColorHeader=ece8da&bgTextureHeader=gloss_wave&bgImgOpacityHeader=100&borderColorHeader=d4ccb0&fcHeader=433f38&iconColorHeader=847e71&bgColorContent=f5f3e5&bgTextureContent=highlight_hard&bgImgOpacityContent=100&borderColorContent=dfd9c3&fcContent=312e25&iconColorContent=808080&bgColorDefault=459e00&bgTextureDefault=highlight_hard&bgImgOpacityDefault=15&borderColorDefault=327E04&fcDefault=ffffff&iconColorDefault=eeeeee&bgColorHover=67b021&bgTextureHover=highlight_soft&bgImgOpacityHover=25&borderColorHover=327E04&fcHover=ffffff&iconColorHover=ffffff&bgColorActive=fafaf4&bgTextureActive=highlight_hard&bgImgOpacityActive=100&borderColorActive=d4ccb0&fcActive=459e00&iconColorActive=8dc262&bgColorHighlight=fcf0ba&bgTextureHighlight=glass&bgImgOpacityHighlight=55&borderColorHighlight=e8e1b5&fcHighlight=363636&iconColorHighlight=8dc262&bgColorError=ffedad&bgTextureError=highlight_soft&bgImgOpacityError=95&borderColorError=e3a345&fcError=cd5c0a&iconColorError=cd0a0a&bgColorOverlay=2b2922&bgTextureOverlay=inset_soft&bgImgOpacityOverlay=15&opacityOverlay=90&bgColorShadow=cccccc&bgTextureShadow=highlight_hard&bgImgOpacityShadow=95&opacityShadow=20&thicknessShadow=12px&offsetTopShadow=-12px&offsetLeftShadow=-12px&cornerRadiusShadow=10px
+* Copyright 2013 jQuery Foundation and other contributors Licensed MIT */
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-helper-hidden {
+  display: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-helper-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 1.3;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-helper-clearfix:before, .ui-helper-clearfix:after {
+  content: "";
+  display: table;
+  border-collapse: collapse;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-helper-clearfix:after {
+  clear: both;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-helper-clearfix {
+  min-height: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-helper-zfix {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  filter: Alpha(Opacity=0);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-front {
+  z-index: 100;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-disabled {
+  cursor: default !important;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon {
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable {
+  position: relative;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-handle {
+  position: absolute;
+  font-size: .1px;
+  display: block;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle {
+  display: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-n {
+  cursor: n-resize;
+  height: 7px;
+  width: 100%;
+  top: -5px;
+  left: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-s {
+  cursor: s-resize;
+  height: 7px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-e {
+  cursor: e-resize;
+  width: 7px;
+  right: -5px;
+  top: 0;
+  height: 100%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-w {
+  cursor: w-resize;
+  width: 7px;
+  left: -5px;
+  top: 0;
+  height: 100%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-se {
+  cursor: se-resize;
+  width: 12px;
+  height: 12px;
+  right: 1px;
+  bottom: 1px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-sw {
+  cursor: sw-resize;
+  width: 9px;
+  height: 9px;
+  left: -5px;
+  bottom: -5px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-nw {
+  cursor: nw-resize;
+  width: 9px;
+  height: 9px;
+  left: -5px;
+  top: -5px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-resizable-ne {
+  cursor: ne-resize;
+  width: 9px;
+  height: 9px;
+  right: -5px;
+  top: -5px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-selectable-helper {
+  position: absolute;
+  z-index: 100;
+  border: 1px dotted #000;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-accordion .ui-accordion-header {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  margin-top: 2px;
+  padding: .5em .5em .5em .7em;
+  min-height: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-accordion .ui-accordion-icons {
+  padding-left: 2.2em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-accordion .ui-accordion-noicons {
+  padding-left: .7em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-accordion .ui-accordion-icons .ui-accordion-icons {
+  padding-left: 2.2em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+  position: absolute;
+  left: .5em;
+  top: 50%;
+  margin-top: -8px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-accordion .ui-accordion-content {
+  padding: 1em 2.2em;
+  border-top: 0;
+  overflow: auto;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: default;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button, .mybutton {
+  display: inline-block;
+  position: relative;
+  padding: 0;
+  line-height: normal;
+  margin-right: .1em;
+  cursor: pointer;
+  vertical-align: middle;
+  text-align: center;
+  overflow: visible;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button, .mybutton, .ui-button:link, .mybutton:link, .ui-button:visited, .mybutton:visited, .ui-button:hover, .mybutton:hover, .ui-button:active, .mybutton:active {
+  text-decoration: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-icon-only {
+  width: 2.2em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+button.ui-button-icon-only {
+  width: 2.4em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-icons-only {
+  width: 3.4em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+button.ui-button-icons-only {
+  width: 3.7em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button .ui-button-text, .mybutton .ui-button-text {
+  display: block;
+  line-height: normal;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-text-only .ui-button-text {
+  padding: .4em 1em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text {
+  padding: .4em;
+  text-indent: -9999999px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text {
+  padding: .4em 1em .4em 2.1em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text {
+  padding: .4em 2.1em .4em 1em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-text-icons .ui-button-text {
+  padding-left: 2.1em;
+  padding-right: 2.1em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+input.ui-button, input.mybutton {
+  padding: .4em 1em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-icon-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon, .ui-button-icons-only .ui-icon {
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-icon-only .ui-icon {
+  left: 50%;
+  margin-left: -8px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-text-icon-primary .ui-button-icon-primary, .ui-button-text-icons .ui-button-icon-primary, .ui-button-icons-only .ui-button-icon-primary {
+  left: .5em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-button-text-icon-secondary .ui-button-icon-secondary, .ui-button-text-icons .ui-button-icon-secondary, .ui-button-icons-only .ui-button-icon-secondary {
+  right: .5em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-buttonset {
+  margin-right: 7px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-buttonset .ui-button, .ui-buttonset .mybutton {
+  margin-left: 0;
+  margin-right: -.3em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+input.ui-button::-moz-focus-inner, input.mybutton::-moz-focus-inner, button.ui-button::-moz-focus-inner, button.mybutton::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker {
+  width: 17em;
+  padding: .2em .2em 0;
+  display: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-header {
+  position: relative;
+  padding: .2em 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+  position: absolute;
+  top: 2px;
+  width: 1.8em;
+  height: 1.8em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover {
+  top: 1px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-prev {
+  left: 2px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-next {
+  right: 2px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-prev-hover {
+  left: 1px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-next-hover {
+  right: 1px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -8px;
+  top: 50%;
+  margin-top: -8px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-title {
+  margin: 0 2.3em;
+  line-height: 1.8em;
+  text-align: center;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-title select {
+  font-size: 1em;
+  margin: 1px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker select.ui-datepicker-month-year {
+  width: 100%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+  width: 49%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker table {
+  width: 100%;
+  font-size: .9em;
+  border-collapse: collapse;
+  margin: 0 0 .4em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker th {
+  padding: .7em .3em;
+  text-align: center;
+  font-weight: 700;
+  border: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker td {
+  border: 0;
+  padding: 1px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker td span, .ui-datepicker td a {
+  display: block;
+  padding: .2em;
+  text-align: right;
+  text-decoration: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-buttonpane {
+  background-image: none;
+  margin: .7em 0 0;
+  padding: 0 .2em;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-buttonpane button {
+  float: right;
+  margin: .5em .2em .4em;
+  cursor: pointer;
+  padding: .2em .6em .3em;
+  width: auto;
+  overflow: visible;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+  float: left;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker.ui-datepicker-multi {
+  width: auto;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-multi .ui-datepicker-group {
+  float: left;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-multi .ui-datepicker-group table {
+  width: 95%;
+  margin: 0 auto .4em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-multi-2 .ui-datepicker-group {
+  width: 50%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-multi-3 .ui-datepicker-group {
+  width: 33.3%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-multi-4 .ui-datepicker-group {
+  width: 25%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header, .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+  border-left-width: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-multi .ui-datepicker-buttonpane {
+  clear: left;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-row-break {
+  clear: both;
+  width: 100%;
+  font-size: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-rtl {
+  direction: rtl;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-rtl .ui-datepicker-prev {
+  right: 2px;
+  left: auto;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-rtl .ui-datepicker-next {
+  left: 2px;
+  right: auto;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-rtl .ui-datepicker-prev:hover {
+  right: 1px;
+  left: auto;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-rtl .ui-datepicker-next:hover {
+  left: 1px;
+  right: auto;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-rtl .ui-datepicker-buttonpane {
+  clear: right;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-rtl .ui-datepicker-buttonpane button {
+  float: left;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current, .ui-datepicker-rtl .ui-datepicker-group {
+  float: right;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header, .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+  border-right-width: 0;
+  border-left-width: 1px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .2em;
+  outline: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-dialog .ui-dialog-titlebar {
+  padding: .4em 1em;
+  position: relative;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-dialog .ui-dialog-title {
+  float: left;
+  margin: .1em 0;
+  white-space: nowrap;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-dialog .ui-dialog-titlebar-close {
+  position: absolute;
+  right: .3em;
+  top: 50%;
+  width: 21px;
+  margin: -10px 0 0 0;
+  padding: 1px;
+  height: 20px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-dialog .ui-dialog-content {
+  position: relative;
+  border: 0;
+  padding: .5em 1em;
+  background: 0;
+  overflow: auto;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-dialog .ui-dialog-buttonpane {
+  text-align: left;
+  border-width: 1px 0 0;
+  background-image: none;
+  margin-top: .5em;
+  padding: .3em 1em .5em .4em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+  float: right;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-dialog .ui-dialog-buttonpane button {
+  margin: .5em .4em .5em 0;
+  cursor: pointer;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-dialog .ui-resizable-se {
+  width: 12px;
+  height: 12px;
+  right: -5px;
+  bottom: -5px;
+  background-position: 16px 16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-draggable .ui-dialog-titlebar {
+  cursor: move;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu {
+  list-style: none;
+  padding: 2px;
+  margin: 0;
+  display: block;
+  outline: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu .ui-menu {
+  margin-top: -3px;
+  position: absolute;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu .ui-menu-item {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu .ui-menu-divider {
+  margin: 5px -2px 5px -2px;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  border-width: 1px 0 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu .ui-menu-item a {
+  text-decoration: none;
+  display: block;
+  padding: 2px .4em;
+  line-height: 1.5;
+  min-height: 0;
+  font-weight: 400;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
+  font-weight: 400;
+  margin: -1px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu .ui-state-disabled {
+  font-weight: 400;
+  margin: .4em 0 .2em;
+  line-height: 1.5;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu .ui-state-disabled a {
+  cursor: default;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu-icons {
+  position: relative;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu-icons .ui-menu-item a {
+  position: relative;
+  padding-left: 2em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu .ui-icon {
+  position: absolute;
+  top: .2em;
+  left: .2em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-menu .ui-menu-icon {
+  position: static;
+  float: right;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-progressbar {
+  height: 2em;
+  text-align: left;
+  overflow: hidden;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-progressbar .ui-progressbar-value {
+  margin: -1px;
+  height: 100%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-progressbar .ui-progressbar-overlay {
+  background: url(images/animated-overlay.gif);
+  height: 100%;
+  filter: alpha(opacity=25);
+  opacity: .25;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-progressbar-indeterminate .ui-progressbar-value {
+  background-image: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider {
+  position: relative;
+  text-align: left;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider .ui-slider-handle {
+  position: absolute;
+  z-index: 2;
+  width: 1.2em;
+  height: 1.2em;
+  cursor: default;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider .ui-slider-range {
+  position: absolute;
+  z-index: 1;
+  font-size: .7em;
+  display: block;
+  border: 0;
+  background-position: 0 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider.ui-state-disabled .ui-slider-handle, .ui-slider.ui-state-disabled .ui-slider-range {
+  filter: inherit;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-horizontal {
+  height: .8em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-horizontal .ui-slider-handle {
+  top: -.3em;
+  margin-left: -.6em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-horizontal .ui-slider-range {
+  top: 0;
+  height: 100%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-horizontal .ui-slider-range-min {
+  left: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-horizontal .ui-slider-range-max {
+  right: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-vertical {
+  width: .8em;
+  height: 100px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-vertical .ui-slider-handle {
+  left: -.3em;
+  margin-left: 0;
+  margin-bottom: -.6em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-vertical .ui-slider-range {
+  left: 0;
+  width: 100%;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-vertical .ui-slider-range-min {
+  bottom: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-slider-vertical .ui-slider-range-max {
+  top: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-spinner {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0;
+  vertical-align: middle;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-spinner-input {
+  border: 0;
+  background: 0;
+  color: inherit;
+  padding: 0;
+  margin: .2em 0;
+  vertical-align: middle;
+  margin-left: .4em;
+  margin-right: 22px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-spinner-button {
+  width: 16px;
+  height: 50%;
+  font-size: .5em;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  position: absolute;
+  cursor: default;
+  display: block;
+  overflow: hidden;
+  right: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-spinner a.ui-spinner-button {
+  border-top: 0;
+  border-bottom: 0;
+  border-right: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-spinner .ui-icon {
+  position: absolute;
+  margin-top: -8px;
+  top: 50%;
+  left: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-spinner-up {
+  top: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-spinner-down {
+  bottom: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-spinner .ui-icon-triangle-1-s {
+  background-position: -65px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-tabs {
+  position: relative;
+  padding: .2em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-tabs .ui-tabs-nav {
+  margin: 0;
+  padding: .2em .2em 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-tabs .ui-tabs-nav li {
+  list-style: none;
+  float: left;
+  position: relative;
+  top: 0;
+  margin: 1px .2em 0 0;
+  border-bottom-width: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-tabs .ui-tabs-nav li a {
+  float: left;
+  padding: .5em 1em;
+  text-decoration: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+  margin-bottom: -1px;
+  padding-bottom: 1px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
+  cursor: text;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-tabs .ui-tabs-nav li a, .ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
+  cursor: pointer;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-tabs .ui-tabs-panel {
+  display: block;
+  border-width: 0;
+  padding: 1em 1.4em;
+  background: 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-tooltip {
+  padding: 8px;
+  position: absolute;
+  z-index: 9999;
+  max-width: 300px;
+  -webkit-box-shadow: 0 0 5px #aaa;
+  box-shadow: 0 0 5px #aaa;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+body .ui-tooltip {
+  border-width: 2px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget, fieldset, #status-box, #flash-box .heading, #header, body.two-col #footer, .content-box, .welcome-message .content, .available-games .content, .heading, .invitation .content-box, .invitation .content-box .content #left-column #lower {
+  font-family: segoe ui,Arial,sans-serif;
+  font-size: 1.1em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget .ui-widget, fieldset .ui-widget, #status-box .ui-widget, #flash-box .heading .ui-widget, #header .ui-widget, body.two-col #footer .ui-widget, .content-box .ui-widget, .welcome-message .content .ui-widget, .available-games .content .ui-widget, .heading .ui-widget, .invitation .content-box .ui-widget, .invitation .content-box .content #left-column #lower .ui-widget, .ui-widget fieldset, fieldset fieldset, #status-box fieldset, #flash-box .heading fieldset, #header fieldset, body.two-col #footer fieldset, .content-box fieldset, .welcome-message .content fieldset, .available-games .content fieldset, .heading fieldset, .invitation .content-box fieldset, .invitation .content-box .content #left-column #lower fieldset, .ui-widget #status-box, fieldset #status-box, #status-box #status-box, #flash-box .heading #status-box, #header #status-box, body.two-col #footer #status-box, .content-box #status-box, .welcome-message .content #status-box, .available-games .content #status-box, .heading #status-box, .invitation .content-box #status-box, .invitation .content-box .content #left-column #lower #status-box, .ui-widget #flash-box .heading, #flash-box .ui-widget .heading, fieldset #flash-box .heading, #flash-box fieldset .heading, #status-box #flash-box .heading, #flash-box #status-box .heading, #flash-box .heading .heading, #header #flash-box .heading, #flash-box #header .heading, body.two-col #footer #flash-box .heading, #flash-box body.two-col #footer .heading, .content-box #flash-box .heading, #flash-box .content-box .heading, .welcome-message .content #flash-box .heading, #flash-box .welcome-message .content .heading, .available-games .content #flash-box .heading, #flash-box .available-games .content .heading, .heading #flash-box .heading, #flash-box .heading .heading, .invitation .content-box #flash-box .heading, #flash-box .invitation .content-box .heading, .invitation .content-box .content #left-column #lower #flash-box .heading, #flash-box .invitation .content-box .content #left-column #lower .heading, .ui-widget #header, fieldset #header, #status-box #header, #flash-box .heading #header, #header #header, body.two-col #footer #header, .content-box #header, .welcome-message .content #header, .available-games .content #header, .heading #header, .invitation .content-box #header, .invitation .content-box .content #left-column #lower #header, .ui-widget body.two-col #footer, body.two-col .ui-widget #footer, fieldset body.two-col #footer, body.two-col fieldset #footer, #status-box body.two-col #footer, body.two-col #status-box #footer, #flash-box .heading body.two-col #footer, body.two-col #flash-box .heading #footer, #header body.two-col #footer, body.two-col #header #footer, body.two-col #footer #footer, .content-box body.two-col #footer, body.two-col .content-box #footer, .welcome-message .content body.two-col #footer, body.two-col .welcome-message .content #footer, .available-games .content body.two-col #footer, body.two-col .available-games .content #footer, .heading body.two-col #footer, body.two-col .heading #footer, .invitation .content-box body.two-col #footer, body.two-col .invitation .content-box #footer, .invitation .content-box .content #left-column #lower body.two-col #footer, body.two-col .invitation .content-box .content #left-column #lower #footer, .ui-widget .content-box, fieldset .content-box, #status-box .content-box, #flash-box .heading .content-box, #header .content-box, body.two-col #footer .content-box, .content-box .content-box, .welcome-message .content .content-box, .available-games .content .content-box, .heading .content-box, .invitation .content-box .content-box, .invitation .content-box .content #left-column #lower .content-box, .ui-widget .welcome-message .content, .welcome-message .ui-widget .content, fieldset .welcome-message .content, .welcome-message fieldset .content, #status-box .welcome-message .content, .welcome-message #status-box .content, #flash-box .heading .welcome-message .content, .welcome-message #flash-box .heading .content, #header .welcome-message .content, .welcome-message #header .content, body.two-col #footer .welcome-message .content, .welcome-message body.two-col #footer .content, .content-box .welcome-message .content, .welcome-message .content-box .content, .welcome-message .content .content, .available-games .content .welcome-message .content, .welcome-message .available-games .content .content, .heading .welcome-message .content, .welcome-message .heading .content, .invitation .content-box .welcome-message .content, .welcome-message .invitation .content-box .content, .invitation .content-box .content #left-column #lower .welcome-message .content, .welcome-message .invitation .content-box .content #left-column #lower .content, .ui-widget .available-games .content, .available-games .ui-widget .content, fieldset .available-games .content, .available-games fieldset .content, #status-box .available-games .content, .available-games #status-box .content, #flash-box .heading .available-games .content, .available-games #flash-box .heading .content, #header .available-games .content, .available-games #header .content, body.two-col #footer .available-games .content, .available-games body.two-col #footer .content, .content-box .available-games .content, .available-games .content-box .content, .welcome-message .content .available-games .content, .available-games .welcome-message .content .content, .available-games .content .content, .heading .available-games .content, .available-games .heading .content, .invitation .content-box .available-games .content, .available-games .invitation .content-box .content, .invitation .content-box .content #left-column #lower .available-games .content, .available-games .invitation .content-box .content #left-column #lower .content, .ui-widget .heading, fieldset .heading, #status-box .heading, #flash-box .heading .heading, #header .heading, body.two-col #footer .heading, .content-box .heading, .welcome-message .content .heading, .available-games .content .heading, .heading .heading, .invitation .content-box .heading, .invitation .content-box .content #left-column #lower .heading, .ui-widget .invitation .content-box, .invitation .ui-widget .content-box, fieldset .invitation .content-box, .invitation fieldset .content-box, #status-box .invitation .content-box, .invitation #status-box .content-box, #flash-box .heading .invitation .content-box, .invitation #flash-box .heading .content-box, #header .invitation .content-box, .invitation #header .content-box, body.two-col #footer .invitation .content-box, .invitation body.two-col #footer .content-box, .content-box .invitation .content-box, .invitation .content-box .content-box, .welcome-message .content .invitation .content-box, .invitation .welcome-message .content .content-box, .available-games .content .invitation .content-box, .invitation .available-games .content .content-box, .heading .invitation .content-box, .invitation .heading .content-box, .invitation .content-box .content-box, .invitation .content-box .content #left-column #lower .content-box, .ui-widget .invitation .content-box .content #left-column #lower, .invitation .content-box .content #left-column .ui-widget #lower, fieldset .invitation .content-box .content #left-column #lower, .invitation .content-box .content #left-column fieldset #lower, #status-box .invitation .content-box .content #left-column #lower, .invitation .content-box .content #left-column #status-box #lower, #flash-box .heading .invitation .content-box .content #left-column #lower, .invitation .content-box .content #left-column #flash-box .heading #lower, #header .invitation .content-box .content #left-column #lower, .invitation .content-box .content #left-column #header #lower, body.two-col #footer .invitation .content-box .content #left-column #lower, .invitation .content-box .content #left-column body.two-col #footer #lower, .invitation .content-box .content #left-column #lower, .welcome-message .invitation .content-box .content #left-column #lower, .invitation .content-box .welcome-message .content #left-column #lower, .available-games .invitation .content-box .content #left-column #lower, .invitation .content-box .available-games .content #left-column #lower, .heading .invitation .content-box .content #left-column #lower, .invitation .content-box .content #left-column .heading #lower, .invitation .content-box .content #left-column #lower, .invitation .content-box .content #left-column #lower #lower {
+  font-size: 1em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget input, fieldset input, #status-box input, #flash-box .heading input, #header input, body.two-col #footer input, .content-box input, .welcome-message .content input, .available-games .content input, .heading input, .invitation .content-box input, .invitation .content-box .content #left-column #lower input, .ui-widget select, fieldset select, #status-box select, #flash-box .heading select, #header select, body.two-col #footer select, .content-box select, .welcome-message .content select, .available-games .content select, .heading select, .invitation .content-box select, .invitation .content-box .content #left-column #lower select, .ui-widget textarea, fieldset textarea, #status-box textarea, #flash-box .heading textarea, #header textarea, body.two-col #footer textarea, .content-box textarea, .welcome-message .content textarea, .available-games .content textarea, .heading textarea, .invitation .content-box textarea, .invitation .content-box .content #left-column #lower textarea, .ui-widget button, fieldset button, #status-box button, #flash-box .heading button, #header button, body.two-col #footer button, .content-box button, .welcome-message .content button, .available-games .content button, .heading button, .invitation .content-box button, .invitation .content-box .content #left-column #lower button {
+  font-family: segoe ui,Arial,sans-serif;
+  font-size: 1em;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget-content, fieldset, #status-box, table.dataTable tr.odd, table.dataTable tr.even, #header, body.two-col #footer, .content-box, .welcome-message .content, .available-games .content, .invitation .content-box {
+  border: 1px solid #dfd9c3;
+  background: #f5f3e5 url(images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) 50% top repeat-x;
+  color: #312e25;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget-content a, fieldset a, #status-box a, table.dataTable tr.odd a, table.dataTable tr.even a, #header a, body.two-col #footer a, .content-box a, .welcome-message .content a, .available-games .content a, .invitation .content-box a {
+  color: #312e25;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget-header, #flash-box .heading, .heading {
+  border: 1px solid #d4ccb0;
+  background: #ece8da url(images/ui-bg_gloss-wave_100_ece8da_500x100.png) 50% 50% repeat-x;
+  color: #433f38;
+  font-weight: bold;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget-header a, #flash-box .heading a, .heading a {
+  color: #433f38;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-default, #flash-box .heading, .heading, .ui-widget-content .ui-state-default, fieldset .ui-state-default, #status-box .ui-state-default, table.dataTable tr.odd .ui-state-default, table.dataTable tr.even .ui-state-default, #header .ui-state-default, body.two-col #footer .ui-state-default, .content-box .ui-state-default, .welcome-message .content .ui-state-default, .available-games .content .ui-state-default, .ui-widget-content #flash-box .heading, #flash-box .ui-widget-content .heading, fieldset #flash-box .heading, #flash-box fieldset .heading, table.dataTable tr.odd #flash-box .heading, #flash-box table.dataTable tr.odd .heading, table.dataTable tr.even #flash-box .heading, #flash-box table.dataTable tr.even .heading, .content-box #flash-box .heading, #flash-box .content-box .heading, .welcome-message .content #flash-box .heading, #flash-box .welcome-message .content .heading, .available-games .content #flash-box .heading, #flash-box .available-games .content .heading, .ui-widget-content .heading, fieldset .heading, #status-box .heading, table.dataTable tr.odd .heading, table.dataTable tr.even .heading, #header .heading, body.two-col #footer .heading, .content-box .heading, .welcome-message .content .heading, .available-games .content .heading, .ui-widget-header .ui-state-default, #flash-box .heading .ui-state-default, .heading .ui-state-default, .ui-widget-header #flash-box .heading, #flash-box .ui-widget-header .heading, .heading #flash-box .heading, .ui-widget-header .heading, #flash-box .heading .heading, .heading .heading {
+  border: 1px solid #327E04;
+  background: #459e00 url(images/ui-bg_highlight-hard_15_459e00_1x100.png) 50% 50% repeat-x;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-default a, #flash-box .heading a, .heading a, .ui-state-default a:link, #flash-box .heading a:link, .heading a:link, .ui-state-default a:visited, #flash-box .heading a:visited, .heading a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-hover, .ui-widget-content .ui-state-hover, fieldset .ui-state-hover, #status-box .ui-state-hover, table.dataTable tr.odd .ui-state-hover, table.dataTable tr.even .ui-state-hover, #header .ui-state-hover, body.two-col #footer .ui-state-hover, .content-box .ui-state-hover, .welcome-message .content .ui-state-hover, .available-games .content .ui-state-hover, .ui-widget-header .ui-state-hover, #flash-box .heading .ui-state-hover, .heading .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, fieldset .ui-state-focus, #status-box .ui-state-focus, table.dataTable tr.odd .ui-state-focus, table.dataTable tr.even .ui-state-focus, #header .ui-state-focus, body.two-col #footer .ui-state-focus, .content-box .ui-state-focus, .welcome-message .content .ui-state-focus, .available-games .content .ui-state-focus, .ui-widget-header .ui-state-focus, #flash-box .heading .ui-state-focus, .heading .ui-state-focus {
+  border: 1px solid #327E04;
+  background: #67b021 url(images/ui-bg_highlight-soft_25_67b021_1x100.png) 50% 50% repeat-x;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-hover a, .ui-state-hover a:hover, .ui-state-hover a:link, .ui-state-hover a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-active, .ui-widget-content .ui-state-active, fieldset .ui-state-active, #status-box .ui-state-active, table.dataTable tr.odd .ui-state-active, table.dataTable tr.even .ui-state-active, #header .ui-state-active, body.two-col #footer .ui-state-active, .content-box .ui-state-active, .welcome-message .content .ui-state-active, .available-games .content .ui-state-active, .ui-widget-header .ui-state-active, #flash-box .heading .ui-state-active, .heading .ui-state-active {
+  border: 1px solid #d4ccb0;
+  background: #fafaf4 url(images/ui-bg_highlight-hard_100_fafaf4_1x100.png) 50% 50% repeat-x;
+  font-weight: bold;
+  color: #459e00;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+  color: #459e00;
+  text-decoration: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, fieldset .ui-state-highlight, #status-box .ui-state-highlight, table.dataTable tr.odd .ui-state-highlight, table.dataTable tr.even .ui-state-highlight, #header .ui-state-highlight, body.two-col #footer .ui-state-highlight, .content-box .ui-state-highlight, .welcome-message .content .ui-state-highlight, .available-games .content .ui-state-highlight, .ui-widget-header .ui-state-highlight, #flash-box .heading .ui-state-highlight, .heading .ui-state-highlight {
+  border: 1px solid #e8e1b5;
+  background: #fcf0ba url(images/ui-bg_glass_55_fcf0ba_1x400.png) 50% 50% repeat-x;
+  color: #363636;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a, fieldset .ui-state-highlight a, #status-box .ui-state-highlight a, table.dataTable tr.odd .ui-state-highlight a, table.dataTable tr.even .ui-state-highlight a, #header .ui-state-highlight a, body.two-col #footer .ui-state-highlight a, .content-box .ui-state-highlight a, .welcome-message .content .ui-state-highlight a, .available-games .content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a, #flash-box .heading .ui-state-highlight a, .heading .ui-state-highlight a {
+  color: #363636;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-error, .ui-widget-content .ui-state-error, fieldset .ui-state-error, #status-box .ui-state-error, table.dataTable tr.odd .ui-state-error, table.dataTable tr.even .ui-state-error, #header .ui-state-error, body.two-col #footer .ui-state-error, .content-box .ui-state-error, .welcome-message .content .ui-state-error, .available-games .content .ui-state-error, .ui-widget-header .ui-state-error, #flash-box .heading .ui-state-error, .heading .ui-state-error {
+  border: 1px solid #e3a345;
+  background: #ffedad url(images/ui-bg_highlight-soft_95_ffedad_1x100.png) 50% top repeat-x;
+  color: #cd5c0a;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-error a, .ui-widget-content .ui-state-error a, fieldset .ui-state-error a, #status-box .ui-state-error a, table.dataTable tr.odd .ui-state-error a, table.dataTable tr.even .ui-state-error a, #header .ui-state-error a, body.two-col #footer .ui-state-error a, .content-box .ui-state-error a, .welcome-message .content .ui-state-error a, .available-games .content .ui-state-error a, .ui-widget-header .ui-state-error a, #flash-box .heading .ui-state-error a, .heading .ui-state-error a {
+  color: #cd5c0a;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-error-text, .ui-widget-content .ui-state-error-text, fieldset .ui-state-error-text, #status-box .ui-state-error-text, table.dataTable tr.odd .ui-state-error-text, table.dataTable tr.even .ui-state-error-text, #header .ui-state-error-text, body.two-col #footer .ui-state-error-text, .content-box .ui-state-error-text, .welcome-message .content .ui-state-error-text, .available-games .content .ui-state-error-text, .ui-widget-header .ui-state-error-text, #flash-box .heading .ui-state-error-text, .heading .ui-state-error-text {
+  color: #cd5c0a;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-priority-primary, .ui-widget-content .ui-priority-primary, fieldset .ui-priority-primary, #status-box .ui-priority-primary, table.dataTable tr.odd .ui-priority-primary, table.dataTable tr.even .ui-priority-primary, #header .ui-priority-primary, body.two-col #footer .ui-priority-primary, .content-box .ui-priority-primary, .welcome-message .content .ui-priority-primary, .available-games .content .ui-priority-primary, .ui-widget-header .ui-priority-primary, #flash-box .heading .ui-priority-primary, .heading .ui-priority-primary {
+  font-weight: bold;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-priority-secondary, .ui-widget-content .ui-priority-secondary, fieldset .ui-priority-secondary, #status-box .ui-priority-secondary, table.dataTable tr.odd .ui-priority-secondary, table.dataTable tr.even .ui-priority-secondary, #header .ui-priority-secondary, body.two-col #footer .ui-priority-secondary, .content-box .ui-priority-secondary, .welcome-message .content .ui-priority-secondary, .available-games .content .ui-priority-secondary, .ui-widget-header .ui-priority-secondary, #flash-box .heading .ui-priority-secondary, .heading .ui-priority-secondary {
+  opacity: .7;
+  filter: Alpha(Opacity=70);
+  font-weight: normal;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, fieldset .ui-state-disabled, #status-box .ui-state-disabled, table.dataTable tr.odd .ui-state-disabled, table.dataTable tr.even .ui-state-disabled, #header .ui-state-disabled, body.two-col #footer .ui-state-disabled, .content-box .ui-state-disabled, .welcome-message .content .ui-state-disabled, .available-games .content .ui-state-disabled, .ui-widget-header .ui-state-disabled, #flash-box .heading .ui-state-disabled, .heading .ui-state-disabled {
+  opacity: .35;
+  filter: Alpha(Opacity=35);
+  background-image: none;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-disabled .ui-icon {
+  filter: Alpha(Opacity=35);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon, .ui-widget-content .ui-icon, fieldset .ui-icon, #status-box .ui-icon, table.dataTable tr.odd .ui-icon, table.dataTable tr.even .ui-icon, #header .ui-icon, body.two-col #footer .ui-icon, .content-box .ui-icon, .welcome-message .content .ui-icon, .available-games .content .ui-icon {
+  background-image: url(images/ui-icons_808080_256x240.png);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget-header .ui-icon, #flash-box .heading .ui-icon, .heading .ui-icon {
+  background-image: url(images/ui-icons_847e71_256x240.png);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-default .ui-icon, #flash-box .heading .ui-icon, .heading .ui-icon {
+  background-image: url(images/ui-icons_eeeeee_256x240.png);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {
+  background-image: url(images/ui-icons_ffffff_256x240.png);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-active .ui-icon {
+  background-image: url(images/ui-icons_8dc262_256x240.png);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-highlight .ui-icon {
+  background-image: url(images/ui-icons_8dc262_256x240.png);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {
+  background-image: url(images/ui-icons_cd0a0a_256x240.png);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-blank {
+  background-position: 16px 16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-1-n {
+  background-position: 0 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-1-ne {
+  background-position: -16px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-1-e {
+  background-position: -32px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-1-se {
+  background-position: -48px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-1-s {
+  background-position: -64px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-1-sw {
+  background-position: -80px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-1-w {
+  background-position: -96px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-1-nw {
+  background-position: -112px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-2-n-s {
+  background-position: -128px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-carat-2-e-w {
+  background-position: -144px 0;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-1-n {
+  background-position: 0 -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-1-ne {
+  background-position: -16px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-1-e {
+  background-position: -32px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-1-se {
+  background-position: -48px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-1-s {
+  background-position: -64px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-1-sw {
+  background-position: -80px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-1-w {
+  background-position: -96px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-1-nw {
+  background-position: -112px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-2-n-s {
+  background-position: -128px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-triangle-2-e-w {
+  background-position: -144px -16px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-1-n {
+  background-position: 0 -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-1-ne {
+  background-position: -16px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-1-e {
+  background-position: -32px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-1-se {
+  background-position: -48px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-1-s {
+  background-position: -64px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-1-sw {
+  background-position: -80px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-1-w {
+  background-position: -96px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-1-nw {
+  background-position: -112px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-2-n-s {
+  background-position: -128px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-2-ne-sw {
+  background-position: -144px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-2-e-w {
+  background-position: -160px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-2-se-nw {
+  background-position: -176px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowstop-1-n {
+  background-position: -192px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowstop-1-e {
+  background-position: -208px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowstop-1-s {
+  background-position: -224px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowstop-1-w {
+  background-position: -240px -32px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-1-n {
+  background-position: 0 -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-1-ne {
+  background-position: -16px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-1-e {
+  background-position: -32px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-1-se {
+  background-position: -48px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-1-s {
+  background-position: -64px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-1-sw {
+  background-position: -80px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-1-w {
+  background-position: -96px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-1-nw {
+  background-position: -112px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-2-n-s {
+  background-position: -128px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-2-ne-sw {
+  background-position: -144px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-2-e-w {
+  background-position: -160px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthick-2-se-nw {
+  background-position: -176px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthickstop-1-n {
+  background-position: -192px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthickstop-1-e {
+  background-position: -208px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthickstop-1-s {
+  background-position: -224px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowthickstop-1-w {
+  background-position: -240px -48px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowreturnthick-1-w {
+  background-position: 0 -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowreturnthick-1-n {
+  background-position: -16px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowreturnthick-1-e {
+  background-position: -32px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowreturnthick-1-s {
+  background-position: -48px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowreturn-1-w {
+  background-position: -64px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowreturn-1-n {
+  background-position: -80px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowreturn-1-e {
+  background-position: -96px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowreturn-1-s {
+  background-position: -112px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowrefresh-1-w {
+  background-position: -128px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowrefresh-1-n {
+  background-position: -144px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowrefresh-1-e {
+  background-position: -160px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrowrefresh-1-s {
+  background-position: -176px -64px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-4 {
+  background-position: 0 -80px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-arrow-4-diag {
+  background-position: -16px -80px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-extlink {
+  background-position: -32px -80px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-newwin {
+  background-position: -48px -80px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-refresh {
+  background-position: -64px -80px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-shuffle {
+  background-position: -80px -80px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-transfer-e-w {
+  background-position: -96px -80px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-transferthick-e-w {
+  background-position: -112px -80px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-folder-collapsed {
+  background-position: 0 -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-folder-open {
+  background-position: -16px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-document {
+  background-position: -32px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-document-b {
+  background-position: -48px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-note {
+  background-position: -64px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-mail-closed {
+  background-position: -80px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-mail-open {
+  background-position: -96px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-suitcase {
+  background-position: -112px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-comment {
+  background-position: -128px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-person {
+  background-position: -144px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-print {
+  background-position: -160px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-trash {
+  background-position: -176px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-locked {
+  background-position: -192px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-unlocked {
+  background-position: -208px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-bookmark {
+  background-position: -224px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-tag {
+  background-position: -240px -96px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-home {
+  background-position: 0 -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-flag {
+  background-position: -16px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-calendar {
+  background-position: -32px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-cart {
+  background-position: -48px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-pencil {
+  background-position: -64px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-clock {
+  background-position: -80px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-disk {
+  background-position: -96px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-calculator {
+  background-position: -112px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-zoomin {
+  background-position: -128px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-zoomout {
+  background-position: -144px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-search {
+  background-position: -160px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-wrench {
+  background-position: -176px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-gear {
+  background-position: -192px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-heart {
+  background-position: -208px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-star {
+  background-position: -224px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-link {
+  background-position: -240px -112px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-cancel {
+  background-position: 0 -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-plus {
+  background-position: -16px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-plusthick {
+  background-position: -32px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-minus {
+  background-position: -48px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-minusthick {
+  background-position: -64px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-close {
+  background-position: -80px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-closethick {
+  background-position: -96px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-key {
+  background-position: -112px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-lightbulb {
+  background-position: -128px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-scissors {
+  background-position: -144px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-clipboard {
+  background-position: -160px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-copy {
+  background-position: -176px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-contact {
+  background-position: -192px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-image {
+  background-position: -208px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-video {
+  background-position: -224px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-script {
+  background-position: -240px -128px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-alert {
+  background-position: 0 -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-info {
+  background-position: -16px -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-notice {
+  background-position: -32px -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-help {
+  background-position: -48px -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-check {
+  background-position: -64px -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-bullet {
+  background-position: -80px -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-radio-on {
+  background-position: -96px -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-radio-off {
+  background-position: -112px -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-pin-w {
+  background-position: -128px -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-pin-s {
+  background-position: -144px -144px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-play {
+  background-position: 0 -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-pause {
+  background-position: -16px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-seek-next {
+  background-position: -32px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-seek-prev {
+  background-position: -48px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-seek-end {
+  background-position: -64px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-seek-start {
+  background-position: -80px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-seek-first {
+  background-position: -80px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-stop {
+  background-position: -96px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-eject {
+  background-position: -112px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-volume-off {
+  background-position: -128px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-volume-on {
+  background-position: -144px -160px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-power {
+  background-position: 0 -176px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-signal-diag {
+  background-position: -16px -176px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-signal {
+  background-position: -32px -176px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-battery-0 {
+  background-position: -48px -176px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-battery-1 {
+  background-position: -64px -176px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-battery-2 {
+  background-position: -80px -176px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-battery-3 {
+  background-position: -96px -176px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-plus {
+  background-position: 0 -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-minus {
+  background-position: -16px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-close {
+  background-position: -32px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-triangle-e {
+  background-position: -48px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-triangle-s {
+  background-position: -64px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-triangle-w {
+  background-position: -80px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-triangle-n {
+  background-position: -96px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-arrow-e {
+  background-position: -112px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-arrow-s {
+  background-position: -128px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-arrow-w {
+  background-position: -144px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-arrow-n {
+  background-position: -160px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-zoomin {
+  background-position: -176px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-zoomout {
+  background-position: -192px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circle-check {
+  background-position: -208px -192px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circlesmall-plus {
+  background-position: 0 -208px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circlesmall-minus {
+  background-position: -16px -208px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-circlesmall-close {
+  background-position: -32px -208px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-squaresmall-plus {
+  background-position: -48px -208px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-squaresmall-minus {
+  background-position: -64px -208px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-squaresmall-close {
+  background-position: -80px -208px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-grip-dotted-vertical {
+  background-position: 0 -224px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-grip-dotted-horizontal {
+  background-position: -16px -224px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-grip-solid-vertical {
+  background-position: -32px -224px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-grip-solid-horizontal {
+  background-position: -48px -224px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-gripsmall-diagonal-se {
+  background-position: -64px -224px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-icon-grip-diagonal-se {
+  background-position: -80px -224px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-corner-all, fieldset, #status-box, #flash-box .heading, #header, body.two-col #footer, .content-box, .welcome-message .content, .available-games .content, .heading, .invitation .content-box, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+  border-top-left-radius: 6px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-corner-all, fieldset, #status-box, #flash-box .heading, #header, body.two-col #footer, .content-box, .welcome-message .content, .available-games .content, .heading, .invitation .content-box, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+  border-top-right-radius: 6px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-corner-all, fieldset, #status-box, #flash-box .heading, #header, body.two-col #footer, .content-box, .welcome-message .content, .available-games .content, .heading, .invitation .content-box, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
+  border-bottom-left-radius: 6px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-corner-all, fieldset, #status-box, #flash-box .heading, #header, body.two-col #footer, .content-box, .welcome-message .content, .available-games .content, .heading, .invitation .content-box, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+  border-bottom-right-radius: 6px;
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget-overlay {
+  background: #2b2922 url(images/ui-bg_inset-soft_15_2b2922_1x100.png) 50% bottom repeat-x;
+  opacity: .9;
+  filter: Alpha(Opacity=90);
+}
+
+/* line 5, ../../stylesheets/partials/_jquery-ui-1.10.3.custom.min.scss */
+.ui-widget-shadow {
+  margin: -12px 0 0 -12px;
+  padding: 12px;
+  background: #ccc url(images/ui-bg_highlight-hard_95_cccccc_1x100.png) 50% top repeat-x;
+  opacity: .2;
+  filter: Alpha(Opacity=20);
+  border-radius: 10px;
+}
+
+/*
+ * Table
+ */
+/* line 6, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable {
+  margin: 0 auto;
+  clear: both;
+  width: 100%;
+}
+
+/* line 12, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable thead th {
+  padding: 3px 0px 3px 10px;
+  cursor: pointer;
+}
+
+/* line 17, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable tfoot th {
+  padding: 3px 10px;
+}
+
+/* line 21, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable td {
+  padding: 3px 10px;
+}
+
+/* line 25, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable td.center,
+table.dataTable td.dataTables_empty {
+  text-align: center;
+}
+
+/* line 30, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable tr.odd {
+  background-image: none;
+  background-color: #F5F3E5;
+}
+
+/* line 36, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable tr.even {
+  background-image: none;
+  background-color: #e7e2c0;
+}
+
+/* line 43, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable tr.odd td.sorting_1 {
+  background-color: #F5F3E5;
+}
+
+/* line 44, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable tr.odd td.sorting_2 {
+  background-color: #F5F3E5;
+}
+
+/* line 45, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable tr.odd td.sorting_3 {
+  background-color: #F5F3E5;
+}
+
+/* line 46, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable tr.even td.sorting_1 {
+  background-color: #e7e2c0;
+}
+
+/* line 47, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable tr.even td.sorting_2 {
+  background-color: #e7e2c0;
+}
+
+/* line 48, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable tr.even td.sorting_3 {
+  background-color: #e7e2c0;
+}
+
+/*
+ * Table wrapper
+ */
+/* line 54, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_wrapper {
+  position: relative;
+  clear: both;
+  *zoom: 1;
+}
+
+/* line 59, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_wrapper .ui-widget-header, .dataTables_wrapper #flash-box .heading, #flash-box .dataTables_wrapper .heading, .dataTables_wrapper .heading {
+  font-weight: normal;
+}
+
+/* line 62, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_wrapper .ui-toolbar {
+  padding: 5px;
+}
+
+/*
+ * Page length menu
+ */
+/* line 70, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_length {
+  float: left;
+}
+
+/*
+ * Filter
+ */
+/* line 78, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_filter {
+  float: right;
+  text-align: right;
+}
+
+/*
+ * Table information
+ */
+/* line 87, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_info {
+  padding-top: 3px;
+  clear: both;
+  float: left;
+}
+
+/*
+ * Pagination
+ */
+/* line 97, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_paginate {
+  float: right;
+  text-align: right;
+}
+
+/* line 102, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_paginate .ui-button, .dataTables_paginate .mybutton {
+  margin-right: -0.1em !important;
+}
+
+/* line 106, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paging_two_button .ui-button, .paging_two_button .mybutton {
+  float: left;
+  cursor: pointer;
+}
+
+/* line 111, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paging_full_numbers .ui-button, .paging_full_numbers .mybutton {
+  padding: 2px 6px;
+  margin: 0;
+  cursor: pointer;
+  color: #333 !important;
+}
+
+/* Two button pagination - previous / next */
+/* line 119, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_disabled_previous,
+.paginate_enabled_previous,
+.paginate_disabled_next,
+.paginate_enabled_next {
+  height: 19px;
+  float: left;
+  cursor: pointer;
+  color: #111 !important;
+}
+
+/* line 128, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_disabled_previous:hover,
+.paginate_enabled_previous:hover,
+.paginate_disabled_next:hover,
+.paginate_enabled_next:hover {
+  text-decoration: none !important;
+}
+
+/* line 134, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_disabled_previous:active,
+.paginate_enabled_previous:active,
+.paginate_disabled_next:active,
+.paginate_enabled_next:active {
+  outline: none;
+}
+
+/* line 141, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_disabled_previous,
+.paginate_disabled_next {
+  color: #666 !important;
+}
+
+/* line 145, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_disabled_previous,
+.paginate_enabled_previous {
+  padding-left: 23px;
+}
+
+/* line 149, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_disabled_next,
+.paginate_enabled_next {
+  padding-right: 23px;
+  margin-left: 10px;
+}
+
+/* line 155, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_enabled_previous {
+  background: url("../images/back_enabled.png") no-repeat top left;
+}
+
+/* line 156, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_enabled_previous:hover {
+  background: url("../images/back_enabled_hover.png") no-repeat top left;
+}
+
+/* line 157, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_disabled_previous {
+  background: url("../images/back_disabled.png") no-repeat top left;
+}
+
+/* line 159, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_enabled_next {
+  background: url("../images/forward_enabled.png") no-repeat top right;
+}
+
+/* line 160, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_enabled_next:hover {
+  background: url("../images/forward_enabled_hover.png") no-repeat top right;
+}
+
+/* line 161, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paginate_disabled_next {
+  background: url("../images/forward_disabled.png") no-repeat top right;
+}
+
+/* Full number pagination */
+/* line 164, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paging_full_numbers a:active {
+  outline: none;
+}
+
+/* line 167, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paging_full_numbers a:hover {
+  text-decoration: none;
+}
+
+/* line 171, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paging_full_numbers a.paginate_button,
+.paging_full_numbers a.paginate_active {
+  border: 1px solid #aaa;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 2px 5px;
+  margin: 0 3px;
+  cursor: pointer;
+  color: #333 !important;
+}
+
+/* line 183, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paging_full_numbers a.paginate_button {
+  background-color: #ddd;
+}
+
+/* line 187, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paging_full_numbers a.paginate_button:hover {
+  background-color: #ccc;
+  text-decoration: none !important;
+}
+
+/* line 192, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.paging_full_numbers a.paginate_active {
+  background-color: #99B3FF;
+}
+
+/*
+ * Processing indicator
+ */
+/* line 200, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 30px;
+  margin-left: -125px;
+  margin-top: -15px;
+  padding: 14px 0 2px 0;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  background-color: white;
+}
+
+/*
+ * Sorting
+ */
+/* line 220, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable thead th div.DataTables_sort_wrapper {
+  position: relative;
+  padding-right: 20px;
+  padding-right: 20px;
+}
+
+/* line 226, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable thead th div.DataTables_sort_wrapper span {
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  right: 0;
+}
+
+/* line 233, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+table.dataTable th:active {
+  outline: none;
+}
+
+/*
+ * Scrolling
+ */
+/* line 241, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_scroll {
+  clear: both;
+}
+
+/* line 245, ../../stylesheets/partials/_jquery.dataTables_themeroller.scss */
+.dataTables_scrollBody {
+  *margin-top: -1px;
+}
+
+/* line 1, ../../stylesheets/partials/_header.scss */
+#header {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+  margin-bottom: 6px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header {
+  overflow-x: hidden;
+}
+/* line 7, ../../stylesheets/partials/_header.scss */
+#header #banner-logo {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-logo {
+  overflow-x: hidden;
+}
+/* line 9, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .left {
+  height: 95px;
+  float: left;
+  margin-right: 10px;
+  width: 590px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-logo .left {
+  overflow-x: hidden;
+}
+/* line 12, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .left .logo {
+  margin: 1em 2em;
+}
+/* line 14, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .left .logo img {
+  height: 70px;
+  width: 140px;
+}
+/* line 20, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right {
+  float: left;
+  margin-right: 0;
+  width: 590px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-logo .right {
+  overflow-x: hidden;
+}
+/* line 22, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right .confucius {
+  height: 95px;
+  background-color: black;
+  position: relative;
+}
+/* line 26, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right .confucius img {
+  height: 90px;
+  margin: 2px;
+}
+/* line 30, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right .confucius .company-logo {
+  position: absolute;
+  left: 530px;
+}
+/* line 34, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right .confucius .game-logo {
+  position: absolute;
+  left: 120px;
+}
+/* line 42, ../../stylesheets/partials/_header.scss */
+#header #banner-line {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+  font-weight: bold;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-line {
+  overflow-x: hidden;
+}
+/* line 45, ../../stylesheets/partials/_header.scss */
+#header #banner-line .left {
+  float: left;
+  margin-right: 10px;
+  width: 310px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-line .left {
+  overflow-x: hidden;
+}
+/* line 48, ../../stylesheets/partials/_header.scss */
+#header #banner-line .center {
+  float: left;
+  margin-right: 10px;
+  width: 550px;
+  text-align: center;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-line .center {
+  overflow-x: hidden;
+}
+/* line 52, ../../stylesheets/partials/_header.scss */
+#header #banner-line .right {
+  float: left;
+  margin-right: 0;
+  width: 310px;
+  text-align: right;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-line .right {
+  overflow-x: hidden;
+}
+/* line 56, ../../stylesheets/partials/_header.scss */
+#header #banner-line .content {
+  padding: 0.5em;
+}
+
+/* line 62, ../../stylesheets/partials/_header.scss */
+.announcement {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+  margin-bottom: 6px;
+  padding: .8em;
+  border: 2px solid #ddd;
+  background: #FFF6BF;
+  color: #514721;
+  border-color: #FFD324;
+  text-align: center;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .announcement {
+  overflow-x: hidden;
+}
+
+/* line 27, ../../stylesheets/partials/_two_col.scss */
+body.two-col #container {
+  width: 1190px;
+  margin: 0 auto;
+  overflow: hidden;
+  *zoom: 1;
+  margin-top: 1em;
+  width: 1192px;
+}
+/* line 32, ../../stylesheets/partials/_two_col.scss */
+body.two-col #footer {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+  margin-bottom: 1em;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html body.two-col #footer {
+  overflow-x: hidden;
+}
+/* line 7, ../../stylesheets/partials/_footer.scss */
+body.two-col #footer .content {
+  padding: 0.5em;
+}
+/* line 10, ../../stylesheets/partials/_footer.scss */
+body.two-col #footer div {
+  font-size: 0.9em;
+  text-align: center;
+}
+/* line 35, ../../stylesheets/partials/_two_col.scss */
+body.two-col #left-sidebar {
+  float: left;
+  margin-right: 10px;
+  width: 190px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html body.two-col #left-sidebar {
+  overflow-x: hidden;
+}
+/* line 40, ../../stylesheets/partials/_two_col.scss */
+body.two-col #main-content {
+  float: left;
+  margin-right: 0;
+  width: 990px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html body.two-col #main-content {
+  overflow-x: hidden;
+}
+
+/* line 1, ../../stylesheets/partials/_header.scss */
+#header {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+  margin-bottom: 6px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header {
+  overflow-x: hidden;
+}
+/* line 7, ../../stylesheets/partials/_header.scss */
+#header #banner-logo {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-logo {
+  overflow-x: hidden;
+}
+/* line 9, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .left {
+  height: 95px;
+  float: left;
+  margin-right: 10px;
+  width: 590px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-logo .left {
+  overflow-x: hidden;
+}
+/* line 12, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .left .logo {
+  margin: 1em 2em;
+}
+/* line 14, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .left .logo img {
+  height: 70px;
+  width: 140px;
+}
+/* line 20, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right {
+  float: left;
+  margin-right: 0;
+  width: 590px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-logo .right {
+  overflow-x: hidden;
+}
+/* line 22, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right .confucius {
+  height: 95px;
+  background-color: black;
+  position: relative;
+}
+/* line 26, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right .confucius img {
+  height: 90px;
+  margin: 2px;
+}
+/* line 30, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right .confucius .company-logo {
+  position: absolute;
+  left: 530px;
+}
+/* line 34, ../../stylesheets/partials/_header.scss */
+#header #banner-logo .right .confucius .game-logo {
+  position: absolute;
+  left: 120px;
+}
+/* line 42, ../../stylesheets/partials/_header.scss */
+#header #banner-line {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+  font-weight: bold;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-line {
+  overflow-x: hidden;
+}
+/* line 45, ../../stylesheets/partials/_header.scss */
+#header #banner-line .left {
+  float: left;
+  margin-right: 10px;
+  width: 310px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-line .left {
+  overflow-x: hidden;
+}
+/* line 48, ../../stylesheets/partials/_header.scss */
+#header #banner-line .center {
+  float: left;
+  margin-right: 10px;
+  width: 550px;
+  text-align: center;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-line .center {
+  overflow-x: hidden;
+}
+/* line 52, ../../stylesheets/partials/_header.scss */
+#header #banner-line .right {
+  float: left;
+  margin-right: 0;
+  width: 310px;
+  text-align: right;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html #header #banner-line .right {
+  overflow-x: hidden;
+}
+/* line 56, ../../stylesheets/partials/_header.scss */
+#header #banner-line .content {
+  padding: 0.5em;
+}
+
+/* line 62, ../../stylesheets/partials/_header.scss */
+.announcement {
+  float: left;
+  margin-right: 0;
+  width: 1190px;
+  margin-bottom: 6px;
+  padding: .8em;
+  border: 2px solid #ddd;
+  background: #FFF6BF;
+  color: #514721;
+  border-color: #FFD324;
+  text-align: center;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .announcement {
+  overflow-x: hidden;
+}
+
+/* line 2, ../../stylesheets/partials/_sidebars.scss */
+#left-sidebar .content-box {
+  height: 50em;
+}
+/* line 4, ../../stylesheets/partials/_sidebars.scss */
+#left-sidebar .content-box .content {
+  height: 49.5em;
+}
+/* line 6, ../../stylesheets/partials/_sidebars.scss */
+#left-sidebar .content-box .content p {
+  margin-bottom: 1em;
+}
+/* line 9, ../../stylesheets/partials/_sidebars.scss */
+#left-sidebar .content-box .content .ui-accordion-content {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+/* line 13, ../../stylesheets/partials/_sidebars.scss */
+#left-sidebar .content-box .content .menu-item {
+  margin-bottom: 6px;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+/* line 53, ../../stylesheets/partials/_game_table.scss */
+.black-border {
+  border: 5px solid #000000;
+}
+
+/* line 57, ../../stylesheets/partials/_game_table.scss */
+.red-border {
+  border: 5px solid #dd0228;
+}
+
+/* line 61, ../../stylesheets/partials/_game_table.scss */
+.purple-border {
+  border: 5px solid #562B85;
+}
+
+/* line 65, ../../stylesheets/partials/_game_table.scss */
+.yellow-border {
+  border: 5px solid #FFF800;
+}
+
+/* line 69, ../../stylesheets/partials/_game_table.scss */
+.green-border {
+  border: 5px solid #719136;
+}
+
+/* line 73, ../../stylesheets/partials/_game_table.scss */
+.white-border {
+  border: 5px solid #FFFFFF;
+}
+
+/* line 77, ../../stylesheets/partials/_game_table.scss */
+.brown-border {
+  border: 5px solid #6f593D;
+}
+
+/* line 81, ../../stylesheets/partials/_game_table.scss */
+.orange-border {
+  border: 5px solid #F27E28;
+}
+
+/* line 85, ../../stylesheets/partials/_game_table.scss */
+.game-table {
+  position: relative;
+  float: left;
+  margin-right: 0;
+  width: 990px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .game-table {
+  overflow-x: hidden;
+}
+/* line 89, ../../stylesheets/partials/_game_table.scss */
+.game-table .content-box {
+  float: left;
+  margin-right: 0;
+  width: 990px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .game-table .content-box {
+  overflow-x: hidden;
+}
+/* line 92, ../../stylesheets/partials/_game_table.scss */
+.game-table .content-box .content {
+  height: 47em;
+  overflow: auto;
+}
+/* line 95, ../../stylesheets/partials/_game_table.scss */
+.game-table .content-box .content table a.winner, .game-table .content-box .content table a.current-player {
+  font-weight: bold;
+  color: #22201a;
+}
+/* line 99, ../../stylesheets/partials/_game_table.scss */
+.game-table .content-box .content table a.winner.me, .game-table .content-box .content table a.current-player.me {
+  font-weight: bold;
+  color: #990000;
+}
+
+/* line 107, ../../stylesheets/partials/_game_table.scss */
+.content-box {
+  margin-bottom: 0.5em;
+}
+/* line 112, ../../stylesheets/partials/_game_table.scss */
+.content-box .content {
+  padding: 2px;
+}
+
+/* line 117, ../../stylesheets/partials/_game_table.scss */
+table img {
+  height: 28px;
+  width: 28px;
+}
+
+/* line 1, ../../stylesheets/partials/_new_games.scss */
+.new-game-heading {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+/* line 3, ../../stylesheets/partials/_welcome-message.scss */
+.welcome-message .content, .available-games .content {
+  float: left;
+  margin-right: 0;
+  width: 990px;
+  margin-bottom: 0.5em;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .welcome-message .content, * html .available-games .content {
+  overflow-x: hidden;
+}
+
+/* line 12, ../../stylesheets/partials/_welcome-message.scss */
+.heading {
+  float: left;
+  margin-right: 0;
+  width: 990px;
+  margin-bottom: 0.5em;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .heading {
+  overflow-x: hidden;
+}
+/* line 20, ../../stylesheets/partials/_welcome-message.scss */
+.heading div {
+  text-align: center;
+  padding: 0.5em;
+}
+
+/* line 26, ../../stylesheets/partials/_welcome-message.scss */
+.welcome-message .content {
+  height: 14em;
+}
+/* line 28, ../../stylesheets/partials/_welcome-message.scss */
+.welcome-message .content div {
+  padding: 1em 3em 0em 3em;
+}
+
+/* line 34, ../../stylesheets/partials/_welcome-message.scss */
+.available-games .content {
+  height: 33em;
+}
+/* line 36, ../../stylesheets/partials/_welcome-message.scss */
+.available-games .content #left-column {
+  width: 340px;
+  float: left;
+  margin-top: 5em;
+}
+/* line 41, ../../stylesheets/partials/_welcome-message.scss */
+.available-games .content #center-column {
+  width: 310px;
+  float: left;
+  margin-top: 8em;
+}
+/* line 46, ../../stylesheets/partials/_welcome-message.scss */
+.available-games .content #right-column {
+  width: 340px;
+  float: left;
+  margin-top: 5em;
+}
+
+/* line 53, ../../stylesheets/partials/_welcome-message.scss */
+.available-games div {
+  text-align: center;
+}
+
+/* line 2, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box {
+  float: left;
+  margin-right: 0;
+  width: 990px;
+  margin-bottom: 0.5em;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .invitation .content-box {
+  overflow-x: hidden;
+}
+/* line 9, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content {
+  padding: 2px;
+  height: 42.5em;
+  overflow: auto;
+}
+/* line 13, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column {
+  float: left;
+  margin-right: 10px;
+  width: 470px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .invitation .content-box .content #left-column {
+  overflow-x: hidden;
+}
+/* line 15, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #upper {
+  float: left;
+  margin-right: 0;
+  width: 470px;
+  height: 16em;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .invitation .content-box .content #left-column #upper {
+  overflow-x: hidden;
+}
+/* line 18, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #upper .box-cover {
+  float: left;
+  margin-right: 10px;
+  width: 110px;
+  height: 16em;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .invitation .content-box .content #left-column #upper .box-cover {
+  overflow-x: hidden;
+}
+/* line 21, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #upper .box-cover img.confucius {
+  width: 180px;
+  padding: 1em;
+}
+/* line 25, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #upper .box-cover img.tammany, .invitation .content-box .content #left-column #upper .box-cover img.atf {
+  width: 120px;
+  height: 168px;
+  padding: 1em;
+}
+/* line 31, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #upper #form {
+  float: left;
+  margin-right: 0;
+  width: 310px;
+  margin-top: 2em;
+  height: 16em;
+  text-align: right;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .invitation .content-box .content #left-column #upper #form {
+  overflow-x: hidden;
+}
+/* line 36, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #upper #form label {
+  font-weight: bold;
+}
+/* line 39, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #upper #form select {
+  width: 155px;
+}
+/* line 42, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #upper #form .field input {
+  width: 150px;
+}
+/* line 45, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #upper #form .button {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+/* line 52, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #lower {
+  float: left;
+  margin-right: 0;
+  width: 470px;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .invitation .content-box .content #left-column #lower {
+  overflow-x: hidden;
+}
+/* line 55, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #left-column #lower ul {
+  margin-left: 2em;
+}
+/* line 60, ../../stylesheets/partials/_invitations.scss */
+.invitation .content-box .content #right-column {
+  float: left;
+  margin-right: 0;
+  width: 430px;
+  padding-left: 40px;
+  margin-top: 1.5em;
+}
+/* line 147, ../../../../../../../../../../usr/local/lib/ruby/gems/2.4.0/gems/compass-blueprint-1.0.0/framework/blueprint/stylesheets/blueprint/_grid.scss */
+* html .invitation .content-box .content #right-column {
+  overflow-x: hidden;
+}

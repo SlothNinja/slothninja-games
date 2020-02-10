@@ -1,0 +1,32 @@
+@mixin turn-position($i, $scale) {
+        #turn-track-player-#{$i} {
+                position:absolute;
+                left:$scale*$i*27px;
+        }
+}
+
+@mixin turn-track($scale) {
+        top:$scale*346px;
+        left:$scale*23px;
+        img {
+                width:$scale*24px;
+        }
+        @for $i from 0 through 4 {
+                @include turn-position($i, $scale);
+        }
+}
+
+#turn-track {
+        position:absolute;
+        .container {
+                position:relative;
+        }
+}
+
+#board #turn-track {
+        @include turn-track(1);
+}
+
+#board.zoom-left #turn-track, #board.zoom-right #turn-track {
+        @include turn-track(2);
+}

@@ -1,0 +1,9 @@
+{{$player := .}}
+<div id="player-draw-{{$player.ID}}">
+        {{with $l := len $player.DrawPile}}
+        <div class='pull-left'>
+                <div class="card card-back"></div>
+                <div class='center'>{{$l}}</div>
+        </div>
+        {{end}}
+</div>

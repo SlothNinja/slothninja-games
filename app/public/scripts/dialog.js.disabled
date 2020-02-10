@@ -1,0 +1,6 @@
+define(['knockout-3.2.0', 'dialogViewModel'], function(ko, vm) {
+        ko.components.register('my-dialog', {
+                viewModel: vm,
+                template: '<div id="dialog"></div>',
+        });
+})

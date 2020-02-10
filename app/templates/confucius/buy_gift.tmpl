@@ -1,0 +1,40 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Buy Gift Action Form --> 
+{{if $g.EnableBuyGift $ctx}}
+<div class="actions" id="buy-gift-action"> 
+        <fieldset> 
+                <legend>Buy Gift</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="buy-gift" />
+                                </div>
+                                {{$g.GiftCardHandOptions "buy-gift" "Gift:"}}
+                                {{$g.CoinOptions "buy-gift"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Buy Gift" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select gift you want to purchase from your hand of gift cards.
+                                        </li> 
+                                        <li> 
+                                        Select Confucius card(s) with coins sufficient to pay for gift.
+                                        </li> 
+                                        <li> 
+                                        If you overpay, no change is given.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

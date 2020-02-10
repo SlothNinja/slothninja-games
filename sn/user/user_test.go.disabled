@@ -1,0 +1,17 @@
+package user
+
+import (
+	"bitbucket.org/SlothNinja/gaelic"
+	. "launchpad.net/gocheck"
+)
+
+func (s *MySuite) TestGetUsers(c *C) {
+        req := getRequest()
+	var err error
+	us, err := GetUsers(req, db.ID(1), db.ID(2), db.ID(3), db.ID(4), db.ID(5))
+	c.Check(err, IsNil)
+	c.Check(len(us), Equals, 5)
+	for i, u := range us {
+		c.Check(u.ID(), Equals, db.ID(i+1))
+	}
+}

@@ -1,0 +1,184 @@
+@mixin action-form { 
+    @include prepend(1);
+    @include prepend-top(1em);
+    fieldset {
+        height:16.5em;
+    }
+    .left-column {
+        @include column(6);
+        @include append(1);
+        @include prepend-top;
+        text-align:right;
+        select {
+            width:100px;
+        }
+        label {
+            font-weight:bold;
+        }
+    }
+    .right-column {
+        @include column(7, true);
+        fieldset {
+            height:13em;
+            padding:.5em 1em;
+            ul {
+                margin-left: 0.5em;
+                padding-left: 0.5em;
+            }
+        }
+    }
+    .button {
+        @include prepend-top;
+        text-align:center;
+    }
+}
+
+@mixin bribe-official {
+    #bribe-official-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin secure-official {
+    #secure-official-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin emperor-reward {
+    #emperor-reward-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin petition-emperor {
+    #petition-emperor-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin nominate-student {
+    #nominate-student-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin tutor-student {
+    #tutor-student-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin place-student {
+    #place-student-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin force-exam {
+    #force-exam-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin buy-junks {
+    #buy-junks-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin start-voyage {
+    #start-voyage-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin recruit-army {
+    #recruit-army-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin invade-land {
+    #invade-land-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin no-action {
+    #no-action-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin temp-transfer {
+    #temp-transfer-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin pass {
+    #pass-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin commercial {
+    #commercial-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin tax-income {
+    #tax-income-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin give-gift {
+    #give-gift-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin buy-gift {
+    #buy-gift-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin transfer-influence {
+    #transfer-influence-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin discard {
+    #discard-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin choose-chief-minister {
+    #choose-chief-minister-action.actions {
+        @include action-form;
+    }
+}
+
+@mixin options {
+    #options-action.actions {
+        @include action-form;
+    }
+}
+
+.action-link:hover {
+    color:red;
+}
+
+.action-link {
+    line-height:175%;
+}
+
+.action-link.disabled {
+    color:lighten(gray, 30%);
+}

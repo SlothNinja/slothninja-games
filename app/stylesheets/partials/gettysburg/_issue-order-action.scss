@@ -1,0 +1,31 @@
+@mixin issue-order-action { 
+	#issue-order {
+		@include prepend(1);
+		@include prepend-top(1em);
+		fieldset {
+			height:16.5em;
+		}
+		img {
+			height:30px;
+			width:30px;
+		}
+		#left-column {
+			@include column(7);
+			@include append(1);
+			@include prepend-top;
+			text-align:right;
+			select {
+				width:100px;
+			}
+			label {
+				font-weight:bold;
+			}
+		}
+		#right-column {
+			@include column(11, true);
+			fieldset {
+				height:12em;
+			}
+		}
+	}
+}

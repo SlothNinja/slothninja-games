@@ -1,0 +1,24 @@
+{{with $player := .}}
+{{$game := $player.Game}}
+<div id="tabs-admin-player-technologies">
+        <form action="/indonesia/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="admin-player" />
+                </div>
+                {{range $tech, $value := $player.Technologies}}
+                <div>
+                        <label for="admin-player-technologies-{{$tech.Int}}">{{$tech}}:</label>
+                        <select id="admin-player-technologies-{{$tech.Int}}" name="Technologies">
+                                {{range $i := ints 1 5}}
+                                <option value="{{$i}}" {{if equal $value $i}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{end}}
+                <div class="center">
+                        <input type="submit" value="Update" class="top-padding mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

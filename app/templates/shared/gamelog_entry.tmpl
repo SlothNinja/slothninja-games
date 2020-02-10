@@ -1,0 +1,10 @@
+<div class="gamelog-entry {{if $.Player}}{{$.Player.Color}}{{else}}default{{end}}">
+        <div class="header">
+                {{$.PhaseName}}
+                {{with $createdAt := $.CreatedAt}} @ {{Time $createdAt}} on {{Date $createdAt}} {{end}}
+        </div>
+        <hr/>
+        <div class="action">
+                {{$.HTML}}
+        </div>
+</div>

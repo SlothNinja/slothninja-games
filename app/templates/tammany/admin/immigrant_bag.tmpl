@@ -1,0 +1,23 @@
+<!-- Immigrant Bag Form -->
+<div class="actions" id="immigrant-bag-action">
+        <fieldset>
+                <legend>Immigrant Bag</legend>
+                <form action="/{{$.Game.Stub}}/game/admin/{{$.Game.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="immigrant-bag">
+                        </div>
+                        <div class="left-column">
+                                {{range $nationality, $count := $.Game.Bag}}
+                                <div>
+                                        <label for="immigrant-bag-{{$nationality}}">{{$nationality}}</label>
+                                        <input id="immigrant-bag-{{$nationality}}" name="{{$nationality}}" size="20" type="text" value="{{$count}}" />
+                                </div>
+                                {{end}}
+                                <div>
+                                        <input class="mybutton" name="commit" type="submit" value="Update Game" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>

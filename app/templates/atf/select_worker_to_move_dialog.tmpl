@@ -1,0 +1,13 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+<div id="dialog" title="Actions For {{$area.Name}}">
+        <div id="tabs">
+                <ul>
+                        <li><a href="#tabs-select-worker-to-move">Select Worker</a></li>
+                        <li><a href="#tabs-finish">Undo/Finish</a></li>
+                </ul>
+                {{template "atf/select_worker_to_move_form" $}}
+                {{template "atf/finish_turn_form" $}}
+        </div>
+</div>

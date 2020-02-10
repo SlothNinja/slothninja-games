@@ -1,0 +1,12 @@
+<div id="empire-track">
+        <div class="container">
+                {{$game := .}}
+                {{range $index, $empire := $game.CurrentEmpires}}
+                {{with $owner := $empire.Owner}}
+                <div id="empire-{{$game.Turn}}-{{$index}}">
+                        <img alt="{{$owner.Color}} Disc" src="/images/atf/{{$owner.Color}}_disc.png" />
+                </div>
+                {{end}}
+                {{end}}
+        </div>
+</div>

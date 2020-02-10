@@ -1,0 +1,7 @@
+{{$game := $.Game}}
+{{$area := $game.SelectedArea}}
+<div>
+        {{template "atf/area_workers" $area}}
+        {{template "shared/flashbox" .}}
+</div>
+{{template "atf/select_area_to_place_worker_dialog"}}

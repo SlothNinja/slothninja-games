@@ -1,0 +1,34 @@
+{{$p := .p}}
+{{$admin := .admin}}
+{{$ctx := .ctx}}
+{{$g := .g}}
+<tr id="player-row-{{$p.ID}}">
+        <td class="player">
+                <div class="gravatar">
+                        {{$g.GravatarFor $p}}
+                </div>
+                <div>
+                        {{$g.PlayerLinkByID $ctx $p.ID}}
+                </div>
+                {{if $.admin}}
+                <div id="admin-player-row-{{$p.ID}}" class="mybutton top-padding clickable">
+                        Admin Player
+                </div>
+                {{end}}
+        </td>
+        <td class="last-action">
+                {{template "shared/last_actions_list2" data "g" $g "p" $p}}
+        </td>
+        <td class="score">
+                {{template "got/player_score" $p}}
+        </td>
+        <td>
+                {{template "got/player_hand" data "g" $g "p" $p "ctx" $ctx}}
+        </td>
+        <td>
+                {{template "got/player_draw" $p}}
+        </td>
+        <td>
+                {{template "got/player_discard" $p}}
+        </td>
+</tr>

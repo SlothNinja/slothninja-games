@@ -1,0 +1,40 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Transfer Influence Form --> 
+{{if $g.EnableTransferInfluence $ctx}}
+<div class="actions" id="transfer-influence-action"> 
+        <fieldset> 
+                <legend>Transfer Influence</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="transfer-influence" />
+                                </div>
+                                {{$g.YourOfficialOptions "transfer-influence-official" "Official:"}}
+                                {{$g.OtherPlayerOptions "transfer-influence-player" "Player:"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Transfer Influence" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select bribed official.
+                                        </li> 
+                                        <li> 
+                                        Select player to transfer influence.
+                                        </li> 
+                                        <li>
+                                        Gift from player will be canceled.
+                                        </li>
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

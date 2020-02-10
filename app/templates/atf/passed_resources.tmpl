@@ -1,0 +1,4 @@
+{{$game := $.Game}}
+{{range $p := $game.Players}}
+{{template "atf/passed_resources_for" $p}}
+{{end}}

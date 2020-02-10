@@ -1,0 +1,95 @@
+runtime: go
+api_version: go1
+instance_class: F1
+automatic_scaling:
+  max_idle_instances: 1
+  min_pending_latency: automatic  # default value
+  max_pending_latency: 30ms
+  max_concurrent_requests: 100
+
+default_expiration: "7d"
+
+inbound_services:
+- warmup
+
+handlers:
+- url: /_ah/remote_api
+  script: _go_app
+  login: admin
+
+- url: .*/admin/.*
+  script: _go_app
+  login: admin
+
+- url: /stylesheets
+  static_dir: public/stylesheets
+
+- url: /scripts
+  static_dir: public/scripts
+  
+- url: /javascripts
+  static_dir: public/javascripts
+
+- url: /js
+  static_dir: public/js
+
+- url: /images
+  static_dir: public/images
+  
+- url: /images/*
+  static_dir: public/images
+  
+- url: /rules
+  static_dir: public/rules
+
+- url: /favicon\.ico
+  static_files: public/images/favicon.ico
+  upload: public/images/favicon\.ico
+
+- url: /robots\.txt
+  static_files: public/robots.txt
+  upload: public/robots\.txt
+
+- url: /users
+  script: _go_app
+  login: admin
+
+- url: /users/.*
+  script: _go_app
+  login: admin
+
+- url: /.*/game/auto_create
+  script: _go_app
+  login: admin
+
+- url: /ratings/update/.*
+  script: _go_app
+  login: admin
+
+- url: /ratings/userUpdate
+  script: _go_app
+  login: admin
+
+- url: /games/running/notfications
+  script: _go_app
+  login: admin
+
+- url: /.*
+  script: _go_app
+
+skip_files:
+- ^(.*/)?.*\.xcf
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?.*\.bak$
+- ^(.*/)?.*/script/.*
+- ^(.*/)?.*/gorilla/examples/.*
+- ^(.*/)?.*_test.go
+- ^(.*/)?.*/gorilla/lib/.*

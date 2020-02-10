@@ -1,0 +1,37 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+<div id="dialog" title="City Growth">
+        <div class="dialog-content" style="width:260px">
+                <form class="myForm top-padding" action="/indonesia/game/show/{{$g.ID}}" method="post">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="city-growth" />
+                        {{$cmap := $g.CityGrowthMap}}
+                        {{range $size, $cities := $cmap}}
+                        {{if equal $size 1}}
+                        {{with $stones := $g.C2StonesToUse $cmap}}
+                        <div>Select {{$stones}} size 1 cities to grow to size 2.</div>
+                        {{range $i, $city := $cities}}
+                        <div>
+                                <input type="checkbox" name="{{$size}}-{{$i}}" id="check-box-{{$city.Province.IDString}}">
+                                <label id="check-box-{{$city.Province.IDString}}">{{$city.Province}}</label>
+                        </div>
+                        {{end}}
+                        {{end}}
+                        {{else}}
+                        {{with $stones := $g.C3StonesToUse $cmap}}
+                        <div>Select {{$stones}} size 2 cities to grow to size 3.</div>
+                        {{range $i, $city := $cities}}
+                        <div>
+                                <input type="checkbox" name="{{$size}}-{{$i}}" id="check-box-{{$city.Province.IDString}}">
+                                <label id="check-box-{{$city.Province.IDString}}">{{$city.Province}}</label>
+                        </div>
+                        {{end}}
+                        {{end}}
+                        {{end}}
+                        {{end}}
+                        <div class="top-padding center" >
+                                <input type="submit" value="Grow" class="mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>

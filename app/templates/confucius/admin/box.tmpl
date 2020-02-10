@@ -1,0 +1,70 @@
+<!-- Admin Box -->
+<div id="admin-box">
+        <div class="left-column">
+                <div class="available-actions-box">
+                        <fieldset>
+                                <legend>Choose A Data Set</legend>
+                                <div class="first-action-set">
+                                        <div class="admin-action mybutton" id="invoke-invade-phase" style="width:115px">
+                                                Invoke Invade
+                                        </div>
+                                        <div class="admin-action mybutton" id="game-state" style="width:115px">
+                                                Game State
+                                        </div>
+                                        <div class="admin-action mybutton" id="admin-candidate" style="width:115px">
+                                                Candidate
+                                        </div>
+                                        {{range $index, $land := $.Game.ForeignLands}} 
+                                        <div class="admin-action mybutton" id="admin-{{$land.Name}}" style="width:115px">
+                                                {{.Name}}
+                                        </div>
+                                        {{range $index2, $box := $land.Boxes}}
+                                        <div class="admin-action mybutton" id="admin-{{$land.Name}}-box-{{$index2}}" style="width:115px">
+                                                {{$land.Name}} Box {{$index2}}
+                                        </div>
+                                        {{end}}
+                                        {{end}}
+                                        {{range $index, $actionSpace := $.Game.ActionSpaces}}
+                                        <div class="admin-action mybutton" id="admin-{{$actionSpace.Name}}" style="width:115px">
+                                                {{$actionSpace.Name}}
+                                        </div>
+                                        {{end}}
+                                        {{range $index, $land := $.Game.DistantLands}}
+                                        <div class="admin-action mybutton" id="admin-distant-land-{{$land.NameID | ToLower}}" style="width:115px">
+                                                {{$land.Name}}
+                                        </div>
+                                        {{end}}
+                                </div>
+                                <div class="second-action-set">
+                                        {{range $index, $player := $.Game.Players}}
+                                        <div class="admin-action mybutton" id="player-{{$index}}" style="width:115px">
+                                                {{$player.Name}}
+                                        </div>
+                                        {{end}}
+                                        {{range $index, $ministry := $.Game.Ministries}} 
+                                        <div class="admin-action mybutton" id="ministry-{{$index}}" style="width:115px">
+                                                {{.Name}}
+                                        </div>
+                                        {{range $index2, $official := $ministry.Officials}}
+                                        <div class="admin-action mybutton" id="{{$ministry.Name}}-official-{{$official.Seniority}}" style="width:115px">
+                                                Official {{$official.Seniority}}
+                                        </div>
+                                        {{end}}
+                                        {{end}}
+                                </div>
+                        </fieldset>
+                </div>
+        </div>
+        <div class="right-column">
+                {{template "confucius/admin/invade_phase" $.Game}}
+                {{template "confucius/admin/game_state" $.Game}}
+                {{template "confucius/admin/players" $.Game}}
+                {{template "confucius/admin/ministries" $.Game}}
+                {{template "confucius/admin/officials" $.Game}}
+                {{template "confucius/admin/candidate" $.Game}}
+                {{template "confucius/admin/foreign_lands" $.Game}}
+                {{template "confucius/admin/foreign_land_boxes" $.Game}}
+                {{template "confucius/admin/action_spaces" $.Game}}
+                {{template "confucius/admin/distant_lands" $.Game}}
+        </div>
+</div>

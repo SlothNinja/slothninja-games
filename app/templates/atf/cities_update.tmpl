@@ -1,0 +1,17 @@
+{{$game := $.Game}}
+{{$area := $game.SelectedArea}}
+{{$cp := $game.CurrentPlayer}}
+<div>
+        {{template "atf/player_city_bases" $cp}}
+        {{template "atf/supply_workers" $game.Players}}
+        {{template "atf/city" $area}}
+        {{with $scribes := index $game.Areas 3}}
+        {{template "atf/worker_box" $scribes}}
+        {{end}}
+        {{with $toolmakers := index $game.Areas 5}}
+        {{template "atf/worker_box" $toolmakers}}
+        {{end}}
+        {{template "shared/flashbox" .}}
+        {{template "shared/gamelog" .}}
+        {{template "shared/last_actions_list" $cp}}
+</div>

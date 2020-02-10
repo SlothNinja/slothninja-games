@@ -1,0 +1,23 @@
+<div>
+        {{.Player.Name}} moved units from an entry box as follows.
+</div>
+<div>
+        <table class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th>Unit</th>
+                                <th>From</th>
+                                <th>To</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {{range $u := .Units}}
+                        <tr>
+                                <td>{{$u.ImageElement}}</td>
+                                <td>{{$u.BU.MovedFromID}}</td>
+                                <td>{{$u.BU.MovedToID}}</td>
+                        </tr>
+                        {{end}}
+                </tbody>
+        </table>
+</div>

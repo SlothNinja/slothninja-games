@@ -1,0 +1,16 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+{{$w := $.Ward}}
+{{$ctx := $.Context}}
+{{$cu := $.CUser}}
+<div>
+{{if $w}}
+{{template "tammany/ward" data "g" $g "w" $w}}
+{{end}}
+{{template "shared/flashbox" .}}
+{{template "shared/gamelog3" $}}
+{{template "shared/last_actions_list3" data "g" $g "p" $cp "ctx" $ctx}}
+{{template "tammany/castle_garden" .}}
+{{template "tammany/favor_chip_table" data "g" $g "p" $cp "cu" $cu }}
+{{template "tammany/nationality_counts" .}}
+</div>

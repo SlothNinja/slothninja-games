@@ -1,0 +1,15 @@
+{{$game := $.Game}}
+<div id="dialog" title="Acquire Company">
+        <div class="dialog-content" style="width:200px">
+                <p class="top-padding">
+                        Select company you want to acquire by clicking on its deed on the map OR pass.
+                <p>
+                <form class="myForm top-padding" action="/indonesia/game/show/{{$game.ID}}" method="post">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="pass" />
+                        <div class="top-padding center" >
+                                <input type="submit" value="Pass" class="mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>

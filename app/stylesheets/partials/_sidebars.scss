@@ -1,0 +1,20 @@
+#left-sidebar {
+        .content-box {
+                height:50em;
+                .content {
+                        height:49.5em;
+                        p {
+                                margin-bottom:1em;
+                        }
+                        .ui-accordion-content {
+                                padding-left:1em;
+                                padding-right:1em;
+                        }
+                        .menu-item {
+                                margin-bottom:6px;
+                                padding-left:1em;
+                                padding-right:1em;
+                        }			
+                }
+        }
+}

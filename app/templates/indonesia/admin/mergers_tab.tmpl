@@ -1,0 +1,75 @@
+{{$game := $.Game}}
+<div id="tabs-admin-mergers">
+        <form action="/indonesia/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="admin-header" />
+                </div>
+                <div>
+                        <label for="admin-merger-remove">Remove Merger:</label>
+                        <select id="admin-merger-remove" name="MergerRemove">
+                                <option value="false" selected="selected">False</option>
+                                <option value="true">True</option>
+                        </select>
+
+                </div>
+                <div>
+                        <label for="admin-siap-faji-merger-remove">Remove Siap Faji Merger:</label>
+                        <select id="admin-siap-faji-merger-remove" name="SiapFajiMergerRemove">
+                                <option value="false" selected="selected">False</option>
+                                <option value="true">True</option>
+                        </select>
+
+                </div>
+                <div>
+                        <label for="admin-siap-faji-merger-owner-id">Siap Faji Merger Owner:</label>
+                        <select id="admin-siap-faji-merger-owner-id" name="State.SiapFajiMerger.OwnerID">
+                                {{with $merger := $game.SiapFajiMerger}}
+                                <option value="-1">None</option>
+                                {{range $index, $player := $game.Players}}
+                                <option value="{{$player.ID}}" {{if equal $player.ID $merger.OwnerID}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                {{end}}
+                                {{else}}
+                                <option value="-1" selected="selected">None</option>
+                                {{range $index, $player := $game.Players}}
+                                <option value="{{$player.ID}}">{{$player.Name}}</option>
+                                {{end}}
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-siap-faji-merger-slot">Siap Faji Merger Slot:</label>
+                        <select id="admin-siap-faji-merger-slot" name="State.SiapFajiMerger.OwnerSlot">
+                                {{with $merger := $game.SiapFajiMerger}}
+                                <option value="-1">None</option>
+                                {{range $slot := ints 1 5}}
+                                <option value="{{$slot}}" {{if equal $slot $merger.OwnerSlot}}selected="selected"{{end}}>{{$slot}}</option>
+                                {{end}}
+                                {{else}}
+                                <option value="-1" selected="selected">None</option>
+                                {{range $slot := ints 1 5}}
+                                <option value="{{$slot}}">{{$slot}}</option>
+                                {{end}}
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-siap-faji-merger-production">Siap Faji Merger Production:</label>
+                        <select id="admin-siap-faji-merger-production" name="State.SiapFajiMerger.Production">
+                                {{with $merger := $game.SiapFajiMerger}}
+                                {{range $production := ints 0 25}}
+                                <option value="{{$production}}" {{if equal $production $merger.Production}}selected="selected"{{end}}>{{$production}}</option>
+                                {{end}}
+                                {{else}}
+                                {{range $production := ints 0 25}}
+                                <option value="{{$production}}">{{$production}}</option>
+                                {{end}}
+                                {{end}}
+                        </select>
+                </div>
+                <div>&nbsp;</div>
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>

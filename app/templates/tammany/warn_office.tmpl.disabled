@@ -1,0 +1,7 @@
+{{with $cp := .CurrentPlayer}}
+{{if $cp.CanUseOffice}}
+<input id="warn-office" name="action" type="hidden" value="1" />
+{{else}}
+<input id="warn-office" name="action" type="hidden" value="0" />
+{{end}}
+{{end}}

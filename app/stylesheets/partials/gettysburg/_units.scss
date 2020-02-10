@@ -1,0 +1,2616 @@
+@mixin units($id, $top, $left, $width) {
+        #area-#{$id} .units {
+                @include chit-box;
+                pointer-events:none;
+                top:$top;
+                left:$left;
+                width:$width;
+                .unit.selectable {
+                        pointer-events:auto;
+                        img.unit {
+                                z-index:1100;
+                                border: 3px darken(red, 10%) solid;
+                        }
+                }
+                .unit.selected {
+                        img.unit {
+                                border: 3px darken(red, 10%) solid;
+                        }
+                }
+        }
+        #area-#{$id} .cone {
+                position: absolute;
+                top: $top - 30px;
+                left: $left + 10px;
+                width: $width;
+                img {
+                        position: relative;
+                        z-index:1100;
+                        width: 40px;
+                }
+        }
+}
+//@mixin command-box {
+//        padding:2px;
+//        position:absolute;
+//        width:70px;
+//        height:30px;
+//        text-align:center;
+//        span {
+//                position:relative;
+//                left:-20px;
+//                top:-8px;
+//                color:white;
+//        }
+//        img.command-block {
+//                height:30px;
+//                width:30px;
+//        }		
+//        .artillery_fire_marker {
+//                img {
+//                        height:25px;
+//                        width:25px;
+//                }
+//                span {
+//                        position:relative;
+//                        left:-20px;
+//                        top:-8px;
+//                        color:black;
+//                }
+//        }
+//        .disruption_marker {
+//                img {
+//                        height:25px;
+//                        width:25px;
+//                }
+//        }
+//}
+
+@mixin chit-box {
+        padding:2px;
+        position:absolute;
+        width:130px;
+        height:50px;
+        text-align:center;
+                .damaged {
+                        border: 1px red solid;
+                }
+        .unit {
+                position:relative;
+                margin:2px 2px 0px 2px;
+                float:left;
+        }
+        img.unit {
+                position:relative;
+                z-index: 100;
+                height:20px;
+                width:30px;
+        }
+        img.cube {
+                position:relative;
+                height:9px;
+                width:9px;
+        }
+}
+
+//#board {
+@include units(0, 968px, 5px, 170px);
+@include units(1, 630px, 13px, 60px);
+@include units(2, 325px, 8px, 60px);
+@include units(3, 4px, 13px, 100px);
+@include units(4, 50px, 955px, 80px);
+@include units(5, 280px, 1100px, 150);
+@include units(6, 622px, 1102px, 70px); 
+@include units(7, 910px, 14px, 130px);
+@include units(8, 770px, 14px, 150px);
+@include units(9, 880px, 220px, 150px);
+@include units(10, 660px, 80px, 150px);
+@include units(11, 750px, 250px, 150px);
+@include units(12, 900px, 480px, 150px);
+@include units(13, 520px, 70px, 150px);
+@include units(14, 600px, 300px, 150px);
+@include units(15, 570px, 570px, 150px);
+@include units(16, 690px, 590px, 150px);
+@include units(17, 794px, 530px, 150px);
+@include units(18, 650px, 760px, 150px);
+@include units(19, 880px, 720px, 150px);
+@include units(20, 700px, 950px, 150px);
+@include units(21, 810px, 870px, 150px);
+@include units(22, 920px, 930px, 150px);
+@include units(23, 350px, 80px, 100px);
+@include units(24, 340px, 210px, 150px);
+@include units(25, 435px, 360px, 150px);
+@include units(26, 440px, 580px, 150px);
+@include units(27, 530px, 760px, 150px);
+@include units(28, 465px, 830px, 150px);
+@include units(29, 510px, 1000px, 150px);
+@include units(30, 595px, 960px, 150px);
+@include units(31, 120px, 118px, 150px);
+@include units(32, 105px, 400px, 150px);
+@include units(33, 250px, 420px, 150px);
+@include units(34, 335px, 358px, 150px);
+@include units(35, 95px, 540px, 90px);
+@include units(36, 200px, 550px, 150px);
+@include units(37, 300px, 580px, 150px);
+@include units(38, 640px, 90px, 150px);
+@include units(39, 180px, 680px, 150px);
+@include units(40, 270px, 760px, 150px);
+@include units(41, 280px, 830px, 150px);
+@include units(42, 55px, 825px, 150px);
+@include units(43, 150px, 860px, 150px);
+@include units(44, 260px, 940px, 150px);
+@include units(45, 390px, 1000px, 150px);
+@include units(46, 390px, 1000px, 150px);
+//}
+//#area-7 {
+////        #marker-8-1-0 {
+////                position:absolute;
+////                top:923px;
+////                left:51px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-8-1-1 {
+////                position:absolute;
+////                top:910px;
+////                left:51px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-8-9-0 {
+////                position:absolute;
+////                top:833px;
+////                left:50px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-8-9-1 {
+////                position:absolute;
+////                top:845px;
+////                left:41px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-8-10-0 {
+////                position:absolute;
+////                top:917px;
+////                left:155px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-8-10-1 {
+////                position:absolute;
+////                top:927px;
+////                left:148px;
+////                height:70px;
+////                width:70px;
+////        }
+//}
+//#area-8 {
+////        #marker-9-8-0 {
+////                position:absolute;
+////                top:815px;
+////                left:41px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-9-8-1 {
+////                position:absolute;
+////                top:803px;
+////                left:50px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-9-10-0 {
+////                position:absolute;
+////                top:788px;
+////                left:130px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-9-10-1 {
+////                position:absolute;
+////                top:780px;
+////                left:116px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-9-11-0 {
+////                position:absolute;
+////                top:720px;
+////                left:98px;
+////                height:70px;
+////                width:70px;
+////        }
+////        #marker-9-11-1 {
+////                position:absolute;
+////                top:730px;
+////                left:91px;
+////                height:70px;
+////                width:70px;
+////        }
+//}
+//#area-9 {
+//        #marker-10-8-0 {
+//                position:absolute;
+//                top:907px;
+//                left:168px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-10-8-1 {
+//                position:absolute;
+//                top:897px;
+//                left:175px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-10-9-0 {
+//                position:absolute;
+//                top:800px;
+//                left:136px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-10-9-1 {
+//                position:absolute;
+//                top:808px;
+//                left:150px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-10-12-0 {
+//                position:absolute;
+//                top:826px;
+//                left:272px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-10-12-1 {
+//                position:absolute;
+//                top:838px;
+//                left:265px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-10-13-0 {
+//                position:absolute;
+//                top:919px;
+//                left:430px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-10-13-1 {
+//                position:absolute;
+//                top:928px;
+//                left:420px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-10 {
+//        #marker-11-2-0 {
+//                position:absolute;
+//                top:610px;
+//                left:55px;
+//                width:70px;
+//                height:70px;
+//        }
+//        #marker-11-2-1 {
+//                position:absolute;
+//                top:610px;
+//                left:68px;
+//                width:70px;
+//                height:70px;
+//        }
+//        #marker-11-9-0 {
+//                position:absolute;
+//                top:700px;
+//                left:91px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-11-9-1 {
+//                position:absolute;
+//                top:690px;
+//                left:98px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-11-12-0 {
+//                position:absolute;
+//                top:673px;
+//                left:190px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-11-12-1 {
+//                position:absolute;
+//                top:665px;
+//                left:177px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-11-14-0 {
+//                position:absolute;
+//                top:562px;
+//                left:75px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-11-14-1 {
+//                position:absolute;
+//                top:575px;
+//                left:71px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-11-15-0 {
+//                position:absolute;
+//                top:616px;
+//                left:198px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-11-15-1 {
+//                position:absolute;
+//                top:628px;
+//                left:190px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-11 {
+//        #marker-12-10-0 {
+//                position:absolute;
+//                top:798px;
+//                left:255px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-12-10-1 {
+//                position:absolute;
+//                top:784px;
+//                left:260px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-12-11-0 {
+//                position:absolute;
+//                top:685px;
+//                left:207px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-12-11-1 {
+//                position:absolute;
+//                top:693px;
+//                left:220px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-12-13-0 {
+//                position:absolute;
+//                top:810px;
+//                left:377px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-12-13-1 {
+//                position:absolute;
+//                top:805px;
+//                left:362px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-12-15-0 {
+//                position:absolute;
+//                top:691px;
+//                left:308px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-12-15-1 {
+//                position:absolute;
+//                top:703px;
+//                left:300px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-12-18-0 {
+//                position:absolute;
+//                top:743px;
+//                left:390px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-12-18-1 {
+//                position:absolute;
+//                top:755px;
+//                left:383px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-12 {
+//        #marker-13-10-0 {
+//                position:absolute;
+//                top:908px;
+//                left:435px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-13-10-1 {
+//                position:absolute;
+//                top:894px;
+//                left:440px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-13-12-0 {
+//                position:absolute;
+//                top:805px;
+//                left:400px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-13-12-1 {
+//                position:absolute;
+//                top:810px;
+//                left:417px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-13-18-0 {
+//                position:absolute;
+//                top:848px;
+//                left:535px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-13-18-1 {
+//                position:absolute;
+//                top:860px;
+//                left:528px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-13-20-0 {
+//                position:absolute;
+//                top:920px;
+//                left:645px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-13-20-1 {
+//                position:absolute;
+//                top:930px;
+//                left:636px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-13 {
+//        #marker-14-11-0 {
+//                position:absolute;
+//                top:545px;
+//                left:71px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-14-11-1 {
+//                position:absolute;
+//                top:532px;
+//                left:75px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-14-15-0 {
+//                position:absolute;
+//                top:515px;
+//                left:207px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-14-15-1 {
+//                position:absolute;
+//                top:510px;
+//                left:195px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-14-24-0 {
+//                position:absolute;
+//                top:425px;
+//                left:83px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-14-24-1 {
+//                position:absolute;
+//                top:438px;
+//                left:80px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-14-25-0 {
+//                position:absolute;
+//                top:447px;
+//                left:196px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-14-25-1 {
+//                position:absolute;
+//                top:460px;
+//                left:195px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-14 {
+//        #marker-15-11-0 {
+//                position:absolute;
+//                top:603px;
+//                left:215px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-11-1 {
+//                position:absolute;
+//                top:591px;
+//                left:223px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-12-0 {
+//                position:absolute;
+//                top:663px;
+//                left:305px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-12-1 {
+//                position:absolute;
+//                top:651px;
+//                left:313px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-14-0 {
+//                position:absolute;
+//                top:510px;
+//                left:225px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-14-1 {
+//                position:absolute;
+//                top:515px;
+//                left:237px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-16-0 {
+//                position:absolute;
+//                top:510px;
+//                left:453px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-16-1 {
+//                position:absolute;
+//                top:515px;
+//                left:467px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-17-0 {
+//                position:absolute;
+//                top:595px;
+//                left:427px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-17-1 {
+//                position:absolute;
+//                top:590px;
+//                left:413px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-18-0 {
+//                position:absolute;
+//                top:675px;
+//                left:381px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-18-1 {
+//                position:absolute;
+//                top:668px;
+//                left:370px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-25-0 {
+//                position:absolute;
+//                top:458px;
+//                left:280px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-25-1 {
+//                position:absolute;
+//                top:470px;
+//                left:280px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-26-0 {
+//                position:absolute;
+//                top:467px;
+//                left:375px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-15-26-1 {
+//                position:absolute;
+//                top:480px;
+//                left:375px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-15 {
+//        #marker-16-15-0 {
+//                position:absolute;
+//                top:520px;
+//                left:483px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-16-15-1 {
+//                position:absolute;
+//                top:525px;
+//                left:497px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-16-17-0 {
+//                position:absolute;
+//                top:592px;
+//                left:551px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-16-17-1 {
+//                position:absolute;
+//                top:578px;
+//                left:555px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-16-19-0 {
+//                position:absolute;
+//                top:590px;
+//                left:679px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-16-19-1 {
+//                position:absolute;
+//                top:590px;
+//                left:665px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-16-27-0 {
+//                position:absolute;
+//                top:513px;
+//                left:600px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-16-27-1 {
+//                position:absolute;
+//                top:525px;
+//                left:595px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-16 {
+//        #marker-17-15-0 {
+//                position:absolute;
+//                top:600px;
+//                left:443px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-17-15-1 {
+//                position:absolute;
+//                top:605px;
+//                left:457px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-17-16-0 {
+//                position:absolute;
+//                top:608px;
+//                left:555px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-17-16-1 {
+//                position:absolute;
+//                top:622px;
+//                left:551px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-17-18-0 {
+//                position:absolute;
+//                top:702px;
+//                left:561px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-17-18-1 {
+//                position:absolute;
+//                top:688px;
+//                left:565px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-17-19-0 {
+//                position:absolute;
+//                top:695px;
+//                left:735px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-17-19-1 {
+//                position:absolute;
+//                top:705px;
+//                left:728px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-17-20-0 {
+//                position:absolute;
+//                top:748px;
+//                left:722px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-17-20-1 {
+//                position:absolute;
+//                top:735px;
+//                left:720px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-17 {
+//        #marker-18-12-0 {
+//                position:absolute;
+//                top:735px;
+//                left:398px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-18-12-1 {
+//                position:absolute;
+//                top:723px;
+//                left:405px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-18-13-0 {
+//                position:absolute;
+//                top:830px;
+//                left:533px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-18-13-1 {
+//                position:absolute;
+//                top:818px;
+//                left:540px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-18-15-0 {
+//                position:absolute;
+//                top:678px;
+//                left:400px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-18-15-1 {
+//                position:absolute;
+//                top:685px;
+//                left:411px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-18-17-0 {
+//                position:absolute;
+//                top:680px;
+//                left:485px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-18-17-1 {
+//                position:absolute;
+//                top:693px;
+//                left:480px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-18-20-0 {
+//                position:absolute;
+//                top:810px;
+//                left:627px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-18-20-1 {
+//                position:absolute;
+//                top:805px;
+//                left:615px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-18 {
+//        #marker-19-16-0 {
+//                position:absolute;
+//                top:590px;
+//                left:695px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-19-16-1 {
+//                position:absolute;
+//                top:590px;
+//                left:709px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-19-17-0 {
+//                position:absolute;
+//                top:688px;
+//                left:750px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-19-17-1 {
+//                position:absolute;
+//                top:678px;
+//                left:757px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-19-21-0 {
+//                position:absolute;
+//                top:67	0px;
+//                left:882px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-19-21-1 {
+//                position:absolute;
+//                top:670px;
+//                left:870px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-19-22-0 {
+//                position:absolute;
+//                top:718px;
+//                left:840px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-19-22-1 {
+//                position:absolute;
+//                top:705px;
+//                left:845px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-19-28-0 {
+//                position:absolute;
+//                top:573px;
+//                left:785px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-19-28-1 {
+//                position:absolute;
+//                top:585px;
+//                left:781px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-19 {
+//        #marker-20-13-0 {
+//                position:absolute;
+//                top:910px;
+//                left:651px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-20-13-1 {
+//                position:absolute;
+//                top:900px;
+//                left:660px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-20-17-0 {
+//                position:absolute;
+//                top:745px;
+//                left:777px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-20-17-1 {
+//                position:absolute;
+//                top:760px;
+//                left:782px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-20-18-0 {
+//                position:absolute;
+//                top:805px;
+//                left:645px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-20-18-1 {
+//                position:absolute;
+//                top:810px;
+//                left:657px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-20-22-0 {
+//                position:absolute;
+//                top:825px;
+//                left:835px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-20-22-1 {
+//                position:absolute;
+//                top:830px;
+//                left:821px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-20-23-0 {
+//                position:absolute;
+//                top:920px;
+//                left:845px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-20-23-1 {
+//                position:absolute;
+//                top:920px;
+//                left:830px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-20 {
+//        #marker-21-19-0 {
+//                position:absolute;
+//                top:680px;
+//                left:900px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-21-19-1 {
+//                position:absolute;
+//                top:680px;
+//                left:912px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-21-22-0 {
+//                position:absolute;
+//                top:765px;
+//                left:985px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-21-22-1 {
+//                position:absolute;
+//                top:778px;
+//                left:981px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-21-23-0 {
+//                position:absolute;
+//                top:806px;
+//                left:1112px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-21-23-1 {
+//                position:absolute;
+//                top:795px;
+//                left:1105px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-21-31-0 {
+//                position:absolute;
+//                top:647px;
+//                left:1021px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-21-31-1 {
+//                position:absolute;
+//                top:658px;
+//                left:1015px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-21 {
+//        #marker-22-19-0 {
+//                position:absolute;
+//                top:735px;
+//                left:845px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-22-19-1 {
+//                position:absolute;
+//                top:748px;
+//                left:840px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-22-20-0 {
+//                position:absolute;
+//                top:818px;
+//                left:845px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-22-20-1 {
+//                position:absolute;
+//                top:813px;
+//                left:855px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-22-21-0 {
+//                position:absolute;
+//                top:795px;
+//                left:985px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-22-21-1 {
+//                position:absolute;
+//                top:808px;
+//                left:981px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-22-23-0 {
+//                position:absolute;
+//                top:860px;
+//                left:981px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-22-23-1 {
+//                position:absolute;
+//                top:850px;
+//                left:990px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-22 {
+//        #marker-23-20-0 {
+//                position:absolute;
+//                top:920px;
+//                left:870px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-23-20-1 {
+//                position:absolute;
+//                top:920px;
+//                left:885px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-23-21-0 {
+//                position:absolute;
+//                top:830px;
+//                left:1120px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-23-21-1 {
+//                position:absolute;
+//                top:836px;
+//                left:1132px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-23-22-0 {
+//                position:absolute;
+//                top:840px;
+//                left:930px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-23-22-1 {
+//                position:absolute;
+//                top:852px;
+//                left:930px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-23 {
+//        #marker-24-3-0 {
+//                position:absolute;
+//                top:330px;
+//                left:37px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-24-3-1 {
+//                position:absolute;
+//                top:330px;
+//                left:50px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-24-14-0 {
+//                position:absolute;
+//                top:408px;
+//                left:80px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-24-14-1 {
+//                position:absolute;
+//                top:395px;
+//                left:83px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-24-25-0 {
+//                position:absolute;
+//                top:320px;
+//                left:135px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-24-25-1 {
+//                position:absolute;
+//                top:320px;
+//                left:123px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-24-32-0 {
+//                position:absolute;
+//                top:280px;
+//                left:80px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-24-32-1 {
+//                position:absolute;
+//                top:292px;
+//                left:80px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-24 {
+//        #marker-25-14-0 {
+//                position:absolute;
+//                top:430px;
+//                left:195px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-14-1 {
+//                position:absolute;
+//                top:417px;
+//                left:196px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-15-0 {
+//                position:absolute;
+//                top:428px;
+//                left:280px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-15-1 {
+//                position:absolute;
+//                top:440px;
+//                left:280px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-24-0 {
+//                position:absolute;
+//                top:320px;
+//                left:150px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-24-1 {
+//                position:absolute;
+//                top:320px;
+//                left:165px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-26-0 {
+//                position:absolute;
+//                top:400px;
+//                left:325px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-26-1 {
+//                position:absolute;
+//                top:396px;
+//                left:312px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-32-0 {
+//                position:absolute;
+//                top:225px;
+//                left:188px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-32-1 {
+//                position:absolute;
+//                top:235px;
+//                left:195px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-34-0 {
+//                position:absolute;
+//                top:232px;
+//                left:333px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-34-1 {
+//                position:absolute;
+//                top:238px;
+//                left:322px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-35-0 {
+//                position:absolute;
+//                top:320px;
+//                left:315px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-25-35-1 {
+//                position:absolute;
+//                top:320px;
+//                left:303px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-25 {
+//        #marker-26-15-0 {
+//                position:absolute;
+//                top:450px;
+//                left:375px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-26-15-1 {
+//                position:absolute;
+//                top:437px;
+//                left:375px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-26-25-0 {
+//                position:absolute;
+//                top:403px;
+//                left:342px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-26-25-1 {
+//                position:absolute;
+//                top:408px;
+//                left:355px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-26-27-0 {
+//                position:absolute;
+//                top:420px;
+//                left:442px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-26-27-1 {
+//                position:absolute;
+//                top:430px;
+//                left:435px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-26-35-0 {
+//                position:absolute;
+//                top:385px;
+//                left:377px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-26-35-1 {
+//                position:absolute;
+//                top:395px;
+//                left:370px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-26 {
+//        #marker-27-16-0 {
+//                position:absolute;
+//                top:483px;
+//                left:600px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-16-1 {
+//                position:absolute;
+//                top:495px;
+//                left:595px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-26-0 {
+//                position:absolute;
+//                top:403px;
+//                left:470px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-26-1 {
+//                position:absolute;
+//                top:415px;
+//                left:465px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-28-0 {
+//                position:absolute;
+//                top:468px;
+//                left:695px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-28-1 {
+//                position:absolute;
+//                top:465px;
+//                left:680px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-34-0 {
+//                position:absolute;
+//                top:325px;
+//                left:495px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-34-1 {
+//                position:absolute;
+//                top:310px;
+//                left:490px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-35-0 {
+//                position:absolute;
+//                top:340px;
+//                left:465px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-35-1 {
+//                position:absolute;
+//                top:340px;
+//                left:480px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-38-0 {
+//                position:absolute;
+//                top:320px;
+//                left:540px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-27-38-1 {
+//                position:absolute;
+//                top:330px;
+//                left:530px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-27 {
+//        #marker-28-19-0 {
+//                position:absolute;
+//                top:555px;
+//                left:781px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-28-19-1 {
+//                position:absolute;
+//                top:543px;
+//                left:785px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-28-27-0 {
+//                position:absolute;
+//                top:465px;
+//                left:715px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-28-27-1 {
+//                position:absolute;
+//                top:468px;
+//                left:728px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-28-29-0 {
+//                position:absolute;
+//                top:475px;
+//                left:801px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-28-29-1 {
+//                position:absolute;
+//                top:463px;
+//                left:805px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-28-31-0 {
+//                position:absolute;
+//                top:548px;
+//                left:883px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-28-31-1 {
+//                position:absolute;
+//                top:545px;
+//                left:870px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-28 {
+//        #marker-29-28-0 {
+//                position:absolute;
+//                top:473px;
+//                left:875px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-29-28-1 {
+//                position:absolute;
+//                top:485px;
+//                left:871px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-29-30-0 {
+//                position:absolute;
+//                top:463px;
+//                left:905px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-29-30-1 {
+//                position:absolute;
+//                top:460px;
+//                left:891px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-29-42-0 {
+//                position:absolute;
+//                top:428px;
+//                left:887px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-29-42-1 {
+//                position:absolute;
+//                top:442px;
+//                left:890px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-29 {
+//        #marker-30-29-0 {
+//                position:absolute;
+//                top:460px;
+//                left:921px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-30-29-1 {
+//                position:absolute;
+//                top:463px;
+//                left:935px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-30-31-0 {
+//                position:absolute;
+//                top:538px;
+//                left:1035px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-30-31-1 {
+//                position:absolute;
+//                top:525px;
+//                left:1041px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-30-46-0 {
+//                position:absolute;
+//                top:435px;
+//                left:961px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-30-46-1 {
+//                position:absolute;
+//                top:448px;
+//                left:955px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-30 {
+//        #marker-31-7-0 {
+//                position:absolute;
+//                top:610px;
+//                left:1055px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-31-7-1 {
+//                position:absolute;
+//                top:610px;
+//                left:1042px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-31-21-0 {
+//                position:absolute;
+//                top:628px;
+//                left:1015px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-31-21-1 {
+//                position:absolute;
+//                top:617px;
+//                left:1021px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-31-28-0 {
+//                position:absolute;
+//                top:555px;
+//                left:900px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-31-28-1 {
+//                position:absolute;
+//                top:558px;
+//                left:913px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-31-30-0 {
+//                position:absolute;
+//                top:555px;
+//                left:1021px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-31-30-1 {
+//                position:absolute;
+//                top:568px;
+//                left:1015px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-31 {
+//        #marker-32-4-0 {
+//                position:absolute;
+//                top:30px;
+//                left:90px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-32-4-1 {
+//                position:absolute;
+//                top:30px;
+//                left:105px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-32-24-0 {
+//                position:absolute;
+//                top:230px;
+//                left:45px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-32-24-1 {
+//                position:absolute;
+//                top:220px;
+//                left:50px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-32-25-0 {
+//                position:absolute;
+//                top:215px;
+//                left:165px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-32-25-1 {
+//                position:absolute;
+//                top:205px;
+//                left:158px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-32-33-0 {
+//                position:absolute;
+//                top:95px;
+//                left:355px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-32-33-1 {
+//                position:absolute;
+//                top:95px;
+//                left:340px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-32-34-0 {
+//                position:absolute;
+//                top:165px;
+//                left:338px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-32-34-1 {
+//                position:absolute;
+//                top:152px;
+//                left:335px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-32 {
+//        #marker-33-32-0 {
+//                position:absolute;
+//                top:95px;
+//                left:370px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-33-32-1 {
+//                position:absolute;
+//                top:95px;
+//                left:385px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-33-34-0 {
+//                position:absolute;
+//                top:150px;
+//                left:415px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-33-34-1 {
+//                position:absolute;
+//                top:135px;
+//                left:415px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-33-36-0 {
+//                position:absolute;
+//                top:100px;
+//                left:500px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-33-36-1 {
+//                position:absolute;
+//                top:100px;
+//                left:485px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-33 {
+//        #marker-34-25-0 {
+//                position:absolute;
+//                top:220px;
+//                left:340px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-25-1 {
+//                position:absolute;
+//                top:212px;
+//                left:353px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-27-0 {
+//                position:absolute;
+//                top:285px;
+//                left:485px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-27-1 {
+//                position:absolute;
+//                top:270px;
+//                left:480px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-32-0 {
+//                position:absolute;
+//                top:187px;
+//                left:350px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-32-1 {
+//                position:absolute;
+//                top:200px;
+//                left:355px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-33-0 {
+//                position:absolute;
+//                top:175px;
+//                left:405px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-33-1 {
+//                position:absolute;
+//                top:190px;
+//                left:405px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-35-0 {
+//                position:absolute;
+//                top:245px;
+//                left:390px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-35-1 {
+//                position:absolute;
+//                top:260px;
+//                left:390px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-37-0 {
+//                position:absolute;
+//                top:220px;
+//                left:505px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-34-37-1 {
+//                position:absolute;
+//                top:220px;
+//                left:490px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-34 {
+//        #marker-35-25-0 {
+//                position:absolute;
+//                top:320px;
+//                left:330px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-35-25-1 {
+//                position:absolute;
+//                top:320px;
+//                left:345px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-35-26-0 {
+//                position:absolute;
+//                top:360px;
+//                left:375px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-35-26-1 {
+//                position:absolute;
+//                top:350px;
+//                left:382px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-35-27-0 {
+//                position:absolute;
+//                top:330px;
+//                left:450px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-35-27-1 {
+//                position:absolute;
+//                top:330px;
+//                left:435px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-35-34-0 {
+//                position:absolute;
+//                top:275px;
+//                left:380px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-35-34-1 {
+//                position:absolute;
+//                top:290px;
+//                left:380px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-35 {
+//        #marker-36-33-0 {
+//                position:absolute;
+//                top:100px;
+//                left:515px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-36-33-1 {
+//                position:absolute;
+//                top:100px;
+//                left:530px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-36-37-0 {
+//                position:absolute;
+//                top:105px;
+//                left:555px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-36-37-1 {
+//                position:absolute;
+//                top:90px;
+//                left:555px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-36-39-0 {
+//                position:absolute;
+//                top:70px;
+//                left:590px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-36-39-1 {
+//                position:absolute;
+//                top:70px;
+//                left:578px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-36 {
+//        #marker-37-34-0 {
+//                position:absolute;
+//                top:220px;
+//                left:520px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-37-34-1 {
+//                position:absolute;
+//                top:220px;
+//                left:535px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-37-36-0 {
+//                position:absolute;
+//                top:140px;
+//                left:555px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-37-36-1 {
+//                position:absolute;
+//                top:155px;
+//                left:560px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-37-38-0 {
+//                position:absolute;
+//                top:230px;
+//                left:580px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-37-38-1 {
+//                position:absolute;
+//                top:218px;
+//                left:575px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-37-39-0 {
+//                position:absolute;
+//                top:130px;
+//                left:615px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-37-39-1 {
+//                position:absolute;
+//                top:142px;
+//                left:610px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-37-40-0 {
+//                position:absolute;
+//                top:160px;
+//                left:635px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-37-40-1 {
+//                position:absolute;
+//                top:160px;
+//                left:620px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-37 {
+//        #marker-38-27-0 {
+//                position:absolute;
+//                top:315px;
+//                left:555px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-38-27-1 {
+//                position:absolute;
+//                top:305px;
+//                left:565px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-38-37-0 {
+//                position:absolute;
+//                top:238px;
+//                left:585px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-38-37-1 {
+//                position:absolute;
+//                top:250px;
+//                left:590px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-38-40-0 {
+//                position:absolute;
+//                top:225px;
+//                left:655px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-38-40-1 {
+//                position:absolute;
+//                top:235px;
+//                left:645px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-38-41-0 {
+//                position:absolute;
+//                top:285px;
+//                left:695px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-38-41-1 {
+//                position:absolute;
+//                top:295px;
+//                left:685px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-38-42-0 {
+//                position:absolute;
+//                top:365px;
+//                left:715px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-38-42-1 {
+//                position:absolute;
+//                top:365px;
+//                left:702px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-38 {
+//        #marker-39-36-0 {
+//                position:absolute;
+//                top:70px;
+//                left:608px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-39-36-1 {
+//                position:absolute;
+//                top:70px;
+//                left:620px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-39-37-0 {
+//                position:absolute;
+//                top:112px;
+//                left:620px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-39-37-1 {
+//                position:absolute;
+//                top:100px;
+//                left:625px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-39-40-0 {
+//                position:absolute;
+//                top:107px;
+//                left:670px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-39-40-1 {
+//                position:absolute;
+//                top:92px;
+//                left:670px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-39-43-0 {
+//                position:absolute;
+//                top:70px;
+//                left:700px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-39-43-1 {
+//                position:absolute;
+//                top:70px;
+//                left:688px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-39 {
+//        #marker-40-37-0 {
+//                position:absolute;
+//                top:160px;
+//                left:650px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-37-1 {
+//                position:absolute;
+//                top:160px;
+//                left:665px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-38-0 {
+//                position:absolute;
+//                top:225px;
+//                left:675px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-38-1 {
+//                position:absolute;
+//                top:215px;
+//                left:685px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-39-0 {
+//                position:absolute;
+//                top:122px;
+//                left:670px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-39-1 {
+//                position:absolute;
+//                top:137px;
+//                left:670px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-41-0 {
+//                position:absolute;
+//                top:210px;
+//                left:730px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-41-1 {
+//                position:absolute;
+//                top:200px;
+//                left:720px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-43-0 {
+//                position:absolute;
+//                top:102px;
+//                left:765px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-43-1 {
+//                position:absolute;
+//                top:115px;
+//                left:771px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-44-0 {
+//                position:absolute;
+//                top:125px;
+//                left:800px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-40-44-1 {
+//                position:absolute;
+//                top:125px;
+//                left:785px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-40 {
+//        #marker-41-38-0 {
+//                position:absolute;
+//                top:285px;
+//                left:720px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-41-38-1 {
+//                position:absolute;
+//                top:277px;
+//                left:730px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-41-40-0 {
+//                position:absolute;
+//                top:220px;
+//                left:744px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-41-40-1 {
+//                position:absolute;
+//                top:230px;
+//                left:752px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-41-42-0 {
+//                position:absolute;
+//                top:309px;
+//                left:824px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-41-42-1 {
+//                position:absolute;
+//                top:295px;
+//                left:824px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-41-44-0 {
+//                position:absolute;
+//                top:207px;
+//                left:820px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-41-44-1 {
+//                position:absolute;
+//                top:215px;
+//                left:810px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-41-45-0 {
+//                position:absolute;
+//                top:277px;
+//                left:890px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-41-45-1 {
+//                position:absolute;
+//                top:285px;
+//                left:880px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-41 {
+//        #marker-42-29-0 {
+//                position:absolute;
+//                top:407px;
+//                left:890px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-42-29-1 {
+//                position:absolute;
+//                top:393px;
+//                left:887px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-42-38-0 {
+//                position:absolute;
+//                top:365px;
+//                left:737px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-42-38-1 {
+//                position:absolute;
+//                top:365px;
+//                left:750px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-42-41-0 {
+//                position:absolute;
+//                top:320px;
+//                left:824px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-42-41-1 {
+//                position:absolute;
+//                top:334px;
+//                left:824px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-42-46-0 {
+//                position:absolute;
+//                top:365px;
+//                left:925px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-42-46-1 {
+//                position:absolute;
+//                top:362px;
+//                left:912px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-42 {
+//        #marker-43-5-0 {
+//                position:absolute;
+//                top:50px;
+//                left:920px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-43-5-1 {
+//                position:absolute;
+//                top:50px;
+//                left:908px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-43-39-0 {
+//                position:absolute;
+//                top:60px;
+//                left:718px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-43-39-1 {
+//                position:absolute;
+//                top:60px;
+//                left:730px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-43-40-0 {
+//                position:absolute;
+//                top:75px;
+//                left:771px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-43-40-1 {
+//                position:absolute;
+//                top:62px;
+//                left:765px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-43-44-0 {
+//                position:absolute;
+//                top:40px;
+//                left:865px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-43-44-1 {
+//                position:absolute;
+//                top:27px;
+//                left:865px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-43 {
+//        #marker-44-40-0 {
+//                position:absolute;
+//                top:125px;
+//                left:815px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-44-40-1 {
+//                position:absolute;
+//                top:125px;
+//                left:830px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-44-41-0 {
+//                position:absolute;
+//                top:205px;
+//                left:840px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-44-41-1 {
+//                position:absolute;
+//                top:197px;
+//                left:850px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-44-43-0 {
+//                position:absolute;
+//                top:57px;
+//                left:865px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-44-43-1 {
+//                position:absolute;
+//                top:70px;
+//                left:865px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-44-45-0 {
+//                position:absolute;
+//                top:170px;
+//                left:975px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-44-45-1 {
+//                position:absolute;
+//                top:157px;
+//                left:970px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-44 {
+//        #marker-45-6-0 {
+//                position:absolute;
+//                top:270px;
+//                left:1055px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-45-6-1 {
+//                position:absolute;
+//                top:270px;
+//                left:1042px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-45-41-0 {
+//                position:absolute;
+//                top:265px;
+//                left:900px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-45-41-1 {
+//                position:absolute;
+//                top:257px;
+//                left:910px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-45-44-0 {
+//                position:absolute;
+//                top:177px;
+//                left:1000px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-45-44-1 {
+//                position:absolute;
+//                top:190px;
+//                left:1005px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-45-46-0 {
+//                position:absolute;
+//                top:300px;
+//                left:1005px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-45-46-1 {
+//                position:absolute;
+//                top:287px;
+//                left:1005px;
+//                height:70px;
+//                width:70px;
+//        }
+//}
+//#area-45 {
+//        #marker-46-30-0 {
+//                position:absolute;
+//                top:457px;
+//                left:1055px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-46-30-1 {
+//                position:absolute;
+//                top:470px;
+//                left:1055px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-46-42-0 {
+//                position:absolute;
+//                top:362px;
+//                left:937px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-46-42-1 {
+//                position:absolute;
+//                top:365px;
+//                left:950px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-46-45-0 {
+//                position:absolute;
+//                top:317px;
+//                left:1005px;
+//                height:70px;
+//                width:70px;
+//        }
+//        #marker-46-45-1 {
+//                position:absolute;
+//                top:330px;
+//                left:1005px;
+//                height:70px;
+//                width:70px;
+//        }
+//}

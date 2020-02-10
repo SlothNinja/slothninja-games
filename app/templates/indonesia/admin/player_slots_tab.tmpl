@@ -1,0 +1,39 @@
+{{with $player := .}}
+{{$game := $player.Game}}
+<div id="tabs-admin-player-slots">
+        <form action="/indonesia/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="admin-player" />
+                </div>
+                {{range $i, $slot := $player.Slots}}
+                {{$index := inc $i}}
+                <div>Slot {{$index}}</div>
+                <div>
+                        <label for="admin-player-slot-developed">Developed:</label>
+                        <select id="admin-player-slot-developed" name="Slots.{{$i}}.Developed">
+                                {{if $slot.Developed}}
+                                <option value="false">False</option>
+                                <option value="true" selected="selected">True</option>
+                                {{else}}
+                                <option value="false" selected="selected">False</option>
+                                <option value="true">True</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-player-slot-company">Company:</label>
+                        <select id="admin-player-slot-company" name="Slots.{{$i}}.Company">
+                                <option value="-1">None</option>
+                                {{range $index, $company := $game.Companies}}
+                                <option value="{{$index}}" {{if $company.Equal $slot.Company}}selected="selected"{{end}}>{{$company}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{end}}
+                <div class="center">
+                        <input type="submit" value="Update" class="top-padding mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

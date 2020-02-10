@@ -1,0 +1,33 @@
+<div class="dialog-content" data-bind="with: selectedArea">
+        <div>
+                You must assign <span data-bind="text: newDamage"></span> damage cubes to your units in area <span data-bind="text: id"></span>.
+        </div>
+        <table class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th>Unit</th>
+                                <th>Damage</th>
+                                <th>Assign</th>
+                                <th>Total</th>
+                        </tr>
+                </thead>
+                <tbody data-bind="foreach: hitUnits()">
+                <tr>
+                        <td>
+                                <img class="unit" data-bind="attr: { src: link() }" />
+                        </td>
+                        <td data-bind="text: damage">
+                        </td>
+                        <td>
+                                <input data-bind="jqSpinner: newDamage, min: 0, max: $parent.newDamage(), update: $root.assignDamage" type="text" />
+                        </td>
+                        <td>
+                                <div data-bind="text: totalDamage"></div>
+                        </td>
+                </tr>
+                </tbody>
+        </table>
+        <button data-bind="jqButton: true, click: function() { $root.put({ 'action': 'assign-damage', 'target': key, 'units': ko.toJSON(hitUnits) }) }">
+                Assign
+        </button>
+</div>

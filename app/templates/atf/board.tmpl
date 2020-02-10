@@ -1,0 +1,15 @@
+{{$game := $.Game}}
+<!-- Board --> 
+<div id="board"> 
+        <!-- Board Map --> 
+        {{template "atf/image_map" $}}
+        {{template "atf/areas" .}}
+        {{template "atf/pass_boxes" .}}
+        {{template "atf/turn_track" .}}
+        {{template "atf/turn_order" .}}
+        {{template "atf/empire_track" $game}}
+        {{template "atf/score_track" $game}}
+        {{template "atf/equipment_track" $}}
+        {{template "atf/passed_resources" $}}
+        {{template "atf/default_dialog" $}}
+</div>

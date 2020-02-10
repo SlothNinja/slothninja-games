@@ -1,0 +1,80 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+{{$w := $g.SelectedWard}}
+{{$cu := $.CUser}}
+{{if $g.CanTakeChip $cu | or $g.InTakeChipPhase}}
+<div style="height:45px;width:270px">
+        <form class="myForm" style="float:left">
+                {{if $g.InTakeChipPhase}}
+                <input name="action" type="hidden" value="take-chip" />
+                {{else}}
+                <input name="action" type="hidden" value="deputy-take-chip" />
+                {{end}}
+                <input name="chip" type="hidden" value="irish" />
+                <div class="mybutton submit">
+                        <div class="text">
+                                Take
+                        </div>
+                        <div class="icon">
+                                <img alt="irish-chip" src="/images/tammany/irish-chip.png" />
+                        </div>
+                </div>
+        </form>
+        <div style="float:left">
+                &nbsp;&nbsp;
+        </div>
+        <form class="myForm" style="float:left">
+                {{if $g.InTakeChipPhase}}
+                <input name="action" type="hidden" value="take-chip" />
+                {{else}}
+                <input name="action" type="hidden" value="deputy-take-chip" />
+                {{end}}
+                <input name="chip" type="hidden" value="english" />
+                <div class="mybutton submit">
+                        <div class="text">
+                                Take
+                        </div>
+                        <div class="icon">
+                                <img alt="english-chip" src="/images/tammany/english-chip.png" />
+                        </div>
+                </div>
+        </form>
+</div>
+<div style="height:45px;width:270px">
+        <form class="myForm" style="float:left">
+                {{if $g.InTakeChipPhase}}
+                <input name="action" type="hidden" value="take-chip" />
+                {{else}}
+                <input name="action" type="hidden" value="deputy-take-chip" />
+                {{end}}
+                <input name="chip" type="hidden" value="german" />
+                <div class="mybutton submit">
+                        <div class="text">
+                                Take
+                        </div>
+                        <div class="icon">
+                                <img alt="german-chip" src="/images/tammany/german-chip.png" />
+                        </div>
+                </div>
+        </form>
+        <div style="float:left">
+                &nbsp;&nbsp;
+        </div>
+        <form class="myForm" style="float:left">
+                {{if $g.InTakeChipPhase}}
+                <input name="action" type="hidden" value="take-chip" />
+                {{else}}
+                <input name="action" type="hidden" value="deputy-take-chip" />
+                {{end}}
+                <input name="chip" type="hidden" value="italian" />
+                <div class="mybutton submit">
+                        <div class="text">
+                                Take
+                        </div>
+                        <div class="icon">
+                                <img alt="italian-chip" src="/images/tammany/italian-chip.png" />
+                        </div>
+                </div>
+        </form>
+</div>
+{{end}}

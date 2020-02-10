@@ -1,0 +1,8 @@
+{{$game := $.Game}}
+<div id="areas">
+        <div class="container">
+                {{range $area := $game.Areas }}
+                {{template "indonesia/area" $area}}
+                {{end}}
+        </div>
+</div>

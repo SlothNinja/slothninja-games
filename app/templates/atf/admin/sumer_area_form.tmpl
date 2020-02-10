@@ -1,0 +1,59 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $.IsAdmin}}
+<div id="tabs-admin">
+        <form action="/atf/game/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="action" type="hidden" value="admin-sumer-area" />
+                </div>
+                <div>
+                        <label for="armies">Armies:</label>
+                        <select id="armies" name="armies">
+                                {{range $i := ints 0 2}}
+                                <option value="{{$i}}" {{if equal $area.Armies $i}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="army-owner-id">ArmyOwner:</label>
+                        <select id="army-owner-id" name="army-owner-id">
+                                {{$owner := $area.ArmyOwner}}
+                                <option value="-1" {{if $owner | not}}selected="selected"{{end}}>None</option>
+                                {{range $i, $p := $game.Players}}
+
+                                <option value="{{$p.ID}}" {{if $owner}}{{if $p.Equal $owner}}selected="selected"{{end}}{{end}}>{{$p.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="city-built">CityBuilt:</label>
+                        <select id="city-built" name="city-built">
+                                <option value="false" {{if $area.City.Built | not}}selected="selected"{{end}}>False</option>
+                                <option value="true" {{if $area.City.Built}}selected="selected"{{end}}>True</option>
+                        </select>
+                </div>
+                <div>
+                        <label for="city-expanded">CityExpanded:</label>
+                        <select id="city-expanded" name="city-expanded">
+                                <option value="false" {{if $area.City.Expanded | not}}selected="selected"{{end}}>False</option>
+                                <option value="true" {{if $area.City.Expanded}}selected="selected"{{end}}>True</option>
+                        </select>
+                </div>
+                <div>
+                        <label for="city-owner-id">CityOwnerID:</label>
+                        <select id="city-owner-id" name="city-owner-id">
+                                {{$owner := $area.City.Owner}}
+                                <option value="-1" {{if $owner | not}}selected="selected"{{end}}>None</option>
+                                {{range $i, $p := $game.Players}}
+
+                                <option value="{{$p.ID}}" {{if $owner}}{{if $p.Equal $owner}}selected="selected"{{end}}{{end}}>{{$p.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

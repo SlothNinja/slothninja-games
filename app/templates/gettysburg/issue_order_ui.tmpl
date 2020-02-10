@@ -1,0 +1,29 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $.Game.OrderDiscArea}}
+<div class="heading"><div>{{$game.SubPhaseName}}</div></div>
+<div class="bottom-padding">
+        Select the type of order you wish to perform.
+</div>
+{{if $cp.CanMoveUnitsNear $area}}
+<button data-bind="jqButton: true, click: function(){put({'action': 'start-move-assault', 'json': true})}">Move/Assult</button>
+{{end}}
+{{if $cp.CanFireArtilleryNear $area}}
+<button data-bind="jqButton: true, click: function(){put({'action': 'start-fire-artillery', 'json': true})}">Fire Artillery</button>
+{{end}}
+{{if $cp.CanRemoveArtilleryFireMarkerNear $area}}
+<button data-bind="jqButton: true, click: function(){put({'action': 'start-remove-artillery-fire-marker', 'json': true})}">
+        <div class="right-padding" style="line-height:28px;float:left">
+                Remove
+        </div>
+        <img class="disc" src="/images/gettysburg/artillery_fire_marker.png"/>
+</button>
+{{end}}
+{{if $cp.CanReorgiseNear $area}}
+<button data-bind="jqButton: true, click: function(){put({'action': 'start-reorganise', 'json': true})}">
+        <div class="right-padding" style="line-height:28px;float:left">
+                Reorganise
+        </div>
+</button>
+{{end}}
+<button data-bind="jqButton: true, click: function(){put({'action': 'pass', 'json': true})}">Pass</button>

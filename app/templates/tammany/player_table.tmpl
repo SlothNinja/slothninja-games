@@ -1,0 +1,86 @@
+{{$g := $.Game}}
+{{$cu := $.CUser}}
+{{$ctx := $.Context}}
+
+<div id="players-table">
+        <table class='strippedDataTable'>
+                <thead>
+                        <tr>
+                                <th class="player-name" rowspan="2">
+                                        <div>Player</div>
+                                        <div>(Office)</div>
+                                </th>
+                                <th class="last-action" rowspan="2">Action Summary</th>
+                                <th class="score" rowspan="2">Score</th>
+                                <th class="favor" rowspan="2">
+                                        <div>
+                                                Favor Chips
+                                        </div>
+                                        <hr />
+                                        <div>
+                                                Played Chips
+                                        </div>
+                                </th>
+                                <th class="slander" colspan="3">Slander Chips</th>
+                        </tr>
+                        <tr>
+                                <th>Term 2</th>
+                                <th>Term 3</th>
+                                <th>Term 4</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {{range $g.Players}}
+                        <tr>
+                                <td class="player">
+                                        <div class="gravatar">
+                                                {{$g.GravatarFor .}}
+                                        </div>
+                                        <div class="player-office">
+                                                <div class="player">
+                                                        {{$g.PlayerLinkByID $ctx .ID}}
+                                                </div>
+                                                {{template "tammany/player_office" .}}
+                                        </div>
+                                </td>
+                                <td class="last-action">
+                                        {{template "shared/last_actions_list3" data "g" $g "p" . "ctx" $.Context}}
+                                </td>
+                                <td>
+                                        {{.Score}}
+                                </td>
+                                <td class="chips">
+                                        {{template "tammany/favor_chip_table" data "g" $g "p" . "cu" $cu}}
+                                </td>
+                                <td>
+                                        <div>
+                                                {{if .CanSlanderIn 2}}
+                                                <img alt="slander-chip" src="/images/tammany/slander-chip.png" />
+                                                {{else}}
+                                                Used
+                                                {{end}}
+                                        </div>
+                                </td>
+                                <td>
+                                        <div>
+                                                {{if .CanSlanderIn 3}}
+                                                <img alt="slander-chip" src="/images/tammany/slander-chip.png" />
+                                                {{else}}
+                                                Used
+                                                {{end}}
+                                        </div>
+                                </td>
+                                <td>
+                                        <div>
+                                                {{if .CanSlanderIn 4}}
+                                                <img alt="slander-chip" src="/images/tammany/slander-chip.png" />
+                                                {{else}}
+                                                Used
+                                                {{end}}
+                                        </div>
+                                </td>
+                        </tr>
+                        {{end}}
+                </tbody>
+        </table>
+</div>

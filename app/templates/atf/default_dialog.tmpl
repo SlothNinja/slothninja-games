@@ -1,0 +1,6 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{with $area := $game.SelectedArea}}
+{{if $cp.CanPlaceArmyIn $area}}
+{{end}}
+{{end}}

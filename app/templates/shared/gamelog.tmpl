@@ -1,0 +1,10 @@
+{{$game := $.Game}}
+<!-- Game Log -->
+<div id="gamelog">
+        <div class="heading">Game Log:</div> 
+        <div class="content">
+                {{range $index, $log := $game.Log}}
+                {{template "shared/gamelog_entry" $log}}
+                {{end}}
+        </div> 
+</div> 

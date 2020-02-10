@@ -1,0 +1,123 @@
+@mixin worker-hbox($id) {
+        ##{$id}-0 {
+                top:0px;
+                left:0px;
+                @include worker;
+        }
+        ##{$id}-1 {
+                top:0px;
+                left:50px;
+                @include worker;
+        }
+        ##{$id}-2 {
+                top:0px;
+                left:100px;
+                @include worker;
+        }
+}
+
+@mixin worker-vbox($id) {
+        ##{$id}-0 {
+                top:0px;
+                left:0px;
+                @include worker;
+        }
+        ##{$id}-1 {
+                top:40px;
+                left:0px;
+                @include worker;
+        }
+        ##{$id}-2 {
+                top:80px;
+                left:0px;
+                @include worker;
+        }
+}
+
+@mixin texted-image($top) {
+        position:absolute;
+        img {
+                height:30px;
+                width:30px;
+        }
+        .text {
+                position:relative;
+                text-align:center;
+                font-weight:bold;
+                top:$top;
+                width:30px;
+        }
+}
+
+@mixin worker {
+        @include texted-image(-25px);
+}
+
+@mixin army {
+        @include texted-image(-28px);
+}
+
+@mixin worker-wide-area($id, $top, $left) {
+        position:absolute;
+        top: $top;
+        left: $left;
+        ##{$id} {
+                position:relative;
+                @include worker-hbox($id);
+        }
+};
+
+#irrigation {
+        @include worker-wide-area(irrigation-workers, 520px, 960px);
+}
+
+#weaving {
+        @include worker-wide-area(weaving-workers, 655px, 960px);
+}
+
+@mixin worker-narrow-area($id) {
+        ##{$id} {
+                position:relative;
+                @include worker-vbox($id);
+        }
+};
+
+#scribes {
+        position:absolute;
+        top: 755px;
+        left: 960px;
+        @include worker-narrow-area(scribes-workers);
+}
+
+#usedscribes {
+        position:absolute;
+        top: 755px;
+        left: 1055px;
+        @include worker-narrow-area(usedscribes-workers);
+}
+
+#newscribes {
+        position:absolute;
+        top: 800px;
+        left: 1012px;
+        #newscribes-workers {
+                position:relative;
+                #newscribes-workers-0, #newscribes-workers-1, #newscribes-workers-2 {
+                        @include worker;
+                }
+        }
+}
+
+#toolmakers {
+        position:absolute;
+        top: 890px;
+        left: 960px;
+        @include worker-narrow-area(toolmakers-workers);
+}
+
+#usedtoolmakers {
+        position:absolute;
+        top: 890px;
+        left: 1055px;
+        @include worker-narrow-area(usedtoolmakers-workers);
+}

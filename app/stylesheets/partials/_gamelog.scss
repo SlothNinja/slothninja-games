@@ -1,0 +1,94 @@
+@mixin gamelog-entry($color) {
+        margin: 0.5em 0em;
+        background: lighten($color, 40%);
+        border: 5px solid $color;
+        .header {
+                padding: 0.5em 0.5em 0em;
+        }
+        .action {
+                padding: .5em;
+        }
+}
+
+@mixin log {
+        @extend .ui-widget;
+        @extend .ui-widget-content;
+        @extend .ui-corner-all;
+        .heading {
+                padding: 1em 1.5em;
+                font-weight:bold;
+        }
+        .content {
+                @include table;
+                padding: 1.5em;
+                margin: 0em 1.5em 1.5em 1.5em;
+                overflow:auto;				
+                .gamelog-entry.default, .messagelog-entry.default {
+                        @include gamelog-entry(#287EBE);
+                }
+                .gamelog-entry.black, .messagelog-entry.black {
+                        @include gamelog-entry(#000000);
+                        background: lighten(#000000, 80%);
+                }
+                .gamelog-entry.white, .messagelog-entry.white {
+                        @include gamelog-entry(#FFFFFF);
+                        border: 5px solid darken(#FFFFFF, 40%);
+                }
+                .gamelog-entry.green, .messagelog-entry.green {
+                        @include gamelog-entry(#5A9c22);
+                }
+                .gamelog-entry.purple, .messagelog-entry.purple {
+                        @include gamelog-entry(#5D2477);
+                        background: lighten(#5D2477, 60%);
+                }
+                .gamelog-entry.yellow, .messagelog-entry.yellow {
+                        @include gamelog-entry(#E1D224);
+                }
+                .gamelog-entry.brown, .messagelog-entry.brown {
+                        @include gamelog-entry(#71593A);
+                }
+                .gamelog-entry.red, .messagelog-entry.red {
+                        @include gamelog-entry(#DD0228);
+                }
+                .gamelog-entry.orange, .messagelog-entry.orange {
+                        @include gamelog-entry(#F27E28);
+                }
+        }
+}
+
+@mixin gamelog {
+        #gamelog {
+                @include log;
+                @include append-bottom(0.5em);
+                .content {
+                        @extend .ui-widget;
+                        @extend .ui-widget-content;
+                        @extend .ui-corner-all;
+                        height:390px;
+                }
+        }
+}
+
+@mixin chatbox {
+        #chatbox {
+                @include log;
+                @include append-bottom(0.5em);
+                .content {
+                        @extend .ui-widget;
+                        @extend .ui-widget-content;
+                        @extend .ui-corner-all;
+                        margin: 0em 1.5em 0.5em 1.5em;
+                        height:300px;
+                }
+                .form {
+                        padding: 0.5em 1.5em;
+                }
+                textarea {
+                        @extend .ui-widget;
+                        @extend .ui-widget-content;
+                        @extend .ui-corner-all;
+                        width: 546px;
+                        height: 4em;
+                }
+        }
+}

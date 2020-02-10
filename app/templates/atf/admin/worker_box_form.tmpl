@@ -1,0 +1,28 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $.IsAdmin}}
+<div id="tabs-admin">
+        <div class="dialog-content">
+                <form action="/atf/game/admin/{{$game.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="action" type="hidden" value="admin-worker-box" />
+                        </div>
+                        {{range $pid := ints 0 2}}
+                        {{$p := $game.PlayerByID $pid}}
+                        <div>
+                                <label for="workers-{{$p.ID}}">{{$p.Name}} Workers:</label>
+                                <select id="workers-{{$p.ID}}" name="workers">
+                                        {{range $w := ints 0 25}}
+                                        <option value="{{$w}}" {{if $p.WorkersIn $area | equal $w}}selected="selected"{{end}}>{{$w}}</option>
+                                        {{end}}
+                                </select>
+                        </div>
+                        {{end}}
+                        <div class="center">
+                                <input type="submit" value="Update" class="top-padding mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>
+{{end}}

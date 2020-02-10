@@ -1,0 +1,22 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+{{$area := $g.SelectedArea}}
+{{$ctx := $.Context}}
+
+<div>
+        {{template "shared/flashbox" .}}
+        {{template "shared/gamelog3" $}}
+        {{template "shared/last_actions_list3" data "g" $g "p" $cp "ctx" $ctx}}
+        {{template "indonesia/image_map" $}}
+        {{template "indonesia/area" $area}}
+        {{if $g.SiapFajiMerger}}
+        {{range $a := $g.SiapFajiMerger.Company.Areas}}
+        {{template "indonesia/area" $a}}
+        {{end}}
+        {{end}}
+</div>
+{{if $g.SiapFajiMerger}}
+{{template "indonesia/create_siap_faji_dialog" $}}
+{{else}}
+{{template "indonesia/finish_turn_dialog" $}}
+{{end}}

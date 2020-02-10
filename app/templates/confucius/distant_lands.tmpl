@@ -1,0 +1,45 @@
+{{range $index, $land := .DistantLands}}
+<div id="{{$land.NameID}}">
+        {{if $land.Players}}
+        {{range $j, $player := $land.Players}}
+        <div class="marker">
+                {{$player.DisplayBarrel}}
+        </div>
+        {{end}}
+        {{else}}
+        {{if equal $land.Chit.Value -1 | not}}
+        <img src="/images/confucius/land-chit-{{.Chit}}VP.jpg" alt="Land Chit {{$land.Chit}}" />
+        {{end}}
+        {{end}}
+</div>
+{{end}}
+{{range $color, $ints := .OnVoyage}}
+{{range $count := $ints }}
+<div id="{{$color}}-ship-{{$count}}">
+        <img src="/images/confucius/{{$color}}-ship.png" alt="{{$color}} Ship" />
+</div>
+{{end}}
+{{end}}
+<div id="recruited-armies">
+        <div class="content">
+                {{range $index, $player := .Players}}
+                {{if $player.RecruitedArmies}}
+                <div id="{{.Color}}-recruited-armies">
+                        <img src="/images/confucius/{{$player.Color}}-army-shadowed.png" alt="{{$player.Color}} Army" />
+                        <div class="text {{$player.TextColor}}">{{$player.RecruitedArmies}}</div>
+                </div>
+                {{end}}
+                {{end}}
+        </div>
+</div>
+<div id="emperor-avenged">
+        {{with $player := .Avenger}}
+        <div class="content">
+                <img src="/images/confucius/emperors-reward-card-9.jpg" alt="Emperor Avenged" />
+                <div id="army-box">
+                        <img src="/images/confucius/{{$player.Color}}-army-shadowed.png" alt="{{$player.Color}} Army" />
+                        <div class="text {{$player.TextColor}}">2VP</div>
+                </div>
+        </div>
+        {{end}}
+</div>

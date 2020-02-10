@@ -1,0 +1,18 @@
+<!-- Board --> 
+{{with $.Game}}
+<div id="board"> 
+        <!-- Board Map --> 
+        <img id="map" src="/images/confucius/confucius-board.jpg" alt="Confucius-board" />
+        {{template "confucius/player_aid" .}}
+        {{template "confucius/supply" .}}
+        {{template "confucius/ministry" .}}
+        {{template "confucius/distant_lands" .}}
+        {{template "confucius/foreign_lands" .}}
+        {{template "confucius/action_spaces" .}}
+        {{template "confucius/score_track" .}}
+        {{template "confucius/bought_junks" .}}
+        {{template "confucius/wall" .}}
+        {{template "confucius/students" .}}
+        {{.GiftTracker}}
+</div>
+{{end}}

@@ -1,0 +1,60 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanTradeIn $area}}
+<div id="tabs-trade">
+        <div class="dialog-content" style="width:320px">
+                <form class="myForm">
+                        <input name="action" type="hidden" value="trade-resource" />
+                        <table>
+                                <thead>
+                                        <tr>
+                                                <th style="font-weight:bold;text-align:center">Receive</th>
+                                                <th style="font-weight:bold;text-align:center">Give</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        {{range $resource, $count := $area.AvailableTrade}}
+                                        {{$name := $game.ResourceName $resource}}
+                                        {{if $count}}
+                                        <tr style="height:60px">
+                                                <td><img src="/images/atf/{{$name}}.png" alt="{{$name}}" /></td>
+                                                <td>
+                                                        <div class="radio" id="{{$name}}-traded-resource">
+                                                                <div>
+                                                                        <input type="radio" id="{{$name}}-traded-resource-none" name="{{$name}}-traded-resource" value="none" checked="checked" style="height:43px"/>
+                                                                        <label for="{{$name}}-traded-resource-none" >
+                                                                                <div class="icon">
+                                                                                        <img src="/images/atf/not_symbol.png" alt="None" height="28px" width="28px" />
+                                                                                </div>
+                                                                        </label>
+                                                                        {{range $t, $i := $game.TradesFor $resource}}
+                                                                        {{if greater $i 0}}
+                                                                        {{$trade := $game.ResourceName $t}}
+                                                                        {{$count := index $cp.Resources $t}}
+                                                                        {{$disabled := not $count}}
+
+                                                                        <input type="radio" id="{{$name}}-traded-resource-{{$trade}}" name="{{$name}}-traded-resource" value="{{$trade}}"{{if $disabled}}disabled="disabled"{{end}} />
+                                                                        <label for="{{$name}}-traded-resource-{{$trade}}">
+                                                                                <div class="icon">
+                                                                                        <img src="/images/atf/{{$trade}}.png" alt="{{$trade}}" height="28px" width="28px" />
+                                                                                </div>
+                                                                        </label>
+                                                                        {{end}}
+                                                                        {{end}}
+                                                                </div>
+                                                        </div>
+                                                </td>
+                                        </tr>
+                                        {{end}}
+                                        {{end}}
+                                </tbody>
+                        </table>
+                        <div>&nbsp;</div>
+                        <div class="center padding-top">
+                                <input type="submit" value="Trade" class="mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>
+{{end}}

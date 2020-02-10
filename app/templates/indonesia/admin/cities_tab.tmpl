@@ -1,0 +1,42 @@
+{{$g := $.Game}}
+<div id="tabs-admin-cities">
+        <form action="/indonesia/game/admin/{{$g.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="action" type="hidden" value="admin-cities" />
+                </div>
+                <div>
+                        <label for="admin-city-stones-1">Size 1 City Stones</label>
+                        <select id="admin-city-stones-1" name="city-stones">
+                                {{$v := index $g.CityStones 0}}
+                                {{range $i := ints 0 12}}
+                                <option value="{{$i}}" {{if equal $i $v}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-city-stones-2">Size 2 City Stones</label>
+                        <select id="admin-city-stones-2" name="city-stones">
+                                {{$v := index $g.CityStones 1}}
+                                {{range $i := ints 0 8}}
+                                <option value="{{$i}}" {{if equal $i $v}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-city-stones-3">Size 3 City Stones</label>
+                        <select id="admin-city-stones-3" name="city-stones">
+                                {{$v := index $g.CityStones 2}}
+                                {{range $i := ints 0 3}}
+                                <option value="{{$i}}" {{if equal $i $v}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+
+                        </select>
+                </div>
+                <div>&nbsp;</div>
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>

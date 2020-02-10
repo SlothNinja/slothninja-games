@@ -1,0 +1,33 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanExpandEmpireIn $area}}
+<div id="tabs-expand-empire">
+        <div class="dialog-content center" style="height:6.5em;width:300px">
+                {{if $cp.CanInvade $area}}
+                <form class="myForm">
+                        <input name="action" type="hidden" value="invade-area" />
+                        <input type="submit" value="Invade Area" class="mybutton top-padding bottom-padding" />
+                </form>
+                {{end}}
+                {{if $cp.CanInvadeWarning $area}}
+                <form class="myForm pull-left">
+                        <input name="action" type="hidden" value="invade-area-warning" />
+                        <input type="submit" value="Invade Area" class="mybutton top-padding bottom-padding" />
+                </form>
+                {{end}}
+                {{if $cp.CanDestroyCityIn $area}}
+                <form class="myForm">
+                        <input name="action" type="hidden" value="destroy-city" />
+                        <input type="submit" value="Destroy City" class="mybutton top-padding bottom-padding" />
+                </form>
+                {{end}}
+                {{if $cp.CanReinforceArmyIn $area}}
+                <form class="myForm">
+                        <input name="action" type="hidden" value="reinforce-army" />
+                        <input type="submit" value="Reinforce Army" class="mybutton top-padding" />
+                </form>
+                {{end}}
+        </div>
+</div>
+{{end}}

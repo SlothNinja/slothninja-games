@@ -1,0 +1,52 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+{{$cp := $g.CurrentPlayer}}
+<div id="areas">
+        {{with $grid := $g.Grid}}
+        {{$r := index $grid 0}}
+        <div style="height:2em;width:890px">
+                <div class="pull-left" style="height:2em;width:3em">
+                        <div class="center" style="color:yellow;text-align:center">
+                        </div>
+                </div>
+                {{range $a := $r}}
+                <div class="pull-left" style="height:2em;width:100px">
+                        <div class="center" style="color:yellow;text-align:center">
+                                {{$a.ColString}}
+                        </div>
+                </div>
+                {{end}}
+        </div>
+        {{range $row := $grid }}
+        <div class="row">
+                {{$space := index $row 0}}
+                <div class="pull-left" style="height:90px;width:3em">
+                        <div class="center" style="color:yellow;position:relative;top:40px">
+                                {{$space.RowString}}
+                        </div>
+                </div>
+                {{range $a := $row}}
+                {{template "got/area" data "g" $g "ctx" $ctx "cp" $cp "a" $a}}
+                {{end}}
+                <div class="pull-left" style="height:90px;width:3em">
+                        <div class="center" style="color:yellow;position:relative;top:40px">
+                                {{$space.RowString}}
+                        </div>
+                </div>
+        </div>
+        {{end}}
+        <div style="height:2em;width:890px;padding-top:1em">
+                <div class="pull-left" style="height:2em;width:3em">
+                        <div class="center" style="color:yellow;text-align:center">
+                        </div>
+                </div>
+                {{range $a := $r}}
+                <div class="pull-left" style="height:2em;width:100px">
+                        <div class="center" style="color:yellow;text-align:center">
+                                {{$a.ColString}}
+                        </div>
+                </div>
+                {{end}}
+        </div>
+        {{end}}
+</div>

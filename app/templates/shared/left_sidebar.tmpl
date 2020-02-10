@@ -1,0 +1,95 @@
+<div id="left-sidebar">
+        <div class="content-box">
+                <div class="content">
+                        <div class="accordion action">
+                                <div class="header">
+                                        <a href="#">Announcements</a> 
+                                </div> 
+                                <div> 
+                                        <div class="menu-item" style="display:none"><a href="/all_invitations">All</a></div> 
+                                        <p>
+                                        I am replacing various deprecated libraries.  There is likely to be some minor
+                                        bugs.  If you run into issues, send me a message.  I should be able to resolve
+                                        the issue rather quickly.
+                                        </p>
+                                        <p>
+                                        Instant Messaging (IM) service has been disabled due to my service provider
+                                        deprecating the service.
+                                        </p>
+                                </div> 
+                                {{if $.CUser}}
+                                <div class="header"> 
+                                        <a href="#">Join Game</a> 
+                                </div> 
+                                <div> 
+                                        <div class="menu-item"><a href="/games/recruiting">All</a></div> 
+                                        <div class="menu-item"><a href="/atf/games/recruiting">After The Flood</a></div> 
+                                        <div class="menu-item"><a href="/confucius/games/recruiting">Confucius</a></div> 
+                                        {{if $.IsAdmin}}
+                                        <div class="menu-item"><a href="http://{{$.Host.Gettysburg}}/games/recruiting">Gettysburg</a></div> 
+                                        {{end}}
+                                        <div class="menu-item"><a href="/got/games/recruiting">Guild of Thieves</a></div> 
+                                        <div class="menu-item"><a href="/indonesia/games/recruiting">Indonesia</a></div> 
+                                        <div class="menu-item"><a href="/tammany/games/recruiting">Tammany Hall</a></div> 
+                                </div> 
+                                {{end}}
+                                <div class="header">
+                                        <a href="#">Top Rated Players</a> 
+                                </div> 
+                                <div> 
+                                        <div class="menu-item"><a href="/ratings/show/atf">After The Flood</a></div> 
+                                        <div class="menu-item"><a href="/ratings/show/confucius">Confucius</a></div> 
+                                        {{if $.IsAdmin}}
+                                        <div class="menu-item"><a href="http://{{$.Host.Gettysburg}}/ratings/show">Gettysburg</a></div> 
+                                        {{end}}
+                                        <div class="menu-item"><a href="/ratings/show/got">Guild of Thieves</a></div> 
+                                        <div class="menu-item"><a href="/ratings/show/indonesia">Indonesia</a></div> 
+                                        <div class="menu-item"><a href="/ratings/show/tammany">Tammany Hall</a></div> 
+                                </div> 
+                                {{if $.CUser}}
+                                <div class="header"> 
+                                        <a href="#">Create Game</a> 
+                                </div>
+                                <div> 
+                                        <div class="menu-item"><a href="/atf/game/new">After The Flood</a></div> 
+                                        <div class="menu-item"><a href="/confucius/game/new">Confucius</a></div> 
+                                        {{if $.IsAdmin}}
+                                        <div class="menu-item"><a href="http://{{$.Host.Gettysburg}}/game/new">Gettysburg</a></div> 
+                                        {{end}}
+                                        <div class="menu-item"><a href="/got/game/new">Guild of Thieves</a></div> 
+                                        <div class="menu-item"><a href="/indonesia/game/new">Indonesia</a></div> 
+                                        <div class="menu-item"><a href="/tammany/game/new">Tammany Hall</a></div> 
+                                </div> 
+                                {{end}}
+                                <div class="header"> 
+                                        <a href="#">Running Games</a> 
+                                </div> 
+                                <div> 
+                                        <div class="menu-item"><a href="/games/running">All</a></div> 
+                                        <div class="menu-item"><a href="/atf/games/running">After The Flood</a></div> 
+                                        <div class="menu-item"><a href="/confucius/games/running">Confucius</a></div> 
+                                        {{if $.IsAdmin}}
+                                        <div class="menu-item"><a href="http://{{$.Host.Gettysburg}}/games/running">Gettysburg</a></div> 
+                                        {{end}}
+                                        <div class="menu-item"><a href="/got/games/running">Guild of Thieves</a></div> 
+                                        <div class="menu-item"><a href="/indonesia/games/running">Indonesia</a></div> 
+                                        <div class="menu-item"><a href="/tammany/games/running">Tammany Hall</a></div> 
+                                </div> 
+                                <div class="header"> 
+                                        <a href="#">Completed Games</a> 
+                                </div>
+                                <div> 
+                                        <div class="menu-item"><a href="/games/completed">All</a></div> 
+                                        <div class="menu-item"><a href="/atf/games/completed">After The Flood</a></div> 
+                                        <div class="menu-item"><a href="/confucius/games/completed">Confucius</a></div> 
+                                        {{if $.IsAdmin}}
+                                        <div class="menu-item"><a href="http://{{$.Host.Gettysburg}}/games/completed">Gettysburg</a></div> 
+                                        {{end}}
+                                        <div class="menu-item"><a href="/got/games/completed">Guild of Thieves</a></div> 
+                                        <div class="menu-item"><a href="/indonesia/games/completed">Indonesia</a></div> 
+                                        <div class="menu-item"><a href="/tammany/games/completed">Tammany Hall</a></div> 
+                                </div> 
+                        </div>
+                </div>
+        </div>
+</div>

@@ -1,0 +1,14 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div id="dialog" title="Announce Merger">
+        <div class="dialog-content" style="width:260px">
+                <p>Click on first company to merge in the below players table or pass.</p>
+                <form class="myForm top-padding" action="/indonesia/game/show/{{$game.ID}}" method="post">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="pass" />
+                        <div class="top-padding center" >
+                                <input type="submit" value="Pass" class="mybutton" />
+                        </div>
+                </form>
+        </div>
+</div>

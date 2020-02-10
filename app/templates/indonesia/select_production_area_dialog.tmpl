@@ -1,0 +1,56 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$company := $game.SelectedCompany}}
+<div id="dialog" title="Select Production Area">
+        <div class="dialog-content" style="width:260px">
+                <div>The {{$company.HTML}} company was selected to operate ({{$company.Delivered}} of
+                {{$game.RequiredDeliveries}} {{$company.Goods}} delivered).</div>
+                <div>&nbsp;</div>
+                {{if $company.Delivered}}
+                <div>Select production area from which to ship {{$company.Goods}}.</div>
+                {{else}}
+                <div>Select production area from which to ship {{$company.Goods}}, or accept below proposed delivery.</div>
+                <table class='strippedDialogDataTable'>
+                        <thead>
+                                <tr>
+                                        <th>Player</th>
+                                        <th>Ships</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                        {{range $pid, $value := $game.ProposedShips $game.ProposedPath}}
+                        {{$p := $game.PlayerByID $pid}}
+                        <tr>
+                                <td>{{$p.Name}}</td>
+                                <td>{{$value}}</td>
+                        </tr>
+                        {{end}}
+                        </tbody>
+                </table>
+                <table class='strippedDialogDataTable'>
+                        <thead>
+                                <tr>
+                                        <th>City</th>
+                                        <th>Received</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                        {{range $aid, $value := $game.ProposedCities}}
+                        {{$area := $game.GetArea $aid}}
+                        <tr>
+                                <td>{{$area.Province}}</td>
+                                <td>{{$value}}</td>
+                        </tr>
+                        {{end}}
+                        </tbody>
+                </table>
+                <form class="myForm top-padding" action="/indonesia/game/show/{{$game.ID}}" method="post">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="accept-proposed-flow" />
+                        <div class="top-padding center" >
+                                <input type="submit" value="Accept" class="mybutton" />
+                        </div>
+                </form>
+                {{end}}
+        </div>
+</div>

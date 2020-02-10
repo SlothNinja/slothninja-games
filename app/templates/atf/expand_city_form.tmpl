@@ -1,0 +1,35 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanExpandCityIn $area}}
+<div id="tabs-expand-city">
+        <form class="myForm">
+                <label for="expand-city">Expand City:</label>
+                <div>&nbsp;</div>
+                <input name="action" type="hidden" value="expand-city" />
+                <input id="expand-city-grain" name="Resources" type="hidden" value="0" />
+                <div>
+                        <label for="expand-city-wood">wood:</label>
+                        <select id="expand-city-wood" name="wood">
+                                <option value="2">2</option>
+                        </select>
+                </div>
+                <input id="expand-city-metal" name="Resources" type="hidden" value="0" />
+                <input id="expand-city-textile" name="Resources" type="hidden" value="0" />
+                {{range $i := ints 4 7}}
+                {{$count := index $cp.Resources $i}}
+                {{$name := $game.ResourceName $i}}
+                <div {{if not $count}}style="display:none"{{end}}>
+                        <label for="expand-city-{{$name}}">{{$name}}:</label>
+                        <select id="expand-city-{{$name}}" name={{$name}}>
+                                {{range $j := ints 0 1}}
+                                <option value="{{$j}}">{{$j}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                {{end}}
+                <div>&nbsp;</div>
+                <input type="submit" value="Expand City" class="mybutton" />
+        </form>
+</div>
+{{end}}

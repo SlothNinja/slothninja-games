@@ -1,0 +1,49 @@
+package rating
+
+import (
+	"bitbucket.org/SlothNinja/gaelic"
+	. "launchpad.net/gocheck"
+)
+
+const numUsers = 5
+
+func storeRatings(c *C) {
+	req := getRequest()
+	crs := make(Ratings, 2*numUsers)
+	rs := make(db.Resourcers, 2*numUsers)
+	for i := 0; i < numUsers; i++ {
+		cr1 := newRating(req, users[i], Tammany, float64(1450+i), float64(300+i))
+		cr2 := newRating(req, users[i], Confucius, float64(1450+i), float64(300+i))
+		crs[i*2], crs[i*2+1], rs[i*2], rs[i*2+1] = cr1, cr2, cr1, cr2
+	}
+	c.Check(db.PutMulti(rs), IsNil)
+}
+
+func (s *MySuite) TestUserRatings(c *C) {
+	for i, u := range users {
+		rs, err := u.Ratings()
+		c.Check(err, IsNil)
+		c.Check(len(rs), Equals, 2)
+		for j, r := range rs {
+			c.Check(r.R, Equals, float64(1450+i))
+			c.Check(r.RD, Equals, float64(300+i))
+			switch j {
+			case 1:
+				c.Check(r.Type, Equals, Tammany)
+			default:
+				c.Check(r.Type, Equals, Confucius)
+			}
+		}
+	}
+}
+
+func (s *MySuite) TestUnappliedContestsFor(c *C) {
+	req := getRequest()
+	contest := newContest(req, users[0], 1, Tammany, 1400, 200, 1)
+        contest.SetCTX(ctx)
+	err := db.Put(contest)
+	c.Check(err, IsNil)
+	err = db.Get(contest)
+	c.Check(err, IsNil)
+	c.Check(contest.Key().Incomplete(), Equals, false)
+}

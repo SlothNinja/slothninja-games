@@ -1,0 +1,34 @@
+@mixin immigrant-box {
+	.content {
+		position:relative;
+		img {
+			height:24px;
+			width:24px;
+		}
+		.text {
+			position:relative;
+			top:-22px;
+			left:8px;
+			color:white;
+		}
+		.irish {
+		 	float:left;
+			margin:2px;
+		}
+		.english {
+		 	float:left;
+			margin:2px;
+			.text {
+				color:black;
+			}
+		}
+		.german {
+		 	float:left;
+			margin:2px;
+		}
+		.italian {
+		 	float:left;
+			margin:2px;
+		}
+	}
+}

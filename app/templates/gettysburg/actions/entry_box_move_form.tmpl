@@ -1,0 +1,6 @@
+<div id="tabs-entry-box-move" data-bind="with: selectedArea">
+        <div class="bottom-padding">Are you sure you want to move a unit from entry box <span data-bind="text: id"></span>?</div>
+        <button data-bind="jqButton: true, click: function() { $root.put( { action: 'start-entry-box-move', target: key }) } ">
+                        Yes
+        </button>
+</div>

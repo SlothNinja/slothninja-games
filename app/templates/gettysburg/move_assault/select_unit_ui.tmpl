@@ -1,0 +1,14 @@
+<div class="heading">
+        <div>Select Unit</div>
+</div>
+<div class="notice" data-bind="with: orderedAreas()[0]">
+        <div>
+                Select a unit in area <span data-bind="text: id"></span> to move.
+        </div>
+        <div class="bottom-padding">
+                Or, click button below to stop moving units.
+        </div>
+        <button data-bind="jqButton: true, click: function() { $root.put({ 'action': 'stop-moving-units', 'target': key }) }">
+                Stop Moving Units
+        </button>
+</div>

@@ -1,0 +1,33 @@
+{{with $player := .}}
+{{$game := $player.Game}}
+<div id="tabs-admin-player-company">
+        <form action="/indonesia/admin/{{$game.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="_method" type="hidden" value="PUT" />
+                        <input name="action" type="hidden" value="admin-player-new-company" />
+                </div>
+                <div>
+                        <label for="admin-player-new-company-slot">Slot:</label>
+                        <select id="admin-player-new-company-slot" name="Slot">
+                                <option value="none" selected="selected">None</option>
+                                {{range $i, $slot := $player.Slots}}
+                                {{$index := inc $i}}
+                                <option value="{{$i}}">{{$index}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-player-new-company-deed">Deed:</label>
+                        <select id="admin-player-new-company-deed" name="Deed">
+                                <option value="-1" selected="selected">None</option>
+                                {{range $i, $d := $game.Deeds}}
+                                <option value={{$d.IDString}}>{{$d}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div class="center">
+                        <input type="submit" value="Update" class="top-padding mybutton" />
+                </div>
+        </form>
+</div>
+{{end}}

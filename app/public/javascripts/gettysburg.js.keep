@@ -1,0 +1,459 @@
+var Side = function(s) {
+        if (s == 2) {
+                return "confederate";
+        } else {
+                return "union";
+        }
+}
+
+var Disc = function(side, forced, doubl) {
+        var self = this;
+        self.side = ko.observable(side);
+        self.forced = ko.observable(forced);
+        self.double = ko.observable(doubl);
+        self.link = ko.computed(function() {
+                if (self.forced()) {
+                        return "/images/gettysburg/" + self.side() + "-forced-pass-disc.png";
+                } else if (self.double()) {
+                        return "/images/gettysburg/" + self.side() + "-double-order-disc.png";
+                } else {
+                        return "/images/gettysburg/" + self.side() + "-order-disc.png";
+                }
+        });
+}
+
+var Player = function(player) {
+        var self = this;
+        self.id = ko.observable(player.p.id);
+        self.side = ko.observable(player.side);
+        self.user = ko.observable(player.p.user);
+        self.gravatar = ko.observable(player.p.gravatar);
+        self.link = ko.observable(player.p.link);
+        self.command_blocks = ko.observableArray(ko.utils.arrayMap(player.command_blocks, function(block) {
+                return new CommandBlock(block);
+        }));
+        self.discs = ko.observableArray(ko.utils.arrayMap(player.discs, function(disc) {
+                switch (disc) {
+                        case 1:
+                                return new Disc("confederate", false, false);
+                                break;
+                        case 2:
+                                return new Disc("confederate", false, true);
+                                break;
+                        case 3:
+                                return new Disc("union", false, false);
+                                break;
+                        case 4:
+                                return new Disc("union", true, false);
+                                break;
+                        default:
+                                return new Disc("none", false, false);
+                }
+        }));
+        self.single_order_discs = ko.computed(function() {
+                return ko.utils.arrayFilter(self.discs(), function(disc) {
+                        return !disc.double();
+                });
+        });
+        self.double_order_discs = ko.computed(function() {
+                return ko.utils.arrayFilter(self.discs(), function(disc) {
+                        return disc.double();
+                });
+        });
+}
+
+var Unit = function(unit) {
+        var self = this;
+        self.side = (unit && unit.side) ? ko.observable(unit.side) : ko.observable();
+        self.rank = (unit && unit.rank) ? ko.observable(unit.rank) : ko.observable();
+        self.kind = (unit && unit.kind) ? ko.observable(unit.kind) : ko.observable();
+        self.link = ko.computed(function() {
+                return "/images/gettysburg/" + self.side() + "-" + self.rank() + "-" + self.kind() + ".png";
+        });
+        self.update = function(u) {
+                if (u && u.side) { self.side(u.side) };
+                if (u && u.rank) { self.side(u.rank) };
+                if (u && u.kind) { self.side(u.kind) };
+        };
+}
+
+var Area = function(area) {
+        var self = this;
+        self.id = (area && (area.id >= 0)) ? ko.observable(area.id) : ko.observable();
+        self.units = (area && area.units) ? ko.observableArray(ko.utils.arrayMap(area.units, function(unit) {
+                return new Unit(unit);
+        })) : ko.observableArray();
+        self.command_block = (area && area.command_block) ? ko.observable(new CommandBlock(area.command_block)) : ko.observable();
+        self.id_string = ko.computed(function() {
+                return "area-" + self.id();
+        });
+
+        self.update = function(a) {
+                if (a.id >= 0) {
+                        self.id(a.id);
+                }
+                if (a.units) {
+                        self.units(a.units);
+                        self.valueHasMutated();
+                }
+                if (a.command_block) {
+                        self.command_block(new CommandBlock(a.command_block));
+                }
+        }
+};
+
+
+var CommandBlock = function(block) {
+        var self = this;
+        self.side = (block && block.side) ? ko.observable(block.side) : ko.observable();
+        self.value = (block && block.value) ? ko.observable(block.value) : ko.observable();
+        self.face_up = (block && block.value) ? ko.observable(block.face_up) : ko.observable();
+        self.link = ko.computed(function() {
+                if (self.face_up()) {
+                        return "/images/gettysburg/" + Side(self.side()) + "-command-block-" + self.value() + ".png";
+                } else {
+                        return "/images/gettysburg/" + Side(self.side()) + "-command-block-blank.png"
+                }
+        });
+}
+
+var GameViewModel = function() {
+        // Data
+        var self = this;
+        self.id = ko.observable();
+        self.title = ko.observable();
+        self.turn = ko.observable();
+        self.turn_name = ko.observable("July 1");
+        self.turn_class = ko.computed(function() {
+                if (self.turn_name()) {
+                        return self.turn_name().replace(/ /g,'-').toLowerCase();
+                } else {
+                        return "none";
+                }
+        })
+        self.phase_name = ko.observable("Actions");
+        self.round = ko.observable(0);
+        self.num_players = ko.observable();
+        self.cp_user_indices = ko.observable();
+        self.players = ko.observableArray();
+        self.current_player = ko.computed(function() {
+                if (self.cp_user_indices()) {
+                        return ko.utils.arrayFirst(self.players(), function(player) {
+                                return player.id() == self.cp_user_indices()[0];
+                        });
+                };
+        });
+        self.status = ko.observable();
+        self.areas = ko.observableArray();
+        self.period = ko.observable(0);
+        self.period_name = ko.computed(function() {
+                switch (self.period()) {
+                        case 1:
+                                return "Morning";
+                        case 2:
+                                return "Mid-Day";
+                        case 3:
+                                return "Afternoon"; 
+                        case 4:
+                                return "Night";
+                        default:
+                                return "None";
+                }
+        });
+        self.confederate_discs = ko.observableArray();
+        self.union_discs = ko.observableArray();
+        self.forced_pass_discs = ko.observableArray();
+        self.confederate_player = ko.computed(function() {
+                if (self.players()[0]) {
+                        return self.players()[0];
+                }
+        });
+        self.union_player = ko.computed(function() {
+                if (self.players()[1]) {
+                        return self.players()[1];
+                }
+        });
+        self.notices = ko.observableArray();
+        self.errors = ko.observableArray();
+
+        self.update = function(data) {
+                $("#dialog").dialog("destroy");
+                $("#dialog").remove();
+                if (data.id) {
+                        self.id(data.id);
+                };
+                if (data.title) {
+                        self.title(data.title);
+                };
+                if (data.turn) {
+                        self.turn(data.turn);
+                };
+                if (data.turn_name) {
+                        self.turn_name(data.turn_name);
+                };
+                if (data.phase_name) {
+                        self.phase_name(data.phase_name);
+                };
+                if (data.round) {
+                        self.round(data.round);
+                };
+                if (data.num_players) {
+                        self.num_players(data.num_players);
+                };
+                if (data.cp_user_indices) {
+                        self.cp_user_indices(data.cp_user_indices);
+                };
+                if (data.status) {
+                        self.status(data.status);
+                };
+                if (data.players) {
+                        self.players(ko.utils.arrayMap(data.players, function(player) {
+                                return new Player(player);
+                        }));
+                }
+                if (data.areas) {
+                        self.areas(ko.utils.arrayMap(data.areas, function(area) {
+                                return new Area(area);
+                        }));
+                };
+                if (data.period) {
+                        self.period(data.period);
+                };
+                if (data.confederate_discs) {
+                        self.confederate_discs(ko.utils.arrayMap(data.confederate_discs, function(disc) {
+                                return new Disc("confederate", false, false);
+                        }));
+                };
+                if (data.union_discs) {
+                        self.union_discs(ko.utils.arrayMap(data.union_discs, function(disc) {
+                                return new Disc("union", false, false);
+                        }));
+                };
+                if (data.forced_pass_discs) {
+                        self.forced_pass_discs(ko.utils.arrayMap(data.forced_pass_discs, function(disc) {
+                                return new Disc("union", true, false);
+                        }));
+                };
+                if (data.notices) {
+                        self.notices(data.notices);
+                };
+                if (data.errors) {
+                        self.errors(data.errors);
+                };
+                if (data.area) {
+                        var i = data.area.id;
+                        self.areas()[i].update(data.area);
+                }
+                if (data.cb_index) {
+                        var block = self.current_player().command_blocks()[data.cb_index];
+                        self.current_player().commandBlocks.remove(block);
+                }
+        }
+
+        MyAjax.JSONUpdate = self.update;
+
+        // Load initial state from server
+        var url = window.location.href;
+        $.getJSON(url+"/json", function(data) {
+                self.update(data);
+        });    
+}
+
+// Activates knockout.js
+$(function() {
+        ko.applyBindings(new GameViewModel());
+});
+
+$(function() {
+        //        InitDeedTips();
+        //        InitGoodsTips();
+        //        InitShipTips();
+        //        InitCityTips();
+        InitClickMap();
+        //        InitZoomButtons();
+});
+
+MyAjax.Update = function(data) {
+        this.update(data);
+        //        InitDeedTips();
+        //        InitGoodsTips();
+        //        InitShipTips();
+        //        InitCityTips();
+        InitClickMap();
+        //        InitZoomButtons();
+        $('table.strippedDialogDataTable').dataTable( {
+                "bJQueryUI": true,
+                "sPaginationType": "full_numbers",
+                "bPaginate": false,
+                "bLengthChange": false,
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "oLanguage": {
+                        "sEmptyTable": "No data available in table"
+                }
+        });
+}; 
+
+function InitClickMap() {
+        $(".clickmap").mapster({
+                scaleMap: true,
+                fill: false,
+                stroke: true,
+                strokeWidth: 10,
+                strokeOpacity: 0.75,
+                strokeColor: 'ffff00',
+                onClick: mapClickHandler,
+                mapKey: 'data-key',
+                singleSelect: true,
+                isDeselectable: false,
+                showToolTip: true,
+                areas:  [
+                { key: "area-0",
+                        toolTip: "Area: 0",
+                },
+                { key: "area-1",
+                        toolTip: "Area: 1",
+                },
+                { key: "area-2",
+                        toolTip: "Area: 2",
+                },
+                { key: "area-3",
+                        toolTip: "Area: 3",
+                },
+                { key: "area-4",
+                        toolTip: "Area: 4",
+                },
+                { key: "area-5",
+                        toolTip: "Area: 5",
+                },
+                { key: "area-6",
+                        toolTip: "Area: 6",
+                },
+                { key: "area-7",
+                        toolTip: "Area: 7",
+                },
+                { key: "area-8",
+                        toolTip: "Area: 8",
+                },
+                { key: "area-9",
+                        toolTip: "Area: 9",
+                },
+                { key: "area-10",
+                        toolTip: "Area: 10",
+                },
+                { key: "area-11",
+                        toolTip: "Area: 11",
+                },
+                { key: "area-12",
+                        toolTip: "Area: 12",
+                },
+                { key: "area-13",
+                        toolTip: "Area: 13",
+                },
+                { key: "area-14",
+                        toolTip: "Area: 14",
+                },
+                { key: "area-15",
+                        toolTip: "Area: 15",
+                },
+                { key: "area-16",
+                        toolTip: "Area: 16",
+                },
+                { key: "area-17",
+                        toolTip: "Area: 17",
+                },
+                { key: "area-18",
+                        toolTip: "Area: 18",
+                },
+                { key: "area-19",
+                        toolTip: "Area: 19",
+                },
+                { key: "area-20",
+                        toolTip: "Area: 20",
+                },
+                { key: "area-21",
+                        toolTip: "Area: 21",
+                },
+                { key: "area-22",
+                        toolTip: "Area: 22",
+                },
+                { key: "area-23",
+                        toolTip: "Area: 23",
+                },
+                { key: "area-24",
+                        toolTip: "Area: 24",
+                },
+                { key: "area-25",
+                        toolTip: "Area: 25",
+                },
+                { key: "area-26",
+                        toolTip: "Area: 26",
+                },
+                { key: "area-27",
+                        toolTip: "Area: 27",
+                },
+                { key: "area-28",
+                        toolTip: "Area: 28",
+                },
+                { key: "area-29",
+                        toolTip: "Area: 29",
+                },
+                { key: "area-30",
+                        toolTip: "Area: 30",
+                },
+                { key: "area-31",
+                        toolTip: "Area: 31",
+                },
+                { key: "area-32",
+                        toolTip: "Area: 32",
+                },
+                { key: "area-33",
+                        toolTip: "Area: 33",
+                },
+                { key: "area-34",
+                        toolTip: "Area: 34",
+                },
+                { key: "area-35",
+                        toolTip: "Area: 35",
+                },
+                { key: "area-36",
+                        toolTip: "Area: 36",
+                },
+                { key: "area-37",
+                        toolTip: "Area: 37",
+                },
+                { key: "area-38",
+                        toolTip: "Area: 38",
+                },
+                { key: "area-39",
+                        toolTip: "Area: 39",
+                },
+                { key: "area-40",
+                        toolTip: "Area: 40",
+                },
+                { key: "area-41",
+                        toolTip: "Area: 41",
+                },
+                { key: "area-42",
+                        toolTip: "Area: 42",
+                },
+                { key: "area-43",
+                        toolTip: "Area: 43",
+                },
+                { key: "area-44",
+                        toolTip: "Area: 44",
+                },
+                { key: "area-45",
+                        toolTip: "Area: 45",
+                },
+                { key: "area-46",
+                        toolTip: "Area: 46",
+                },
+                { key: "area-47",
+                        toolTip: "Area: 47",
+                },
+                ]
+        });
+};

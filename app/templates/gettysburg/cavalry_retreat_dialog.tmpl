@@ -1,0 +1,34 @@
+<div class="dialog-content" data-bind="with: selectedArea">
+        <div>
+                You can retreat cavalry to ignore one cube of newly assigned damage.
+        </div>
+        <table class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th>Unit</th>
+                                <th>Damage</th>
+                                <th>New Damage</th>
+                                <th>Total</th>
+                                <th>Retreat To</th>
+                                <th>Retreat?</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <tr data-bind="foreach: retreatableCav()">
+                                <td>
+                                        <img class="unit" data-bind="attr: { src: link() }" />
+                                </td>
+                                <td data-bind="text: damage"></td>
+                                <td data-bind="text: newDamage"></td>
+                                <td data-bind="text: totalDamage"></td>
+                                <td data-bind="text: retreatTo() == -1 ? '&mdash;' : retreatTo "></td>
+                                <td>
+                                        <input data-bind="checked: retreat" type='checkbox'> 
+                                </td>
+                        </tr>
+                </tbody>
+        </table>
+        <button data-bind="jqButton: true, click: function() { $root.put({ 'action': 'cavalry-retreat', 'target': key, 'units': ko.toJSON(retreatableCav) }) }">
+                Retreat
+        </button>
+</div>

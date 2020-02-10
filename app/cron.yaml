@@ -1,0 +1,30 @@
+cron:
+- description: Bi-Monthly Ratings Update For Indonesia
+  url: /ratings/update/indonesia
+  schedule: 7 of feb, apr, jun, aug, oct, dec 01:00
+  timezone: America/Indiana/Indianapolis
+
+- description: Bi-Monthly Ratings Update For Tammany Hall
+  url: /ratings/update/tammany
+  schedule: 7 of jan, mar, may, jul, sep, nov 01:00
+  timezone: America/Indiana/Indianapolis
+
+- description: Bi-Monthly Ratings Update For Guild of Thieves
+  url: /ratings/update/got
+  schedule: 14 of feb, apr, jun, aug, oct, dec 01:00
+  timezone: America/Indiana/Indianapolis
+
+- description: Quarterly Ratings Update For Confucius
+  url: /ratings/update/confucius
+  schedule: 7 of jan, apr, jul, oct 01:00
+  timezone: America/Indiana/Indianapolis
+
+- description: Quarterly Ratings Update For After The Flood
+  url: /ratings/update/atf
+  schedule: 7 of feb, may, aug, nov 01:00
+  timezone: America/Indiana/Indianapolis
+
+- description: Daily Notifications
+  url: /games/running/notifications
+  schedule: every day 00:00
+  timezone: America/Indiana/Indianapolis

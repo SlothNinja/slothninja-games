@@ -1,0 +1,77 @@
+<div id="main-content"> 
+        <div>
+                {{with $u := $.User}}
+                {{$uid := $u.ID}}
+                <div class="heading">
+                        <div>Account Details For {{$u.Name}}</div>
+                </div> 
+                <div class="content-box" style="height:15em"> 
+                        <div class="content" style="height:11em">
+                                <div class="content" style="width:120px;float:left"> 
+                                        <div class="left-padding">
+                                                <img height=90px width=90px src="{{$u.Gravatar}}" alt="Gravatar" class="black-border" />
+                                        </div>
+                                </div>
+                                <div class="content" style="width:250px;float:left"> 
+                                        <div>
+                                                <strong>Name:</strong> <span>{{$u.Name}}</span>
+                                        </div>
+                                        {{if $u.IsCurrent $.Context | or $.IsAdmin}}
+                                        <div> 
+                                                <strong>Email:</strong> <span>{{$u.Email}}</span>
+                                        </div>
+                                        <div>
+                                                <strong>Email Notifications:</strong>
+                                                <span>{{if $u.EmailNotifications}}Yes{{else}}No{{end}}</span>
+                                        </div>
+                                        {{end}}
+                                </div>
+                                <div class="content" style="float:left">
+                                        {{with $stats := $.Stats}}
+                                        {{if $stats.Turns}}
+                                        <div>
+                                                <strong>Turns Taken:</strong> {{$stats.Turns}}
+                                        </div>
+                                        <div>
+                                                <strong>Average Time per Turn:</strong> {{$stats.AverageString}}
+                                        </div>
+                                        <div>
+                                                <strong>Longest Time for a Turn:</strong> {{$stats.LongestString}}
+                                        </div>
+                                        <div>
+                                                <strong>Last Completed Turn:</strong> {{$stats.SinceLastString}} ago
+                                        </div>
+                                        {{end}}
+                                        {{end}}
+                                </div>
+                        </div>
+                        <div class="content" style="height:3em">
+                                {{if $u.IsCurrent $.Context | or $.IsAdmin}}
+                                <div style="float:left;padding:2px 0px 0px 10px">
+                                        <a class="mybutton" href="/user/edit/{{$uid}}">Edit</a>
+                                </div>
+                                {{end}}
+                                {{if $.IsAdmin}}
+                                <div class="left-padding" style="float:left">
+                                        <form action="/ratings/userUpdate/{{$uid}}" id="ratings_update" method="post">
+                                                <div>
+                                                        <input id="ratings_update_submit" class="mybutton" name="commit" type="submit" value="Update Ratings" />
+                                                </div>
+                                        </form>
+                                </div>
+                                {{end}}
+                        </div>
+                </div>
+                {{end}}
+                <div class="content-box"> 
+                        <div class="content">
+                                {{template "user/rating_table" $}}
+                        </div>
+                </div>
+                <div class="content-box"> 
+                        <div class="content">
+                                {{template "user/games_table" .}}
+                        </div>
+                </div>
+        </div>
+</div>

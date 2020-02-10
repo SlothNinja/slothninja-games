@@ -1,0 +1,33 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $.Game.SelectedArea}}
+<div id="tabs" data-bind="jqTabs: true">
+        <ul>
+                {{if $cp.CanPlaceCommandBlockIn $area}}
+                <li><a href="#tabs-place-command-block">Place Block</a></li>
+                {{end}}
+                {{if $cp.CanPlaceOrderDiscIn $area}}
+                <li><a href="#tabs-place-order-disc">Place Disc</a></li>
+                {{end}}
+                {{if $cp.CanRemoveCommandBlockIn $area}}
+                <li><a href="#tabs-remove-command-block">Remove Block</a></li>
+                {{end}}
+                {{if $cp.CanEntryBoxMoveIn $area}}
+                <li><a href="#tabs-entry-box-move">EB Move</a></li>
+                {{end}}
+                {{if $cp.CanResolveAssaultIn $area}}
+                <li><a href="#tabs-resolve-assault">Resolve Assault</a></li>
+                {{end}}
+                <li><a href="#tabs-finish">Undo/Finish</a></li>
+                <li><a href="#tabs-admin-area">Admin Area</a></li>
+        </ul>
+        {{template "gettysburg/actions/place_command_block_form" $}}
+        {{template "gettysburg/place_order_disc_form" $}}
+        {{template "gettysburg/actions/remove_command_block_form" $}}
+        {{if $cp.CanEntryBoxMoveIn $area}}
+        {{template "gettysburg/actions/entry_box_move_form"}}
+        {{end}}
+        {{template "gettysburg/resolve_assault_form" $}}
+        {{template "gettysburg/actions/finish_turn_form"}}
+        {{template "gettysburg/admin/area_form"}}
+</div>

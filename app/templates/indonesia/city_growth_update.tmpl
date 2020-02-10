@@ -1,0 +1,13 @@
+{{$game := $.Game}}
+{{$area := $game.SelectedArea}}
+{{$cp := $game.CurrentPlayer}}
+{{$company := $game.SelectedCompany}}
+{{$area := $game.SelectedArea}}
+<div>
+        {{template "shared/flashbox" .}}
+        {{template "shared/gamelog3" $}}
+        {{range $i, $city := $game.Cities}}
+        {{template "indonesia/area" $city.Area}}
+        {{end}}
+</div>
+{{template "indonesia/finish_turn_dialog" $}}

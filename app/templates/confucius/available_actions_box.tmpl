@@ -1,0 +1,131 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+<div class="available-actions-box"> 
+        <fieldset>
+                <legend>
+                        Available
+                        {{if $.ExtraAction}}
+                        Extra
+                        {{end}}
+                        Actions
+                </legend> 
+                {{with $p := $g.CurrentPlayer}}
+                {{if not $p.PerformedAction}}
+                {{if $g.EnableActions $ctx}}
+                <div class="first-action-set">
+                        <div class="player-action" id="bribe-official">
+                                <div class="action-link {{if $g.EnableBribeOfficial $ctx}}{{else}}disabled{{end}}">Bribe Official</div>
+                        </div>
+                        <div class="player-action" id="nominate-student">
+                                <div class="action-link {{if $g.EnableNominateStudent $ctx}}{{else}}disabled{{end}}">Nominate Student</div>
+                        </div>
+                        <div class="player-action" id="buy-junks">
+                                <div class="action-link {{if $g.EnableBuyJunks $ctx}}{{else}}disabled{{end}}">Buy Junks</div>
+                        </div>
+                        <div class="player-action" id="recruit-army">
+                                <div class="action-link {{if $g.EnableRecruitArmy $ctx}}{{else}}disabled{{end}}">Recruit Army</div>
+                        </div>
+                </div>
+                <div class="second-action-set">
+                        <div class="player-action" id="secure-official">
+                                <div class="action-link {{if $g.EnableSecureOfficial $ctx}}{{else}}disabled{{end}}">Secure Official</div>
+                        </div>
+                        <div class="player-action" id="force-exam">
+                                <div class="action-link {{if $g.EnableForceExam $ctx}}{{else}}disabled{{end}}">Force Exam</div>
+                        </div>
+                        <div class="player-action" id="start-voyage">
+                                <div class="action-link {{if $g.EnableStartVoyage $ctx}}{{else}}disabled{{end}}">Start Voyage</div>
+                        </div>
+                        <div class="player-action" id="invade-land">
+                                <div class="action-link {{if $g.EnableInvadeLand $ctx}}{{else}}disabled{{end}}">Invade Land</div>
+                        </div>
+                        <div class="player-action" id="pass">
+                                <div class="action-link {{if $g.EnablePass $ctx}}{{else}}disabled{{end}}">Pass</div>
+                        </div>
+                </div>
+                <div class="third-action-set">
+                        <div class="player-action" id="buy-gift">
+                                <div class="action-link {{if $g.EnableBuyGift $ctx}}{{else}}disabled{{end}}">Buy Gift</div>
+                        </div>
+                        <div class="player-action" id="transfer-influence">
+                                <div class="action-link {{if $g.EnableTransferInfluence $ctx | not}}disabled{{end}}">Transfer Influence</div>
+                        </div>
+                        <div class="player-action" id="commercial">
+                                <div class="action-link {{if $g.EnableCommercial $ctx}}{{else}}disabled{{end}}">Commercial</div>
+                        </div>
+                        <div class="player-action" id="no-action">
+                                <div class="action-link {{if $g.EnableNoAction $ctx}}{{else}}disabled{{end}}">No Action</div>
+                        </div>
+                        <div class="player-action" id="emperor-reward">
+                                <div class="action-link {{if $g.EnableEmperorReward $ctx | not}}disabled{{end}}">Emperor Reward</div>
+                        </div>			
+                </div>
+                <div class="fourth-action-set">
+                        <div class="player-action" id="give-gift">
+                                <div class="action-link {{if $g.EnableGiveGift $ctx}}{{else}}disabled{{end}}">Give Gift</div>
+                        </div>
+                        <div class="player-action" id="petition-emperor">
+                                <div class="action-link {{if $g.EnablePetitionEmperor $ctx}}{{else}}disabled{{end}}">Petition Emperor</div>
+                        </div>
+                        <div class="player-action" id="tax-income">
+                                <div class="action-link {{if $g.EnableTaxIncome $ctx}}{{else}}disabled{{end}}">Tax Income</div>
+                        </div>
+                        <div class="player-action" id="imperial-favour">
+                                <div class="action-link disabled">Imperial Favour</div>
+                        </div>
+                </div>
+                {{end}}
+                {{if $g.EnableDiscard $ctx}}
+                <div class="player-action" id="discard">
+                        <div class="action-link">Discard Confucius Cards</div>
+                </div>
+                {{end}}
+                {{if $g.EnableChooseChiefMinister $ctx}}
+                <div class="player-action" id="choose-chief-minister">
+                        <div class="action-link">Choose Chief Minister</div>
+                </div>
+                {{end}}
+                {{if $g.EnableTutorStudent $ctx}}
+                <div class="player-action" id="tutor-student">
+                        <div class="action-link">Tutor Student</div>
+                </div>
+                {{end}}
+                {{if $g.EnablePlaceStudent $ctx}}
+                <div class="player-action" id="place-student">
+                        <div class="action-link">Place Student</div>
+                </div>
+                {{end}}
+                {{if $g.EnableTempTransfer $ctx}}
+                <div class="player-action" id="temp-transfer">
+                        <div class="action-link">Temp Transfer</div>
+                </div>
+                {{end}}
+                {{end}}
+                {{end}}
+        </fieldset> 
+        {{/*
+        <div class="button-set"> 
+                <div class="icons">
+                        <div id="options" class="ui-state-default ui-corner-all" title="Options" style="width:16px; height:16px">
+                                <span class="ui-icon ui-icon-wrench"></span>
+                        </div>
+                </div>
+                <form action="/confucius/game/{{$g.ID}}/finish_turn" id="confucius_finish_turn" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                        </div> 
+                        <div>
+                                <input class="mybutton" id="finish-turn" name="commit" type="submit" value="Finish Turn" />
+                        </div>
+                </form> 
+                <form action="/confucius/game/{{$g.ID}}/undo_turn" id="confucius_undo_turn" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                        </div> 
+                        <div>
+                                <input class="mybutton" id="undo-turn" name="commit" type="submit" value="Undo Turn" /> 
+                        </div>
+                </form> 
+        </div> 
+        */}}
+</div>

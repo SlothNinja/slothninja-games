@@ -1,0 +1,21 @@
+{{$cm := .map}}
+{{$g := .g}}
+{{$link := .link}}
+
+{{with $m := .message}}
+        <div class="messagelog-entry {{$m.Color $cm}}">
+                <div class="header">
+                        {{if $link}}
+                                {{$link}} wrote @ {{Time $m.UpdatedAt}} on {{Date $m.UpdatedAt}}
+                        {{else}}
+                                {{$g.UserLinkFor $m.CreatorID}} wrote @ {{Time $m.UpdatedAt}} on {{Date $m.UpdatedAt}}
+                        {{end}}
+                </div>
+                <hr/>
+                <div class="action">
+                        <div>
+                                {{$m.Message}}
+                        </div>
+                </div>
+        </div>
+{{end}}

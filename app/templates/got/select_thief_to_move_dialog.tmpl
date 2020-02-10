@@ -1,0 +1,12 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+<div id="dialog" title="Select Thief">
+        <div class="dialog-content" style="width:150px">
+                {{if $game.JewelsPlayed}}
+                <p>Select thief to move with Jewels({{$game.PlayedCard.Type}}) card.</p>
+                {{else}}
+                <p>Select thief to move with {{$game.PlayedCard.Type}} card.</p>
+                {{end}}
+        </div>
+</div>

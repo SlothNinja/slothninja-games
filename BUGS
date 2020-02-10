@@ -1,0 +1,6 @@
+Indonesia:
+
+- Merger phase.  Selecting 1 company then passing appears to mark company as merged for round.
+- Autopass shipping companies that can't expand.
+- Autopass other companies that can't do anything.
+- Look into why someone was able to expand Hull Size twice.  Suspect double-click.

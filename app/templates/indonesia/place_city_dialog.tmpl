@@ -1,0 +1,17 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$cards := $cp.CardsForCurrentEra}}
+<div id="dialog" title="Place Size 1 City">
+        <div class="dialog-content" style="width:200px">
+                {{if len $cards | equal 1}}
+                <p>Select a shore area from one of the areas identified on your city card.</p>
+                {{else}}
+                <p>Select a shore area from one of the areas identified on your city cards.</p>
+                {{end}}
+                {{range $card := $cards}}
+                <div class="top-padding">
+                        <img class='card' src='/images/indonesia/city-card-{{$card.IDString}}.png'/>
+                </div>
+                {{end}}
+        </div>
+</div>

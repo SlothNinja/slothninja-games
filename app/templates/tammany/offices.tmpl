@@ -1,0 +1,13 @@
+<div id="city-offices">
+        <div class="content">
+                {{range $index, $office := $.Game.AssignableOffices}}
+                <div id={{$office.IDString}}>
+                        {{with $player := $.Game.PlayerByOffice $office}}
+                        <div class="content">
+                                {{$player.BossImage}}
+                        </div>
+                        {{end}}
+                </div>
+                {{end}}
+        </div>
+</div>

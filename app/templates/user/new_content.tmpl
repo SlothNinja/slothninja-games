@@ -1,0 +1,30 @@
+<div id="main-content"> 
+        <div class="game-table">
+                {{with $user := $.User}}
+                <div class="heading">
+                        <div>Create New User Account For {{$user.Email}}</div>
+                </div> 
+                <div class="content-box"> 
+                        <div class="content"> 
+                                <div>
+                                        <img src="{{$user.Gravatar}}" alt="Gravatar" class="black-border" />
+                                </div>
+                                <div>
+                                        <form action="/user" class="new_user" id="new_user" method="post">
+                                                <div> 
+                                                        <label for="user-name"><strong>Name:</strong></label>
+                                                        <input id="user-name" name="user-name" size="30" type="text" value="{{$user.Name}}" /> 
+                                                </div>
+                                                <div> 
+                                                        <strong>Email:</strong> <span>{{$user.Email}}</span>
+                                                </div>
+                                                <div>
+                                                        <input id="user_submit" class="mybutton" name="commit" type="submit" value="Create Account" />
+                                                </div>
+                                        </form>
+                                </div>
+                        </div>
+                </div>
+                {{end}}
+        </div>
+</div>

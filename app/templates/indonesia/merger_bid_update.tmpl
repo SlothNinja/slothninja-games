@@ -1,0 +1,10 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+{{$ctx := $.Context}}
+
+<div>
+        {{template "shared/flashbox" .}}
+        {{template "shared/gamelog3" $}}
+        {{template "shared/last_actions_list3" data "g" $g "p" $cp "ctx" $ctx}}
+</div>
+{{template "indonesia/finish_turn_dialog" $}}

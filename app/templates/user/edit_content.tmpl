@@ -1,0 +1,94 @@
+<div id="main-content"> 
+        <div>
+                {{with $u := $.User}}
+                {{$uid := $u.ID}}
+                <div class="heading">
+                        <div>Edit Account Details For {{$u.Name}}</div>
+                </div> 
+                <div class="content-box" style="height:15em"> 
+                        <div class="content" style="height:11em"> 
+                                <div class="content" style="width:120px;float:left">
+                                        <div class="left-padding">
+                                                <img height=90px width=90px src="{{$u.Gravatar}}" alt="Gravatar" class="black-border" />
+                                        </div>
+                                </div>
+                                <div class="content" style="width:250px;float:left">
+                                        <form action="/user/update/{{$uid}}" class="edit_user" id="edit_user" method="post">
+                                                <div style="margin:0;padding:0;display:inline">
+                                                        <input name="_method" type="hidden" value="PUT" />
+                                                </div> 
+                                                {{if $.IsAdmin}}
+                                                <div> 
+                                                        <label for="user-name"><strong>Name:</strong></label>
+                                                        <input id="user-name" name="name" size="30" type="text" value="{{$u.Name}}" /> 
+                                                </div>
+                                                {{else}}
+                                                <div> 
+                                                        <strong>Name:</strong> <span>{{$u.Name}}</span>
+                                                        <input name="name" type="hidden" value={{$u.Name}} />
+                                                </div>
+                                                {{end}}
+                                                {{if $.IsAdmin}}
+                                                <div> 
+                                                        <label for="user-email">Email:</label>
+                                                        <input id="user-email" name="email" size="30" type="text" value="{{$u.Email}}" /> 
+                                                </div>
+                                                {{else}}
+                                                {{if $u.IsCurrent $.Context | or $.IsAdmin}}
+                                                <div> 
+                                                        <strong>Email:</strong> <span>{{$u.Email}}</span>
+                                                </div>
+                                                {{end}}
+                                                {{end}}
+                                                <div>
+                                                        <label for="emailNotifications"><strong>Email Notifications:</strong></label>
+                                                        <select id="emailNotifications" name="emailNotifications">
+                                                                {{if $u.EmailNotifications}}
+                                                                <option value="false">No</option>
+                                                                <option value="true" selected="selected">Yes</option>
+                                                                {{else}}
+                                                                <option value="false" selected="selected">No</option>
+                                                                <option value="true">Yes</option>
+                                                                {{end}}
+                                                        </select>
+                                                </div>
+                                                <div>&nbsp;</div>
+                                                <div>&nbsp;</div>
+                                                <div>
+                                                        <input id="user_submit" class="mybutton" name="commit" type="submit" value="Update" />
+                                                </div>
+                                        </form>
+                                </div>
+                                <div class="content" style="float:left">
+                                        {{with $stats := $.Stats}}
+                                        {{if $stats.Turns}}
+                                        <div>
+                                                <strong>Turns Taken:</strong> {{$stats.Turns}}
+                                        </div>
+                                        <div>
+                                                <strong>Average Time per Turn:</strong> {{$stats.AverageString}}
+                                        </div>
+                                        <div>
+                                                <strong>Longest Time for a Turn:</strong> {{$stats.LongestString}}
+                                        </div>
+                                        <div>
+                                                <strong>Last Completed Turn:</strong> {{$stats.SinceLastString}} ago
+                                        </div>
+                                        {{end}}
+                                        {{end}}
+                                </div>
+                        </div>
+                </div>
+                <div class="content-box"> 
+                        <div class="content">
+                                {{template "user/rating_table" $}}
+                        </div>
+                </div>
+                <div class="content-box"> 
+                        <div class="content">
+                                {{template "user/games_table" .}}
+                        </div>
+                </div>
+                {{end}}
+        </div>
+</div>

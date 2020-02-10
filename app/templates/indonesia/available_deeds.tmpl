@@ -1,0 +1,19 @@
+{{$g := $.Game}}
+{{$cp := $g.CurrentPlayer}}
+<div id="available-deeds">
+        <div class="container">
+                {{range $i, $deed := $g.AvailableDeeds}}
+                {{$klass := $deed.IDString}}
+                {{if $cp}}
+                        {{$isAdminOrCurrent := $cp.IsCurrentUser $.Context | or $.IsAdmin}}
+                <div id="available-deed-{{$i}}" class="{{$klass}} {{if and $isAdminOrCurrent $cp.CanAcquireCompany}}clickable{{end}}" data-deedtip='{{$deed.Tip}}'>
+                        <img class="deed" src="/images/indonesia/{{$klass}}.png" />
+                </div>
+                {{else}}
+                <div id="available-deed-{{$i}}" class="{{$klass}}" data-deedtip='{{$deed.Tip}}'>
+                        <img class="deed" src="/images/indonesia/{{$klass}}.png" />
+                </div>
+                {{end}}
+                {{end}}
+        </div>
+</div>

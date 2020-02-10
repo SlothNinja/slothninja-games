@@ -1,0 +1,12 @@
+{{$player := .}}
+<div id="player-discard-{{$player.ID}}">
+        {{with $l := len $player.DiscardPile}}
+        {{$card := index $player.DiscardPile 0}}
+        {{$name := $card.Type.IDString}}
+        {{$tip := $card.ToolTip}}
+        <div data-tip="{{$tip}}" class='pull-left'>
+                <div class="card {{$name}}"></div>
+                <div class='center'>{{$l}}</div>
+        </div>
+        {{end}}
+</div>

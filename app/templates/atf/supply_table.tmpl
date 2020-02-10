@@ -1,0 +1,82 @@
+{{$game := $.Game}}
+<div id="supply-table">
+        {{if $.Admin}}
+        <div id="admin-supply-table" class="mybutton clickable">
+                Admin Supply
+        </div>
+        {{end}}
+        <table class='strippedDataTable'>
+                <thead>
+                        <tr>
+                                <th class="worker">Workers</th>
+                                <th class="army">Armies</th>
+                                <th class="wood">Wood</th>
+                                <th class="metal">Metal</th>
+                                <th class="tool">Tool</th>
+                                <th class="oil">Oil</th>
+                                <th class="gold">Gold</th>
+                                <th class="lapis">Lapis</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                                <td class="worker">
+                                        {{template "atf/supply_workers" $game.Players}}
+                                </td>
+                                <td class="army">
+                                        <table>
+                                                <tr>
+                                                        {{range $index, $player := $game.Players}}
+                                                        <td>
+                                                                {{template "atf/supply_armies" $player}}
+                                                        </td>
+                                                        {{end}}
+                                                </tr>
+                                        </table>
+                                </td>
+                                <td>
+                                        <div id="supply-table-wood">
+                                                {{with $resources := $game.Resources}}
+                                                <img src="/images/atf/wood.png" alt="Wood" /> {{index $resources 1}}
+                                                {{end}}
+                                        </div>
+                                </td>
+                                <td>
+                                        <div id="supply-table-metal">
+                                                {{with $resources := $game.Resources}}
+                                                <img src="/images/atf/metal.png" alt="Metal" /> {{index $resources 2}}
+                                                {{end}}
+                                        </div>
+                                </td>
+                                <td>
+                                        <div id="supply-table-tool">
+                                                {{with $resources := $game.Resources}}
+                                                <img src="/images/atf/tool.png" alt="Tool" /> {{index $resources 4}}
+                                                {{end}}
+                                        </div>
+                                </td>
+                                <td>
+                                        <div id="supply-table-oil">
+                                                {{with $resources := $game.Resources}}
+                                                <img src="/images/atf/oil.png" alt="Oil" /> {{index $resources 5}}
+                                                {{end}}
+                                        </div>
+                                </td>
+                                <td>
+                                        <div id="supply-table-wood">
+                                                {{with $resources := $game.Resources}}
+                                                <img src="/images/atf/gold.png" alt="Gold" /> {{index $resources 6}}
+                                                {{end}}
+                                        </div>
+                                </td>
+                                <td>
+                                        <div id="supply-table-lapis">
+                                                {{with $resources := $game.Resources}}
+                                                <img src="/images/atf/lapis.png" alt="Lapis" /> {{index $resources 7}}
+                                                {{end}}
+                                        </div>
+                                </td>
+                        </tr>
+                </tbody>
+        </table>
+</div>

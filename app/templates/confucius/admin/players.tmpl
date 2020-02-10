@@ -1,0 +1,215 @@
+{{range $index, $player := .Players}}
+<!-- {{.Name}} Player State Form -->
+<div class="actions" id="player-{{$index}}-action">
+        <fieldset>
+                <legend>Player: {{.Name}}</legend>
+                <form action="/{{$.Stub}}/game/admin/{{$.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="action" type="hidden" value="player" />
+                                <input name="pid" type="hidden" value="{{$player.ID}}" />
+                        </div>
+                        <div class="upper-content">
+                                <div class="left-column">
+                                        <div>
+                                                <label for="id-{{$index}}">ID</label>
+                                                <input id="id-{{$index}}" name="id" type="text" value="{{$player.ID}}" />
+                                        </div>
+                                        <div>
+                                                <label for="score-{{$index}}">Score</label>
+                                                <select id="score-{{$index}}" name="score">
+                                                        {{range $value := ints 0 60}}
+                                                        <option value="{{.}}" {{if equal . $player.Score}}selected="selected"{{end}}>{{.}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="actioncubes-{{$index}}">ActionCubes</label>
+                                                <select id="actioncubes-{{$index}}" name="actioncubes">
+                                                        {{range $value := ints 0 5}}
+                                                        <option value="{{.}}" {{if equal . $player.ActionCubes}}selected="selected"{{end}}>{{.}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="giftsgiven-{{$index}}">GiftsGiven</label>
+                                                <select id="giftsgiven-{{$index}}" name="giftsgiven">
+                                                        {{range $value := ints 0 5}}
+                                                        <option value="{{$value}}" {{if equal $value $player.GiftsGiven}}selected="selected"{{end}}>{{$value}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="junks-{{$index}}">Junks</label>
+                                                <select id="junks-{{$index}}" name="junks">
+                                                        {{range $value := ints 0 25}}
+                                                        <option value="{{.}}" {{if equal . $player.Junks}}selected="selected"{{end}}>{{.}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="onvoyage-{{$index}}">OnVoyage</label>
+                                                <select id="onvoyage-{{$index}}" name="onvoyage">
+                                                        {{range $value := ints 0 25}}
+                                                        <option value="{{.}}" {{if equal . $player.OnVoyage}}selected="selected"{{end}}>{{.}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="armies-{{$index}}">Armies</label>
+                                                <select id="armies-{{$index}}" name="armies">
+                                                        {{range $value := ints 0 6}}
+                                                        <option value="{{.}}" {{if equal . $player.Armies}}selected="selected"{{end}}>{{.}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="recruitedarmies-{{$index}}">RecruitedArmies</label>
+                                                <select id="recruitedarmies-{{$index}}" name="recruitedarmies">
+                                                        {{range $value := ints 0 6}}
+                                                        <option value="{{.}}" {{if equal . $player.RecruitedArmies}}selected="selected"{{end}}>{{.}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="performedaction-{{$index}}">PerformedAction</label>
+                                                <select id="performedaction-{{$index}}" name="performedaction">
+                                                        {{if .PerformedAction}}
+                                                        <option value="false">false</option>
+                                                        <option value="true" selected="selected">true</option>
+                                                        {{else}}
+                                                        <option value="false" selected="selected">false</option>
+                                                        <option value="true">true</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="takencommercial-{{$index}}">TakenCommercial</label>
+                                                <select id="takencommercial-{{$index}}" name="takencommercial">
+                                                        {{if .TakenCommercial}}
+                                                        <option value="false">false</option>
+                                                        <option value="true" selected="selected">true</option>
+                                                        {{else}}
+                                                        <option value="false" selected="selected">false</option>
+                                                        <option value="true">true</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="passed-{{$index}}">Passed</label>
+                                                <select id="passed-{{$index}}" name="passed">
+                                                        {{if .Passed}}
+                                                        <option value="false">false</option>
+                                                        <option value="true" selected="selected">true</option>
+                                                        {{else}}
+                                                        <option value="false" selected="selected">false</option>
+                                                        <option value="true">true</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                </div>
+                                <div class="right-column">
+                                        <div>
+                                                <label for="addemperorcard-{{$index}}">Add Emperor Card</label>
+                                                <select id="addemperorcard-{{$index}}" name="addemperorcard">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $card := $.EmperorDeck}}
+                                                        <option value="{{$card.Type}}">{{$card.Title}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="removeemperorcard-{{$index}}">Remove Emperor Card</label>
+                                                <select id="removeemperorcard-{{$index}}" name="removeemperorcard">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $card := $player.EmperorHand}}
+                                                        <option value="{{$index}}">{{$card.Title}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="addboughtgift-{{$index}}">Add Bought Gift</label>
+                                                <select id="addboughtgift-{{$index}}" name="addboughtgift">
+                                                        <option value="none">None</option>
+                                                        {{range $value := $.GiftCardValues}}
+                                                        <option value="{{$value.Int}}">{{$value}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="removeboughtgift-{{$index}}">Remove Bought Gift</label>
+                                                <select id="removeboughtgift-{{$index}}" name="removeboughtgift">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $card := .GiftsBought}}
+                                                        <option value="{{$index}}">{{$card.Name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="addavailablegift-{{$index}}">Add Available Gift</label>
+                                                <select id="addavailablegift-{{$index}}" name="addavailablegift">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $name := $.GiftCardNames}}
+                                                        <option value="{{$index}}">{{$name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="removeavailablegift-{{$index}}">Remove Available Gift</label>
+                                                <select id="removeavailablegift-{{$index}}" name="removeavailablegift">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $card := .GiftCardHand}}
+                                                        <option value="{{$index}}">{{$card.Name}}</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="addreceivedgift-{{$index}}">Add Received Gift</label>
+                                                <select id="addreceivedgift-{{$index}}" name="addreceivedgift">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $name := $.GiftCardNames}}
+                                                        {{range $pindex, $player := $.Players}}
+                                                        <option value="{{$index}}-{{$player.ID}}">{{$name}} ({{$player.Color}})</option>
+                                                        {{end}}
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="removereceivedgift-{{$index}}">Remove Received Gift</label>
+                                                <select id="removereceivedgift-{{$index}}" name="removereceivedgift">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $card := .GiftsReceived}}
+                                                        {{with $player := $.PlayerByID $card.PlayerID}}
+                                                        <option value="{{$index}}">{{$card.Name}} ({{$player.Color}})</option>
+                                                        {{end}}
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="addconcard-{{$index}}">Add Confucius Card</label>
+                                                <select id="addconcard-{{$index}}" name="addconcard">
+                                                        <option value="none">None</option>
+                                                        {{range $value := ints 1 3}}
+                                                        <option value="{{$value}}">{{$value}} Coin</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                        <div>
+                                                <label for="removeconcard-{{$index}}">Remove Confucius Card</label>
+                                                <select id="removeconcard-{{$index}}" name="removeconcard">
+                                                        <option value="none">None</option>
+                                                        {{range $index, $card := $player.ConCardHand}}
+                                                        <option value="{{$index}}">{{$card.Coins}} Coin</option>
+                                                        {{end}}
+                                                </select>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="lower-content">
+                                <div class="button">
+                                        <input name="commit" type="submit" value="Update Player" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>
+{{end}}

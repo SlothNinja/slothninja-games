@@ -1,0 +1,136 @@
+#board {
+        position:relative;
+        height:780px;
+        background-color:#459E00;
+        z-index:1;
+}
+
+#board.p2 {
+        height:680px;
+}
+
+.text.yellow {
+        color:yellow;
+}
+.text.white {
+        color:white;
+}
+.text.black {
+        color:black;
+}
+.text.green {
+        color:green;
+}
+.text.purple {
+        color:purple;
+}
+
+#areas {
+        position:absolute;
+        left:20px;
+        top:20px;
+        .row {
+                height:100px;
+                width:890px;
+                position:relative;
+        }
+}
+
+.board-space {
+        width:90px;
+        height:90px;
+        border-width:3px;
+        border-style:solid;
+        border-color:#459E00;
+}
+
+@mixin space($class, $left, $top) {
+        .board-space.#{$class} {
+                background-image:url('/images/got/resources.png');
+                background-position: ($left - 5px) ($top - 5px);
+                margin:2px;
+        }
+
+        .board-space.clickable.#{$class}:hover {
+                background-image:url('/images/got/resources.png');
+                background-position: ($left - 7px) ($top - 7px);
+                margin:2px;
+        }
+}
+
+@include space(camel, 0px, 0px);
+@include space(carpet, -100px, 0px);
+@include space(coins, -200px, 0px);
+@include space(guard, -300px, 0px);
+@include space(jewels, -400px, 0px);
+@include space(lamp, -500px, 0px);
+@include space(sword, -800px, 0px);
+@include space(turban, -900px, 0px);
+
+.card {
+        width:100px;
+        height:136px;
+        border-width:5px;
+        border-style:solid;
+        margin:3px;
+        background-image:url('/images/got/resources.png');
+}
+
+@mixin card($class, $left, $top) {
+        .card.#{$class} {
+                background-position: $left $top;
+        }
+
+        .card.clickable.#{$class}:hover {
+                background-position: ($left - 2px) ($top - 2px);
+        }
+}
+
+@include card(camel, 0px, 0px);
+@include card(carpet, -100px, 0px);
+@include card(coins, -200px, 0px);
+@include card(guard, -300px, 0px);
+@include card(jewels, -400px, 0px);
+@include card(lamp, -500px, 0px);
+@include card(start-camel, -600px, 0px);
+@include card(start-lamp, -700px, 0px);
+@include card(sword, -800px, 0px);
+@include card(turban, -900px, 0px);
+@include card(card-back, -1000px, 0px);
+
+.thief {
+        position:relative;
+        top:30px;
+        left:25px;
+        width:47px;
+        height:47px;
+        background-image:url('/images/got/resources.png');
+}
+
+.thief.green {
+        background-position: -1100px 0px;
+}
+
+.thief.black {
+        background-position: -1147px 0px;
+}
+
+.thief.purple {
+        background-position: -1194px 0px;
+}
+
+.thief.yellow {
+        background-position: -1241px 0px;
+}
+
+.pull-left {
+        float:left;
+}
+
+.push-right {
+        float:right;
+}
+
+.clear-fix {
+        float:none;
+}

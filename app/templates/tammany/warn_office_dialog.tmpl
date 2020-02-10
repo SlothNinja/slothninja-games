@@ -1,0 +1,23 @@
+{{$game := $.Game}}
+{{if $game.InOfficeWarningSubPhase}}
+<div id="dialog" title="Finish Turn?">
+        <div>SubPhase: {{$game.SubPhase}}</div>
+        <div class="dialog-content">
+                <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+                Are you sure you want to finish your turn without using the benefit of your office?</p>
+                <div>&nbsp;</div>
+                <div style="width:280px">
+                        <form class="myForm" style="float:left">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="cancel-finish" />
+                                <input type="submit" value="Cancel" class="mybutton" />
+                        </form>
+                        <form action="/tammany/game/finish/{{$game.ID}}" id="confirm-finish-turn" method="post" style="float:right">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="confirm-finish" />
+                                <input class="mybutton" name="commit" type="submit" value="Finish" /> 
+                        </form> 
+                </div>
+        </div>
+</div>
+{{end}}

@@ -1,0 +1,1138 @@
+@import "supply";
+
+@mixin distant-land {
+    position:absolute;
+    left:1045px;
+    img {
+        height:45px;
+        width:45px;
+    }
+    .marker {
+        img {
+            height:30px;
+            width:30px;
+        }
+    }
+}
+
+@mixin ship-box {
+    position:absolute;
+    z-index:10;
+}
+
+@mixin foreign-land {
+    position:absolute;
+    .content {
+        position:relative;
+        img {
+            height:120px;
+            width:83px;
+        }
+        #annam-box-0, #yunnan-box-0, #manchuria-box-0, #mongolia-box-0, #korea-box-0 {
+            @include ll-army-box;
+        }
+        #annam-box-1, #yunnan-box-1, #manchuria-box-1, #mongolia-box-1, #korea-box-1 {
+            @include lr-army-box;
+        }
+        #manchuria-box-2, #korea-box-2 {
+            @include ul-army-box;
+        }
+        #manchuria-box-3, #mongolia-box-2 {
+            @include ur-army-box;
+        }
+    }
+}
+
+@mixin army-box {
+    position:absolute;
+    img {
+        height:30px;
+        width:30px;
+    }
+    .text {
+        position:relative;
+        top:-31px;
+        left:3px;
+    }
+    @include text-color;
+}
+
+@mixin lr-army-box {
+    @include army-box;
+    left:42px;
+    top:85px;
+}
+
+@mixin ll-army-box {
+    @include army-box;
+    left:8px;
+    top:85px;
+}
+
+@mixin ur-army-box {
+    @include army-box;
+    left:42px;
+    top:50px;
+}
+
+@mixin ul-army-box {
+    @include army-box;
+    left:8px;
+    top:50px;
+}
+
+@mixin junk-box {
+    position:absolute;
+    .text {
+        position:relative;
+        color:white;
+        top:-30px;
+        left:23px;
+    }
+}
+
+@mixin recruited-armies-box {
+    position:absolute;
+    img {
+        height:30px;
+        width:30px;
+    }
+    .text {
+        position:relative;
+        top:-28px;
+        left:10px;
+    }
+    @include text-color;
+}
+
+@mixin gift-tracker {
+    img {
+        height:14px;
+        width:14px;
+    }
+    .content {
+        position:relative;
+        .marker-0 {
+            position:absolute;
+        }
+        .marker-1 {
+            position:absolute;
+            left:16px;
+        }
+        .marker-2 {
+            position:absolute;
+            top:14px;
+        }
+        .marker-3 {
+            position:absolute;
+            left:16px;
+            top:14px;
+        }
+    }
+}
+
+@mixin score-box {
+    position:absolute;
+    img {
+        height:14px;
+        width:14px;
+    }
+    .content {
+        position:relative;
+        .position-0 {
+            position:absolute;
+        }
+        .position-1 {
+            position:absolute;
+            left:25px;
+        }
+        .position-2 {
+            position:absolute;
+            top:20px;
+        }
+        .position-3 {
+            position:absolute;
+            top:20px;
+            left:25px;
+        }
+        .position-4 {
+            position:absolute;
+            top:10px;
+            left:12px;
+        }
+    }
+}
+
+@mixin text-color {
+    .text.yellow {
+        color:yellow;
+    }
+    .text.white {
+        color:white;
+    }
+    .text.black {
+        color:black;
+    }
+    .text.green {
+        color:green;
+    }
+    .text.purple {
+        color:purple;
+    }
+}
+
+@mixin action-cube {
+    position:absolute;
+    .content {
+        position:relative;
+        .text {
+            position:absolute;
+            left:10px;
+            top:7px;
+        }
+        @include text-color;
+    }
+}
+
+@mixin ministry-box {
+    position:absolute;
+    .content {
+        position:relative;
+        img {
+            z-index:2;
+            position:absolute;
+            height:120px;
+            width:83px;
+        }
+        .marker {
+            z-index:3;
+            position:absolute;
+            img {
+                height:30px;
+                width:30px;
+            }
+            .text {
+                position:absolute;
+                z-index:4;
+                left:10px;
+                top:7px;
+            }
+        }
+        .temp-marker {
+            z-index:3;
+            position:absolute;
+            left:60px;
+            img {
+                height:30px;
+                width:30px;
+            }
+            .text {
+                position:absolute;
+                z-index:4;
+                left:10px;
+                top:5px;
+            }
+        }
+        @include text-color;
+    }
+}
+
+@mixin ministry {
+
+    position:absolute;
+    z-index:2;
+    width:380px;
+    height:345px;
+
+    .content {
+        position:relative;
+        .ministry-box-1 {
+            @include ministry-box;
+            left:295px;
+            top:20px;
+        }
+        .ministry-box-2 {
+            @include ministry-box;
+            left:200px;
+            top:20px;
+        }
+        .ministry-box-3 {
+            @include ministry-box;
+            left:105px;
+            top:20px;
+        }
+        .ministry-box-4 {
+            @include ministry-box;
+            left:10px;
+            top:20px;
+        }
+        .ministry-box-5 {
+            @include ministry-box;
+            left:10px;
+            top:155px;
+        }
+        .ministry-box-6 {
+            @include ministry-box;
+            left:105px;
+            top:155px;
+        }
+        .ministry-box-7 {
+            @include ministry-box;
+            left:200px;
+            top:155px;
+        }
+        .minister-chit {
+            position:absolute;
+            left:310px;
+            top:153px;
+        }
+
+        .secretary-chit {
+            position:absolute;
+            left:310px;
+            top:222px;
+        }
+        .minister-player {
+            position:absolute;
+            left:320px;
+            top:163px;
+            .marker {
+                z-index:3;
+                position:absolute;
+                img {
+                    height:30px;
+                    width:30px;
+                }
+            }
+            .text {
+                position:absolute;
+                z-index:4;
+                left:10px;
+                top:5px;
+            }
+            @include text-color;
+        }
+
+        .secretary-player {
+            position:absolute;
+            left:320px;
+            top:232px;
+            .marker {
+                z-index:3;
+                position:absolute;
+                img {
+                    height:30px;
+                    width:30px;
+                }
+            }
+            .text {
+                position:absolute;
+                z-index:4;
+                left:10px;
+                top:5px;
+            }
+            @include text-color;
+        }
+    }
+}
+
+@mixin action-space {
+    position:absolute;
+    img {
+        height:30px;
+        width:30px;
+    }
+    .content {
+        position:relative;
+        .action-cube-0 {
+            @include action-cube;
+            left:75px;
+        }
+        .action-cube-1 {
+            @include action-cube;
+            left:45px;
+        }
+        .action-cube-2 {
+            @include action-cube;
+            left:105px;
+        }
+        .action-cube-3 {
+            @include action-cube;
+            left:15px;
+        }
+        .action-cube-4 {
+            @include action-cube;
+            left:135px;
+        }
+    }
+}
+
+#board {
+    position:relative;
+    z-index:1;
+
+    img#map {
+        width:1190px;
+        height:1482px;
+    }
+
+    @include supply;
+    @include player-aid;
+
+    #Bingbu {
+        @include ministry;
+        left:10px;
+        top:623px;
+    }
+
+    #Hubu {
+        @include ministry;
+        left:400px;
+        top:623px;
+    }
+
+    #Gongbu {
+        @include ministry;
+        left:793px;
+        top:623px;
+    }
+
+    #The-Spice-Islands {
+        @include distant-land;
+        top:1002px;
+    }
+
+    #India {
+        @include distant-land;
+        top:1101px;
+    }
+
+    #Arabia {
+        @include distant-land;
+        top:1202px;
+    }
+
+    #Africa {
+        @include distant-land;
+        top:1301px;
+    }
+
+    #The-Americas {
+        @include distant-land;
+        top:1393px;
+    }
+
+    #white-ship-1 {
+        @include ship-box;
+        top:1010px;
+        left:790px;
+    }
+
+    #white-ship-2 {
+        @include ship-box;
+        top:1018px;
+        left:841px;
+    }
+
+    #white-ship-3 {
+        @include ship-box;
+        top:1010px;
+        left:896px;
+    }
+
+    #white-ship-4 {
+        @include ship-box;
+        top:1009px;
+        left:949px;
+    }
+
+    #yellow-ship-1 {
+        @include ship-box;
+        top:1108px;
+        left:804px;
+    }
+
+    #yellow-ship-2 {
+        @include ship-box;
+        top:1104px;
+        left:855px;
+    }
+
+    #yellow-ship-3 {
+        @include ship-box;
+        top:1096px;
+        left:909px;
+    }
+
+    #yellow-ship-4 {
+        @include ship-box;
+        top:1092px;
+        left:960px;
+    }
+
+    #black-ship-1 {
+        @include ship-box;
+        top:1186px;
+        left:815px;
+    }
+
+    #black-ship-2 {
+        @include ship-box;
+        top:1185px;
+        left:868px;
+    }
+
+    #black-ship-3 {
+        @include ship-box;
+        top:1190px;
+        left:919px;
+    }
+
+    #black-ship-4 {
+        @include ship-box;
+        top:1204px;
+        left:964px;
+    }
+
+    #green-ship-1 {
+        @include ship-box;
+        top:1262px;
+        left:811px;
+    }
+
+    #green-ship-2 {
+        @include ship-box;
+        top:1279px;
+        left:864px;
+    }
+
+    #green-ship-3 {
+        @include ship-box;
+        top:1292px;
+        left:919px;
+    }
+
+    #green-ship-4 {
+        @include ship-box;
+        top:1310px;
+        left:966px;
+    }
+
+    #purple-ship-1 {
+        @include ship-box;
+        top:1370px;
+        left:733px;
+    }
+
+    #purple-ship-2 {
+        @include ship-box;
+        top:1382px;
+        left:803px;
+    }
+
+    #purple-ship-3 {
+        @include ship-box;
+        top:1395px;
+        left:876px;
+    }
+
+    #purple-ship-4 {
+        @include ship-box;
+        top:1410px;
+        left:946px;
+    }
+
+    #foreign-land-0 {
+        @include foreign-land;
+        left:488px;
+        top:1165px;
+    }
+
+    #foreign-land-1 {
+        @include foreign-land;
+        left:395px;
+        top:1328px;
+    }
+
+    #foreign-land-2 {
+        @include foreign-land;
+        left:488px;
+        top:1328px;
+    }
+
+    #emperor-avenged {
+        @include foreign-land;
+        left:28px;
+        top:1088px;
+        #army-box {
+            @include army-box;
+            left:5px;
+            top:5px;
+        }
+    }
+
+    #candidate {
+        position:absolute;
+        left:82px;
+        top:240px;
+        img {
+            height:120px;
+            width:83px;
+        }
+    }
+
+    #wall {
+        position:absolute;
+        left:10px;
+        top:1000px;
+        img {
+            height:22px;
+            width:22px;
+        }
+        .content {
+            position:relative;
+            #wall-1 {
+                position:absolute;
+                left:20px;
+                top:20px;
+            }
+            #wall-2 {
+                position:absolute;
+                left:75px;
+                top:35px;
+            }
+            #wall-3 {
+                position:absolute;
+                left:132px;
+                top:55px;
+            }
+            #wall-4 {
+                position:absolute;
+                left:187px;
+                top:85px;
+            }
+            #wall-5 {
+                position:absolute;
+                left:240px;
+                top:92px;
+            }
+            #wall-6 {
+                position:absolute;
+                left:295px;
+                top:70px;
+            }
+            #wall-7 {
+                position:absolute;
+                left:350px;
+                top:50px;
+            }
+            #wall-8 {
+                position:absolute;
+                left:400px;
+                top:90px;
+            }
+            #wall-9 {
+                position:absolute;
+                left:417px;
+                top:142px;
+            }
+        }
+    }
+
+    #BribeSecureSpace {
+        @include action-space;
+        left:340px;
+        top:210px;
+    }
+
+    #NominateSpace {
+        @include action-space;
+        left:260px;
+        top:295px;
+    }
+
+    #ForceSpace {
+        @include action-space;
+        left:420px;
+        top:295px;
+    }
+
+    #JunksVoyageSpace {
+        @include action-space;
+        left:340px;
+        top:385px;
+    }
+
+    #RecruitArmySpace {
+        @include action-space;
+        left:340px;
+        top:470px;
+    }
+
+    #NoActionSpace {
+        @include action-space;
+        left:600px;
+        top:470px;
+    }
+
+    #CommercialSpace {
+        @include action-space;
+        left:600px;
+        top:385px;
+    }
+
+    #TaxIncomeSpace {
+        @include action-space;
+        left:765px;
+        top:385px;
+    }
+
+    #PetitionSpace {
+        @include action-space;
+        left:765px;
+        top:295px;
+    }
+
+    #BuyGiftSpace {
+        @include action-space;
+        left:600px;
+        top:205px;
+    }
+
+    #GiveGiftSpace {
+        @include action-space;
+        left:765px;
+        top:205px;
+    }
+
+    #ImperialFavourSpace {
+        @include action-space;
+        left:765px;
+        top:470px;
+    }
+
+    #bought-junks {
+        position:absolute;
+        left:600px;
+        top:1000px;
+        .content {
+            position:relative;
+            .white-junks {
+                @include junk-box;
+                left:40px;
+                top:25px;
+            }
+            .yellow-junks {
+                @include junk-box;
+                left:60px;
+                top:110px;
+            }
+            .black-junks {
+                @include junk-box;
+                left:60px;
+                top:190px;
+            }
+            .green-junks {
+                @include junk-box;
+                left:60px;
+                top:270px;
+            }
+            .purple-junks {
+                @include junk-box;
+                left:40px;
+                top:350px;
+            }
+
+        }
+    }
+
+    #student-0 {
+        position:absolute;
+        top:228px;
+        left:32px;
+        img {
+            height:30px;
+            width:30px;
+        }
+    }
+
+    #student-1 {
+        position:absolute;
+        top:348px;
+        left:187px;
+        img {
+            height:30px;
+            width:30px;
+        }
+    }
+
+    #recruited-armies {
+        position:absolute;
+        left:150px;
+        top:1110px;
+        .content {
+            position:relative;
+            #white-recruited-armies {
+                @include recruited-armies-box;
+                left:10px;
+                top:90px;
+            }
+            #yellow-recruited-armies {
+                @include recruited-armies-box;
+                left:80px;
+                top:40px;
+            }
+            #black-recruited-armies {
+                @include recruited-armies-box;
+                left:180px;
+                top:90px;
+            }
+            #green-recruited-armies {
+                @include recruited-armies-box;
+                left:150px;
+                top:220px;
+            }
+            #purple-recruited-armies {
+                @include recruited-armies-box;
+                left:20px;
+                top:200px;
+            }
+        }
+    }
+
+    #score-track {
+        position:absolute;
+        top:31px;
+        left:970px;
+        .content {
+            position:relative;
+            #score-box-0 {
+                @include score-box;
+            }
+            #score-box-1 {
+                @include score-box;
+                top:16px;
+                left:52px;
+            }
+            #score-box-2 {
+                @include score-box;
+                top:25px;
+                left:104px;
+            }
+            #score-box-3 {
+                @include score-box;
+                top:44px;
+                left:158px;
+            }
+            #score-box-4 {
+                @include score-box;
+                top:61px;
+                left:104px;
+            }
+            #score-box-5 {
+                @include score-box;
+                top:61px;
+                left:52px;
+            }
+            #score-box-6 {
+                @include score-box;
+                top:80px;
+            }
+            #score-box-7 {
+                @include score-box;
+                top:97px;
+                left:52px;
+            }
+            #score-box-8 {
+                @include score-box;
+                top:97px;
+                left:104px;
+            }
+            #score-box-9 {
+                @include score-box;
+                top:116px;
+                left:158px;
+            }
+            #score-box-10 {
+                @include score-box;
+                top:132px;
+                left:104px;
+            }
+            #score-box-11 {
+                @include score-box;
+                top:132px;
+                left:52px;
+            }
+            #score-box-12 {
+                @include score-box;
+                top:150px;
+            }
+            #score-box-13 {
+                @include score-box;
+                top:167px;
+                left:52px;
+            }
+            #score-box-14 {
+                @include score-box;
+                top:167px;
+                left:104px;
+            }
+            #score-box-15 {
+                @include score-box;
+                top:186px;
+                left:158px;
+            }
+            #score-box-16 {
+                @include score-box;
+                top:202px;
+                left:104px;
+            }
+            #score-box-17 {
+                @include score-box;
+                top:202px;
+                left:52px;
+            }
+            #score-box-18 {
+                @include score-box;
+                top:218px;
+            }
+            #score-box-19 {
+                @include score-box;
+                top:237px;
+                left:52px;
+            }
+            #score-box-20 {
+                @include score-box;
+                top:237px;
+                left:104px;
+            }
+            #score-box-21 {
+                @include score-box;
+                top:254px;
+                left:158px;
+            }
+            #score-box-22 {
+                @include score-box;
+                top:272px;
+                left:104px;
+            }
+            #score-box-23 {
+                @include score-box;
+                top:272px;
+                left:52px;
+            }
+            #score-box-24 {
+                @include score-box;
+                top:290px;
+            }
+            #score-box-25 {
+                @include score-box;
+                top:307px;
+                left:52px;
+            }
+            #score-box-26 {
+                @include score-box;
+                top:307px;
+                left:104px;
+            }
+            #score-box-27 {
+                @include score-box;
+                top:322px;
+                left:158px;
+            }
+            #score-box-28 {
+                @include score-box;
+                top:343px;
+                left:104px;
+            }
+            #score-box-29 {
+                @include score-box;
+                top:349px;
+                left:52px;
+            }
+            #score-box-30 {
+                @include score-box;
+                top:357px;
+            }
+        }
+    }
+
+
+    #gift-tracker {
+        position:absolute;
+        top:455px;
+        left:965px;
+        .content {
+            position:relative;
+            .white-1 {
+                position:absolute;
+                @include gift-tracker;
+            }
+            .white-2 {
+                position:absolute;
+                left:34px;
+                @include gift-tracker;
+            }
+            .white-3 {
+                position:absolute;
+                left:70px;
+                @include gift-tracker;
+            }
+            .white-4 {
+                position:absolute;
+                left:105px;
+                @include gift-tracker;
+            }
+            .white-5 {
+                position:absolute;
+                left:140px;
+                @include gift-tracker;
+            }
+            .white-6 {
+                position:absolute;
+                left:174px;
+                @include gift-tracker;
+            }
+            .yellow-1 {
+                position:absolute;
+                top:30px;
+                @include gift-tracker;
+            }
+            .yellow-2 {
+                position:absolute;
+                left:34px;
+                top:30px;
+                @include gift-tracker;
+            }
+            .yellow-3 {
+                position:absolute;
+                left:70px;
+                top:30px;
+                @include gift-tracker;
+            }
+            .yellow-4 {
+                position:absolute;
+                left:105px;
+                top:30px;
+                @include gift-tracker;
+            }
+            .yellow-5 {
+                position:absolute;
+                left:140px;
+                top:30px;
+                @include gift-tracker;
+            }
+            .yellow-6 {
+                position:absolute;
+                left:174px;
+                top:30px;
+                @include gift-tracker;
+            }
+            .black-1 {
+                position:absolute;
+                top:57px;
+                @include gift-tracker;
+            }
+            .black-2 {
+                position:absolute;
+                left:34px;
+                top:57px;
+                @include gift-tracker;
+            }
+            .black-3 {
+                position:absolute;
+                left:70px;
+                top:57px;
+                @include gift-tracker;
+            }
+            .black-4 {
+                position:absolute;
+                left:105px;
+                top:57px;
+                @include gift-tracker;
+            }
+            .black-5 {
+                position:absolute;
+                left:140px;
+                top:57px;
+                @include gift-tracker;
+            }
+            .black-6 {
+                position:absolute;
+                left:174px;
+                top:57px;
+                @include gift-tracker;
+            }
+            .green-1 {
+                position:absolute;
+                top:86px;
+                @include gift-tracker;
+            }
+            .green-2 {
+                position:absolute;
+                left:34px;
+                top:86px;
+                @include gift-tracker;
+            }
+            .green-3 {
+                position:absolute;
+                left:70px;
+                top:86px;
+                @include gift-tracker;
+            }
+            .green-4 {
+                position:absolute;
+                left:105px;
+                top:86px;
+                @include gift-tracker;
+            }
+            .green-5 {
+                position:absolute;
+                left:140px;
+                top:86px;
+                @include gift-tracker;
+            }
+            .green-6 {
+                position:absolute;
+                left:174px;
+                top:86px;
+                @include gift-tracker;
+            }
+            .purple-1 {
+                position:absolute;
+                top:116px;
+                @include gift-tracker;
+            }
+            .purple-2 {
+                position:absolute;
+                left:34px;
+                top:116px;
+                @include gift-tracker;
+            }
+            .purple-3 {
+                position:absolute;
+                left:70px;
+                top:116px;
+                @include gift-tracker;
+            }
+            .purple-4 {
+                position:absolute;
+                left:105px;
+                top:116px;
+                @include gift-tracker;
+            }
+            .purple-5 {
+                position:absolute;
+                left:140px;
+                top:116px;
+                @include gift-tracker;
+            }
+            .purple-6 {
+                position:absolute;
+                left:174px;
+                top:116px;
+                @include gift-tracker;
+            }
+        }
+    }
+}

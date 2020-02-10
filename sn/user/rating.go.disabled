@@ -1,0 +1,23 @@
+package user
+
+import (
+	"bitbucket.org/SlothNinja/slothninja-games/sn/rating"
+	game "bitbucket.org/SlothNinja/slothninja-games/sn/type"
+)
+
+func (u *User) NewRating(t game.Type, params ...float64) *rating.Rating {
+	return rating.New(u.Context(), u.Key(), t, params...)
+}
+
+func (u *User) NewCurrentRating(t game.Type, params ...float64) *rating.Rating {
+	return rating.NewCurrent(u.Context(), u.Key(), t, params...)
+}
+
+func (u *User) RatingFor(t game.Type) *rating.Rating {
+	rating, _ := rating.Get(u.Context(), u.Key(), t)
+	return rating
+}
+
+func (u *User) Ratings() (rating.Ratings, error) {
+	return rating.GetAll(u.Context(), u.Key())
+}

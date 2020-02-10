@@ -1,0 +1,50 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Choose Chief Minister Form --> 
+{{if $g.EnableChooseChiefMinister $ctx}}
+<div class="actions" id="choose-chief-minister-action"> 
+        <fieldset> 
+                <legend>Choose Chief Minister</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="choose-chief-minister" />
+                                </div>
+
+                                <div> 
+                                        <label for="player">Player:</label> 
+                                        <select id="player" name="player">
+                                                {{range $index, $player := $g.Players}}
+                                                {{if equal $player.ID $g.CurrentPlayer.ID | not}}
+                                                <option value="{{$player.ID}}">{{$player.User.Name}} ({{$player.Color}})</option>
+                                                {{end}}
+                                                {{end}}
+                                        </select> 
+                                </div> 
+
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Choose Chief Minister" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Choose a player to be the next chief minister.
+                                        </li> 
+                                        <li> 
+                                        The chosen player will place one of their action cubes in the Imperial Favour space.
+                                        </li> 
+                                        <li> 
+                                        The player after the chosen chief minister will take the first action of the next round.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

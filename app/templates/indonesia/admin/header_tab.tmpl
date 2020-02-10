@@ -1,0 +1,136 @@
+{{$g := $.Game}}
+<div id="tabs-admin-header">
+        <form action="/indonesia/game/admin/{{$g.ID}}" method="post">
+                <div style="margin:0;padding:0;display:inline">
+                        <input name="action" type="hidden" value="admin-header" />
+                </div>
+                <div>
+                        <label for="admin-required-deliveries">Override Deliveries:</label>
+                        <input type="text" value="{{$g.OverrideDeliveries}}" id="admin-required-deliveries" name="State.OverrideDeliveries"/>
+
+                </div>
+                <div>
+                        <label for="admin-title">Title:</label>
+                        <input type="text" value="{{$g.Title}}" id="admin-title" name="title"/>
+
+                </div>
+                <div>
+                        <label for="admin-turn">Turn:</label>
+                        <select id="admin-turn" name="turn">
+                                {{range $v := ints 0 50}}
+                                <option value="{{$v}}" {{if equal $g.Turn $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-num-players">NumPlayers:</label>
+                        <select id="admin-num-players" name="num-players">
+                                {{range $v := ints 1 5}}
+                                <option value="{{$v}}" {{if equal $g.NumPlayers $v}}selected="selected"{{end}}>{{$v}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-phase">Phase:</label>
+                        <select id="admin-phase" name="phase">
+                                {{range $v, $n := $g.PhaseNames}}
+                                <option value="{{$v}}" {{if equal $g.Phase.Int $v.Int}}selected="selected"{{end}}>{{$n}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-subphase">SubPhase:</label>
+                        <select id="admin-subphase" name="sub-phase">
+                                {{range $v, $n := $g.SubPhaseNames}}
+                                <option value="{{$v}}" {{if equal $v.Int $g.SubPhase.Int}}selected="selected"{{end}}>{{$n}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-round">Round:</label>
+                        <input type="text" value="{{$g.Round}}" id="admin-round" name="round"/>
+                </div>
+                <div>
+                        <label for="admin-creator-id">Creator ID:</label>
+                        <input type="text" value="{{$g.CreatorID}}" id="admin-creator-id" name="creator-id"/>
+
+                </div>
+                {{range $index, $uid := $g.UserIDS}}
+                <div>
+                        <label for="admin-userid-{{$index}}">User {{$index}}:</label>
+                        <input type="text" value="{{$uid}}" id="admin-userid-{{$index}}" name="user-ids"/>
+                </div>
+                {{end}}
+                {{range $index, $uid := $g.OrderIDS}}
+                <div>
+                        <label for="admin-orderid-{{$index}}">Order {{$index}}:</label>
+                        <input type="text" value="{{$uid}}" id="admin-orderid-{{$index}}" name="order-ids"/>
+                </div>
+                {{end}}
+                <div>
+                        <label for="admin-password">Password:</label>
+                        <input type="text" value="{{$g.Password}}" id="admin-password" name="password"/>
+                </div>
+                <div>
+                        <label for="admin-cp-user-indices">Current Player:</label>
+                        <select id="admin-cp-user-indices" name="cp-user-indices" multiple="multiple">
+                                {{range $index, $player := $g.Players}}
+                                <option value="{{$player.ID}}" {{if $player.IsCurrentPlayer}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-winners">Winners:</label>
+                        <select id="admin-winners" name="winner-ids" multiple="multiple">
+                                {{range $index, $player := $g.Players}}
+                                <option value="{{$player.ID}}" {{if $player.IsWinner}}selected="selected"{{end}}>{{$player.Name}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-status">Status</label>
+                        <select id="admin-status" name="status">
+                                {{range $i, $s := $.Game.Statuses}}
+                                <option value="{{$s.Int}}" {{if equal $s.Int $.Game.Status.Int}}selected="selected"{{end}}>{{$s.String}}</option>
+                                {{end}}
+
+                        </select>
+                </div>
+                {{if $g.CityStones}}
+                <div>
+                        <label for="admin-city-stones-1">Size 1 City Stones</label>
+                        <select id="admin-city-stones-1" name="State.CityStones">
+                                {{$v := index $g.CityStones 0}}
+                                {{range $i := ints 0 12}}
+                                <option value="{{$i}}" {{if equal $i $v}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-city-stones-2">Size 2 City Stones</label>
+                        <select id="admin-city-stones-2" name="State.CityStones">
+                                {{$v := index $g.CityStones 1}}
+                                {{range $i := ints 0 8}}
+                                <option value="{{$i}}" {{if equal $i $v}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+
+                        </select>
+                </div>
+                <div>
+                        <label for="admin-city-stones-3">Size 3 City Stones</label>
+                        <select id="admin-city-stones-3" name="State.CityStones">
+                                {{$v := index $g.CityStones 2}}
+                                {{range $i := ints 0 3}}
+                                <option value="{{$i}}" {{if equal $i $v}}selected="selected"{{end}}>{{$i}}</option>
+                                {{end}}
+
+                        </select>
+                </div>
+                {{end}}
+                <div>&nbsp;</div>
+                <div>
+                        <input type="submit" value="Update" class="mybutton" />
+                </div>
+        </form>
+</div>

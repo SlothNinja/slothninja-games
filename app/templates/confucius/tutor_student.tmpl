@@ -1,0 +1,51 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Tutor Student Form --> 
+{{if $g.EnableTutorStudent $ctx}}
+<div class="actions" id="tutor-student-action"> 
+        <fieldset> 
+                <legend>Tutor Student</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="tutor-student" />
+                                </div>
+                                <div> 
+                                        <label for="tutor-player">Player:</label> 
+                                        <select id="tutor-player" name="player">
+                                                {{len $g.CurrentPlayer.TutorPlayers}}
+                                                {{range $index, $player := $g.CurrentPlayer.TutorPlayers}}
+                                                <option value="{{$player.ID}}" {{if equal $player.ID $g.CurrentPlayer.ID}}selected="selected"{{end}}>
+                                                {{$player.Name}} ({{$player.Color}})
+                                                </option>
+                                                {{end}}
+                                        </select> 
+                                </div> 
+                                {{$g.CoinOptions "tutor-student"}}
+                                <div>&nbsp;</div>
+                                <div>
+                                        <input class="mybutton" name="commit" type="submit" value="Tutor Student" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select player's student you want to tutor.
+                                        </li> 
+                                        <li> 
+                                        Select at least one Confucius card to pay for tutoring.
+                                        </li> 
+                                        <li> 
+                                        If you select at least three Confucius cards, you cancel a gift obligation.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

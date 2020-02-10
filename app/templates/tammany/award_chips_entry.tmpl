@@ -1,0 +1,31 @@
+{{$e := .entry}}
+{{$g := .g}}
+{{$ctx := .ctx}} 
+
+<table class="strippedDataTable">
+
+        <thead>
+                <th>Player</th>
+                <th>Awarded Chips</th>
+        </thead>
+        <tbody>
+        {{range $p := $g.Players}}
+                {{$chips := index $e.ChipWinners $p.ID}}
+                <tr>
+                        <td>
+                                <div class="gravatar">
+                                        {{$g.GravatarFor $p}}
+                                </div>
+                                <div>
+                                        {{$g.PlayerLinkByID $ctx $p.ID}}
+                                </div>
+                        </td>
+                        <td style="width:170px">
+                                <div>
+                                        {{template "tammany/chips_table" data "g" $g "p" $p "chips" $chips}}
+                                </div>
+                        </td>
+                </tr>
+        {{end}}
+        </tbody>
+</table>

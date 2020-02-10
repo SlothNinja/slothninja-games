@@ -1,0 +1,45 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+<div id="dialog" title="Actions For {{$area.Name}}">
+        <div class="dialog-content">
+                <div id="tabs">
+                        <ul>
+                                {{if $.Admin}}
+                                        {{if $.IsAdmin}}
+                                        <li><a href="#tabs-admin">Admin</a></li>
+                                        {{end}}
+                                {{else}}
+                                        {{if $cp.CanPayActionCost $area}}
+                                        <li><a href="#tabs-pay-action-cost">Pay Action Cost</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanPlaceWorkersIn $area}}
+                                        <li><a href="#tabs-place-workers">Place Workers</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanUseScribe $area}}
+                                        <li><a href="#tabs-use-scribe">Use Scribe</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanMakeToolIn $area}}
+                                        <li><a href="#tabs-make-tool">Use Toolmaker</a></li>
+                                        {{end}}
+
+                                        <li><a href="#tabs-finish">Undo/Finish</a></li>
+                                {{end}}
+                        </ul>
+                        {{if $.Admin}}
+                                {{if $.IsAdmin }}
+                                {{template "atf/admin/worker_box_form" $}}
+                                {{end}}
+                        {{else}}
+                                {{template "atf/pay_action_cost_form" $}}
+                                {{template "atf/place_workers_form" $}}
+                                {{template "atf/use_scribe_form" $}}
+                                {{template "atf/make_tool_form" $}}
+                                {{template "atf/finish_turn_form" $}}
+                        {{end}}
+                </div>
+        </div>
+</div>

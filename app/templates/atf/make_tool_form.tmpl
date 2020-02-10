@@ -1,0 +1,11 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+{{if $cp.CanMakeToolIn $area}}
+<div id="tabs-make-tool">
+        <form class="myForm">
+                <input name="action" type="hidden" value="make-tool" />
+                <input type="submit" value="Make Tool" class="mybutton" />
+        </form>
+</div>
+{{end}}

@@ -1,0 +1,86 @@
+{{$g := $.Game}}
+{{$w := $g.CurrentWard}}
+{{$ctx := $.Context}}
+
+{{if $g.InElectionsPhase}}
+<div id="dialog" title="Election for Ward {{$w.ID}}">
+        <div class="dialog-content">
+                <form class="myForm">
+                        <input name="action" type="hidden" value="bid" />
+                        <table class="strippedDataTable">
+                                <thead>
+                                        <tr>
+                                                <th>
+                                                        Candidate
+                                                </th>
+                                                <th>
+                                                        Bosses
+                                                </th>
+                                                <th>
+                                                        Favor Chips
+                                                </th>
+                                                <th>
+                                                        Total
+                                                </th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        {{range $p := $g.Players}}
+                                        {{if $p.Candidate}}
+                                        <tr>
+                                                <td class="player">
+                                                        <div class="gravatar">
+                                                                {{$g.GravatarFor $p}}
+                                                        </div>
+                                                        <div class="player">
+                                                                {{$g.PlayerLinkByID $ctx $p.ID}}
+                                                        </div>
+                                                </td>
+                                                <td>
+                                                        <div class="boss">
+                                                                {{$p.BossImage}}
+                                                                <div class="text {{$p.Color}}">{{$w.BossesFor $p}}</div>
+                                                        </div>
+                                                </td>
+                                                <td>
+                                                        <div style="width:160px">
+                                                                {{range $n, $count := $w.Immigrants}}
+                                                                {{if $count}}
+                                                                <div class="float-left">
+                                                                        {{with $chips := $p.ChipsFor $n}}
+                                                                        <div>
+                                                                                <div class="chip {{$n.LString}}">
+                                                                                        <div class="img">
+                                                                                                <img alt="{{$n.LString}}-chip" src="{{$n.ChipImage}}" />
+                                                                                        </div>
+                                                                                        <div class="text {{$n.LString}}">
+                                                                                                {{$chips}}
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                        {{end}}
+                                                                </div>
+                                                                {{end}}
+                                                                {{end}}
+                                                        </div>
+                                                </td>
+                                                <td>
+                                                        {{$p.MaxInfluenceIn $w}}
+                                                </td>
+                                        </tr>
+                                        {{end}}
+                                        {{end}}
+                                        <tr id="bid-0">
+                                                {{$p := $g.CurrentPlayerFor $.CUser}}
+                                                {{template "tammany/bid_interface" data "p" $p "w" $w}}
+                                        </tr>
+                                </tbody>
+                        </table>
+                        <div>&nbsp;</div>
+                        <div style="text-align:center">
+                        <input type="submit" value="Submit Bid" class="mybutton" />
+                        </div>
+                </div>
+        </form>
+</div>
+{{end}}

@@ -1,0 +1,60 @@
+{{range $index1, $land := .ForeignLands}}
+{{range $index2, $box := $land.Boxes}}
+<!-- {{$land.Name}} Foreign Land Box {{$index2}} State Form -->
+<div class="actions" id="admin-{{$land.Name}}-box-{{$index2}}-action">
+        <fieldset>
+                <legend>{{$land.Name}} Foreign Land Box {{$index2}}</legend>
+                <form action="/{{$.Stub}}/admin/{{$.ID}}" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                                <input name="_method" type="hidden" value="PUT" />
+                                <input name="action" type="hidden" value="foreign-land-box" />
+                                <input name="lid" type="hidden" value="{{$index1}}" />
+                                <input name="bid" type="hidden" value="{{$index2}}" />
+                        </div>
+                        <div class="left-column">
+                                <div>
+                                        <label for="position-{{$index1}}-{{$index2}}">Position</label>
+                                        <select id="position-{{$index1}}-{{$index2}}" name="position">
+                                                {{range $value := ints 0 3}}
+                                                <option value="{{$value}}" {{if equal $value $box.Position}}selected="selected"{{end}}>{{$value}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="points-{{$index1}}-{{$index2}}">Points</label>
+                                        <select id="points-{{$index1}}-{{$index2}}" name="points">
+                                                {{range $value := ints 2 6}}
+                                                <option value="{{$value}}" {{if equal $value $box.Points}}selected="selected"{{end}}>{{$value}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="playerid-{{$index1}}-{{$index2}}">Player</label>
+                                        <select id="playerid-{{$index1}}-{{$index2}}" name="playerid">
+                                                <option value="none" {{if $box.Player}}{{else}}selected="selected"{{end}}>None</option>
+                                                {{range $player := $.Players}}
+                                                <option value="{{$player.ID}}" {{if $box.Player}}{{if $player.Equal $box.Player}}selected="selected"{{end}}{{end}}>{{$player.Name}}</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div>
+                                        <label for="card-{{$index1}}-{{$index2}}">Card</label>
+                                        <select id="card-{{$index1}}-{{$index2}}" name="card">
+                                                {{if $box.AwardCard}}
+                                                <option value="false">false</option>
+                                                <option value="true" selected="selected">true</option>
+                                                {{else}}
+                                                <option value="false" selected="selected">false</option>
+                                                <option value="true">true</option>
+                                                {{end}}
+                                        </select>
+                                </div>
+                                <div class="button">
+                                        <input name="commit" type="submit" value="Update Box" />
+                                </div>
+                        </div>
+                </form>
+        </fieldset>
+</div>
+{{end}}
+{{end}}

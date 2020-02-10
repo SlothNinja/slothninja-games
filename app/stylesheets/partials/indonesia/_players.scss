@@ -1,0 +1,42 @@
+@mixin cards() {
+        img.card {
+                height:86.25px;
+                width:206.25px;
+                border:2px solid black;
+        }
+}
+
+@mixin players {
+        #players-table, #supply-table {
+                @include table;
+                @include append-bottom(0.5em);
+                padding: 1em 1em 1em 1em;
+                th, td {
+                        text-align:center;
+                }
+                td.last-action {
+                        width:25%;
+                        text-align:left;
+                        @include cards();
+                }
+                td.slot {
+                        img.deed {
+                                height:90px;
+                                width:90px;
+                                border:2px solid black;
+                        }
+                        img.ship {
+                                width:28px;
+                                height:16.5px;
+                        }
+                }
+                td.city-cards {
+                        div {
+                                padding:5px;
+                        }
+                        @include cards();
+                }
+        }
+}
+
+@include cards();

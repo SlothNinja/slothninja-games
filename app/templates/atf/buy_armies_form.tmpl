@@ -1,0 +1,44 @@
+{{$game := $.Game}}
+{{$area := $game.SelectedArea}}
+{{$cp := $game.CurrentPlayer}}
+{{if $cp.CanBuyArmiesForArmyIn $area}}
+<div id="tabs-buy-armies">
+        <form class="myForm">
+                <input name="action" type="hidden" value="buy-armies" />
+                <div class="bottom-padding">
+                        Spend resources to buy additional armies.
+                </div>
+                {{$count := index $cp.Resources 0}}
+                <div {{if not $count}}style="display:none"{{end}}>
+                        <label for="buy-army-grain">Grain:</label>
+                        <select id="buy-army-grain" name="grain">
+                                {{range $i := ints 0 $count}}
+                                <option value="{{$i}}">{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <input id="buy-army-wood" name="Resources" type="hidden" value="0" />
+                {{$count := index $cp.Resources 2}}
+                <div {{if not $count}}style="display:none"{{end}}>
+                        <label for="buy-army-metal">Metal:</label>
+                        <select id="buy-army-metal" name="metal">
+                                {{range $i := ints 0 $count}}
+                                <option value="{{$i}}">{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <input id="buy-army-textile" name="Resources" type="hidden" value="0" />
+                {{$count := index $cp.Resources 4}}
+                <div {{if not $count}}style="display:none"{{end}}>
+                        <label for="buy-tool">Tool:</label>
+                        <select id="buy-tool" name="tool">
+                                {{range $i := ints 0 $count}}
+                                <option value="{{$i}}">{{$i}}</option>
+                                {{end}}
+                        </select>
+                </div>
+                <div>&nbsp;</div>
+                <input type="submit" value="Buy Armies" class="mybutton" />
+        </form>
+</div>
+{{end}}

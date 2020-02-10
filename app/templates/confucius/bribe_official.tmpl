@@ -1,0 +1,40 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Bribe Official Action Form --> 
+{{if $g.EnableBribeOfficial $ctx}}
+<div class="actions" id="bribe-official-action"> 
+        <fieldset> 
+                <legend>Bribe Official</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="bribe-official" />
+                                </div>
+                                {{$g.BribedOfficialOptions "bribe-official" "Official:"}}
+                                {{$g.CoinOptions "bribe-official"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Bribe Official" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        Select official you want to bribe.
+                                        </li> 
+                                        <li> 
+                                        Select Confucius card(s) with coins sufficient to pay for bribe.
+                                        </li> 
+                                        <li> 
+                                        If you overpay, no change is given.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

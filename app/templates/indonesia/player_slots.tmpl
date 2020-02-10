@@ -1,0 +1,24 @@
+{{$p := .p}}
+{{$admin := .admin}}
+{{$ctx := .ctx}}
+{{$isAdmin := .isAdmin}}
+
+{{range $i, $slot := $p.Slots}}
+<td id="company-{{$p.ID}}-{{inc $i}}" class="slot">
+        {{if $slot.Developed}}
+                {{if $slot.Empty}}
+                        <div>Empty</div>
+                {{else}}
+                        {{if $admin}}
+                                <div id="admin-company-{{$p.ID}}-{{inc $i}}" class="mybutton bottom-padding clickable">
+                                        Admin Company
+                                </div>
+                        {{end}}
+
+                        {{template "indonesia/player_company" data "company" $slot.Company "isAdmin" $isAdmin "ctx" $ctx}}
+                {{end}}
+        {{else}}
+                <div>Not Developed</div>
+        {{end}}
+</td>
+{{end}}

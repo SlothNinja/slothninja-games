@@ -1,0 +1,23 @@
+{{with $player := $.Resource.CurrentPlayer}}
+<div>
+        <div class="ward-{{$.Ward}}">
+                <div class="left-column">
+                        <div class="place-boss">
+                                <div class="mybutton place-piece">
+                                        <div class="text">
+                                                Place
+                                        </div>
+                                        <div class="icon">
+                                                {{$player.BossImage}}
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <div class="right-column">
+                        <div class="mybutton undo">
+                                Undo Turn
+                        </div>
+                </div>
+        </div>
+</div>
+{{end}}

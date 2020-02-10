@@ -1,0 +1,33 @@
+<div class="heading"><div>Confirm Artillery Fire</div></div>
+<div class="notice" style="height:6em">
+        <div style="float:left;height:6em">
+        <button style="width:80px;margin:30px 10px" data-bind="jqButton: true, click: function() {put({ action: 'fire-artillery'}) }">Confirm</button>
+        </div>
+        <div style="float:left;height:6em">
+        <div style="padding-bottom:0.5em">This action cannot be undone once confirmed.</div>
+        <table style="width:250px" class='dataTable stylized'>
+                <thead>
+                        <tr>
+                                <th>Unit</th>
+                                <th>Damage</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Target</th>
+                        </tr>
+                </thead>
+                <tbody data-bind="foreach: orderedArtillery">
+                <tr>
+                        <td><img class="unit" data-bind="attr: { src: link() }" /></td>
+                        <td data-bind="text: damage"></td>
+                        <td data-bind="text: fireFromID"></td>
+                        <td data-bind="text: targetAreaID"></td>
+                        <td data-bind="text: targetUnits"></td>
+                </tr>
+                </div>
+                </tbody>
+        </table>
+        </div>
+        <div style="float:left;height:6em">
+        <button style="width:80px;margin:30px 10px" data-bind="jqButton: true, click: function(){put({action: 'reset', json: true})}">Reset</button> 
+        </div>
+</div>

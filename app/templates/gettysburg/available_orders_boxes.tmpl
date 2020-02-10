@@ -1,0 +1,15 @@
+<div id="confederate-single-order-discs-box" data-bind="with: confederatePlayer">
+        <div data-bind="foreach: ko.utils.range(1, orderDiscs().confederateSingle)">
+                <img class="disc" src="/images/gettysburg/confederate-order-disc.png"/>
+        </div>
+</div>
+<div id="confederate-double-order-discs-box" data-bind="with: confederatePlayer">
+        <div data-bind="foreach: ko.utils.range(1, orderDiscs().confederateDouble)">
+                <img class="disc" src="/images/gettysburg/confederate-double-order-disc.png"/>
+        </div>
+</div>
+<div id="union-order-discs-box" data-bind="with: unionPlayer">
+        <div data-bind="foreach: ko.utils.range(1, orderDiscs().unionSingle), attr: {id: 'union-discs-' + $parent.period}">
+                <img class="disc" src="/images/gettysburg/union-order-disc.png"/>
+        </div>
+</div>

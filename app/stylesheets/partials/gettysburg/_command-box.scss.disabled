@@ -1,0 +1,33 @@
+@import 'available-actions-box';
+@import 'place-command-block-action';
+@import 'remove-command-block-action';
+@import 'move-unit-from-entry-box-action';
+@import 'issue-order-action';
+
+#command-box {
+        @include append-bottom(1em);
+        @include column($blueprint-grid-columns, true);
+        height: 22em;
+        .left-column {
+                @include column(8);
+                fieldset {
+                        height: 6em;
+                        margin-bottom:1em;
+                }
+                @include available-actions-box;
+                .explanation-box {
+                        @include column(8, true);
+                        @include prepend-top(1.2em);
+                        .button-set {
+                                margin-left:3em;
+                        }
+                }
+        }
+        .right-column {
+                @include column(21, true);
+                @include place-command-block-action;
+                @include remove-command-block-action;
+                @include move-unit-from-entry-box-action;
+                @include issue-order-action;
+        }
+}

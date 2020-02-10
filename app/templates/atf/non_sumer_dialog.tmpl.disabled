@@ -1,0 +1,65 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$area := $game.SelectedArea}}
+<div id="dialog" title="Actions For {{$.Game.SelectedArea.Name}}">
+        <div class="dialog-content">
+                <div id="tabs">
+                        <ul>
+                                {{with $admin := $.Admin}}
+                                        {{if and $admin $.CUser.IsAdmin}}
+                                        <li><a href="#tabs-admin">Admin</a></li>
+                                        {{end}}
+                                {{else}}
+                                        {{if $cp.CanPayActionCost $area}}
+                                        <li><a href="#tabs-pay-action-cost">Pay Action Cost</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanPlaceWorkersIn $area}}
+                                        <li><a href="#tabs-place-workers">Place Workers</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanStartEmpireIn $area}}
+                                        <li><a href="#tabs-start-empire">Start Empire</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanBuyArmiesForArmyIn $area}}
+                                        <li><a href="#tabs-buy-armies">Buy Armies</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanEquipArmyIn $area}}
+                                        <li><a href="#tabs-equip-army">Equip Army</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanPlaceArmyIn $area}}
+                                        <li><a href="#tabs-place-armies">Place Army</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanTradeIn $area}}
+                                        <li><a href="#tabs-trade">Trade</a></li>
+                                        {{end}}
+
+                                        {{if $cp.CanExpandEmpireIn $area}}
+                                        <li><a href="#tabs-expand-empire">Expand Empire</a></li>
+                                        {{end}}
+
+                                        <li><a href="#tabs-finish">Undo/Finish</a></li>
+                                {{end}}
+                        </ul>
+                        {{with $admin := $.Admin}}
+                                {{if and $admin $.CUser.IsAdmin}}
+                                {{template "atf/admin/non_sumer_area_form" $}}
+                                {{end}}
+                        {{else}}
+                                {{template "atf/pay_action_cost_form" $}}
+                                {{template "atf/place_workers_form" $}}
+                                {{template "atf/start_empire_form" $}}
+                                {{template "atf/buy_armies_form" $}}
+                                {{template "atf/equip_army_form" $}}
+                                {{template "atf/place_armies_form" $}}
+                                {{template "atf/trade_form" $}} 
+                                {{template "atf/expand_empire_form" $}}
+                                {{template "atf/finish_turn_form" $}}
+                        {{end}}
+                </div>
+        </div>
+</div>

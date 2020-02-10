@@ -1,0 +1,14 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+{{$company := $game.SelectedCompany}}
+{{$deed := index $company.Deeds 0}}
+{{$type := $company.Goods.String}}
+<div id="dialog" title="Place Initial {{$type}} For Company">
+        <p class="top-padding">
+                {{if equal $type "Shipping"}}
+                Select sea area adjacent to the {{$deed.Province}} province for ship.
+                {{else}}
+                Select empty land area in the {{$deed.Province}} province for {{$type}}.
+                {{end}}
+        </p>
+</div>

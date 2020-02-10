@@ -1,0 +1,37 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Give Gift Action Form --> 
+{{if $g.EnableGiveGift $ctx}}
+<div class="actions" id="give-gift-action"> 
+        <fieldset> 
+                <legend>Give Gift</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="give-gift" />
+                                </div>
+                                {{$g.GiveGiftCardOptions "give-gift" "Gift:"}}
+                                {{$g.OtherPlayerOptions "give-gift-player" "Player:"}}
+                                <div class="button">
+                                        <input class="mybutton" name="commit" type="submit" value="Give Gift" />
+                                </div> 
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        You must purchase a gift before you can give it to another player.
+                                        </li> 
+                                        <li> 
+                                        The gift given to a player must be of equal or greater value than gift you currently have from that player.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

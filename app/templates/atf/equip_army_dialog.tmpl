@@ -1,0 +1,5 @@
+{{$player := $.Game.CurrentPlayer}}
+{{$area := $.Game.SelectedArea}}
+<div id="dialog" title="Equip Army in {{$area.Name}}">
+        {{template "atf/equip_army_form" $}}
+</div>

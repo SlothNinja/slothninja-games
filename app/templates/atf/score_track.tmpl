@@ -1,0 +1,18 @@
+{{$game := .}}
+{{range $player := $game.Players}}
+{{$color := $player.Color}}
+{{$score := $player.Score}}
+<div id="{{$color}}-score-track-{{$score}}">
+        <img alt="{{$color}} Disc" src="/images/atf/{{$color}}_disc.png" />
+</div>
+{{if greater $score 70}}
+<div id="{{$color}}-score-70-plus">
+        <img alt="{{$color}} Disc" src="/images/atf/{{$color}}_disc.png" />
+</div>
+{{end}}
+{{if greater $score 140}}
+<div id="{{$color}}-score-140-plus">
+        <img alt="{{$color}} Disc" src="/images/atf/{{$color}}_disc.png" />
+</div>
+{{end}}
+{{end}}

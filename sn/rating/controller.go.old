@@ -1,0 +1,462 @@
+package rating
+
+import (
+	"fmt"
+
+	"appengine"
+	"appengine/datastore"
+	"appengine/taskqueue"
+
+	"bitbucket.org/SlothNinja/gaelic"
+	"bitbucket.org/SlothNinja/glicko"
+	"bitbucket.org/SlothNinja/slothninja-games/sn/contest"
+	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
+	"bitbucket.org/SlothNinja/slothninja-games/sn/type"
+	"bitbucket.org/SlothNinja/slothninja-games/sn/user"
+
+	"net/http"
+	"net/url"
+	"time"
+
+	"github.com/go-martini/martini"
+	"github.com/SlothNinja/render"
+)
+
+func AddRoutes(prefix string, r martini.Router) {
+	group := "/" + prefix
+	r.Group(group, func(r martini.Router) {
+		r.Post("s/userUpdate/:uid",
+			updateUser,
+		).Name(prefix + "s_userUpdate")
+		// Update Ratings
+		r.Get("s/update",
+			// user.FetchAll,
+			Update,
+		).Name(prefix + "s_update")
+		r.Get("s/:type",
+			getRatings,
+			Index,
+		).Name(prefix + "s_index")
+	})
+}
+
+// Ratings
+type Ratings []*Rating
+type Rating struct {
+	generated bool
+	Key       *datastore.Key `datastore:"-"`
+	Type      gType.Type
+	R         float64
+	RD        float64
+	Low       float64
+	High      float64
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+func (r *Rating) Rank() *glicko.Rank {
+	return &glicko.Rank{
+		R:  r.R,
+		RD: r.RD,
+	}
+}
+
+func New(ctx *restful.Context, pk *datastore.Key, t gType.Type, params ...float64) *Rating {
+	return newRating(ctx, pk, t, rKind, params...)
+}
+
+func NewCurrent(ctx *restful.Context, pk *datastore.Key, t gType.Type, params ...float64) *Rating {
+	return newRating(ctx, pk, t, crKind, params...)
+}
+
+func newRating(ctx *restful.Context, pk *datastore.Key, t gType.Type, kind string, params ...float64) *Rating {
+	r, rd := defaultR, defaultRD
+	if len(params) == 2 {
+		r, rd = params[0], params[1]
+	}
+
+	rating := &Rating{
+		R:    r,
+		RD:   rd,
+		Low:  r - (2.0 * rd),
+		High: r + (2.0 * rd),
+		Type: t,
+	}
+	switch kind {
+	case crKind:
+		rating.Key = datastore.NewKey(ctx, crKind, t.SString(), 0, pk)
+		return rating
+	case rKind:
+		rating.Key = datastore.NewKey(ctx, rKind, "", 0, pk)
+		return rating
+	default:
+		ctx.Errorf("rating.newRating: Unexpected value received for kind: %q", kind)
+		return nil
+	}
+}
+
+const (
+	defaultR  float64 = 1500
+	defaultRD float64 = 350
+)
+
+const (
+	rKind  = "Rating"
+	crKind = "CurrentRating"
+)
+
+func singleError(e error) error {
+	if e == nil {
+		return e
+	}
+	if me, ok := e.(appengine.MultiError); ok {
+		return me[0]
+	}
+	return e
+}
+
+// Get Current Rating for gType.Type and user associated with uKey
+func Get(ctx *restful.Context, uKey *datastore.Key, t gType.Type) (*Rating, error) {
+	ratings, err := GetMulti(ctx, []*datastore.Key{uKey}, t)
+	return ratings[0], singleError(err)
+}
+
+func GetMulti(ctx *restful.Context, uKeys []*datastore.Key, t gType.Type) (Ratings, error) {
+	ratings := make(Ratings, len(uKeys))
+	keys := make([]*datastore.Key, len(uKeys))
+	for i, uKey := range uKeys {
+		ratings[i] = NewCurrent(ctx, uKey, t)
+		keys[i] = ratings[i].Key
+	}
+
+	err := gaelic.GetMulti(ctx, keys, ratings)
+	if err == nil {
+		return ratings, nil
+	}
+
+	me := err.(appengine.MultiError)
+	isNil := true
+	for i := range keys {
+		if me[i] == datastore.ErrNoSuchEntity {
+			ratings[i].generated = true
+			me[i] = nil
+		} else {
+			isNil = false
+		}
+	}
+	if isNil {
+		return ratings, nil
+	} else {
+		return ratings, me
+	}
+}
+
+func GetAll(ctx *restful.Context, uKey *datastore.Key) (Ratings, error) {
+	ratings := make(Ratings, len(gType.Types))
+	keys := make([]*datastore.Key, len(gType.Types))
+	for i, t := range gType.Types {
+		ratings[i] = NewCurrent(ctx, uKey, t)
+		keys[i] = ratings[i].Key
+	}
+	if err := gaelic.GetMulti(ctx, keys, ratings); err != nil {
+		for i, e := range err.(appengine.MultiError) {
+			switch e {
+			case nil:
+			case datastore.ErrNoSuchEntity:
+				ratings[i].generated = true
+			default:
+				return nil, err
+			}
+		}
+	}
+	return ratings, nil
+}
+
+func GetHistory(ctx *restful.Context, uKey *datastore.Key, t gType.Type) (Ratings, error) {
+	ratings := make(Ratings, len(gType.Types))
+	keys := make([]*datastore.Key, len(gType.Types))
+	for i, t := range gType.Types {
+		ratings[i] = New(ctx, uKey, t)
+		keys[i] = ratings[i].Key
+	}
+	if err := gaelic.GetMulti(ctx, keys, ratings); err != nil {
+		return nil, err
+	}
+	return ratings, nil
+}
+
+func GetFor(ctx *restful.Context, t gType.Type) (Ratings, error) {
+	q := datastore.NewQuery(crKind).Ancestor(user.RootKey(ctx)).Filter("Type=", t).Order("-Low").KeysOnly()
+	keys, err := q.GetAll(ctx, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	length := len(keys)
+	ratings := make(Ratings, length)
+	for i := range ratings {
+		ratings[i] = NewCurrent(ctx, nil, t)
+		ratings[i].Key = keys[i]
+	}
+	if err := gaelic.GetMulti(ctx, keys, ratings); err != nil {
+		return nil, err
+	}
+	return ratings, nil
+}
+
+func (rs Ratings) Projected(ctx *restful.Context, cm contest.ContestMap) (Ratings, error) {
+	ratings := make(Ratings, len(rs))
+	for i, r := range rs {
+		var err error
+		if ratings[i], err = r.Projected(ctx, cm[r.Type]); err != nil {
+			return nil, err
+		}
+	}
+	return ratings, nil
+}
+
+func (r *Rating) Projected(ctx *restful.Context, cs contest.Contests) (*Rating, error) {
+	l := len(cs)
+	if l == 0 && r.generated {
+		return r, nil
+	}
+
+	gcs := make(glicko.Contests, l)
+	for i, c := range cs {
+		gcs[i] = glicko.NewContest(c.Outcome, c.R, c.RD)
+	}
+
+	rating, err := glicko.UpdateRating(r.Rank(), gcs)
+	if err != nil {
+		return nil, err
+	}
+
+	return NewCurrent(ctx, r.Key.Parent(), r.Type, rating.R, rating.RD), nil
+}
+
+func (r *Rating) Generated() bool {
+	return r.generated
+}
+
+func Index(ctx *restful.Context, render render.Render, routes martini.Routes, params martini.Params) {
+	t := gType.ToType[params["type"]]
+	ctx.Data["Type"] = t
+	ctx.Data["Heading"] = "Ratings: " + t.String()
+	ctx.Data["Types"] = gType.Types
+	render.HTML(http.StatusOK, "rating/index", ctx.Data)
+}
+
+func getRatings(ctx *restful.Context, render render.Render, routes martini.Routes, params martini.Params) {
+	if _, ok := ctx.Data["Ratings"]; ok {
+		return
+	}
+
+	switch ratings, err := GetFor(ctx, gType.ToType[params["type"]]); {
+	case err != nil:
+		ctx.AddErrorf(err.Error())
+		render.Redirect(routes.URLFor("home", nil), http.StatusSeeOther)
+	case ratings == nil:
+		ctx.AddErrorf("Unable to get ratings")
+		render.Redirect(routes.URLFor("home", nil), http.StatusSeeOther)
+	default:
+		keys := make([]*datastore.Key, len(ratings))
+		for i, r := range ratings {
+			keys[i] = r.Key.Parent()
+		}
+
+		if users, err := user.GetMulti(ctx, keys); err != nil {
+			ctx.AddErrorf(err.Error())
+			render.Redirect(routes.URLFor("home", nil), http.StatusSeeOther)
+		} else {
+			ctx.Data["Users"] = users
+		}
+		ctx.Data["Ratings"] = ratings
+	}
+}
+
+func For(ctx *restful.Context, u *user.User, t gType.Type) *Rating {
+	rating, _ := Get(ctx, u.Key, t)
+	return rating
+}
+
+func MultiFor(ctx *restful.Context, u *user.User) (Ratings, error) {
+	return GetAll(ctx, u.Key)
+}
+
+func Update(ctx *restful.Context) {
+	q := user.AllQuery(ctx).KeysOnly()
+	for t := q.Run(ctx); ; {
+		var (
+			k   *datastore.Key
+			err error
+		)
+		if k, err = t.Next(nil); err == datastore.Done {
+			break
+		} else if err != nil {
+			ctx.Errorf("Ratings update error when getting key %v.\n Error: %v", k, err)
+		} else if err = updateFor(ctx, k.IntID()); err != nil {
+			ctx.Errorf(err.Error())
+		}
+	}
+	ctx.Debugf("Reached End of Transaction")
+}
+
+func updateFor(ctx *restful.Context, uid int64) error {
+	sid := fmt.Sprintf("%v", uid)
+	params := make(url.Values)
+	params.Set("uid", sid)
+	path := "/ratings/userUpdate/" + sid
+	t := taskqueue.NewPOSTTask(path, params)
+	_, err := taskqueue.Add(ctx, t, "")
+	return err
+}
+
+func updateUser(ctx *restful.Context, render render.Render, params martini.Params) {
+	ctx.Debugf("Entered updateUser")
+	ctx.Debugf("params %#v", params)
+	defer ctx.Debugf("Exit updateUser")
+
+	u, err := user.BySID(ctx, params["uid"])
+	if err != nil {
+		ctx.Errorf("Unable to find user for id: %s", params["uid"])
+		render.Error(http.StatusNotFound)
+		return
+	}
+
+	ratings, err := MultiFor(ctx, u)
+	if err != nil {
+		ctx.Errorf("Ratings update error when getting MultiFor for user ID: %v.\n Error: %s", u.ID(), err)
+		render.Error(http.StatusInternalServerError)
+		return
+	}
+
+	cm, err := contest.Unapplied(ctx, u.Key)
+	if err != nil {
+		ctx.Errorf("Ratings update error when getting unapplied contests for user ID: %v.\n Error: %s", u.ID(), err)
+		render.Error(http.StatusInternalServerError)
+		return
+
+	}
+
+	projected, err := ratings.Projected(ctx, cm)
+	if err != nil {
+		ctx.Errorf("Ratings update error when getting projected ratings for user ID: %v\n Error: %s", u.ID(), err)
+		render.Error(http.StatusInternalServerError)
+		return
+	}
+
+	if len(ratings) > 0 && (time.Since(ratings[0].UpdatedAt) < 168*time.Hour) {
+		ctx.Debugf("Did not update ratings for user ID: %v", u.ID())
+		ctx.Debugf("Ratings updated %s ago.", time.Since(ratings[0].UpdatedAt))
+		return
+	}
+
+	ctx.Debugf("Processing ratings update for user ID: %v", u.ID())
+	ctx.Debugf("Projected ratings: %#v", projected)
+	ctx.Debugf("Unapplied contest count: %v", len(cm))
+
+	entities := make([]interface{}, 0)
+	keys := make([]*datastore.Key, 0)
+
+	ctx.Debugf("Reached for that ranges projected")
+	for _, p := range projected {
+		if !p.Generated() {
+			r := New(ctx, p.Key.Parent(), p.Type, p.R, p.RD)
+			entities = append(entities, p, r)
+			keys = append(keys, p.Key, r.Key)
+		}
+	}
+
+	ctx.Debugf("Reached for that unapplied contests")
+	for _, cs := range cm {
+		for _, c := range cs {
+			entities = append(entities, c)
+			keys = append(keys, c.Key)
+
+		}
+	}
+
+	if err := datastore.RunInTransaction(ctx, func(tc appengine.Context) error {
+		_, err := gaelic.PutMulti(ctx, keys, entities)
+		return err
+	}, nil); err != nil {
+		ctx.Errorf("Ratings update err when saving updated ratings for user ID: %v\n Error: %s", u.ID(), err)
+		render.Error(http.StatusInternalServerError)
+	}
+	ctx.Debugf("Reached RunInTransaction")
+}
+
+func Fetch(ctx *restful.Context, render render.Render, routes martini.Routes) {
+	if _, ok := ctx.Data["Ratings"]; ok {
+		return
+	}
+
+	u := user.Fetched(ctx)
+	if u == nil {
+		ctx.AddErrorf("Unable to get ratings.")
+		render.Redirect(routes.URLFor("home", nil), http.StatusSeeOther)
+		return
+	}
+
+	if rs, err := MultiFor(ctx, u); err != nil {
+		ctx.AddErrorf(err.Error())
+		render.Redirect(routes.URLFor("home", nil), http.StatusSeeOther)
+	} else {
+		ctx.Data["Ratings"] = rs
+	}
+}
+
+func Fetched(ctx *restful.Context) Ratings {
+	if rs, ok := ctx.Data["Ratings"]; ok {
+		return rs.(Ratings)
+	}
+	return nil
+}
+
+func FetchProjected(ctx *restful.Context, render render.Render, routes martini.Routes) {
+	if _, ok := ctx.Data["Projected"]; ok {
+		return
+	}
+
+	rs := Fetched(ctx)
+	if rs == nil {
+		ctx.AddErrorf("Unable to get projected ratings")
+		render.Redirect(routes.URLFor("home", nil), http.StatusSeeOther)
+		return
+	}
+
+	cm, err := contest.Unapplied(ctx, user.Fetched(ctx).Key)
+	if err != nil {
+		ctx.AddErrorf(err.Error())
+		render.Redirect(routes.URLFor("home", nil), http.StatusSeeOther)
+		return
+	}
+
+	if pr, err := rs.Projected(ctx, cm); err != nil {
+		ctx.AddErrorf(err.Error())
+		render.Redirect(routes.URLFor("home", nil), http.StatusSeeOther)
+	} else {
+		ctx.Data["Projected"] = pr
+	}
+}
+
+func Projected(ctx *restful.Context) Ratings {
+	if pr, ok := ctx.Data["Projected"]; ok {
+		return pr.(Ratings)
+	}
+	return nil
+}
+
+func (r *Rating) Save(ch chan<- datastore.Property) error {
+	// Time stamp
+	t := time.Now()
+	if r.CreatedAt.IsZero() {
+		r.CreatedAt = t
+	}
+	r.UpdatedAt = t
+	return datastore.SaveStruct(r, ch)
+}
+
+func (r *Rating) Load(ch <-chan datastore.Property) error {
+	return datastore.LoadStruct(r, ch)
+}

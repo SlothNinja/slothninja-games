@@ -1,0 +1,73 @@
+<div id="main-content">
+        <div class="game-table"> 
+                <div class="heading">
+                        <div>User Listing</div>
+                </div> 
+                <div class="content-box"> 
+                        <div class="content"> 
+                                <table class='fullDataTable' >
+                                        <thead>
+                                                <tr> 
+                                                        <th>
+                                                                ID
+                                                        </th>
+                                                        <th>
+                                                                Gravatar
+                                                        </th>
+                                                        <th> 
+                                                                User
+                                                        </th> 
+                                                        <th>
+                                                                Joined
+                                                        </th>
+                                                        <th>
+                                                                Updated
+                                                        </th>
+                                                        {{if and $.Admin $.IsAdmin}}
+                                                        <th>
+                                                                Email
+                                                        </th>
+                                                        {{end}}
+                                                        <th> 
+                                                                Actions
+                                                        </th> 
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                                {{range $user := $.Users}}
+                                                <tr>
+                                                        <td>
+                                                                {{$user.ID}}
+                                                        </td>
+                                                        <td>
+                                                                <a href="/user/{{$user.ID}}">
+                                                                        <img src="{{$user.Gravatar}}" alt="Gravatar" class="black-border" />
+                                                                </a>
+                                                        </td>
+                                                        <td>
+                                                                {{$user.Link}}
+                                                        </td>
+                                                        <td>
+                                                                {{$user.CreatedAt}}
+                                                        </td>
+                                                        <td>
+                                                                {{$user.UpdatedAt}}
+                                                        </td>
+                                                        {{if and $.Admin $.IsAdmin}}
+                                                        <td>
+                                                                {{$user.Email}}
+                                                        </td>
+                                                        {{end}}
+                                                        <td>
+                                                        {{if $user.IsCurrent $.Context | or $.IsAdmin}}
+                                                                <a class="mybutton" href="/user/{{$user.ID}}/edit">Edit</a>
+                                                        {{end}}
+                                                        </td>
+                                                </tr>
+                                                {{end}}
+                                        </tbody>
+                                </table>
+                        </div> 
+                </div> 
+        </div> 
+</div>

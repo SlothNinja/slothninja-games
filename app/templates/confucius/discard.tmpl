@@ -1,0 +1,36 @@
+{{$g := $.Game}}
+{{$ctx := $.Context}}
+
+<!-- Discard Form --> 
+{{if $g.EnableDiscard $ctx}}
+<div class="actions" id="discard-action"> 
+        <fieldset> 
+                <legend>Discard Cards</legend> 
+                <div class="left-column"> 
+                        <form action="/confucius/game/show/{{$g.ID}}" method="post">
+                                <div style="margin:0;padding:0;display:inline">
+                                        <input name="_method" type="hidden" value="PUT" />
+                                        <input name="action" type="hidden" value="discard" />
+                                </div>
+                                {{$g.CoinOptions "discard"}}
+                                <div>
+                                        <input class="mybutton" name="commit" type="submit" value="Discard Cards" />
+                                </div>
+                        </form> 
+                </div> 
+                <div class="right-column"> 
+                        <fieldset> 
+                                <legend>Action Details</legend> 
+                                <ul> 
+                                        <li> 
+                                        You must discard down to four Confucius Cards.
+                                        </li> 
+                                        <li> 
+                                        Select the cards you want to discard.
+                                        </li> 
+                                </ul> 
+                        </fieldset> 
+                </div> 
+        </fieldset> 
+</div>
+{{end}}

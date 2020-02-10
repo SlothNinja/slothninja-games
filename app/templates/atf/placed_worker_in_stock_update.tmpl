@@ -1,0 +1,8 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div>
+        {{template "shared/flashbox" .}}
+        {{template "shared/gamelog" $}}
+        {{template "shared/last_actions_list" $cp}}
+        {{template "atf/player_workers" $cp}}
+</div>

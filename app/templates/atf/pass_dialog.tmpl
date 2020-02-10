@@ -1,0 +1,20 @@
+{{$game := $.Game}}
+{{$cp := $game.CurrentPlayer}}
+<div id="dialog" title="Pass">
+        <div class="dialog-content">
+                <div id="tabs">
+                        <ul>
+                                {{if $cp.CanPass}}
+                                <li><a href="#tabs-pass">Pass</a></li>
+                                {{end}}
+                                <li><a href="#tabs-finish">Undo/Finish</a></li>
+                                {{if $.IsAdmin}}
+                                <li><a href="#tabs-admin">Admin</a></li>
+                                {{end}}
+                        </ul>
+                        {{template "atf/pass_form" $}}
+                        {{template "atf/finish_turn_form" $}}
+                        {{template "atf/admin/pass_form" $}}
+                </div>
+        </div>
+</div>
