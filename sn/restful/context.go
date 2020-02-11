@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"bitbucket.org/SlothNinja/gin-render"
+	render "github.com/SlothNinja/gin-render"
 	"github.com/gin-gonic/gin"
 	"go.chromium.org/gae/filter/dscache"
 	"go.chromium.org/gae/impl/memory"

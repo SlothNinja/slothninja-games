@@ -6,7 +6,7 @@ import (
 	"html/template"
 	"strings"
 
-	"bitbucket.org/pkg/inflect"
+	"github.com/SlothNinja/inflect"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/net/context"
 )
