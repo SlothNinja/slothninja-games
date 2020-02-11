@@ -1,4 +1,4 @@
-module github.com/SlothNinja/sn/restful
+module github.com/SlothNinja/slothninja-games/sn/restful
 
 require (
 	github.com/SlothNinja/gin-render v0.0.0-20200211051850-fbcc24764f62
@@ -11,8 +11,11 @@ require (
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	go.chromium.org/gae v0.0.0-20190826183307-50a499513efa
 	go.chromium.org/luci v0.0.0-20200210224117-fdb2e4cfcb7d
+	golang.org/x/lint v0.0.0-20190313153728-d0100b6bd8b3 // indirect
 	golang.org/x/net v0.0.0-20200202094626-16171245cfb2
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
+	golang.org/x/tools v0.0.0-20190524140312-2c0ae7006135 // indirect
 	google.golang.org/appengine v1.6.5 // indirect
 	google.golang.org/grpc v1.27.1 // indirect
+	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc // indirect
 )
