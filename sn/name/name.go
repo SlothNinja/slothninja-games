@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"go.chromium.org/gae/service/datastore"
 	"golang.org/x/net/context"
 )
