@@ -9,7 +9,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"go.chromium.org/gae/service/user"
 	"golang.org/x/net/context"
 )
 
@@ -167,20 +166,22 @@ func ToLower(s string) string {
 }
 
 func LogoutURL(ctx context.Context, redirect, label string) (template.HTML, error) {
-	url, err := user.LogoutURL(ctx, redirect)
-	if err != nil {
-		return "", err
-	}
-	return template.HTML(fmt.Sprintf(`<a href=%q>%s</a>`, url, label)), nil
+	return "", nil
+	// url, err := user.LogoutURL(ctx, redirect)
+	// if err != nil {
+	// 	return "", err
+	// }
+	// return template.HTML(fmt.Sprintf(`<a href=%q>%s</a>`, url, label)), nil
 }
 
 func LoginURL(ctx context.Context, redirect, label string) (tmpl template.HTML, err error) {
-	url, err := user.LoginURL(ctx, redirect)
-	if err != nil {
-		return
-	}
-	tmpl = template.HTML(fmt.Sprintf(`<a href=%q>%s</a>`, url, label))
-	return
+	return "", nil
+	// url, err := user.LoginURL(ctx, redirect)
+	// if err != nil {
+	// 	return
+	// }
+	// tmpl = template.HTML(fmt.Sprintf(`<a href=%q>%s</a>`, url, label))
+	// return
 }
 
 func noescape(s string) template.HTML {
