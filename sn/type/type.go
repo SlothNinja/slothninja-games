@@ -9,7 +9,7 @@ import (
 	//	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
 	//"bitbucket.org/SlothNinja/slothninja-games/sn/user"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"golang.org/x/net/context"
 )
 
