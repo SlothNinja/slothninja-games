@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"time"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/color"
+	"github.com/SlothNinja/slothninja-games/sn/color"
 	"golang.org/x/net/context"
 )
 
