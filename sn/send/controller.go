@@ -4,9 +4,9 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/codec"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/log"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
+	"github.com/SlothNinja/slothninja-games/sn/codec"
+	"github.com/SlothNinja/slothninja-games/sn/log"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/gin-gonic/gin"
 	"go.chromium.org/gae/service/mail"
 )

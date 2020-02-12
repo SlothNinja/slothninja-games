@@ -1,8 +1,8 @@
 package send
 
 import (
-	"bitbucket.org/SlothNinja/slothninja-games/sn/codec"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/log"
+	"github.com/SlothNinja/slothninja-games/sn/codec"
+	"github.com/SlothNinja/slothninja-games/sn/log"
 	"go.chromium.org/gae/service/mail"
 	"go.chromium.org/gae/service/taskqueue"
 	"golang.org/x/net/context"
