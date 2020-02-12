@@ -1,5 +1,4 @@
-runtime: go
-api_version: go1
+runtime: go111
 instance_class: F1
 automatic_scaling:
   max_idle_instances: 1
@@ -13,14 +12,6 @@ inbound_services:
 - warmup
 
 handlers:
-- url: /_ah/remote_api
-  script: _go_app
-  login: admin
-
-- url: .*/admin/.*
-  script: _go_app
-  login: admin
-
 - url: /stylesheets
   static_dir: public/stylesheets
 
@@ -50,46 +41,5 @@ handlers:
   static_files: public/robots.txt
   upload: public/robots\.txt
 
-- url: /users
-  script: _go_app
-  login: admin
-
-- url: /users/.*
-  script: _go_app
-  login: admin
-
-- url: /.*/game/auto_create
-  script: _go_app
-  login: admin
-
-- url: /ratings/update/.*
-  script: _go_app
-  login: admin
-
-- url: /ratings/userUpdate
-  script: _go_app
-  login: admin
-
-- url: /games/running/notfications
-  script: _go_app
-  login: admin
-
 - url: /.*
-  script: _go_app
-
-skip_files:
-- ^(.*/)?.*\.xcf
-- ^(.*/)?app\.yaml
-- ^(.*/)?app\.yml
-- ^(.*/)?index\.yaml
-- ^(.*/)?index\.yml
-- ^(.*/)?#.*#
-- ^(.*/)?.*~
-- ^(.*/)?.*\.py[co]
-- ^(.*/)?.*/RCS/.*
-- ^(.*/)?\..*
-- ^(.*/)?.*\.bak$
-- ^(.*/)?.*/script/.*
-- ^(.*/)?.*/gorilla/examples/.*
-- ^(.*/)?.*_test.go
-- ^(.*/)?.*/gorilla/lib/.*
+  script: auto
