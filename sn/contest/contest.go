@@ -3,8 +3,8 @@ package contest
 import (
 	"fmt"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/type"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
+	gType "github.com/SlothNinja/slothninja-games/sn/type"
 	"go.chromium.org/gae/service/datastore"
 	"golang.org/x/net/context"
 )
