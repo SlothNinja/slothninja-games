@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"time"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/log"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/user"
+	"github.com/SlothNinja/slothninja-games/sn/log"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
+	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/gin-gonic/gin"
 	"go.chromium.org/gae/service/datastore"
 	"go.chromium.org/luci/common/errors"
