@@ -1,11 +1,10 @@
 package user_controller
 
 import (
-	"bitbucket.org/SlothNinja/slothninja-games/sn/game"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/rating"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/type"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/user"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/user/stats"
+	"github.com/SlothNinja/slothninja-games/sn/game"
+	"github.com/SlothNinja/slothninja-games/sn/rating"
+	"github.com/SlothNinja/slothninja-games/sn/user"
+	"github.com/SlothNinja/slothninja-games/sn/user/stats"
 	"github.com/gin-gonic/gin"
 )
 
