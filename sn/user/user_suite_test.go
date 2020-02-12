@@ -1,11 +1,13 @@
 package user
 
 import (
-	"appengine/aetest"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
 	"bytes"
 	"encoding/gob"
 	"net/http"
+
+	"github.com/SlothNinja/slothninja-games/sn/restful"
+
+	"appengine/aetest"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -26,10 +28,10 @@ func TestUser(t *testing.T) {
 }
 
 var _ = BeforeSuite(func() {
-        aectx, err := aetest.NewContext(nil)
+	aectx, err := aetest.NewContext(nil)
 	Ω(err).ShouldNot(HaveOccurred())
 	Ω(aectx).ShouldNot(BeNil())
-        ctx = &restful.Context{Context: aectx}
+	ctx = &restful.Context{Context: aectx}
 
 	req, _ = http.NewRequest("GET", "http://localhost", nil)
 	req.Header.Set("App-Testing", "1")

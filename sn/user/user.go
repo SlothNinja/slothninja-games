@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/log"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
+	"github.com/SlothNinja/slothninja-games/sn/log"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"go.chromium.org/gae/service/datastore"
