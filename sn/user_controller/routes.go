@@ -3,6 +3,7 @@ package user_controller
 import (
 	"github.com/SlothNinja/slothninja-games/sn/game"
 	"github.com/SlothNinja/slothninja-games/sn/rating"
+	gType "github.com/SlothNinja/slothninja-games/sn/type"
 	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/SlothNinja/slothninja-games/sn/user/stats"
 	"github.com/gin-gonic/gin"
