@@ -1,12 +1,12 @@
 package game
 
 import (
-	"bitbucket.org/SlothNinja/slothninja-games/sn"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/color"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/log"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/type"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/user"
+	"github.com/SlothNinja/slothninja-games/sn/color"
+	"github.com/SlothNinja/slothninja-games/sn/log"
+	sn "github.com/SlothNinja/slothninja-games/sn/misc"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
+	gType "github.com/SlothNinja/slothninja-games/sn/type"
+	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/gin-gonic/gin"
 	"go.chromium.org/gae/service/datastore"
 	"golang.org/x/net/context"

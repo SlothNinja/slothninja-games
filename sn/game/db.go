@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/log"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/type"
+	"github.com/SlothNinja/slothninja-games/sn/log"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
+	gType "github.com/SlothNinja/slothninja-games/sn/type"
 	"github.com/gin-gonic/gin"
 	"go.chromium.org/gae/service/datastore"
 	"golang.org/x/net/context"

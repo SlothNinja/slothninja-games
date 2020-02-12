@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"html/template"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/color"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/rating"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/user"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/user/stats"
+	"github.com/SlothNinja/slothninja-games/sn/color"
+	"github.com/SlothNinja/slothninja-games/sn/rating"
+	"github.com/SlothNinja/slothninja-games/sn/user"
+	"github.com/SlothNinja/slothninja-games/sn/user/stats"
 	"golang.org/x/net/context"
 )
 

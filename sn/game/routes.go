@@ -1,7 +1,7 @@
 package game
 
 import (
-	"bitbucket.org/SlothNinja/slothninja-games/sn/type"
+	gType "github.com/SlothNinja/slothninja-games/sn/type"
 	"github.com/gin-gonic/gin"
 )
 

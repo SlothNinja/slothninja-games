@@ -3,11 +3,11 @@ package game
 import (
 	"bytes"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/log"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/send"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/type"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/user"
+	"github.com/SlothNinja/slothninja-games/sn/log"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
+	"github.com/SlothNinja/slothninja-games/sn/send"
+	gType "github.com/SlothNinja/slothninja-games/sn/type"
+	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/gin-gonic/gin"
 	"go.chromium.org/gae/service/datastore"
 	"go.chromium.org/gae/service/mail"
