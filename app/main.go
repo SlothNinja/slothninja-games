@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bitbucket.org/SlothNinja/restful"
+	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/SlothNinja/slothninja-games/welcome"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
