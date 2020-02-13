@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/SlothNinja/slothninja-games/sn/restful"
+	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/SlothNinja/slothninja-games/welcome"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -10,6 +11,8 @@ import (
 )
 
 const (
+	loginPath    = "/login"
+	authPath     = "/auth"
 	userPrefix   = "user"
 	gamesPrefix  = "games"
 	ratingPrefix = "rating"
@@ -70,6 +73,8 @@ func main() {
 
 		c.JSON(200, gin.H{"hello": session.Get("hello")})
 	})
+
+	r.GET(loginPath, user.Login(authPath))
 
 	// Welcome Page (index.html) route
 	welcome.AddRoutes(r)
