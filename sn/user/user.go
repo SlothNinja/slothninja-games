@@ -2,24 +2,36 @@ package user
 
 import (
 	"crypto/md5"
+	"crypto/rand"
 	"crypto/sha1"
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
 
+	log2 "github.com/SlothNinja/log"
 	"github.com/SlothNinja/slothninja-games/sn/log"
 	"github.com/SlothNinja/slothninja-games/sn/restful"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"go.chromium.org/gae/service/datastore"
 	"go.chromium.org/gae/service/info"
 	"go.chromium.org/gae/service/user"
 	"golang.org/x/net/context"
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/google"
+)
+
+const (
+	HOST     = "HOST"
+	authPath = "/auth"
 )
 
 type User struct {
@@ -374,6 +386,63 @@ func GetCUserHandler(c *gin.Context) {
 		}
 	}
 	WithCurrent(c, u)
+}
+
+func Login(path string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		log2.Debugf("Entering")
+		defer log2.Debugf("Exiting")
+
+		session := sessions.Default(c)
+		state := randToken()
+		session.Set("state", state)
+		session.Save()
+
+		c.Redirect(http.StatusSeeOther, getLoginURL(c, path, state))
+	}
+}
+
+func randToken() string {
+	b := make([]byte, 32)
+	rand.Read(b)
+	return base64.StdEncoding.EncodeToString(b)
+}
+
+func getLoginURL(c *gin.Context, path, state string) string {
+	log2.Debugf("Entering")
+	defer log2.Debugf("Exiting")
+
+	// State can be some kind of random generated hash string.
+	// See relevant RFC: http://tools.ietf.org/html/rfc6749#section-10.12
+	return oauth2Config(c, path, scopes()...).AuthCodeURL(state)
+}
+
+func oauth2Config(c *gin.Context, path string, scopes ...string) *oauth2.Config {
+	log2.Debugf("Entering")
+	defer log2.Debugf("Exiting")
+
+	log2.Debugf("request: %#v", c.Request)
+
+	// protocol := "http"
+	// if c.Request.TLS != nil {
+	// 	protocol = "https"
+	// }
+
+	return &oauth2.Config{
+		ClientID:     "435340145701-t5o50sjq7hsbilopgreobhvrv30e1tj4.apps.googleusercontent.com",
+		ClientSecret: "Fe5f-Ht1V5_GohDEOS_TQOVc",
+		Endpoint:     google.Endpoint,
+		Scopes:       scopes,
+		RedirectURL:  fmt.Sprintf("%s%s", getHost(), path),
+	}
+}
+
+func scopes() []string {
+	return []string{"email", "profile", "openid"}
+}
+
+func getHost() string {
+	return os.Getenv(HOST)
 }
 
 // Use after GetGUserHandler and GetUserHandler handlers
