@@ -1,21 +1,18 @@
 package contest
 
 import (
-	"fmt"
-
+	"cloud.google.com/go/datastore"
 	"github.com/SlothNinja/slothninja-games/sn/restful"
 	gType "github.com/SlothNinja/slothninja-games/sn/type"
-	"go.chromium.org/gae/service/datastore"
+	"github.com/gin-gonic/gin"
 	"golang.org/x/net/context"
 )
 
 const kind = "Contest"
 
-type Contests []*Contest
+// type Contests []*Contest
 type Contest struct {
-	ctx       context.Context
-	ID        int64          `gae:"$id"`
-	Parent    *datastore.Key `gae:"$parent"`
+	Key       *datastore.Key `datastore:"__key__"`
 	GameID    int64
 	Type      gType.Type
 	R         float64
@@ -38,9 +35,9 @@ type Results []*Result
 type ResultsMap map[*datastore.Key]Results
 type Places []ResultsMap
 
-func New(ctx context.Context, pk *datastore.Key, gid int64, t gType.Type, r, rd, outcome float64) *Contest {
+func New(pk *datastore.Key, gid int64, t gType.Type, r, rd, outcome float64) *Contest {
 	return &Contest{
-		Parent:  pk,
+		Key:     datastore.IncompleteKey(kind, pk),
 		GameID:  gid,
 		Type:    t,
 		R:       r,
@@ -49,11 +46,11 @@ func New(ctx context.Context, pk *datastore.Key, gid int64, t gType.Type, r, rd,
 	}
 }
 
-func GenContests(ctx context.Context, places Places) (cs Contests) {
+func GenContests(ctx context.Context, places Places) (cs []*Contest) {
 	for _, rmap := range places {
 		for ukey, rs := range rmap {
 			for _, r := range rs {
-				cs = append(cs, New(ctx, ukey, r.GameID, r.Type, r.R, r.RD, r.Outcome))
+				cs = append(cs, New(ukey, r.GameID, r.Type, r.R, r.RD, r.Outcome))
 			}
 		}
 	}
@@ -84,56 +81,41 @@ func GenContests(ctx context.Context, places Places) (cs Contests) {
 //	}, nil)
 //}
 
-func UnappliedFor(ctx context.Context, ukey *datastore.Key, t gType.Type) (Contests, error) {
-	q := datastore.NewQuery(kind).Ancestor(ukey).Eq("Applied", false).Eq("Type", t).KeysOnly(true)
+func UnappliedFor(c *gin.Context, ukey *datastore.Key, t gType.Type) ([]*Contest, error) {
+	q := datastore.NewQuery(kind).
+		Ancestor(ukey).
+		Filter("Applied=", false).
+		Filter("Type=", t)
 
-	var ks []*datastore.Key
-	if err := datastore.GetAll(ctx, q, &ks); err != nil {
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
 		return nil, err
 	}
 
-	length := len(ks)
-	if length == 0 {
-		return nil, nil
-	}
-
-	cs := make(Contests, length)
-	for i := range cs {
-		cs[i] = new(Contest)
-		if ok := datastore.PopulateKey(cs[i], ks[i]); !ok {
-			return nil, fmt.Errorf("Unable to populate contest with key.")
-		}
-	}
-	if err := datastore.Get(ctx, cs); err != nil {
+	var cs []*Contest
+	_, err = dsClient.GetAll(c, q, cs)
+	if err != nil {
 		return nil, err
 	}
+
 	return cs, nil
 }
 
-type ContestMap map[gType.Type]Contests
+type ContestMap map[gType.Type][]*Contest
 
-func Unapplied(ctx context.Context, ukey *datastore.Key) (ContestMap, error) {
-	q := datastore.NewQuery(kind).Ancestor(ukey).Eq("Applied", false).KeysOnly(true)
+func Unapplied(c *gin.Context, ukey *datastore.Key) (ContestMap, error) {
+	q := datastore.NewQuery(kind).
+		Ancestor(ukey).
+		Filter("Applied=", false)
 
-	var ks []*datastore.Key
-	if err := datastore.GetAll(ctx, q, &ks); err != nil {
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
 		return nil, err
 	}
 
-	length := len(ks)
-	if length == 0 {
-		return nil, nil
-	}
-
-	cs := make(Contests, length)
-	for i := range cs {
-		cs[i] = new(Contest)
-		if ok := datastore.PopulateKey(cs[i], ks[i]); !ok {
-			return nil, fmt.Errorf("Unable to populate contest with key.")
-		}
-	}
-
-	if err := datastore.Get(ctx, cs); err != nil {
+	var cs []*Contest
+	_, err = dsClient.GetAll(c, q, cs)
+	if err != nil {
 		return nil, err
 	}
 
