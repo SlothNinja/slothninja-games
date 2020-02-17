@@ -5,9 +5,11 @@ import (
 	"crypto/rand"
 	"crypto/sha1"
 	"encoding/base64"
+	"encoding/gob"
 	"errors"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"regexp"
@@ -15,30 +17,33 @@ import (
 	"strings"
 	"time"
 
-	log2 "github.com/SlothNinja/log"
-	"github.com/SlothNinja/slothninja-games/sn/log"
+	"bitbucket.org/SlothNinja/slothninja-games/sn/user"
+	"cloud.google.com/go/datastore"
+	"github.com/SlothNinja/log"
 	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"go.chromium.org/gae/service/datastore"
-	"go.chromium.org/gae/service/info"
-	"go.chromium.org/gae/service/user"
+	"github.com/gofrs/uuid"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
 
+func init() {
+	gob.Register(sessionToken{})
+}
+
 const (
-	HOST     = "HOST"
-	authPath = "/auth"
+	HOST        = "HOST"
+	authPath    = "/auth"
+	sessionKey  = "session"
+	userNewPath = "/user/new"
 )
 
 type User struct {
-	ctx     context.Context
 	isAdmin bool
-	ID      int64          `gae:"$id"`
-	Parent  *datastore.Key `gae:"$parent"`
+	Key     *datastore.Key `datastore:"__key__"`
 	Data
 }
 
@@ -79,65 +84,74 @@ var (
 	ErrTooManyFound = errors.New("Found too many users.")
 )
 
-func (u *User) CTX() context.Context {
-	return u.ctx
+// func (u *User) CTX() context.Context {
+// 	return u.ctx
+// }
+
+func RootKey() *datastore.Key {
+	return datastore.NameKey("Users", "root", nil)
 }
 
-func RootKey(ctx context.Context) *datastore.Key {
-	return datastore.NewKey(ctx, "Users", "root", 0, nil)
+func newKey(id int64) *datastore.Key {
+	return datastore.IDKey(kind, id, RootKey())
 }
 
-func NewKey(ctx context.Context, id int64) *datastore.Key {
-	return datastore.NewKey(ctx, kind, "", id, RootKey(ctx))
+func New(id int64) *User {
+	return &User{Key: newKey(id)}
 }
 
-func New(ctx context.Context) *User {
-	return &User{ctx: ctx, Parent: RootKey(ctx)}
+func (u User) ID() int64 {
+	if u.Key != nil {
+		return u.Key.ID
+	}
+	return 0
 }
 
 type NUser struct {
-	ID     string         `gae:"$id"`
-	Parent *datastore.Key `gae:"$parent"`
-	Kind   string         `gae:"$kind"`
-	OldID  int64          `json:"oldid"`
+	Key   *datastore.Key `datastore:"__key__"`
+	OldID int64          `json:"oldid"`
 	Data
 }
 
-func NNew(ctx context.Context) *NUser {
-	return &NUser{Parent: RootKey(ctx), Kind: kind}
+func (u *NUser) ID() string {
+	if u.Key != nil {
+		return u.Key.Name
+	}
+	return ""
 }
 
-func ToNUser(ctx context.Context, u *User) (nu *NUser) {
-	nu = NNew(ctx)
-	nu.ID = GenID(u.GoogleID)
-	nu.OldID = u.ID
+func NNew(id string) *NUser {
+	return &NUser{Key: datastore.NameKey(kind, id, RootKey())}
+}
+
+func ToNUser(u *User) *NUser {
+	nu := NNew(GenID(u.GoogleID))
+	nu.OldID = u.ID()
 	nu.Data = u.Data
-	return
+	return nu
 }
 
 func GenID(gid string) string {
 	return fmt.Sprintf("%x", sha1.Sum([]byte(salt+gid)))
 }
 
-func NewKeyFor(ctx context.Context, id int64) *datastore.Key {
-	u := New(ctx)
-	u.ID = id
-	return datastore.KeyForObj(ctx, u)
+func NewKeyFor(id int64) *datastore.Key {
+	return New(id).Key
 }
 
-func FromGUser(ctx context.Context, gu *user.User) *User {
-	if gu == nil {
-		return nil
-	} else {
-		n := strings.Split(gu.Email, "@")[0]
-		u := New(ctx)
-		u.Name = n
-		u.LCName = strings.ToLower(n)
-		u.Email = gu.Email
-		u.GoogleID = gu.ID
-		return u
-	}
-}
+// func FromGUser(ctx context.Context, gu *user.User) *User {
+// 	if gu == nil {
+// 		return nil
+// 	} else {
+// 		n := strings.Split(gu.Email, "@")[0]
+// 		u := New(ctx)
+// 		u.Name = n
+// 		u.LCName = strings.ToLower(n)
+// 		u.Email = gu.Email
+// 		u.GoogleID = gu.ID
+// 		return u
+// 	}
+// }
 
 //func ByGoogleID(ctx context.Context, gid string) (*User, error) {
 //	q := datastore.NewQuery(kind).Ancestor(RootKey(ctx)).Eq("GoogleID", gid).KeysOnly(true)
@@ -165,23 +179,31 @@ func FromGUser(ctx context.Context, gu *user.User) *User {
 //	return u, nil
 //}
 
-func ByGoogleID(ctx context.Context, gid string) (nu *NUser, err error) {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func ByGoogleID(c *gin.Context, gid string) (*NUser, error) {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	u := New(ctx)
+	u := New(0)
 	u.GoogleID = gid
-	nu = ToNUser(ctx, u)
-	log.Debugf(ctx, "nu: %#v", nu)
-	if err = datastore.Get(ctx, nu); err != nil {
-		if err == datastore.ErrNoSuchEntity {
-			err = ErrNotFound
-		}
-		log.Warningf(ctx, err.Error())
-		return
+	nu := ToNUser(u)
+	log.Debugf("nu: %#v", nu)
+
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		return nil, err
 	}
 
-	return
+	err = dsClient.Get(c, nu.Key, nu)
+	if err == datastore.ErrNoSuchEntity {
+		return nil, ErrNotFound
+	}
+
+	if err != nil {
+		log.Warningf(err.Error())
+		return nil, err
+	}
+
+	return nu, nil
 }
 
 //func GetMulti(ctx context.Context, ks []*datastore.Key) (Users, error) {
@@ -217,8 +239,8 @@ func ByGoogleID(ctx context.Context, gid string) (nu *NUser, err error) {
 //	return GetMulti(ctx, ks)
 //}
 
-func AllQuery(ctx context.Context) *datastore.Query {
-	return datastore.NewQuery(kind).Ancestor(RootKey(ctx))
+func AllQuery() *datastore.Query {
+	return datastore.NewQuery(kind).Ancestor(RootKey())
 }
 
 //func getByGoogleID(ctx context.Context, gid string) (*User, error) {
@@ -243,7 +265,8 @@ func AllQuery(ctx context.Context) *datastore.Query {
 //}
 //
 func MCKey(ctx context.Context, gid string) string {
-	return info.VersionID(ctx) + gid
+	return ""
+	// return info.VersionID(ctx) + gid
 }
 
 //func setByGoogleID(c *gin.Context, gid string, u *User) error {
@@ -255,16 +278,16 @@ func MCKey(ctx context.Context, gid string) string {
 //	}
 //}
 
-func IsAdmin(ctx context.Context) bool {
-	return user.IsAdmin(ctx)
-}
+// func IsAdmin(ctx context.Context) bool {
+// 	return user.IsAdmin(ctx)
+// }
 
 func (u *User) IsAdmin() bool {
 	return u != nil && u.isAdmin
 }
 
 func (u *User) IsAdminOrCurrent(ctx context.Context) bool {
-	return IsAdmin(ctx) || u.IsCurrent(ctx)
+	return u.IsAdmin() || u.IsCurrent(ctx)
 }
 
 func (u *User) Gravatar(options ...string) template.URL {
@@ -272,6 +295,10 @@ func (u *User) Gravatar(options ...string) template.URL {
 }
 
 func (u *NUser) Gravatar(options ...string) template.URL {
+	return template.URL(GravatarURL(u.Email, options...))
+}
+
+func (u *OAuth) Gravatar(options ...string) template.URL {
 	return template.URL(GravatarURL(u.Email, options...))
 }
 
@@ -288,22 +315,23 @@ func GravatarURL(email string, options ...string) string {
 	return fmt.Sprintf("http://www.gravatar.com/avatar/%s?s=%s&d=monsterid", md5string, size)
 }
 
-func (u *User) Update(ctx context.Context) error {
-	n := New(ctx)
-	if err := restful.BindWith(ctx, n, binding.FormPost); err != nil {
+func (u *User) Update(c *gin.Context) error {
+	n := New(0)
+	err := restful.BindWith(c, n, binding.FormPost)
+	if err != nil {
 		return err
 	}
 
-	log.Debugf(ctx, "n: %#v", n)
+	log.Debugf("n: %#v", n)
 
-	if IsAdmin(ctx) {
+	if u.IsAdmin() {
 		if n.Email != "" {
 			u.Email = n.Email
 		}
 	}
 
-	if u.IsAdminOrCurrent(ctx) {
-		if err := u.updateName(ctx, n.Name); err != nil {
+	if u.IsAdminOrCurrent(c) {
+		if err := u.updateName(c, n.Name); err != nil {
 			return err
 		}
 		u.EmailNotifications = n.EmailNotifications
@@ -312,7 +340,7 @@ func (u *User) Update(ctx context.Context) error {
 	return nil
 }
 
-func (u *User) updateName(ctx context.Context, n string) error {
+func (u *User) updateName(c *gin.Context, n string) error {
 	matcher := regexp.MustCompile(`^[A-Za-z][A-Za-z0-9._%+\-]+$`)
 
 	switch {
@@ -322,7 +350,7 @@ func (u *User) updateName(ctx context.Context, n string) error {
 		return fmt.Errorf("%q is too long.", n)
 	case !matcher.MatchString(n):
 		return fmt.Errorf("%q is not a valid user name.", n)
-	case !NameIsUnique(ctx, n):
+	case !NameIsUnique(c, n):
 		return fmt.Errorf("%q is not a unique user name.", n)
 	}
 
@@ -331,26 +359,31 @@ func (u *User) updateName(ctx context.Context, n string) error {
 	return nil
 }
 
-func NameIsUnique(ctx context.Context, name string) bool {
+func NameIsUnique(c *gin.Context, name string) bool {
 	LCName := strings.ToLower(name)
 
-	q := datastore.NewQuery("User").Eq("LCName", LCName)
-	if cnt, err := datastore.Count(ctx, q); err != nil {
+	q := datastore.NewQuery("User").Filter("LCName=", LCName)
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
 		return false
-	} else {
-		return cnt == 0
 	}
+
+	cnt, err := dsClient.Count(c, q)
+	if err != nil {
+		return false
+	}
+	return cnt == 0
 }
 
 func (u *User) Equal(u2 *User) bool {
-	return u2 != nil && u != nil && u.ID == u2.ID
+	return u.ID() == u2.ID()
 }
 
 func (u *User) Link() template.HTML {
 	if u == nil {
 		return ""
 	}
-	return LinkFor(u.ID, u.Name)
+	return LinkFor(u.ID(), u.Name)
 }
 
 func LinkFor(uid int64, name string) template.HTML {
@@ -361,37 +394,35 @@ func PathFor(uid int64) template.HTML {
 	return template.HTML(fmt.Sprintf("/user/show/%d", uid))
 }
 
-func GetGUserHandler(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+// func GetGUserHandler(c *gin.Context) {
+// 	log.Debugf("Entering")
+// 	defer log.Debugf("Exiting")
+//
+// 	WithGUser(c, user.Current(ctx))
+// }
 
-	WithGUser(c, user.Current(ctx))
-}
-
-// Use after GetGUserHandler handler
-func GetCUserHandler(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
-
-	var u *User
-	if gu := GUserFrom(ctx); gu != nil {
-		// Attempt to fetch and return stored User
-		if nu, err := ByGoogleID(ctx, gu.ID); err != nil {
-			log.Debugf(ctx, err.Error())
-		} else {
-			u = New(ctx)
-			u.ID, u.Data, u.isAdmin = nu.OldID, nu.Data, user.IsAdmin(ctx)
-		}
-	}
-	WithCurrent(c, u)
-}
+// // Use after GetGUserHandler handler
+// func GetCUserHandler(c *gin.Context) {
+// 	log.Debugf("Entering")
+// 	defer log.Debugf("Exiting")
+//
+// 	var u *User
+// 	if gu := GUserFrom(ctx); gu != nil {
+// 		// Attempt to fetch and return stored User
+// 		if nu, err := ByGoogleID(ctx, gu.ID); err != nil {
+// 			log.Debugf(err.Error())
+// 		} else {
+// 			u = New(ctx)
+// 			u.ID, u.Data, u.isAdmin = nu.OldID, nu.Data, user.IsAdmin(ctx)
+// 		}
+// 	}
+// 	WithCurrent(c, u)
+// }
 
 func Login(path string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		log2.Debugf("Entering")
-		defer log2.Debugf("Exiting")
+		log.Debugf("Entering")
+		defer log.Debugf("Exiting")
 
 		session := sessions.Default(c)
 		state := randToken()
@@ -409,8 +440,8 @@ func randToken() string {
 }
 
 func getLoginURL(c *gin.Context, path, state string) string {
-	log2.Debugf("Entering")
-	defer log2.Debugf("Exiting")
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
 	// State can be some kind of random generated hash string.
 	// See relevant RFC: http://tools.ietf.org/html/rfc6749#section-10.12
@@ -418,10 +449,10 @@ func getLoginURL(c *gin.Context, path, state string) string {
 }
 
 func oauth2Config(c *gin.Context, path string, scopes ...string) *oauth2.Config {
-	log2.Debugf("Entering")
-	defer log2.Debugf("Exiting")
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	log2.Debugf("request: %#v", c.Request)
+	log.Debugf("request: %#v", c.Request)
 
 	// protocol := "http"
 	// if c.Request.TLS != nil {
@@ -445,124 +476,322 @@ func getHost() string {
 	return os.Getenv(HOST)
 }
 
-// Use after GetGUserHandler and GetUserHandler handlers
-func RequireLogin() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		ctx := restful.ContextFrom(c)
-
-		if gu := GUserFrom(ctx); gu == nil {
-			log.Warningf(ctx, "RequireLogin failed.")
-			c.Redirect(http.StatusSeeOther, "/")
-			c.Abort()
-		}
-	}
+type Info struct {
+	Sub           string `json:"sub"`
+	Name          string `json:"name"`
+	GivenName     string `json:"given_name"`
+	FamilyName    string `json:"family_name"`
+	Profile       string `json:"profile"`
+	Picture       string `json:"picture"`
+	Email         string `json:"email"`
+	EmailVerified bool   `json:"email_verified"`
+	LoggedIn      bool
+	Admin         bool
 }
 
-func RequireCurrentUser() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		ctx := restful.ContextFrom(c)
+const fqdn = "www.slothninja.com"
 
-		if cu := CurrentFrom(ctx); cu == nil {
-			log.Warningf(ctx, "RequireCurrentUser failed.")
-			c.Redirect(http.StatusSeeOther, "/")
-			c.Abort()
-		}
-	}
+var namespaceUUID = uuid.NewV5(uuid.NamespaceDNS, fqdn)
+
+// Generates ID for User from ID obtained from OAuth OpenID Connect
+func id(s string) string {
+	return uuid.NewV5(namespaceUUID, s).String()
 }
 
-func RequireAdmin(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
-
-	if !user.IsAdmin(ctx) {
-		log.Warningf(ctx, "user not admin.")
-		c.Redirect(http.StatusSeeOther, "/")
-		c.Abort()
-	}
+type OAuth struct {
+	isAdmin bool
+	Key     *datastore.Key `datastore:"__key__"`
+	OldID1  int64          `json:"oldID1"`
+	OldID2  string         `json:"oldID2"`
+	Data
 }
 
-func Fetch(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering user#Fetch")
-	defer log.Debugf(ctx, "Exiting user#Fetch")
-
-	uid, err := getUID(c)
-	if err != nil || uid == NotFound {
-		log.Errorf(ctx, "getUID error: %v", err.Error())
-		c.Redirect(http.StatusSeeOther, "/")
-		c.Abort()
-		return
+func (u OAuth) ID() string {
+	if u.Key != nil {
+		return u.Key.Name
 	}
-
-	u := New(ctx)
-	u.ID = uid
-	if err = datastore.Get(ctx, u); err != nil {
-		log.Errorf(ctx, "Unable to get user for id: %v", c.Param("uid"))
-		c.Redirect(http.StatusSeeOther, "/")
-		c.Abort()
-	} else {
-		WithUser(c, u)
-	}
+	return ""
 }
 
-func FetchAll(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
-
-	us, cnt, err := getFiltered(ctx, c.PostForm("start"), c.PostForm("length"))
-
+func (u *OAuth) Update(c *gin.Context) error {
+	n := NewOAuth("")
+	err := restful.BindWith(c, n, binding.FormPost)
 	if err != nil {
-		log.Errorf(ctx, err.Error())
-		c.Redirect(http.StatusSeeOther, homePath)
-		c.Abort()
+		return err
 	}
-	withUsers(withCount(c, cnt), us)
+
+	log.Debugf("n: %#v", n)
+
+	cu := user.CurrentFrom(c)
+	if cu.IsAdmin() {
+		if n.Email != "" {
+			u.Email = n.Email
+		}
+	}
+
+	if cu.IsAdminOrCurrent(c) {
+		if err := u.updateName(c, n.Name); err != nil {
+			return err
+		}
+		u.EmailNotifications = n.EmailNotifications
+	}
+
+	return nil
 }
 
-func getFiltered(ctx context.Context, start, length string) (us []interface{}, cnt int64, err error) {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func (u *OAuth) updateName(c *gin.Context, n string) error {
+	matcher := regexp.MustCompile(`^[A-Za-z][A-Za-z0-9._%+\-]+$`)
 
-	q := AllQuery(ctx).Order("GoogleID").KeysOnly(true)
-	if cnt, err = datastore.Count(ctx, q); err != nil {
-		return
+	switch {
+	case n == u.Name:
+		return nil
+	case len(n) > 15:
+		return fmt.Errorf("%q is too long.", n)
+	case !matcher.MatchString(n):
+		return fmt.Errorf("%q is not a valid user name.", n)
+	case !NameIsUnique(c, n):
+		return fmt.Errorf("%q is not a unique user name.", n)
+	}
+
+	u.Name = n
+	u.LCName = strings.ToLower(n)
+	return nil
+}
+
+func NewKeyOAuth(id string) *datastore.Key {
+	return datastore.NameKey(kind, id, RootKey())
+}
+
+func NewOAuth(id string) *OAuth {
+	return &OAuth{Key: NewKeyOAuth(id)}
+}
+
+func Auth(path string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		log.Debugf("Entering")
+		defer log.Debugf("Exiting")
+
+		// Handle the exchange code to initiate a transport.
+		session := sessions.Default(c)
+		retrievedState := session.Get("state")
+		if retrievedState != c.Query("state") {
+			c.AbortWithError(http.StatusUnauthorized, fmt.Errorf("Invalid session state: %s", retrievedState))
+			return
+		}
+
+		log.Debugf("retrievedState: %#v", retrievedState)
+		// ac := appengine.NewContext(c.Request)
+		ac := context.Background()
+		conf := oauth2Config(c, path, scopes()...)
+		log.Debugf("conf: %#v", conf)
+		tok, err := conf.Exchange(ac, c.Query("code"))
+		if err != nil {
+			log.Errorf("tok error: %#v", err)
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		log.Debugf("tok: %#v", tok)
+
+		client := conf.Client(ac, tok)
+		resp, err := client.Get("https://www.googleapis.com/oauth2/v3/userinfo")
+		if err != nil {
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+		log.Debugf("body: %s", body)
+
+		uinfo := Info{}
+		var b binding.BindingBody = binding.JSON
+		err = b.BindBody(body, &uinfo)
+		if err != nil {
+			log.Errorf("BindBody error: %v", err)
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+		log.Debugf("info: %#v", uinfo)
+
+		u := NewOAuth(id(uinfo.Sub))
+		dsClient, err := datastore.NewClient(c, "")
+		if err != nil {
+			log.Errorf("Client error: %v", err)
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		err = dsClient.Get(c, u.Key, u)
+		if err == datastore.ErrNoSuchEntity {
+			u.Email = uinfo.Email
+			err = u.SaveTo(session)
+			if err != nil {
+				log.Errorf("session.Save error: %v", err)
+				c.AbortWithError(http.StatusBadRequest, err)
+				return
+			}
+			log.Debugf("session saved")
+			c.Redirect(http.StatusSeeOther, userNewPath)
+			return
+		}
+
+		if err != nil {
+			log.Errorf("ByID => \n\t id: %s\n\t error: %s", id, err)
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+
+		err = u.SaveTo(session)
+		if err != nil {
+			log.Errorf("session.Save error: %v", err)
+			c.AbortWithError(http.StatusBadRequest, err)
+			return
+		}
+		log.Debugf("session saved")
+
+		c.Redirect(http.StatusSeeOther, "/")
+	}
+}
+
+func (u OAuth) SaveTo(s sessions.Session) error {
+	s.Set(sessionKey, sessionToken{ID: u.ID(), Email: u.Email})
+	return s.Save()
+}
+
+type sessionToken struct {
+	ID    string `json:"id"`
+	Email string `json:"email"`
+}
+
+func SessionTokenFrom(s sessions.Session) (sessionToken, bool) {
+	token, ok := s.Get(sessionKey).(sessionToken)
+	return token, ok
+}
+
+// // Use after GetGUserHandler and GetUserHandler handlers
+// func RequireLogin() gin.HandlerFunc {
+// 	return func(c *gin.Context) {
+// 		if gu := GUserFrom(ctx); gu == nil {
+// 			log.Warningf("RequireLogin failed.")
+// 			c.Redirect(http.StatusSeeOther, "/")
+// 			c.Abort()
+// 		}
+// 	}
+// }
+//
+// func RequireCurrentUser() gin.HandlerFunc {
+// 	return func(c *gin.Context) {
+// 		ctx := restful.ContextFrom(c)
+//
+// 		if cu := CurrentFrom(ctx); cu == nil {
+// 			log.Warningf("RequireCurrentUser failed.")
+// 			c.Redirect(http.StatusSeeOther, "/")
+// 			c.Abort()
+// 		}
+// 	}
+// }
+
+// func RequireAdmin(c *gin.Context) {
+// 	log.Debugf("Entering")
+// 	defer log.Debugf("Exiting")
+//
+// 	if !user.IsAdmin(ctx) {
+// 		log.Warningf("user not admin.")
+// 		c.Redirect(http.StatusSeeOther, "/")
+// 		c.Abort()
+// 	}
+// }
+
+// func Fetch(c *gin.Context) {
+// 	log.Debugf("Entering user#Fetch")
+// 	defer log.Debugf("Exiting user#Fetch")
+//
+// 	uid, err := getUID(c)
+// 	if err != nil || uid == NotFound {
+// 		log.Errorf("getUID error: %v", err.Error())
+// 		c.Redirect(http.StatusSeeOther, "/")
+// 		c.Abort()
+// 		return
+// 	}
+//
+// 	u := New(ctx)
+// 	u.ID = uid
+// 	if err = datastore.Get(ctx, u); err != nil {
+// 		log.Errorf("Unable to get user for id: %v", c.Param("uid"))
+// 		c.Redirect(http.StatusSeeOther, "/")
+// 		c.Abort()
+// 	} else {
+// 		WithUser(c, u)
+// 	}
+// }
+//
+// func FetchAll(c *gin.Context) {
+// 	log.Debugf("Entering")
+// 	defer log.Debugf("Exiting")
+//
+// 	us, cnt, err := getFiltered(ctx, c.PostForm("start"), c.PostForm("length"))
+//
+// 	if err != nil {
+// 		log.Errorf(err.Error())
+// 		c.Redirect(http.StatusSeeOther, homePath)
+// 		c.Abort()
+// 	}
+// 	withUsers(withCount(c, cnt), us)
+// }
+
+func getFiltered(c *gin.Context, start, length string) ([]interface{}, int, error) {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
+
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		return nil, 0, err
+	}
+
+	q := AllQuery().Order("GoogleID").KeysOnly()
+	cnt, err := dsClient.Count(c, q)
+	if err != nil {
+		return nil, 0, err
 	}
 
 	if start != "" {
-		if st, err := strconv.ParseInt(start, 10, 32); err == nil {
-			q = q.Offset(int32(st))
+		st, err := strconv.ParseInt(start, 10, 32)
+		if err == nil {
+			q = q.Offset(int(st))
 		}
 	}
 
 	if length != "" {
-		if l, err := strconv.ParseInt(length, 10, 32); err == nil {
-			q = q.Limit(int32(l))
+		l, err := strconv.ParseInt(length, 10, 32)
+		if err == nil {
+			q = q.Limit(int(l))
 		}
 	}
 
 	var ks []*datastore.Key
-	if err = datastore.GetAll(ctx, q, &ks); err != nil {
-		return
+	ks, err = dsClient.GetAll(c, q, nil)
+	if err != nil {
+		return nil, 0, err
 	}
 
 	l := len(ks)
-	us = make([]interface{}, l)
+	us := make([]interface{}, l)
 	for i := range us {
-		if id := ks[i].IntID(); id != 0 {
-			u := New(ctx)
-			u.ID = id
+		if id := ks[i].ID; id != 0 {
+			u := New(id)
 			us[i] = u
 		} else {
-			u := NNew(ctx)
-			u.ID = ks[i].StringID()
+			u := NNew(ks[i].Name)
 			us[i] = u
 		}
 	}
 
-	err = datastore.Get(ctx, us)
-	return
+	err = dsClient.GetMulti(c, ks, us)
+	return us, cnt, err
 }
 
 //func FetchAll(c *gin.Context) {
@@ -628,22 +857,22 @@ func (u *User) IsCurrent(ctx context.Context) bool {
 	return u.Equal(CurrentFrom(ctx))
 }
 
-func GUserFrom(ctx context.Context) (u *user.User) {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
-
-	u, _ = ctx.Value(guserKey).(*user.User)
-	log.Debugf(ctx, "u: %#v", u)
-	return
-}
+// func GUserFrom(ctx context.Context) (u *user.User) {
+// 	log.Debugf("Entering")
+// 	defer log.Debugf("Exiting")
+//
+// 	u, _ = ctx.Value(guserKey).(*user.User)
+// 	log.Debugf("u: %#v", u)
+// 	return
+// }
 
 func WithUser(c *gin.Context, u *User) {
 	c.Set(userKey, u)
 }
 
-func WithGUser(c *gin.Context, u *user.User) {
-	c.Set(guserKey, u)
-}
+// func WithGUser(c *gin.Context, u *user.User) {
+// 	c.Set(guserKey, u)
+// }
 
 func WithCurrent(c *gin.Context, u *User) {
 	c.Set(currentKey, u)
