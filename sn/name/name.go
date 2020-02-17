@@ -2,19 +2,16 @@ package name
 
 import (
 	"errors"
-	"strings"
 
+	"cloud.google.com/go/datastore"
 	"github.com/SlothNinja/slothninja-games/sn/restful"
-	"go.chromium.org/gae/service/datastore"
-	"golang.org/x/net/context"
+	"github.com/gin-gonic/gin"
 )
 
 var ErrNameInUse = errors.New("Name already in use.")
 
 type Name struct {
-	//Key       *datastore.Key `datastore:"-"`
-	ID        string `gae:"$id"`
-	Kind      string `gae:"$kind"`
+	Key       *datastore.Key `datastore:"__key__"`
 	GoogleID  string
 	CreatedAt restful.CTime
 	UpdatedAt restful.UTime
@@ -22,19 +19,22 @@ type Name struct {
 
 const kind = "UserName"
 
-func New() *Name {
-	return &Name{Kind: kind}
+func New(id string) *Name {
+	return &Name{Key: datastore.NameKey(kind, id, nil)}
 }
 
-func ByName(ctx context.Context, name string, n *Name) error {
-	n.ID = strings.ToLower(name)
-	return datastore.Get(ctx, n)
+func ByName(c *gin.Context, n *Name) error {
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		return err
+	}
+	return dsClient.Get(c, n.Key, &n)
 }
 
 //func NewKey(ctx *restful.Context, name string) *datastore.Key {
 //	return datastore.NewKey(ctx, kind, name, 0, nil)
 //}
 
-func IsUnique(ctx context.Context, name string) bool {
-	return ByName(ctx, name, New()) == datastore.ErrNoSuchEntity
+func IsUnique(c *gin.Context, name string) bool {
+	return ByName(c, New(name)) == datastore.ErrNoSuchEntity
 }
