@@ -2,17 +2,14 @@ package main
 
 import (
 	"github.com/SlothNinja/slothninja-games/sn/restful"
-	"github.com/SlothNinja/slothninja-games/sn/user"
+	"github.com/SlothNinja/slothninja-games/sn/user_controller"
 	"github.com/SlothNinja/slothninja-games/welcome"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-	"google.golang.org/appengine"
 )
 
 const (
-	loginPath    = "/login"
-	authPath     = "/auth"
 	userPrefix   = "user"
 	gamesPrefix  = "games"
 	ratingPrefix = "rating"
@@ -43,11 +40,11 @@ const (
 // }
 
 func main() {
-	if appengine.IsDevAppServer() {
-		gin.SetMode(gin.DebugMode)
-	} else {
-		gin.SetMode(gin.ReleaseMode)
-	}
+	// if appengine.IsDevAppServer() {
+	// 	gin.SetMode(gin.DebugMode)
+	// } else {
+	// 	gin.SetMode(gin.ReleaseMode)
+	// }
 
 	store := cookie.NewStore([]byte("secret123"))
 
@@ -74,10 +71,11 @@ func main() {
 		c.JSON(200, gin.H{"hello": session.Get("hello")})
 	})
 
-	r.GET(loginPath, user.Login(authPath))
-
 	// Welcome Page (index.html) route
 	welcome.AddRoutes(r)
+
+	// User Routes
+	user_controller.AddRoutes(userPrefix, r)
 
 	r.Run()
 }

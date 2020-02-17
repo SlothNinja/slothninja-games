@@ -27,10 +27,7 @@
                                         {{end}}
 -->
                                         Hello Guest
-                                        <a href='\login'>(Login)</a>
-                                        {{$path := $req.URL.String}}
-                                        {{LoginURL $.Context $path "(Login)"}}
-                                        {{end}}
+                                        <a href='/user/login'>(Login)</a>
                                 </div> 
                         </div> 
                 </div> 

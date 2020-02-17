@@ -8,6 +8,10 @@ automatic_scaling:
 
 default_expiration: "7d"
 
+env_variables:
+  HOST: "https://dev-slothninja-games.appspot.com"
+  DATASTORE_PROJECT_ID: "dev-slothninja-games"
+
 inbound_services:
 - warmup
 
