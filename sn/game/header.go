@@ -152,7 +152,7 @@ func (h *Header) DefaultColorMap() color.Colors {
 func (h *Header) ColorMapFor(u *user.User) color.Map {
 	cm := h.DefaultColorMap()
 	if u != nil {
-		if p := h.PlayererByUserID(u.ID); p != nil {
+		if p := h.PlayererByUserID(u.ID()); p != nil {
 			cm = p.ColorMap()
 		}
 	}
