@@ -10,26 +10,26 @@ func AddRoutes(prefix string, engine *gin.Engine) {
 
 	// Index
 	g1.GET("/:status",
-		gType.SetTypes(),
+		// gType.SetTypes(),
 		Index(prefix),
 	)
 
 	// JSON Data for Index
 	g1.POST("/:status/json",
-		gType.SetTypes(),
+		// gType.SetTypes(),
 		GetFiltered(gType.All),
 		JSONIndexAction,
 	)
 
 	// Index
 	g1.GET("/:status/user/:uid",
-		gType.SetTypes(),
+		// gType.SetTypes(),
 		Index(prefix),
 	)
 
 	// JSON Data for Index
 	g1.POST("/:status/user/:uid/json",
-		gType.SetTypes(),
+		// gType.SetTypes(),
 		GetFiltered(gType.All),
 		JSONIndexAction,
 	)

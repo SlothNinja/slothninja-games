@@ -3,22 +3,20 @@ package welcome
 import (
 	"net/http"
 
+	"github.com/SlothNinja/log"
+	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/gin-gonic/gin"
+	"google.golang.org/appengine"
 )
 
 func Index(c *gin.Context) {
-	// ctx := restful.ContextFrom(c)
-	// log.Debugf(ctx, "Entering welcome#Index")
-	// defer log.Debugf(ctx, "Exiting welcome#Index")
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	// if cu, gu := user.CurrentFrom(ctx), user.GUserFrom(ctx); cu == nil && gu != nil {
-	// 	c.Redirect(http.StatusSeeOther, "/user/new")
-	// } else {
-	// 	log.Debugf(ctx, "cu: %#v", cu)
+	cu, found := user.Current(c)
 	c.HTML(http.StatusOK, "welcome/index", gin.H{
-		// "VersionID": info.VersionID(ctx),
-		// "CUser":     cu,
-		// "Context": ctx})
-		"Context": c})
-	// }
+		"VersionID": appengine.VersionID(c),
+		"CUser":     cu,
+		"CUFound":   found,
+		"Context":   c})
 }

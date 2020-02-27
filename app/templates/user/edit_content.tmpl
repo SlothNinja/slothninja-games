@@ -17,7 +17,7 @@
                                                 <div style="margin:0;padding:0;display:inline">
                                                         <input name="_method" type="hidden" value="PUT" />
                                                 </div> 
-                                                {{if $.IsAdmin}}
+                                                {{if $.CUser.IsAdmin}}
                                                 <div> 
                                                         <label for="user-name"><strong>Name:</strong></label>
                                                         <input id="user-name" name="name" size="30" type="text" value="{{$u.Name}}" /> 
@@ -28,13 +28,13 @@
                                                         <input name="name" type="hidden" value={{$u.Name}} />
                                                 </div>
                                                 {{end}}
-                                                {{if $.IsAdmin}}
+                                                {{if $.CUser.IsAdmin}}
                                                 <div> 
                                                         <label for="user-email">Email:</label>
                                                         <input id="user-email" name="email" size="30" type="text" value="{{$u.Email}}" /> 
                                                 </div>
                                                 {{else}}
-                                                {{if $u.IsCurrent $.Context | or $.IsAdmin}}
+                                                {{if eq $u.ID $.CUser.ID | or $.CUser.IsAdmin}}
                                                 <div> 
                                                         <strong>Email:</strong> <span>{{$u.Email}}</span>
                                                 </div>
@@ -81,12 +81,16 @@
                 </div>
                 <div class="content-box"> 
                         <div class="content">
+                        <!--
                                 {{template "user/rating_table" $}}
+                        -->
                         </div>
                 </div>
                 <div class="content-box"> 
                         <div class="content">
+                        <!--
                                 {{template "user/games_table" .}}
+                        -->
                         </div>
                 </div>
                 {{end}}

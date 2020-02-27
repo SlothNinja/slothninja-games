@@ -6,27 +6,29 @@ import (
 )
 
 const (
-	authPath  = "auth"
-	loginPath = "login"
+	authPath   = "auth"
+	loginPath  = "login"
+	logoutPath = "logout"
 )
 
 func AddRoutes(prefix string, engine *gin.Engine) {
 	// User Group
 	g1 := engine.Group(prefix)
 	g1.GET("new",
-		// user.RequireLogin(),
+		user.RequireLogin(),
 		// gType.SetTypes(),
 		NewAction,
 	)
 
 	// Create
 	g1.POST("",
-		// user.RequireLogin(),
+		user.RequireLogin(),
 		Create(prefix),
 	)
 
 	// Show User
 	g1.GET("show/:uid",
+		user.RequireCurrentUser(),
 		// user.Fetch,
 		// stats.Fetch(user.From),
 		// gType.SetTypes(),
@@ -35,7 +37,7 @@ func AddRoutes(prefix string, engine *gin.Engine) {
 
 	// Edit User
 	g1.GET("edit/:uid",
-		// user.RequireLogin(),
+		user.RequireCurrentUser(),
 		// user.Fetch,
 		// stats.Fetch(user.From),
 		// gType.SetTypes(),
@@ -44,6 +46,7 @@ func AddRoutes(prefix string, engine *gin.Engine) {
 
 	// Update User
 	g1.POST("update/:uid",
+		user.RequireCurrentUser(),
 		// user.RequireLogin(),
 		// user.Fetch,
 		// gType.SetTypes(),
@@ -76,11 +79,11 @@ func AddRoutes(prefix string, engine *gin.Engine) {
 	// 	game.JSONIndexAction,
 	// )
 
-	g1.GET("login",
-		user.Login("/user/auth"),
-	)
+	g1.GET(loginPath, user.Login("/"+prefix+"/"+authPath))
 
-	g1.GET("auth", user.Auth("/user/auth"))
+	g1.GET(logoutPath, user.Logout)
+
+	g1.GET(authPath, user.Auth("/"+prefix+"/"+authPath))
 
 	// Users group
 	g2 := engine.Group(prefix + "s")

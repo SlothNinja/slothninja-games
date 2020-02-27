@@ -9,8 +9,7 @@ import (
 	"github.com/SlothNinja/slothninja-games/sn/color"
 	"github.com/SlothNinja/slothninja-games/sn/rating"
 	"github.com/SlothNinja/slothninja-games/sn/user"
-	"github.com/SlothNinja/slothninja-games/sn/user/stats"
-	"golang.org/x/net/context"
+	"github.com/gin-gonic/gin"
 )
 
 func init() {
@@ -31,7 +30,7 @@ type Player struct {
 	gamer           Gamer
 	user            *user.User
 	rating          *rating.CurrentRating
-	stats           *stats.Stats
+	stats           user.Stats
 	IDF             int  `form:"idf"`
 	PerformedAction bool `form:"performed-action"`
 	Score           int  `form:"score"`
@@ -52,7 +51,7 @@ type jPlayer struct {
 	//Gravatar string `json:"gravatar"`
 }
 
-func (p *Player) MarshalJSON() ([]byte, error) {
+func (p *Player) MarshalJSON(c *gin.Context) ([]byte, error) {
 	j := &jPlayer{
 		User:            p.user,
 		Rating:          p.rating,
@@ -60,7 +59,7 @@ func (p *Player) MarshalJSON() ([]byte, error) {
 		PerformedAction: p.PerformedAction,
 		Score:           p.Score,
 		Passed:          p.Passed,
-		ColorMap:        p.gamer.(GetPlayerers).GetPlayerers().Colors().Strings(),
+		ColorMap:        p.gamer.(GetPlayerers).GetPlayerers().Colors(c).Strings(),
 		//		Link:            string(p.Link()),
 		// Gravatar: p.Gravatar(),
 	}
@@ -70,13 +69,13 @@ func (p *Player) MarshalJSON() ([]byte, error) {
 type Playerer interface {
 	ID() int
 	Index() int
-	User() *user.User
+	User() user.User
 	Name() string
-	Color() color.Color
-	ColorMap() color.Colors
+	Color(*gin.Context) color.Color
+	ColorMap(*gin.Context) color.Colors
 	//Init(Gamer)
-	Rating() *rating.CurrentRating
-	Stats() *stats.Stats
+	Rating(*gin.Context) *rating.CurrentRating
+	Stats() user.Stats
 }
 
 func (p *Player) CompareByScore(p2 *Player) (c Comparison) {
@@ -114,7 +113,7 @@ func (p *Player) SetID(id int) {
 	p.IDF = id
 }
 
-func (p *Player) ColorMap() color.Colors {
+func (p *Player) ColorMap(c *gin.Context) color.Colors {
 	return p.ColorMapF
 }
 
@@ -130,18 +129,16 @@ func (p *Player) NotEqual(p2 Playerer) bool {
 	return !p.Equal(p2)
 }
 
-func (p *Player) User() *user.User {
-	if p.user == nil {
-		p.user = p.gamer.User(p.ID())
-	}
-	return p.user
+func (p *Player) User() user.User {
+	return p.gamer.User(p.ID())
 }
 
-func (h *Header) UserIDFor(p Playerer) (id int64) {
-	if l, pid := len(h.UserIDS), p.ID(); pid >= 0 && pid < l {
-		id = h.UserIDS[p.ID()]
+func (h *Header) UserIDFor(p Playerer) int64 {
+	l, pid := len(h.UserIDS), p.ID()
+	if pid >= 0 && pid < l {
+		return h.UserIDS[p.ID()]
 	}
-	return
+	return -1
 }
 
 func (h *Header) NameFor(p Playerer) (n string) {
@@ -158,7 +155,7 @@ func (h *Header) NameByPID(pid int) (n string) {
 	return
 }
 
-func (h *Header) NameByUID(uid int64) (n string) {
+func (h *Header) NameByUID(uid int64) string {
 	var index int = NotFound
 	for i := range h.UserIDS {
 		if uid == h.UserIDS[i] {
@@ -168,9 +165,9 @@ func (h *Header) NameByUID(uid int64) (n string) {
 	}
 
 	if index != NotFound {
-		n = h.NameByPID(index)
+		return h.NameByPID(index)
 	}
-	return
+	return ""
 }
 
 func (h *Header) NameByUSID(sid string) (n string) {
@@ -195,16 +192,16 @@ func (h *Header) EmailFor(p Playerer) (em string) {
 	return
 }
 
-func (p *Player) Rating() *rating.CurrentRating {
+func (p *Player) Rating(c *gin.Context) *rating.CurrentRating {
 	if p.rating != nil {
 		return p.rating
 	}
-	p.rating, _ = rating.For(p.User().CTX(), p.User(), p.Game().GetHeader().Type)
+	p.rating, _ = rating.For(c, p.User(), p.Game().GetHeader().Type)
 	return p.rating
 }
 
-func (p *Player) Stats() *stats.Stats {
-	if p.stats != nil {
+func (p Player) Stats() user.Stats {
+	if p.stats.Key != nil {
 		return p.stats
 	}
 	p.stats = p.gamer.Stat(p.ID())
@@ -213,11 +210,8 @@ func (p *Player) Stats() *stats.Stats {
 
 // Name provides the name of the player.
 // TODO: Deprecated in favor of NameFor.
-func (p *Player) Name() (s string) {
-	if p != nil && p.User() != nil {
-		s = p.User().Name
-	}
-	return
+func (p *Player) Name() string {
+	return p.User().Name
 }
 
 // Index provides the index in players for the player.
@@ -242,23 +236,26 @@ func IndexFor(p Playerer, ps Playerers) (index int) {
 // NotFound indicates a value (e.g., player) was not found in the collection.
 const NotFound = -1
 
-func (p *Player) Color() color.Color {
+func (p *Player) Color(c *gin.Context) color.Color {
 	if p == nil {
 		return color.None
 	}
 	colorMap := p.gamer.DefaultColorMap()
-	if cu := p.gamer.CurrentUser(); cu != nil {
-		if player := p.gamer.PlayererByUserID(cu.ID); player != nil {
-			colorMap = player.ColorMap()
+	cu, found := user.Current(c)
+	if !found {
+		// if cu := p.gamer.CurrentUser(); cu != nil {
+		player := p.gamer.PlayererByUserID(cu.ID())
+		if player != nil {
+			colorMap = player.ColorMap(c)
 		}
 	}
 	return colorMap[p.ID()]
 }
 
-func (ps Playerers) Colors() color.Colors {
+func (ps Playerers) Colors(c *gin.Context) color.Colors {
 	cs := make(color.Colors, len(ps))
 	for i, p := range ps {
-		cs[i] = p.Color()
+		cs[i] = p.Color(c)
 	}
 	return cs
 }
@@ -271,12 +268,13 @@ var textColors = map[color.Color]color.Color{
 	color.Black:  color.White,
 }
 
-func (p *Player) TextColor() (c color.Color) {
+func (p *Player) TextColor(c *gin.Context) color.Color {
 	var ok bool
-	if c, ok = textColors[p.Color()]; !ok {
-		c = color.Black
+	clr, ok := textColors[p.Color(c)]
+	if !ok {
+		return color.Black
 	}
-	return
+	return clr
 }
 
 // A bit of a misnomer
@@ -290,12 +288,12 @@ func (p *Player) TextColor() (c color.Color) {
 
 // A bit of a misnomer
 // Returns whether the current user is the same as the player's user
-func (p *Player) IsCurrentUser(ctx context.Context) bool {
-	if p == nil {
+func (p Player) IsCurrentUser(c *gin.Context) bool {
+	cu, found := user.Current(c)
+	if !found {
 		return false
 	}
-	cu := user.CurrentFrom(ctx)
-	return p.User().Equal(cu)
+	return p.User().ID() == cu.ID()
 }
 
 // A bit of a misnomer
@@ -357,14 +355,15 @@ func (p *Player) Init(g Gamer) {
 	p.SetGame(g)
 }
 
-func (p *Player) Gravatar() string {
+func (p *Player) Gravatar(c *gin.Context) string {
+	u := p.User()
 	return fmt.Sprintf(`<a href="/user/show/%d" ><img src=%q alt="Gravatar" class="%s-border" /> </a>`,
-		p.User().ID, p.User().Gravatar(), p.Color())
+		u.ID(), u.Gravatar(), p.Color(c))
 }
 
-func (h *Header) GravatarFor(p Playerer) template.HTML {
+func (h *Header) GravatarFor(c *gin.Context, p Playerer) template.HTML {
 	return template.HTML(fmt.Sprintf(`<a href=%q ><img src=%q alt="Gravatar" class="%s-border" /> </a>`,
-		h.UserPathFor(p), user.GravatarURL(h.EmailFor(p)), p.Color()))
+		h.UserPathFor(p), user.GravatarURL(h.EmailFor(p)), p.Color(c)))
 }
 
 func (h *Header) UserPathFor(p Playerer) template.HTML {

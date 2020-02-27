@@ -6,12 +6,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/SlothNinja/slothninja-games/sn/log"
-	"github.com/SlothNinja/slothninja-games/sn/restful"
+	"cloud.google.com/go/datastore"
+	"github.com/SlothNinja/log"
 	gType "github.com/SlothNinja/slothninja-games/sn/type"
 	"github.com/gin-gonic/gin"
-	"go.chromium.org/gae/service/datastore"
-	"golang.org/x/net/context"
 )
 
 const (
@@ -20,92 +18,99 @@ const (
 	NoCount   = -1
 )
 
-func getAllQuery(ctx context.Context) *datastore.Query {
-	return datastore.NewQuery("Game").Ancestor(GamesRoot(ctx))
+func getAllQuery() *datastore.Query {
+	return datastore.NewQuery("Game").Ancestor(GamesRoot())
 }
 
-func getFiltered(ctx context.Context, status, sid, start, length string, t gType.Type) (gs Gamers, cnt int64, err error) {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func getFiltered(c *gin.Context, status, sid, start, length string, t gType.Type) (Gamers, int, error) {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	c := restful.GinFrom(ctx)
-	q := getAllQuery(ctx).KeysOnly(true)
+	q := getAllQuery().KeysOnly()
 	if status != "" {
 		st := ToStatus[strings.ToLower(status)]
-		q = q.Eq("Status", st)
+		q = q.Filter("Status=", int(st))
 		WithStatus(c, st)
 	}
 
 	if sid != "" {
 		if id, err := strconv.Atoi(sid); err == nil {
-			q = q.Eq("UserIDS", id)
+			q = q.Filter("UserIDS=", id)
 		}
 	}
 
 	if t != gType.All {
-		q = q.Eq("Type", t).Order("-UpdatedAt")
+		q = q.
+			Filter("Type=", int(t)).
+			Order("-UpdatedAt")
 	} else {
 		q = q.Order("-UpdatedAt")
 	}
 
-	if cnt, err = datastore.Count(ctx, q); err != nil {
-		log.Errorf(ctx, "sn/game#GetFiltered q.Count Error: %s", err)
-		return
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		log.Errorf("sn/game#GetFiltered q.Count Error: %s", err)
+		return nil, -1, err
+	}
+
+	cnt, err := dsClient.Count(c, q)
+	if err != nil {
+		log.Errorf("sn/game#GetFiltered q.Count Error: %s", err)
+		return nil, -1, err
 	}
 
 	if start != "" {
-		if st, err := strconv.ParseInt(start, 10, 32); err == nil {
-			q = q.Offset(int32(st))
+		st, err := strconv.ParseInt(start, 10, 32)
+		if err == nil {
+			q = q.Offset(int(st))
 		}
 	}
 
 	if length != "" {
-		if l, err := strconv.ParseInt(length, 10, 32); err == nil {
-			q = q.Limit(int32(l))
+		l, err := strconv.ParseInt(length, 10, 32)
+		if err == nil {
+			q = q.Limit(int(l))
 		}
 	}
 
-	var ks []*datastore.Key
-	if err = datastore.GetAll(ctx, q, &ks); err != nil {
-		log.Errorf(ctx, "getFiltered GetAll Error: %s", err)
-		return
+	ks, err := dsClient.GetAll(c, q, nil)
+	if err != nil {
+		log.Errorf("getFiltered GetAll Error: %s", err)
+		return nil, -1, err
 	}
 
 	l := len(ks)
-	gs = make([]Gamer, l)
+	gs := make([]Gamer, l)
 	hs := make([]*Header, l)
 	for i := range gs {
 		var ok bool
 		if t == gType.All {
-			k := strings.ToLower(ks[i].Parent().Kind())
+			k := strings.ToLower(ks[i].Parent.Kind)
 			if t, ok = gType.ToType[k]; !ok {
 				err = fmt.Errorf("Unknown Game Type For: %s", k)
-				log.Errorf(ctx, err.Error())
-				return
+				log.Errorf(err.Error())
+				return nil, -1, err
 			}
 		}
-		gs[i] = factories[t](ctx)
+		gs[i] = factories[t](ks[i].ID)
 		hs[i] = gs[i].GetHeader()
-		if ok := datastore.PopulateKey(hs[i], ks[i]); !ok {
-			err = fmt.Errorf("Unable to populate header with key.")
-			log.Errorf(ctx, err.Error())
-			return
-		}
 	}
 
-	if err = datastore.Get(ctx, hs); err != nil {
-		log.Errorf(ctx, "SN/Game#GetFiltered datastore.Get Error: %s", err)
-		return
+	err = dsClient.GetMulti(c, ks, hs)
+	if err != nil {
+		log.Errorf("SN/Game#GetFiltered datastore.Get Error: %s", err)
+		return nil, -1, err
 	}
 
 	for i := range hs {
-		if err = hs[i].AfterLoad(gs[i]); err != nil {
-			log.Errorf(ctx, "SN/Game#GetFiltered h.AfterLoad Error: %s", err)
-			return
+		err = hs[i].AfterLoad(c, gs[i])
+		if err != nil {
+			log.Errorf("h.AfterLoad error: %s", err)
+			return nil, -1, err
 		}
 	}
 
-	return
+	return gs, cnt, nil
 }
 
 //func SetStatus(c *gin.Context) {
@@ -119,38 +124,35 @@ func getFiltered(ctx context.Context, status, sid, start, length string, t gType
 //}
 
 func WithStatus(c *gin.Context, s Status) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
 	c.Set(statusKey, s)
 }
 
-func StatusFrom(ctx context.Context) (s Status) {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func StatusFrom(c *gin.Context) (s Status) {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	c := restful.GinFrom(ctx)
 	if s = ToStatus[strings.ToLower(c.Param("status"))]; s != NoStatus {
 		WithStatus(c, s)
 	} else {
-		s, _ = ctx.Value(statusKey).(Status)
+		s, _ = c.Value(statusKey).(Status)
 	}
 	return
 }
 
-func withCount(c *gin.Context, cnt int64) *gin.Context {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func withCount(c *gin.Context, cnt int) *gin.Context {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
 	c.Set(countKey, cnt)
 	return c
 }
 
-func countFrom(ctx context.Context) (cnt int64) {
-	cnt, _ = ctx.Value(countKey).(int64)
-	return
+func countFrom(c *gin.Context) int {
+	cnt, _ := c.Value(countKey).(int)
+	return cnt
 }
 
 //func SetType(ctx context.Context) {
@@ -228,14 +230,22 @@ func countFrom(ctx context.Context) (cnt int64) {
 
 func GetFiltered(t gType.Type) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		ctx := restful.ContextFrom(c)
-		log.Debugf(ctx, "Entering")
-		defer log.Debugf(ctx, "Exiting")
+		log.Debugf("Entering")
+		defer log.Debugf("Exiting")
 
-		gs, cnt, err := getFiltered(ctx, c.Param("status"), c.Param("uid"), c.PostForm("start"), c.PostForm("length"), t)
+		gs, cnt, err := getFiltered(
+			c,
+			c.Param("status"),
+			c.Param("uid"),
+			c.PostForm("start"),
+			c.PostForm("length"),
+			t,
+		)
+
+		log.Debugf("gs: %#v\ncnt: %d\nerr: %v", gs, cnt, err)
 
 		if err != nil {
-			log.Errorf(ctx, err.Error())
+			log.Errorf(err.Error())
 			c.Redirect(http.StatusSeeOther, homePath)
 			c.Abort()
 		}
@@ -244,14 +254,13 @@ func GetFiltered(t gType.Type) gin.HandlerFunc {
 }
 
 func GetRunning(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	gs, cnt, err := getFiltered(ctx, c.Param("status"), "", "", "", gType.All)
+	gs, cnt, err := getFiltered(c, c.Param("status"), "", "", "", gType.All)
 
 	if err != nil {
-		log.Errorf(ctx, err.Error())
+		log.Errorf(err.Error())
 		c.Redirect(http.StatusSeeOther, homePath)
 		c.Abort()
 	}

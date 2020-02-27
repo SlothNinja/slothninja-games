@@ -6,12 +6,11 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"cloud.google.com/go/datastore"
 	"github.com/SlothNinja/log"
-	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/SlothNinja/slothninja-games/sn/user"
-	"github.com/SlothNinja/slothninja-games/sn/user/stats"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/appengine"
@@ -21,39 +20,105 @@ const (
 	welcomePath = "/welcome"
 	userNewPath = "/user"
 	homePath    = "/"
+	uidParam    = "uid"
 )
 
 func Index(c *gin.Context) {
+	cu, found := user.Current(c)
 	c.HTML(http.StatusOK, "user/index", gin.H{
 		"Context":   c,
 		"VersionID": appengine.VersionID(c),
-		"CUser":     user.CurrentFrom(c),
+		"CUser":     cu,
+		"CUFound":   found,
 	})
 }
 
 func Show(c *gin.Context) {
-	cu := user.CurrentFrom(c)
-	u := user.From(c)
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		log.Errorf("unable to connect to database: %v", err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	cu, found := user.Current(c)
+
+	uid, err := strconv.ParseInt(c.Param(uidParam), 10, 64)
+	if err != nil {
+		log.Errorf(err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	u := user.New(uid)
+	err = dsClient.Get(c, u.Key, &u)
+	if err != nil {
+		log.Errorf("unable to pull user and stats from database: %v", err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	st := user.NewStats(u)
+	err = dsClient.Get(c, st.Key, &st)
+	if err != nil && err != datastore.ErrNoSuchEntity {
+		log.Errorf("unable to pull user and stats from database: %v", err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	log.Debugf("stats: %#v", st)
+
 	c.HTML(http.StatusOK, "user/show", gin.H{
 		"Context":   c,
 		"VersionID": appengine.VersionID(c),
 		"User":      u,
 		"CUser":     cu,
-		"IsAdmin":   cu.IsAdmin(),
-		"Stats":     stats.Fetched(c),
+		"CUFound":   found,
+		"Stats":     st,
 	})
 }
 
 func Edit(c *gin.Context) {
-	cu := user.CurrentFrom(c)
-	u := user.From(c)
+	cu, found := user.Current(c)
+
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		log.Errorf("unable to connect to database: %v", err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	uid, err := strconv.ParseInt(c.Param(uidParam), 10, 64)
+	if err != nil {
+		log.Errorf(err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	u := user.New(uid)
+	err = dsClient.Get(c, u.Key, &u)
+	if err != nil {
+		log.Errorf("unable to pull user from database: %v", err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	st := user.NewStats(u)
+	err = dsClient.Get(c, st.Key, &st)
+	if err != nil && err != datastore.ErrNoSuchEntity {
+		log.Errorf("unable to pull user and stats from database: %v", err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	log.Debugf("stats: %#v", st)
 	c.HTML(http.StatusOK, "user/edit", gin.H{
 		"Context":   c,
 		"VersionID": appengine.VersionID(c),
 		"User":      u,
 		"CUser":     cu,
-		"IsAdmin":   cu.IsAdmin(),
-		"Stats":     stats.Fetched(c),
+		"CUFound":   found,
+		"Stats":     st,
 	})
 }
 
@@ -82,8 +147,8 @@ type jUser struct {
 	Name          string        `json:"name"`
 	Email         string        `json:"email"`
 	Gravatar      template.HTML `json:"gravatar"`
-	Joined        restful.CTime `json:"joined"`
-	Updated       restful.UTime `json:"updated"`
+	Joined        time.Time     `json:"joined"`
+	Updated       time.Time     `json:"updated"`
 	OmitCreatedAt omit          `json:"createdat,omitempty"`
 	OmitUpdatedAt omit          `json:"updatedat,omitempty"`
 }
@@ -97,13 +162,13 @@ func toUserTable(c *gin.Context, us []interface{}) (table *jUserIndex, err error
 	table.Data = make([]*jUser, l)
 
 	var (
-		u  *user.User
-		nu *user.NUser
+		u user.User
+		// nu *user.NUser
 		ok bool
 	)
 
 	for i, uinf := range us {
-		if u, ok = uinf.(*user.User); ok {
+		if u, ok = uinf.(user.User); ok {
 			table.Data[i] = &jUser{
 				IntID:    u.ID(),
 				StringID: "",
@@ -115,21 +180,21 @@ func toUserTable(c *gin.Context, us []interface{}) (table *jUserIndex, err error
 				Joined:   u.CreatedAt,
 				Updated:  u.UpdatedAt,
 			}
-		} else if nu, ok = uinf.(*user.NUser); ok {
-			table.Data[i] = &jUser{
-				IntID:    0,
-				StringID: nu.ID(),
-				OldID:    nu.OldID,
-				GoogleID: nu.GoogleID,
-				Name:     nu.Name,
-				Email:    nu.Email,
-				Gravatar: user.NGravatar(nu),
-				Joined:   nu.CreatedAt,
-				Updated:  nu.UpdatedAt,
-			}
-		} else {
-			err = fmt.Errorf("not user")
-			return
+			// } else if nu, ok = uinf.(*user.NUser); ok {
+			// 	table.Data[i] = &jUser{
+			// 		IntID:    0,
+			// 		StringID: nu.ID(),
+			// 		OldID:    nu.OldID,
+			// 		GoogleID: nu.GoogleID,
+			// 		Name:     nu.Name,
+			// 		Email:    nu.Email,
+			// 		Gravatar: user.NGravatar(nu),
+			// 		Joined:   nu.CreatedAt,
+			// 		Updated:  nu.UpdatedAt,
+			// 	}
+			// } else {
+			// 	err = fmt.Errorf("not user")
+			// 	return
 		}
 	}
 
@@ -144,12 +209,12 @@ func toUserTable(c *gin.Context, us []interface{}) (table *jUserIndex, err error
 }
 
 func JSON(c *gin.Context) {
-	us := user.UsersFrom(c)
-	if data, err := toUserTable(c, us); err != nil {
-		c.JSON(http.StatusInternalServerError, fmt.Sprintf("%v", err))
-	} else {
-		c.JSON(http.StatusOK, data)
-	}
+	// us := user.UsersFrom(c)
+	// if data, err := toUserTable(c, us); err != nil {
+	// 	c.JSON(http.StatusInternalServerError, fmt.Sprintf("%v", err))
+	// } else {
+	// 	c.JSON(http.StatusOK, data)
+	// }
 }
 
 func NewAction(c *gin.Context) {
@@ -161,6 +226,30 @@ func NewAction(c *gin.Context) {
 		return
 	}
 
+	if token.Loaded {
+		log.Warningf("%v already has account", token.Name)
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		log.Errorf("unable to connect to datastore: %s", err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	u := user.New(token.ID())
+
+	err = dsClient.Get(c, u.Key, u)
+	if err == nil {
+		log.Warningf("%v already has account", u.Name)
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	log.Debugf(err.Error())
+
 	// dsClient, err := datastore.NewClient(c, "")
 	// if err != nil {
 	// 	restful.AddErrorf(c, "unable to connect to datastore")
@@ -168,7 +257,7 @@ func NewAction(c *gin.Context) {
 	// 	return
 	// }
 
-	u := user.NewOAuth(token.ID)
+	// u := user.NewOAuth(token.ID)
 	// gu := user.GUserFrom(ctx)
 	// if gu == nil {
 	// 	restful.AddErrorf(ctx, "You must be logged in to access this page.")
@@ -213,18 +302,31 @@ func Create(prefix string) gin.HandlerFunc {
 			return
 		}
 
-		dsClient, err := datastore.NewClient(c, "")
-		if err != nil {
-			restful.AddErrorf(c, "unable to connect to datastore")
+		if token.Loaded {
+			log.Warningf("%v already has account", token.Name)
 			c.Redirect(http.StatusSeeOther, homePath)
 			return
 		}
 
-		u := user.NewOAuth(token.ID)
+		dsClient, err := datastore.NewClient(c, "")
+		if err != nil {
+			log.Errorf("unable to connect to datastore: %s", err.Error())
+			c.Redirect(http.StatusSeeOther, homePath)
+			return
+		}
+
+		u := user.New(token.ID())
+		err = dsClient.Get(c, u.Key, u)
+		if err == nil {
+			log.Warningf("%v already has account", u.Name)
+			c.Redirect(http.StatusSeeOther, homePath)
+			return
+		}
 
 		// Fell through 'switch' thus err == user.ErrNotFound
 		u.Name = strings.Split(c.PostForm("user-name"), "@")[0]
 		u.LCName = strings.ToLower(u.Name)
+		u.Email = token.Email
 		//u.Key = user.NewKey(ctx, 0)
 
 		// n := name.New(u.LCName)
@@ -236,6 +338,8 @@ func Create(prefix string) gin.HandlerFunc {
 
 		// n.GoogleID = u.GoogleID
 
+		t := time.Now()
+		u.CreatedAt, u.Joined, u.UpdatedAt = t, t, t
 		_, err = dsClient.Put(c, u.Key, u)
 		if err != nil {
 			log.Errorf(err.Error())
@@ -247,8 +351,8 @@ func Create(prefix string) gin.HandlerFunc {
 	}
 }
 
-func showPath(prefix string, id string) string {
-	return prefix + "/show/" + id
+func showPath(prefix string, id int64) string {
+	return fmt.Sprintf("%s/show/%d", prefix, id)
 }
 
 //func SendTestMessage(ctx *restful.Context, render render.Render, routes martini.Routes, params martini.Params) {
@@ -271,12 +375,6 @@ func Update(c *gin.Context) {
 	log.Debugf("Entering")
 	defer log.Debugf("Exiting")
 
-	log.Debugf("Request: %#v", c.Request)
-	var err error
-
-	// Get Resource
-	u := user.NewOAuth(c.Param("uid"))
-
 	dsClient, err := datastore.NewClient(c, "")
 	if err != nil {
 		log.Errorf(err.Error())
@@ -284,21 +382,33 @@ func Update(c *gin.Context) {
 		return
 	}
 
-	err = dsClient.Get(c, u.Key, u)
+	uid, err := strconv.ParseInt(c.Param("uid"), 10, 64)
+	if err != nil {
+		log.Errorf(err.Error())
+		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	// Get Resource
+	u := user.New(uid)
+
+	err = dsClient.Get(c, u.Key, &u)
 	if err != nil {
 		log.Errorf("User/Controller#Update user.BySID Error: %s", err)
 		c.Redirect(http.StatusSeeOther, homePath)
 		return
 	}
 
-	err = u.Update(c)
+	log.Debugf("before update u: %#v", u)
+	u, err = u.Update(c)
+	log.Debugf("after update u: %#v", u)
 	if err != nil {
 		log.Errorf("User/Controller#Update u.update Error: %s", err)
 		c.Redirect(http.StatusSeeOther, homePath)
 		return
 	}
 
-	_, err = dsClient.Put(c, u.Key, u)
+	_, err = dsClient.Put(c, u.Key, &u)
 	if err != nil {
 		log.Errorf(err.Error())
 		c.Redirect(http.StatusSeeOther, homePath)

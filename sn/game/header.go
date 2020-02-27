@@ -7,62 +7,69 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 
+	"cloud.google.com/go/datastore"
+	"github.com/SlothNinja/log"
 	"github.com/SlothNinja/slothninja-games/sn/color"
-	"github.com/SlothNinja/slothninja-games/sn/log"
 	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/SlothNinja/slothninja-games/sn/send"
 	gType "github.com/SlothNinja/slothninja-games/sn/type"
 	"github.com/SlothNinja/slothninja-games/sn/user"
-	"github.com/SlothNinja/slothninja-games/sn/user/stats"
+	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"go.chromium.org/gae/service/datastore"
-	"go.chromium.org/gae/service/mail"
-	"golang.org/x/net/context"
+	"google.golang.org/appengine/mail"
 )
 
 // Header provides fields common to all games.
 type Header struct {
-	ctx   context.Context
 	gamer interface{}
 
-	Creator *user.User     `gae:"-" json:"-"`
-	Users   user.Users     `gae:"-" json:"users"`
-	Stats   []*stats.Stats `gae:"-" json:"-"`
-	ID      int64          `gae:"$id"`
-	Parent  *datastore.Key `gae:"$parent"`
-	Kind    string         `gae:"$kind"`
+	Key     *datastore.Key `datastore:"__key__"`
+	Creator user.User      `datastore:"-" json:"-"`
+	Users   []user.User    `datastore:"-" json:"users"`
+	Stats   []user.Stats   `datastore:"-" json:"-"`
+	// ID      int64          `gae:"$id"`
+	// Parent  *datastore.Key `gae:"$parent"`
+	// Kind    string         `gae:"$kind"`
 
-	Type          gType.Type    `json:"type"`
-	Title         string        `form:"title" json:"title"`
-	Turn          int           `form:"turn" json:"turn" binding:"min=0"`
-	Phase         Phase         `form:"phase" json:"phase" binding:"min=0"`
-	SubPhase      SubPhase      `form:"sub-phase" json:"subPhase" binding:"min=0"`
-	Round         int           `form:"round" json:"round" binding:"min=0"`
-	NumPlayers    int           `form:"num-players" json:"numPlayers" binding"min=0,max=5"`
-	Password      string        `form:"password" json:"-"`
-	CreatorID     int64         `form:"creator-id" json:"creatorId"`
-	CreatorSID    string        `form:"creator-sid" json:"creatorSId"`
-	CreatorName   string        `form:"creator-name" json:"creatorName"`
-	UserIDS       []int64       `form:"user-ids" json:"userIds"`
-	UserSIDS      []string      `form:"user-sids" json:"userSIds"`
-	UserNames     []string      `form:"user-names" json:"userNames"`
-	UserEmails    []string      `form:"user-emails" json:"userEmails"`
-	OrderIDS      UserIndices   `form:"order-ids" json:"-"`
-	CPUserIndices UserIndices   `form:"cp-user-indices" json:"cpUserIndices"`
-	WinnerIDS     UserIndices   `form:"winner-ids" json:"winnerIndices"`
-	Status        Status        `form:"status" json:"status"`
-	Progress      string        `form:"progress" json:"progress"`
-	Options       []string      `form:"options" json:"options"`
-	OptString     string        `form:"opt-string" json:"optString"`
-	SavedState    []byte        `gae:"SavedState,noindex" json:"-"`
-	CreatedAt     restful.CTime `form:"created-at" json:"createdAt"`
-	UpdatedAt     restful.UTime `form:"updated-at" json:"updatedAt"`
-	UpdateCount   int           `json:"-"`
+	Type          gType.Type  `json:"type"`
+	Title         string      `form:"title" json:"title"`
+	Turn          int         `form:"turn" json:"turn" binding:"min=0"`
+	Phase         Phase       `form:"phase" json:"phase" binding:"min=0"`
+	SubPhase      SubPhase    `form:"sub-phase" json:"subPhase" binding:"min=0"`
+	Round         int         `form:"round" json:"round" binding:"min=0"`
+	NumPlayers    int         `form:"num-players" json:"numPlayers" binding"min=0,max=5"`
+	Password      string      `form:"password" json:"-"`
+	CreatorID     int64       `form:"creator-id" json:"creatorId"`
+	CreatorSID    string      `form:"creator-sid" json:"creatorSId"`
+	CreatorName   string      `form:"creator-name" json:"creatorName"`
+	UserIDS       []int64     `form:"user-ids" json:"userIds"`
+	UserSIDS      []string    `form:"user-sids" json:"userSIds"`
+	UserNames     []string    `form:"user-names" json:"userNames"`
+	UserEmails    []string    `form:"user-emails" json:"userEmails"`
+	OrderIDS      UserIndices `form:"order-ids" json:"-"`
+	CPUserIndices UserIndices `form:"cp-user-indices" json:"cpUserIndices"`
+	WinnerIDS     UserIndices `form:"winner-ids" json:"winnerIndices"`
+	Status        Status      `form:"status" json:"status"`
+	Progress      string      `form:"progress" json:"progress"`
+	Options       []string    `form:"options" json:"options"`
+	OptString     string      `form:"opt-string" json:"optString"`
+	SavedState    []byte      `gae:"SavedState,noindex" json:"-"`
+	CreatedAt     time.Time   `form:"created-at" json:"createdAt"`
+	UpdatedAt     time.Time   `form:"updated-at" json:"updatedAt"`
+	UpdateCount   int         `json:"-"`
 }
 
-func (h *Header) CTX() context.Context {
-	return h.ctx
+// func (h *Header) CTX() context.Context {
+// 	return h.ctx
+// }
+
+func (h Header) ID() int64 {
+	if h.Key != nil {
+		return h.Key.ID
+	}
+	return 0
 }
 
 type headerer interface {
@@ -74,22 +81,22 @@ type headerer interface {
 	PlayererByUserID(int64) Playerer
 	PlayererByIndex(int) Playerer
 	Winnerers() Playerers
-	User(int) *user.User
-	Stat(int) *stats.Stats
+	User(int) user.User
+	Stat(int) user.Stats
 	CurrentPlayerers() Playerers
-	NextPlayerer(...Playerer) Playerer
+	NextPlayerer(*gin.Context, ...Playerer) Playerer
 	DefaultColorMap() color.Colors
 	UserLinks() template.HTML
 	//PlayerLinks() template.HTML
 	Private() bool
-	CanAdd(*user.User) bool
-	CanDropout(*user.User) bool
+	CanAdd(user.User) bool
+	CanDropout(user.User) bool
 	Stub() string
-	CTX() context.Context
-	CurrentUser() *user.User
-	Accept(context.Context, *user.User) (bool, error)
-	Drop(*user.User) error
-	IsCurrentPlayer(*user.User) bool
+	//CTX() context.Context
+	//CurrentUser() *user.User
+	Accept(*gin.Context, user.User) (bool, error)
+	Drop(user.User) error
+	IsCurrentPlayer(user.User) bool
 }
 
 func (h *Header) GetHeader() *Header {
@@ -128,8 +135,8 @@ func (uis UserIndices) remove(index int) UserIndices {
 
 func (uis UserIndices) removeAt(i int) UserIndices { return append(uis[:i], uis[i+1:]...) }
 
-func NewHeader(ctx context.Context, g Gamer) *Header {
-	return &Header{ctx: ctx, gamer: g, Kind: "Game"}
+func NewHeader(g Gamer) *Header {
+	return &Header{gamer: g}
 }
 
 type Strings []string
@@ -149,17 +156,17 @@ func (h *Header) DefaultColorMap() color.Colors {
 	return defaultColorMaps[h.Type]
 }
 
-func (h *Header) ColorMapFor(u *user.User) color.Map {
+func (h Header) ColorMapFor(c *gin.Context, u user.User) color.Map {
 	cm := h.DefaultColorMap()
-	if u != nil {
+	if u.Key != nil {
 		if p := h.PlayererByUserID(u.ID()); p != nil {
-			cm = p.ColorMap()
+			cm = p.ColorMap(c)
 		}
 	}
 	ps := h.gamer.(GetPlayerers).GetPlayerers()
 	cMap := make(color.Map, len(ps))
 	for i, u2 := range h.Users {
-		cMap[int(u2.ID)] = cm[i]
+		cMap[u2.ID()] = cm[i]
 	}
 	return cMap
 }
@@ -178,21 +185,21 @@ func actionPath(r *http.Request) string {
 	return s[len(s)-1]
 }
 
-func (h *Header) FromParams(ctx context.Context, t gType.Type) error {
-	return h.FromForm(ctx, t)
+func (h *Header) FromParams(c *gin.Context, t gType.Type) error {
+	return h.FromForm(c, t)
 }
 
-func (h *Header) FromForm(ctx context.Context, t gType.Type) (err error) {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func (h *Header) FromForm(c *gin.Context, t gType.Type) (err error) {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	h2 := NewHeader(ctx, nil)
-	if err = restful.BindWith(ctx, h2, binding.FormPost); err != nil {
+	h2 := NewHeader(nil)
+	if err = restful.BindWith(c, h2, binding.FormPost); err != nil {
 		return
 	}
 
-	cu := user.CurrentFrom(ctx)
-	log.Debugf(ctx, "h2: %#v", h2)
+	cu, _ := user.Current(c)
+	log.Debugf("h2: %#v", h2)
 
 	if h2.Title == "" {
 		h.Title = cu.Name + "'s Game"
@@ -202,15 +209,14 @@ func (h *Header) FromForm(ctx context.Context, t gType.Type) (err error) {
 
 	if h2.NumPlayers == 0 {
 		h.NumPlayers = 4
-		log.Debugf(ctx, "h: %#v", h)
+		log.Debugf("h: %#v", h)
 	} else {
 		h.NumPlayers = h2.NumPlayers
 	}
 
 	h.Password = h2.Password
 	h.Creator = cu
-	h.CreatorID = cu.ID
-	h.CreatorSID = user.GenID(cu.GoogleID)
+	h.CreatorID = cu.ID()
 	h.AddUser(cu)
 	h.Status = Recruiting
 	h.Type = t
@@ -231,7 +237,7 @@ func getType(form url.Values) gType.Type {
 	return t
 }
 
-func (h *Header) User(index int) *user.User {
+func (h Header) User(index int) user.User {
 	i := index
 	if l := len(h.UserIDS); l > 0 {
 		i = i % l
@@ -239,56 +245,112 @@ func (h *Header) User(index int) *user.User {
 	return h.Users[i]
 }
 
-func (h *Header) Stat(i int) *stats.Stats {
-	if l := len(h.Stats); l == 0 {
-		return nil
-	} else {
-		return h.Stats[i%l]
+func (h Header) Stat(i int) user.Stats {
+	l := len(h.Stats)
+	if l == 0 {
+		return user.Stats{}
 	}
+	return h.Stats[i%l]
 }
 
-func (h *Header) CurrentUser() *user.User {
-	return user.CurrentFrom(h.CTX())
+// func (h *Header) CurrentUser() *user.User {
+// 	return user.CurrentFrom(h.CTX())
+// }
+
+func (h *Header) AfterLoad(c *gin.Context, gamer Gamer) error {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
+
+	var err error
+	h.Users, err = h.getUsers(c)
+	if err != nil {
+		return err
+	}
+
+	h.Creator, err = h.getCreator(c)
+	if err != nil {
+		return err
+	}
+
+	// l := len(h.UserIDS)
+
+	// ids := make([]string, l)
+	// copy(ids, h.UserSIDS)
+
+	// addID := true
+	// cIndex := len(h.UserSIDS)
+	// for i, id := range ids {
+	// 	if id == h.CreatorSID {
+	// 		addID = false
+	// 		cIndex = i
+	// 	}
+	// }
+
+	// if addID {
+	// 	ids = append(ids, h.CreatorSID)
+	// }
+
+	// us := make([]user.User, len(ids))
+	// ks := make([]*datastore.Key, len(ids))
+	// for i := range us {
+	// 	us[i] = user.NewUser(ids[i])
+	// 	ks[i] = us[i].Key
+	// 	log.Debugf("us[%d]: %#v", i, us[i])
+	// 	log.Debugf("ks[%d]: %v", i, us[i].Key)
+	// }
+
+	// dsClient, err := datastore.NewClient(c, "")
+	// if err != nil {
+	// 	return err
+	// }
+
+	// err = dsClient.GetMulti(c, ks, us)
+	// if err != nil {
+	// 	return err
+	// }
+
+	// h.Users = us[:l]
+	// h.Creator = us[cIndex]
+	return nil
 }
 
-func (h *Header) AfterLoad(gamer Gamer) (err error) {
-	ctx := h.CTX()
+func (h Header) getCreator(c *gin.Context) (user.User, error) {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	l := len(h.UserIDS)
-
-	ids := make([]int64, l)
-	copy(ids, h.UserIDS)
-
-	addID := true
-	cIndex := len(h.UserIDS)
-	for i, id := range ids {
-		if id == h.CreatorID {
-			addID = false
-			cIndex = i
-		}
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		return user.User{}, err
 	}
 
-	if addID {
-		ids = append(ids, h.CreatorID)
-	}
-
-	us := make(user.Users, len(ids))
-	for i := range us {
-		us[i] = user.New(ctx)
-		us[i].ID = ids[i]
-	}
-	if err = datastore.Get(ctx, us); err != nil {
-		return
-	}
-
-	h.Users = us[:l]
-	h.Creator = us[cIndex]
-	return
+	u := user.New(h.CreatorID)
+	err = dsClient.Get(c, u.Key, &u)
+	return u, err
 }
 
-func include(ints []int64, i int64) bool {
-	for _, v := range ints {
-		if v == i {
+func (h Header) getUsers(c *gin.Context) ([]user.User, error) {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
+
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		return nil, err
+	}
+
+	us := make([]user.User, len(h.UserIDS))
+	ks := make([]*datastore.Key, len(h.UserIDS))
+	for i := range h.UserIDS {
+		us[i] = user.New(h.UserIDS[i])
+		ks[i] = us[i].Key
+	}
+
+	err = dsClient.GetMulti(c, ks, us)
+	return us, err
+}
+
+func include(ints []int64, i1 int64) bool {
+	for _, i2 := range ints {
+		if i1 == i2 {
 			return true
 		}
 	}
@@ -304,12 +366,12 @@ func remove(ints []int64, i int64) []int64 {
 	return ints
 }
 
-func (h *Header) CanAdd(u *user.User) bool {
-	return u != nil && len(h.UserIDS) < h.NumPlayers && !include(h.UserIDS, u.ID)
+func (h Header) CanAdd(u user.User) bool {
+	return len(h.UserIDS) < h.NumPlayers && !include(h.UserIDS, u.ID())
 }
 
-func (h *Header) CanDropout(u *user.User) bool {
-	return u != nil && h.Status == Recruiting && include(h.UserIDS, u.ID)
+func (h Header) CanDropout(u user.User) bool {
+	return h.Status == Recruiting && include(h.UserIDS, u.ID())
 }
 
 func (h *Header) Stub() string {
@@ -320,13 +382,13 @@ func (h *Header) Private() bool {
 	return h.Password != ""
 }
 
-func (h *Header) HasUser(u *user.User) bool {
-	return u != nil && include(h.UserIDS, u.ID)
+func (h Header) HasUser(u user.User) bool {
+	return include(h.UserIDS, u.ID())
 }
 
-func (h *Header) RemoveUser(u2 *user.User) {
+func (h *Header) RemoveUser(u2 user.User) {
 	for i, u := range h.Users {
-		if u.Equal(u2) {
+		if u.ID() == u2.ID() {
 			h.Users = append(h.Users[:i], h.Users[i+1:]...)
 		}
 	}
@@ -338,35 +400,35 @@ func (h *Header) updateUserFields() {
 
 	h.UserIDS = make([]int64, l)
 	h.UserNames = make([]string, l)
-	h.UserSIDS = make([]string, l)
+	// h.UserSIDS = make([]string, l)
 	for i, u := range h.Users {
-		h.UserIDS[i] = u.ID
+		h.UserIDS[i] = u.ID()
 		h.UserNames[i] = u.Name
-		h.UserSIDS[i] = user.GenID(u.GoogleID)
+		//	h.UserSIDS[i] = user.GenID(u.GoogleID)
 	}
 }
 
-func (h *Header) AddUser(u *user.User) {
+func (h *Header) AddUser(u user.User) {
 	h.AddUsers(u)
 }
 
-func (h *Header) AddUsers(us ...*user.User) {
+func (h *Header) AddUsers(us ...user.User) {
 	h.Users = append(h.Users, us...)
 	h.updateUserFields()
 }
 
-func (h *Header) IsAdmin() bool {
-	return user.IsAdmin(h.CTX())
-}
+// func (h *Header) IsAdmin() bool {
+// 	return user.IsAdmin(h.CTX())
+// }
 
-func (h *Header) CurrentPlayerer() Playerer {
+func (h Header) CurrentPlayerer(c *gin.Context) Playerer {
 	switch cps := h.CurrentPlayerers(); len(cps) {
 	case 0:
 		return nil
 	case 1:
 		return cps[0]
 	default:
-		return h.CurrentUserPlayerer()
+		return h.CurrentUserPlayerer(c)
 	}
 }
 
@@ -378,26 +440,25 @@ func (h *Header) CurrentPlayerFrom(ps Playerers) (cp Playerer) {
 	return
 }
 
-func (h *Header) CurrentUserPlayerer() Playerer {
-	switch cps := h.CurrentUserPlayerers(); len(cps) {
+func (h Header) CurrentUserPlayerer(c *gin.Context) Playerer {
+	switch cps := h.CurrentUserPlayerers(c); len(cps) {
 	case 0:
 		return nil
 	case 1:
 		return cps[0]
 	default:
-		log.Warningf(h.CTX(), "CurrentUserPlayerer found %d current user players.  Returned only the first.")
+		log.Warningf("CurrentUserPlayerer found %d current user players.  Returned only the first.")
 		return cps[0]
 	}
 }
 
-func (h *Header) CurrentUserPlayerers() Playerers {
-	ctx := h.CTX()
+func (h Header) CurrentUserPlayerers(c *gin.Context) Playerers {
 	var cps Playerers
 	for _, cp := range h.CurrentPlayerers() {
-		u := user.CurrentFrom(ctx)
-		if cp.User().Equal(u) {
+		cu, _ := user.Current(c)
+		if cp.User().ID() == cu.ID() {
 			cps = append(cps, cp)
-		} else if user.IsAdmin(ctx) {
+		} else if cu.IsAdmin {
 			return append(cps, cp)
 		}
 	}
@@ -406,22 +467,17 @@ func (h *Header) CurrentUserPlayerers() Playerers {
 
 // CurrentPlayererFor returns the current player from players ps associated with the user u.
 // If no player is associated with the user, but user is admin, then returns default current player.
-func (h *Header) CurrentPlayerFor(ps Playerers, u *user.User) (cp Playerer) {
-	if u == nil {
-		return
-	}
-
+func (h *Header) CurrentPlayerFor(ps Playerers, u user.User) Playerer {
 	for _, p := range h.CurrentPlayersFrom(ps) {
-		if p.User().ID == u.ID {
-			cp = p
-			return
+		if p.User().ID() == u.ID() {
+			return p
 		}
 	}
 
-	if u.IsAdmin() {
-		cp = h.CurrentPlayerFrom(ps)
+	if u.IsAdmin {
+		return h.CurrentPlayerFrom(ps)
 	}
-	return
+	return nil
 }
 
 func (h *Header) CurrentPlayerers() Playerers {
@@ -448,28 +504,27 @@ func (h *Header) CurrentPlayersFrom(players Playerers) (ps Playerers) {
 
 // ps is an optional parameter.
 // If no player is provided, assume current player.
-func (h *Header) NextPlayerer(ps ...Playerer) (p Playerer) {
-	ctx := h.CTX()
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func (h *Header) NextPlayerer(c *gin.Context, ps ...Playerer) Playerer {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	cp := h.CurrentPlayerer()
+	cp := h.CurrentPlayerer(c)
 	i := cp.Index() + 1
-	log.Debugf(ctx, "cp: %#v", cp)
-	log.Debugf(ctx, "i: %#v", i)
+	log.Debugf("cp: %#v", cp)
+	log.Debugf("i: %#v", i)
 	if len(ps) == 1 {
 		i = ps[0].Index() + 1
-		log.Debugf(ctx, "len(ps) == 1 => i: %#v", i)
+		log.Debugf("len(ps) == 1 => i: %#v", i)
 	}
-	p = h.PlayererByIndex(i)
-	log.Debugf(ctx, "p: %#v", p)
-	return
+	p := h.PlayererByIndex(i)
+	log.Debugf("p: %#v", p)
+	return p
 }
 
 // ps is an optional parameter.
 // If no player is provided, assume current player.
-func (h *Header) PreviousPlayerer(ps ...Playerer) Playerer {
-	cp := h.CurrentPlayerer()
+func (h *Header) PreviousPlayerer(c *gin.Context, ps ...Playerer) Playerer {
+	cp := h.CurrentPlayerer(c)
 	i := cp.Index() - 1
 	if len(ps) == 1 {
 		i = ps[0].Index() - 1
@@ -530,42 +585,42 @@ func (h *Header) isCP(uIndex int) bool {
 }
 
 // IsCurrentPlayer returns true if the specified user is the current player.
-func (h *Header) IsCurrentPlayer(u *user.User) bool {
-	return u != nil && h.isCP(h.indexFor(u))
+func (h Header) IsCurrentPlayer(u user.User) bool {
+	return h.isCP(h.indexFor(u))
 }
 
 // IsCurrentPlayer returns ture if the user is the current player or an admin.
-func (h *Header) IsCurrentPlayerOrAdmin(u *user.User) bool {
-	return u != nil && (u.IsAdmin() || h.IsCurrentPlayer(u))
+func (h Header) IsCurrentPlayerOrAdmin(u user.User) bool {
+	return u.IsAdmin || h.IsCurrentPlayer(u)
 }
 
-func (h *Header) isCurrentPlayerOrAdmin(ctx context.Context, u *user.User) bool {
-	return u != nil && (user.IsAdmin(ctx) || h.IsCurrentPlayer(u))
+func (h Header) isCurrentPlayerOrAdmin(c *gin.Context, u user.User) bool {
+	return u.IsAdmin || h.IsCurrentPlayer(u)
 }
 
 // CurrentUserIsCurrentPlayerOrAdmin returns true if current user is the current player or is an administrator.
 // Deprecated in favor of CUserIsCPlayerOrAdmin
-func (h *Header) CurrentUserIsCurrentPlayerOrAdmin() bool {
-	ctx := h.CTX()
-	log.Warningf(ctx, "CurrentUserIsCurrentPlayerOrAdmin is deprecated in favor of CUserIsCPlayerOrAdmin.")
-	cu := user.CurrentFrom(ctx)
-	return h.isCurrentPlayerOrAdmin(ctx, cu)
+func (h Header) CurrentUserIsCurrentPlayerOrAdmin(c *gin.Context) bool {
+	log.Warningf("CurrentUserIsCurrentPlayerOrAdmin is deprecated in favor of CUserIsCPlayerOrAdmin.")
+	cu, _ := user.Current(c)
+	return h.isCurrentPlayerOrAdmin(c, cu)
 }
 
 // CUserIsCPlayerOrAdmin returns true if current user is the current player or is an administrator.
-func (h *Header) CUserIsCPlayerOrAdmin(ctx context.Context) bool {
-	return h.isCurrentPlayerOrAdmin(ctx, user.CurrentFrom(ctx))
+func (h Header) CUserIsCPlayerOrAdmin(c *gin.Context) bool {
+	cu, _ := user.Current(c)
+	return h.isCurrentPlayerOrAdmin(c, cu)
 }
 
-func (h *Header) PlayerIsUser(p Playerer, u *user.User) bool {
-	return p != nil && u != nil && h.UserIDFor(p) == u.ID
+func (h Header) PlayerIsUser(p Playerer, u user.User) bool {
+	return p != nil && h.UserIDFor(p) == u.ID()
 }
 
 func (h *Header) IsW(uIndex int) bool {
 	return h.WinnerIDS.Include(uIndex)
 }
 
-func (h *Header) IsWinner(u *user.User) bool {
+func (h Header) IsWinner(u user.User) bool {
 	for _, p := range h.PlayerersByUser(u) {
 		if h.WinnerIDS.Include(p.ID()) {
 			return true
@@ -586,16 +641,16 @@ func (h *Header) UserLinkFor(uid int64) template.HTML {
 	return user.LinkFor(uid, h.NameByUID(uid))
 }
 
-func (h *Header) PlayerLinkByID(ctx context.Context, pid int) template.HTML {
+func (h Header) PlayerLinkByID(c *gin.Context, pid int) template.HTML {
 	i := pid % len(h.UserIDS)
 	uid := h.UserIDS[i]
 
-	cu := user.CurrentFrom(ctx)
+	cu, found := user.Current(c)
 	cp := h.isCP(pid)
 
 	var me bool
-	if cu != nil {
-		me = cu.ID == uid
+	if !found {
+		me = cu.ID() == uid
 	}
 
 	w := h.IsW(pid)
@@ -621,19 +676,19 @@ func (h *Header) PlayerLinkByID(ctx context.Context, pid int) template.HTML {
 	return template.HTML(result)
 }
 
-func (h *Header) PlayerLinks(ctx context.Context) template.HTML {
+func (h Header) PlayerLinks(c *gin.Context) template.HTML {
 	if h.Status == Recruiting {
 		return h.UserLinks()
 	}
 
 	links := make([]string, len(h.OrderIDS))
 	for i, index := range h.OrderIDS {
-		links[i] = string(h.PlayerLinkByID(ctx, index))
+		links[i] = string(h.PlayerLinkByID(c, index))
 	}
 	return template.HTML(restful.ToSentence(links))
 }
 
-func (h *Header) CurrentPlayerLinks(ctx context.Context) template.HTML {
+func (h Header) CurrentPlayerLinks(c *gin.Context) template.HTML {
 	cps := h.CPUserIndices
 	if len(cps) == 0 || h.Status != Running {
 		return "None"
@@ -641,7 +696,7 @@ func (h *Header) CurrentPlayerLinks(ctx context.Context) template.HTML {
 
 	links := make([]string, len(cps))
 	for j, i := range cps {
-		links[j] = string(h.PlayerLinkByID(ctx, i))
+		links[j] = string(h.PlayerLinkByID(c, i))
 	}
 	return template.HTML(restful.ToSentence(links))
 }
@@ -677,9 +732,9 @@ func PlayererByID(ps Playerers, id int) (p Playerer) {
 	return
 }
 
-func (h *Header) PlayererByColor(c color.Color) Playerer {
+func (h *Header) PlayererByColor(ctx *gin.Context, c color.Color) Playerer {
 	for _, p := range h.gamer.(GetPlayerers).GetPlayerers() {
-		if p.Color() == c {
+		if p.Color(ctx) == c {
 			return p
 		}
 	}
@@ -708,20 +763,19 @@ func (h *Header) PlayererByUserID(id int64) Playerer {
 }
 
 // PlayererByUserID returns the player from ps associated with the user id
-func PlayererByUserID(ps Playerers, id int64) (p Playerer) {
+func PlayererByUserID(ps Playerers, id int64) Playerer {
 	for _, p2 := range ps {
-		if p2.User().ID == id {
-			p = p2
-			return
+		if p2.User().ID() == id {
+			return p2
 		}
 	}
-	return
+	return nil
 }
 
-func (h *Header) PlayerersByUser(user *user.User) Playerers {
+func (h Header) PlayerersByUser(user user.User) Playerers {
 	var ps Playerers
 	for _, p := range h.gamer.(GetPlayerers).GetPlayerers() {
-		if p.User().Equal(user) {
+		if p.User().ID() == user.ID() {
 			ps = append(ps, p)
 		}
 	}
@@ -794,7 +848,7 @@ type factoryMap map[gType.Type]Factory
 
 var factories factoryMap
 
-type Factory func(context.Context) Gamer
+type Factory func(int64) Gamer
 
 func Register(t gType.Type, f Factory, p PhaseNameMap, sp SubPhaseNameMap) {
 	if factories == nil {
@@ -843,9 +897,9 @@ func (h *Header) ValidateHeader() error {
 	return nil
 }
 
-func (h *Header) SendTurnNotificationsTo(ctx context.Context, ps ...Playerer) error {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func (h Header) SendTurnNotificationsTo(c *gin.Context, ps ...Playerer) error {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
 	subject := fmt.Sprintf("It's your turn in %s (%s #%d).", h.Type, h.Title, h.ID)
 	url := fmt.Sprintf(`<a href="http://www.slothninja.com/%s/game/show/%d">here</a>`, h.Type.Prefix(), h.ID)
@@ -869,8 +923,8 @@ func (h *Header) SendTurnNotificationsTo(ctx context.Context, ps ...Playerer) er
 	for _, p := range ps {
 		if p.User().EmailNotifications {
 			m.To = []string{p.User().Email}
-			if err := send.Message(ctx, m); err != nil {
-				log.Errorf(ctx, "sending notification: %#v\n generated error: %v", m, err)
+			if err := send.Message(c, m); err != nil {
+				log.Errorf("sending notification: %#v\n generated error: %v", m, err)
 			}
 		}
 	}
@@ -878,18 +932,13 @@ func (h *Header) SendTurnNotificationsTo(ctx context.Context, ps ...Playerer) er
 	return nil
 }
 
-func (h Header) indexFor(u *user.User) (i int) {
+func (h Header) indexFor(u user.User) int {
 	sid := user.GenID(u.GoogleID)
-	for i = range h.UserSIDS {
+	for i := range h.UserSIDS {
 		if h.UserSIDS[i] == sid {
-			return
+			return i
 		}
 	}
 
-	for i = range h.UserIDS {
-		if h.UserIDS[i] == u.ID {
-			return
-		}
-	}
 	return -1
 }

@@ -1,11 +1,11 @@
 package send
 
 import (
+	"github.com/SlothNinja/log"
 	"github.com/SlothNinja/slothninja-games/sn/codec"
-	"github.com/SlothNinja/slothninja-games/sn/log"
-	"go.chromium.org/gae/service/mail"
-	"go.chromium.org/gae/service/taskqueue"
-	"golang.org/x/net/context"
+	"github.com/gin-gonic/gin"
+	"google.golang.org/appengine/mail"
+	"google.golang.org/appengine/taskqueue"
 )
 
 //func init() {
@@ -50,9 +50,9 @@ import (
 //	return enqueue(ctx, qInvite, "xmpp", args)
 //}
 
-func Message(ctx context.Context, ms ...*mail.Message) error {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Entering")
+func Message(c *gin.Context, ms ...*mail.Message) error {
+	log.Debugf("Entering")
+	defer log.Debugf("Entering")
 
 	ts := make([]*taskqueue.Task, len(ms))
 	for i := range ms {
@@ -66,7 +66,8 @@ func Message(ctx context.Context, ms ...*mail.Message) error {
 		ts[i].Payload = encoded
 	}
 
-	return taskqueue.Add(ctx, "mail", ts...)
+	ts, err := taskqueue.AddMulti(c, ts, "mail")
+	return err
 }
 
 //func Mail(ctx context.Context, ms ...*mail.Message) error {

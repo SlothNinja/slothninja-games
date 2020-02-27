@@ -11,3 +11,5 @@ require (
 	golang.org/x/net v0.0.0-20200202094626-16171245cfb2
 	google.golang.org/api v0.17.0 // indirect
 )
+
+replace github.com/SlothNinja/slothninja-games/sn/type => ./type

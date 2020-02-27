@@ -8,7 +8,6 @@ import (
 
 	"github.com/SlothNinja/inflect"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/net/context"
 )
 
 const (
@@ -53,8 +52,8 @@ func init() {
 
 type Notices []template.HTML
 
-func NoticesFrom(ctx context.Context) (ns Notices) {
-	ns, _ = ctx.Value(nKey).(Notices)
+func NoticesFrom(c *gin.Context) (ns Notices) {
+	ns, _ = c.Value(nKey).(Notices)
 	return
 }
 
@@ -63,14 +62,14 @@ func withNotices(c *gin.Context, ns Notices) *gin.Context {
 	return c
 }
 
-func AddNoticef(ctx context.Context, format string, args ...interface{}) {
-	withNotices(GinFrom(ctx), append(NoticesFrom(ctx), HTML(format, args...)))
+func AddNoticef(c *gin.Context, format string, args ...interface{}) {
+	withNotices(c, append(NoticesFrom(c), HTML(format, args...)))
 }
 
 type Errors []template.HTML
 
-func ErrorsFrom(ctx context.Context) (es Errors) {
-	es, _ = ctx.Value(eKey).(Errors)
+func ErrorsFrom(c *gin.Context) (es Errors) {
+	es, _ = c.Value(eKey).(Errors)
 	return
 }
 
@@ -79,8 +78,8 @@ func withErrors(c *gin.Context, es Errors) *gin.Context {
 	return c
 }
 
-func AddErrorf(ctx context.Context, format string, args ...interface{}) {
-	withErrors(GinFrom(ctx), append(ErrorsFrom(ctx), HTML(format, args...)))
+func AddErrorf(c *gin.Context, format string, args ...interface{}) {
+	withErrors(c, append(ErrorsFrom(c), HTML(format, args...)))
 }
 
 func HTML(format string, args ...interface{}) template.HTML {

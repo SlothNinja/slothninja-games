@@ -87,8 +87,12 @@ github.com/SlothNinja/slothninja-games/sn/user v0.0.0-20200212041301-c78b1da4fcd
 github.com/SlothNinja/slothninja-games/sn/user/stats v0.0.0-20200212040712-1ee26e37e1e4/go.mod h1:FHUvQ9EMGH3B6i396j6Nh/6CRKICUg6gPOddPsUQA04=
 github.com/SlothNinja/slothninja-games/sn/user/stats v0.0.0-20200212041301-c78b1da4fcdb h1:QgzwApJJJiYFwV2CoKw5cS/hi3Cz5R/Fgu+ezXkg5U8=
 github.com/SlothNinja/slothninja-games/sn/user/stats v0.0.0-20200212041301-c78b1da4fcdb/go.mod h1:FHUvQ9EMGH3B6i396j6Nh/6CRKICUg6gPOddPsUQA04=
+github.com/SlothNinja/slothninja-games/sn/user/stats v0.0.0-20200213013905-9431a99919ae/go.mod h1:FHUvQ9EMGH3B6i396j6Nh/6CRKICUg6gPOddPsUQA04=
+github.com/SlothNinja/slothninja-games/sn/user/stats v0.0.0-20200217151912-ca6570104a61/go.mod h1:FHUvQ9EMGH3B6i396j6Nh/6CRKICUg6gPOddPsUQA04=
+github.com/SlothNinja/slothninja-games/sn/user_controller v0.0.0-20200217151912-ca6570104a61/go.mod h1:8fsvNyHBaJtYd5mt0j3BtX7ZE4wRsFeMiAbfbxmTnmI=
 github.com/SlothNinja/slothninja-games/welcome v0.0.0-20200213013905-9431a99919ae h1:Vf/LuC4BeR6Lfzx+2yWNjFbN48YvGtrzb8Qaf2T9gns=
 github.com/SlothNinja/slothninja-games/welcome v0.0.0-20200213013905-9431a99919ae/go.mod h1:kaTAl8n9TtU33W+6rLFQmKBUMRUqy1M1PJ4uj8h3oHQ=
+github.com/SlothNinja/slothninja-games/welcome v0.0.0-20200217151912-ca6570104a61/go.mod h1:27u9VD56UPZ/t4IvJWqWELpwa1p2oPF+Qr432kbjKEM=
 github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff/go.mod h1:+RTT1BOk5P97fT2CiHkbFQwkK3mjsFAP6zCYV2aXtjw=
 github.com/bradfitz/gomemcache v0.0.0-20190329173943-551aad21a668/go.mod h1:H0wQNHz2YrLsuXOZozoeDmnHXkNCRmMW0gwFWDfEZDA=
 github.com/bradleypeabody/gorilla-sessions-memcache v0.0.0-20181103040241-659414f458e1/go.mod h1:dkChI7Tbtx7H1Tj7TqGSZMOeGpMP5gLHtjroHd4agiI=
@@ -218,6 +222,7 @@ github.com/smartystreets/assertions v1.0.1/go.mod h1:kHHU4qYBaI3q23Pp3VPrmWhuIUr
 github.com/smartystreets/goconvey v1.6.4 h1:fv0U8FUIMPNf1L9lnHLvLhgicrIVChEkdzIKYqbNC9s=
 github.com/smartystreets/goconvey v1.6.4/go.mod h1:syvi0/a8iFYH4r/RixwvyeAJjdLS9QV7WQ/tjFTllLA=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJyk=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=

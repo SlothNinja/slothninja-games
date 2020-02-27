@@ -4,17 +4,15 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/SlothNinja/log"
 	"github.com/SlothNinja/slothninja-games/sn/codec"
-	"github.com/SlothNinja/slothninja-games/sn/log"
-	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/gin-gonic/gin"
-	"go.chromium.org/gae/service/mail"
+	"google.golang.org/appengine/mail"
 )
 
 func Mail(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
 	encoded, err := ioutil.ReadAll(c.Request.Body)
 	c.Request.Body.Close()
@@ -29,7 +27,7 @@ func Mail(c *gin.Context) {
 		return
 	}
 
-	if err := mail.Send(ctx, m); err != nil {
+	if err := mail.Send(c, m); err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}

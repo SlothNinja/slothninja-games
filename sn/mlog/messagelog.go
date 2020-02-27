@@ -1,38 +1,43 @@
 package mlog
 
 import (
+	"html/template"
 	"net/http"
 	"strconv"
+	"time"
 
-	"github.com/SlothNinja/slothninja-games/sn/codec"
+	"cloud.google.com/go/datastore"
+	"github.com/SlothNinja/log"
 	"github.com/SlothNinja/slothninja-games/sn/color"
-	"github.com/SlothNinja/slothninja-games/sn/log"
 	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/gin-gonic/gin"
-	"go.chromium.org/gae/service/datastore"
-	"golang.org/x/net/context"
 )
 
 type MLog struct {
-	ID        int64  `gae:"$id"`
-	Kind      string `gae:"$kind"`
-	Messages  `gae:"SavedState"`
-	CreatedAt restful.CTime
-	UpdatedAt restful.UTime
+	Key        *datastore.Key `datastore:"__key__"`
+	Messages   `datastore:"-"`
+	SavedState []byte
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
+	// ID        int64  `gae:"$id"`
+	// Kind      string `gae:"$kind"`
+	// Messages  `gae:"SavedState"`
+	// CreatedAt restful.CTime
+	// UpdatedAt restful.UTime
 }
 
-func (ms *Messages) ToProperty() (datastore.Property, error) {
-	v, err := codec.Encode(ms)
-	return datastore.MkPropertyNI(v), err
-}
+// func (ms *Messages) ToProperty() (datastore.Property, error) {
+// 	v, err := codec.Encode(ms)
+// 	return datastore.MkPropertyNI(v), err
+// }
+//
+// func (ms *Messages) FromProperty(p datastore.Property) error {
+// 	return codec.Decode(ms, p.Value().([]byte))
+// }
 
-func (ms *Messages) FromProperty(p datastore.Property) error {
-	return codec.Decode(ms, p.Value().([]byte))
-}
-
-func New() *MLog {
-	return &MLog{Kind: kind}
+func New(id int64) *MLog {
+	return &MLog{Key: datastore.IDKey(kind, id, nil)}
 }
 
 const (
@@ -55,51 +60,62 @@ const (
 
 func AddMessage(prefix string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		ctx := restful.ContextFrom(c)
-		log.Debugf(ctx, "Entering")
-		defer log.Debugf(ctx, "Exiting")
+		log.Debugf("Entering")
+		defer log.Debugf("Exiting")
 
-		ml := From(ctx)
+		ml := From(c)
 		if ml == nil {
-			log.Errorf(ctx, "Missing messagelog.")
-			restful.AddErrorf(ctx, "Missing messagelog.")
+			log.Errorf("Missing messagelog.")
+			restful.AddErrorf(c, "Missing messagelog.")
 			c.HTML(http.StatusOK, "shared/flashbox", gin.H{
-				"Notices": restful.NoticesFrom(ctx),
-				"Errors":  restful.ErrorsFrom(ctx),
+				"Notices": restful.NoticesFrom(c),
+				"Errors":  restful.ErrorsFrom(c),
 			})
 			return
 		}
-		m := ml.NewMessage(ctx)
+		m := ml.NewMessage(c)
 		m.Text = c.PostForm("message")
 		creatorsid := c.PostForm("creatorid")
 		if creatorsid != "" {
 			intID, err := strconv.ParseInt(creatorsid, 10, 64)
 			if err != nil {
-				restful.AddErrorf(ctx, "Invalid value received for creatorsid: %v", creatorsid)
+				restful.AddErrorf(c, "Invalid value received for creatorsid: %v", creatorsid)
 				c.HTML(http.StatusOK, "shared/flashbox", gin.H{
-					"Notices": restful.NoticesFrom(ctx),
-					"Errors":  restful.ErrorsFrom(ctx),
+					"Notices": restful.NoticesFrom(c),
+					"Errors":  restful.ErrorsFrom(c),
 				})
 				return
 			}
 			m.CreatorID = intID
 		}
-		if err := datastore.Put(ctx, ml); err != nil {
-			restful.AddErrorf(ctx, "mlog::AddMessage gaelic.Put Error: %s", err)
-			log.Errorf(ctx, "mlog::AddMessage gaelic.Put Error: %s", err)
+		dsClient, err := datastore.NewClient(c, "")
+		if err != nil {
+			log.Errorf(err.Error())
+			c.Abort()
+		}
+
+		_, err = dsClient.Put(c, ml.Key, ml)
+		if err != nil {
+			restful.AddErrorf(c, "mlog::AddMessage gaelic.Put Error: %s", err)
+			log.Errorf("mlog::AddMessage gaelic.Put Error: %s", err)
 			c.HTML(http.StatusOK, "shared/flashbox", gin.H{
-				"Notices": restful.NoticesFrom(ctx),
-				"Errors":  restful.ErrorsFrom(ctx),
+				"Notices": restful.NoticesFrom(c),
+				"Errors":  restful.ErrorsFrom(c),
 			})
 			return
 		}
-		log.Debugf(ctx, "m: %#v", m)
-		log.Debugf(ctx, "ml: %#v", ml)
+		log.Debugf("m: %#v", m)
+		log.Debugf("ml: %#v", ml)
+		cu, found := user.Current(c)
+		var link template.HTML
+		if found {
+			link = cu.Link()
+		}
 		c.HTML(http.StatusOK, "shared/message", gin.H{
 			"message": m,
-			"ctx":     ctx,
-			"map":     color.MapFrom(ctx),
-			"link":    user.CurrentFrom(ctx).Link(),
+			"ctx":     c,
+			"map":     color.MapFrom(c),
+			"link":    link,
 		})
 	}
 }
@@ -123,27 +139,32 @@ func getID(c *gin.Context) (int64, error) {
 }
 
 func Get(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
 	id, err := getID(c)
 	if err != nil {
-		restful.AddErrorf(ctx, err.Error())
+		restful.AddErrorf(c, err.Error())
 		c.Redirect(http.StatusSeeOther, homePath)
+		return
+	}
+
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		log.Errorf(err.Error())
 		c.Abort()
 		return
 	}
 
-	ml := New()
-	ml.ID = id
-	if err := datastore.Get(ctx, ml); err != nil {
-		restful.AddErrorf(ctx, "Unable to get message log with ID: %v", id)
+	ml := New(id)
+	err = dsClient.Get(c, ml.Key, ml)
+	if err != nil {
+		restful.AddErrorf(c, "Unable to get message log with ID: %v", id)
 		c.Redirect(http.StatusSeeOther, homePath)
-	} else {
-		with(c, ml)
+		return
 	}
+	with(c, ml)
 }
 
-func From(ctx context.Context) (ml *MLog) {
-	ml, _ = ctx.Value(mlKey).(*MLog)
+func From(c *gin.Context) (ml *MLog) {
+	ml, _ = c.Value(mlKey).(*MLog)
 	return
 }
 

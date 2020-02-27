@@ -57,7 +57,7 @@ func TextColorFor(background Color) Color {
 	return textColor[background]
 }
 
-type Map map[int]Color
+type Map map[int64]Color
 
 func MapFrom(ctx context.Context) (cm Map) {
 	cm, _ = ctx.Value(cmKey).(Map)

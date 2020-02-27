@@ -3,14 +3,14 @@ package game
 import (
 	"bytes"
 
-	"github.com/SlothNinja/slothninja-games/sn/log"
+	"cloud.google.com/go/datastore"
+	"github.com/SlothNinja/log"
 	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/SlothNinja/slothninja-games/sn/send"
 	gType "github.com/SlothNinja/slothninja-games/sn/type"
 	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/gin-gonic/gin"
-	"go.chromium.org/gae/service/datastore"
-	"go.chromium.org/gae/service/mail"
+	"google.golang.org/appengine/mail"
 )
 
 const (
@@ -28,16 +28,15 @@ type infs []*inf
 type notifications map[int64]infs
 
 func DailyNotifications(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	gs := GamersFrom(ctx)
+	gs := GamersFrom(c)
 
 	notifications := make(notifications, 0)
 	for _, g := range gs {
 		h := g.GetHeader()
-		gameInfo := &inf{GameID: h.ID, Type: h.Type, Title: h.Title}
+		gameInfo := &inf{GameID: h.ID(), Type: h.Type, Title: h.Title}
 		for _, index := range h.CPUserIndices {
 			uid := h.UserIDS[index]
 			notifications[uid] = append(notifications[uid], gameInfo)
@@ -45,30 +44,37 @@ func DailyNotifications(c *gin.Context) {
 	}
 
 	msg := &mail.Message{Sender: sender, Subject: subject}
-	tmpl := restful.TemplatesFrom(ctx)["shared/daily_notification"]
+	tmpl := restful.TemplatesFrom(c)["shared/daily_notification"]
 	buf := new(bytes.Buffer)
 
-	var err error
-	for uid, gameInfos := range notifications {
-		u := user.New(ctx)
-		u.ID = uid
+	dsClient, err := datastore.NewClient(c, "")
+	if err != nil {
+		log.Errorf(err.Error())
+		c.Abort()
+	}
 
-		if err = datastore.Get(ctx, u); err != nil {
-			log.Errorf(ctx, "get user error: %s", err.Error())
+	for uid, gameInfos := range notifications {
+		u := user.New(uid)
+
+		err = dsClient.Get(c, u.Key, u)
+		if err != nil {
+			log.Errorf("get user error: %s", err.Error())
 		}
 
-		if err = tmpl.Execute(buf, gin.H{
+		err = tmpl.Execute(buf, gin.H{
 			"Info": gameInfos,
 			"User": u,
-		}); err != nil {
-			log.Errorf(ctx, "template execution for %s generated error: %s", u.Name, err.Error())
+		})
+		if err != nil {
+			log.Errorf("template execution for %s generated error: %s", u.Name, err.Error())
 		}
 
 		msg.To = []string{u.Email}
 		msg.HTMLBody = buf.String()
 
-		if err = send.Message(ctx, msg); err != nil {
-			log.Errorf(ctx, "enqueuing email message: %#v geneerated error: %s", msg, err.Error())
+		err = send.Message(c, msg)
+		if err != nil {
+			log.Errorf("enqueuing email message: %#v geneerated error: %s", msg, err.Error())
 		}
 
 		// Reset buffer for next message

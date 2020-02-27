@@ -1,18 +1,19 @@
 package mlog
 
 import (
+	"context"
 	"html/template"
 	"time"
 
 	"github.com/SlothNinja/slothninja-games/sn/color"
-	"golang.org/x/net/context"
 )
 
 type Message struct {
-	Text      string
-	CreatorID int64
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Text       string
+	CreatorID  int64
+	CreatorSID string
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
 }
 
 func (ml *MLog) NewMessage(ctx context.Context) *Message {
@@ -42,7 +43,7 @@ type Messages []*Message
 //}
 
 func (m *Message) Color(cm color.Map) template.HTML {
-	if c, ok := cm[int(m.CreatorID)]; ok {
+	if c, ok := cm[m.CreatorID]; ok {
 		return template.HTML(c.String())
 	}
 	return template.HTML("default")

@@ -1,42 +1,46 @@
 package game
 
 import (
+	"bytes"
+	"context"
+	"crypto/sha1"
+	"encoding/base64"
 	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
 	"time"
 
-	"github.com/SlothNinja/slothninja-games/sn/log"
+	"cloud.google.com/go/datastore"
+	"github.com/SlothNinja/log"
 	"github.com/SlothNinja/slothninja-games/sn/restful"
 	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/gin-gonic/gin"
-	"go.chromium.org/gae/filter/dscache"
-	"go.chromium.org/gae/service/datastore"
-	"go.chromium.org/gae/service/info"
-	"golang.org/x/net/context"
+	"google.golang.org/appengine"
 )
 
 func Index(prefix string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		ctx := restful.ContextFrom(c)
-		log.Debugf(ctx, "Entering")
-		defer log.Debugf(ctx, "Exiting")
+		log.Debugf("Entering")
+		defer log.Debugf("Exiting")
 
-		gs := GamersFrom(ctx)
+		gs := GamersFrom(c)
+		cu, found := user.Current(c)
 		switch status := StatusFrom(c); status {
 		case Recruiting:
 			c.HTML(http.StatusOK, "shared/invitation_index", gin.H{
-				"Context":   ctx,
-				"VersionID": info.VersionID(ctx),
-				"CUser":     user.CurrentFrom(ctx),
+				"Context":   c,
+				"VersionID": appengine.VersionID(c),
+				"CUser":     cu,
+				"CUFound":   found,
 				"Games":     gs,
 			})
 		default:
 			c.HTML(http.StatusOK, "shared/multi_games_index", gin.H{
-				"Context":   ctx,
-				"VersionID": info.VersionID(ctx),
-				"CUser":     user.CurrentFrom(ctx),
+				"Context":   c,
+				"VersionID": appengine.VersionID(c),
+				"CUser":     cu,
+				"CUFound":   found,
 				"Games":     gs,
 				"Status":    status,
 			})
@@ -461,26 +465,24 @@ type Action struct {
 
 func NotCurrentPlayerOrAdmin(prefix string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		ctx := restful.ContextFrom(c)
-		switch g := GamerFrom(ctx); {
+		switch g := GamerFrom(c); {
 		case g == nil:
-			restful.AddErrorf(ctx, "Did not load game from database.")
+			log.Errorf("did not load game from database")
 			c.Redirect(http.StatusSeeOther, homePath)
-		case g.GetHeader().CUserIsCPlayerOrAdmin(ctx):
-			c.Redirect(http.StatusSeeOther, showPath(ctx, prefix, c.Param("gid")))
+		case g.GetHeader().CUserIsCPlayerOrAdmin(c):
+			c.Redirect(http.StatusSeeOther, showPath(c, prefix, c.Param("gid")))
 		}
 	}
 }
 
 func CurrentPlayerOrAdmin(prefix, idParam string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		ctx := restful.ContextFrom(c)
-		switch g := GamerFrom(ctx); {
+		switch g := GamerFrom(c); {
 		case g == nil:
-			restful.AddErrorf(ctx, "Did not load game from database.")
+			log.Errorf("did not load game from database")
 			c.Redirect(http.StatusSeeOther, homePath)
-		case !g.GetHeader().CUserIsCPlayerOrAdmin(ctx):
-			c.Redirect(http.StatusSeeOther, showPath(ctx, prefix, c.Param(idParam)))
+		case !g.GetHeader().CUserIsCPlayerOrAdmin(c):
+			c.Redirect(http.StatusSeeOther, showPath(c, prefix, c.Param(idParam)))
 		}
 	}
 }
@@ -697,22 +699,37 @@ func SetAdmin(b bool) gin.HandlerFunc {
 	}
 }
 
-func (h *Header) undoKey(ctx context.Context) (k string) {
-	if cu := user.CurrentFrom(ctx); cu != nil {
-		k = fmt.Sprintf("%s/uid-%d", dscache.MakeMemcacheKey(0, datastore.KeyForObj(ctx, h)), cu.ID)
-	}
-	return
+func MakeMemcacheKey(k *datastore.Key) string {
+	return fmt.Sprintf("ds:1:%x", HashKey(k))
 }
 
-func (h *Header) UndoKey(ctx context.Context) string {
-	return h.undoKey(ctx)
+// HashKey generates just the hashed portion of the MemcacheKey.
+func HashKey(k *datastore.Key) string {
+	dgst := sha1.Sum([]byte(k.String()))
+	buf := bytes.Buffer{}
+	enc := base64.NewEncoder(base64.StdEncoding, &buf)
+	_, _ = enc.Write(dgst[:])
+	enc.Close()
+	return buf.String()[:buf.Len()-1]
+}
+
+func (h Header) undoKey(c *gin.Context) string {
+	cu, found := user.Current(c)
+	if !found {
+		return ""
+	}
+	return fmt.Sprintf("%s/uid-%d", MakeMemcacheKey(h.Key), cu.ID())
+}
+
+func (h Header) UndoKey(c *gin.Context) string {
+	return h.undoKey(c)
 }
 
 type jGamesIndex struct {
 	Data            []*jHeader `json:"data"`
 	Draw            int        `json:"draw"`
-	RecordsTotal    int64      `json:"recordsTotal"`
-	RecordsFiltered int64      `json:"recordsFiltered"`
+	RecordsTotal    int        `json:"recordsTotal"`
+	RecordsFiltered int        `json:"recordsFiltered"`
 }
 
 type jHeader struct {
@@ -725,7 +742,7 @@ type jHeader struct {
 	OptString   template.HTML `json:"optString"`
 	Progress    template.HTML `json:"progress"`
 	Round       int           `json:"round"`
-	UpdatedAt   restful.UTime `json:"updatedAt"`
+	UpdatedAt   time.Time     `json:"updatedAt"`
 	LastUpdated template.HTML `json:"lastUpdated"`
 	Public      template.HTML `json:"public"`
 	Actions     template.HTML `json:"actions"`
@@ -733,33 +750,33 @@ type jHeader struct {
 }
 
 func JSONIndexAction(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	if data, err := toGameTable(ctx); err != nil {
+	data, err := toGameTable(c)
+	if err != nil {
 		c.JSON(http.StatusOK, fmt.Sprintf("%v", err))
-	} else {
-		c.JSON(http.StatusOK, data)
+		return
 	}
+	c.JSON(http.StatusOK, data)
 }
 
-func toGameTable(ctx context.Context) (*jGamesIndex, error) {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func toGameTable(c *gin.Context) (*jGamesIndex, error) {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
-	gs := GamersFrom(ctx)
+	gs := GamersFrom(c)
 	table := new(jGamesIndex)
 	l := len(gs)
 	table.Data = make([]*jHeader, l)
 	for i, g := range gs {
 		h := g.GetHeader()
 		table.Data[i] = &jHeader{
-			ID:          g.GetHeader().ID,
+			ID:          g.GetHeader().ID(),
 			Type:        template.HTML(h.Type.String()),
 			Title:       titleLink(g),
 			Creator:     user.LinkFor(h.CreatorID, h.CreatorName),
-			Players:     h.PlayerLinks(ctx),
+			Players:     h.PlayerLinks(c),
 			NumPlayers:  template.HTML(fmt.Sprintf("%d / %d", h.AcceptedPlayers(), h.NumPlayers)),
 			Round:       h.Round,
 			OptString:   template.HTML(h.OptString),
@@ -767,19 +784,18 @@ func toGameTable(ctx context.Context) (*jGamesIndex, error) {
 			UpdatedAt:   h.UpdatedAt,
 			LastUpdated: template.HTML(restful.LastUpdated(time.Time(h.UpdatedAt))),
 			Public:      publicPrivate(g),
-			Actions:     actionButtons(ctx, g),
+			Actions:     actionButtons(c, g),
 			Status:      h.Status,
 		}
 	}
 
-	c := restful.GinFrom(ctx)
 	if draw, err := strconv.Atoi(c.PostForm("draw")); err != nil {
 		return nil, err
 	} else {
 		table.Draw = draw
 	}
-	table.RecordsTotal = countFrom(ctx)
-	table.RecordsFiltered = countFrom(ctx)
+	table.RecordsTotal = countFrom(c)
+	table.RecordsFiltered = countFrom(c)
 	return table, nil
 }
 
@@ -799,22 +815,23 @@ func titleLink(g Gamer) template.HTML {
 		<div style="font-size:.7em">%s</div>`, h.Type.IDString(), h.ID, h.Title, h.OptString))
 }
 
-func actionButtons(ctx context.Context, g Gamer) template.HTML {
-	log.Debugf(ctx, "Entering")
-	defer log.Debugf(ctx, "Exiting")
+func actionButtons(c *gin.Context, g Gamer) template.HTML {
+	log.Debugf("Entering")
+	defer log.Debugf("Exiting")
 
 	h := g.GetHeader()
 	switch h.Status {
 	case Running:
 		t := h.Type.IDString()
-		if g.GetHeader().CUserIsCPlayerOrAdmin(ctx) {
-			return template.HTML(fmt.Sprintf(`<a class="mybutton" href="/%s/game/show/%d">Play</a>`, t, h.ID))
+		if g.GetHeader().CUserIsCPlayerOrAdmin(c) {
+			return template.HTML(fmt.Sprintf(`<a class="mybutton" href="/%s/game/show/%d">Play</a>`, t, h.ID()))
 		} else {
-			return template.HTML(fmt.Sprintf(`<a class="mybutton" href="/%s/game/show/%d">Show</a>`, t, h.ID))
+			return template.HTML(fmt.Sprintf(`<a class="mybutton" href="/%s/game/show/%d">Show</a>`, t, h.ID()))
 		}
 	case Recruiting:
 		t := h.Type.IDString()
-		switch cu := g.CurrentUser(); {
+		cu, _ := user.Current(c)
+		switch {
 		case g.CanAdd(cu):
 			if g.Private() {
 				return template.HTML(fmt.Sprintf(`
@@ -835,7 +852,7 @@ func actionButtons(ctx context.Context, g Gamer) template.HTML {
 		$('#opener-%d').click(function() {
 			$('#dialog-%d').dialog('open');
 		});
-	</script>`, h.ID, h.ID, h.Stub(), h.ID, h.ID, h.ID, h.ID, h.ID))
+	</script>`, h.ID(), h.ID(), h.Stub(), h.ID(), h.ID(), h.ID(), h.ID(), h.ID()))
 				//				return template.HTML(fmt.Sprintf(`
 				//				<form class="myForm" action="/%s/game/accept/%d" method="post">
 				//					<input name="_method" type="hidden" value="PUT" />
@@ -848,7 +865,7 @@ func actionButtons(ctx context.Context, g Gamer) template.HTML {
 					<input name="_method" type="hidden" value="PUT" />
 					<input id="user_id" name="user[id]" type="hidden" value="%v">
 					<input id="accept-%d" class="mybutton" type="submit" value="Accept" />
-				</form>`, t, h.ID, cu.ID, h.ID))
+				</form>`, t, h.ID(), cu.ID(), h.ID()))
 			}
 		case g.CanDropout(cu):
 			return template.HTML(fmt.Sprintf(`
@@ -856,7 +873,7 @@ func actionButtons(ctx context.Context, g Gamer) template.HTML {
 					<input name="_method" type="hidden" value="PUT" />
 					<input id="user_id" name="user[id]" type="hidden" value="%v">
 					<input id="drop-%d" class="mybutton" type="submit" value="Drop" />
-				</form>`, t, h.ID, cu.ID, h.ID))
+				</form>`, t, h.ID(), cu.ID(), h.ID()))
 		default:
 			return ""
 		}

@@ -1,12 +1,16 @@
 package main
 
 import (
+	got "github.com/SlothNinja/gt"
+	"github.com/SlothNinja/slothninja-games/sn/game"
 	"github.com/SlothNinja/slothninja-games/sn/restful"
+	gType "github.com/SlothNinja/slothninja-games/sn/type"
 	"github.com/SlothNinja/slothninja-games/sn/user_controller"
 	"github.com/SlothNinja/slothninja-games/welcome"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/securecookie"
 )
 
 const (
@@ -39,6 +43,12 @@ const (
 // 	// welcome.AddRoutes(r)
 // }
 
+const (
+	hashKeyLength  = 64
+	blockKeyLength = 32
+	sessionName    = "sngsession"
+)
+
 func main() {
 	// if appengine.IsDevAppServer() {
 	// 	gin.SetMode(gin.DebugMode)
@@ -46,36 +56,36 @@ func main() {
 	// 	gin.SetMode(gin.ReleaseMode)
 	// }
 
-	store := cookie.NewStore([]byte("secret123"))
+	hashKey := securecookie.GenerateRandomKey(hashKeyLength)
+	if hashKey == nil {
+		panic("generated hashKey was nil")
+	}
 
-	r := gin.New()
+	blockKey := securecookie.GenerateRandomKey(blockKeyLength)
+	if blockKey == nil {
+		panic("generated blockKey was nil")
+	}
+
+	store := cookie.NewStore(hashKey, blockKey)
+
+	renderer := restful.ParseTemplates("templates", ".tmpl")
+	r := gin.Default()
 	r.Use(
-		restful.CTXHandler(),
-		restful.TemplateHandler(r),
-		//		user.GetGUserHandler,
-		//		user.GetCUserHandler,
-		sessions.Sessions("sngsession", store),
+		restful.TemplateHandler(r, renderer),
+		sessions.Sessions(sessionName, store),
 	)
-	// 	r := gin.Default()
-	// 	store := cookie.NewStore([]byte("secret"))
-	// 	r.Use(sessions.Sessions("mysession", store))
-
-	r.GET("/hello", func(c *gin.Context) {
-		session := sessions.Default(c)
-
-		if session.Get("hello") != "world" {
-			session.Set("hello", "world")
-			session.Save()
-		}
-
-		c.JSON(200, gin.H{"hello": session.Get("hello")})
-	})
 
 	// Welcome Page (index.html) route
 	welcome.AddRoutes(r)
 
 	// User Routes
 	user_controller.AddRoutes(userPrefix, r)
+
+	// Games Routes
+	game.AddRoutes(gamesPrefix, r)
+
+	// Guild of Thieves
+	got.Register(gType.GOT, r)
 
 	r.Run()
 }

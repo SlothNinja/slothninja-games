@@ -4,13 +4,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"go.chromium.org/gae/service/user"
-
 	//	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
 	//"bitbucket.org/SlothNinja/slothninja-games/sn/user"
-
-	"github.com/SlothNinja/slothninja-games/sn/restful"
-	"golang.org/x/net/context"
 )
 
 //type key int
@@ -40,8 +35,8 @@ func WithType(c *gin.Context, t Type) *gin.Context {
 	return c
 }
 
-func TypeFrom(ctx context.Context) (t Type) {
-	t, _ = ctx.Value(typeKey).(Type)
+func TypeFrom(c *gin.Context) (t Type) {
+	t, _ = c.Value(typeKey).(Type)
 	return
 }
 
@@ -144,20 +139,18 @@ func rtypes() GTypes {
 	return gts
 }
 
-func SetTypes() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		ctx := restful.ContextFrom(c)
-		switch _, ok := c.Get("cuser"); {
-		case !ok, !user.IsAdmin(ctx):
-			c.Set("types", rtypes())
-		default:
-			c.Set("types", Types)
-		}
-	}
-}
+// func SetTypes() gin.HandlerFunc {
+// 	return func(c *gin.Context) {
+// 		switch _, ok := c.Get("cuser"); {
+// 		case !ok, !user.IsAdmin(c):
+// 			c.Set("types", rtypes())
+// 		default:
+// 			c.Set("types", Types)
+// 		}
+// 	}
+// }
 
-func Get(ctx context.Context) Type {
-	c := restful.GinFrom(ctx)
+func Get(c *gin.Context) Type {
 	ltype := strings.ToLower(c.Param("type"))
 	if t, ok := ToType[ltype]; ok {
 		return t

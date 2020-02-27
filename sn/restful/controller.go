@@ -9,7 +9,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"golang.org/x/net/context"
 )
 
 var Builtins = template.FuncMap{
@@ -165,7 +164,7 @@ func ToLower(s string) string {
 	return strings.ToLower(s)
 }
 
-func LogoutURL(ctx context.Context, redirect, label string) (template.HTML, error) {
+func LogoutURL(c *gin.Context, redirect, label string) (template.HTML, error) {
 	return "", nil
 	// url, err := user.LogoutURL(ctx, redirect)
 	// if err != nil {
@@ -174,7 +173,7 @@ func LogoutURL(ctx context.Context, redirect, label string) (template.HTML, erro
 	// return template.HTML(fmt.Sprintf(`<a href=%q>%s</a>`, url, label)), nil
 }
 
-func LoginURL(ctx context.Context, redirect, label string) (tmpl template.HTML, err error) {
+func LoginURL(c *gin.Context, redirect, label string) (tmpl template.HTML, err error) {
 	return "", nil
 	// url, err := user.LoginURL(ctx, redirect)
 	// if err != nil {
@@ -195,8 +194,7 @@ func comment(s string) template.HTML {
 // BindWith binds the passed struct pointer using the specified binding engine.
 // Similar to gin#context.BindWith but does not write status code 400 to Header.
 // This method provides more flexibility, e.g., redirection on error.
-func BindWith(ctx context.Context, obj interface{}, b binding.Binding) error {
-	c := GinFrom(ctx)
+func BindWith(c *gin.Context, obj interface{}, b binding.Binding) error {
 	if err := b.Bind(c.Request, obj); err != nil {
 		c.Error(err).SetType(gin.ErrorTypeBind)
 		c.Abort()

@@ -1,6 +1,6 @@
 {{$g := $.Game}}
 {{$ctx := $.Context}}
-{{$cp := $g.CurrentPlayer}}
+{{$cp := $g.CurrentPlayer $ctx}}
 <div id="areas">
         {{with $grid := $g.Grid}}
         {{$r := index $grid 0}}

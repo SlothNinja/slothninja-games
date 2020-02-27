@@ -1,11 +1,11 @@
 package contest
 
 import (
+	"time"
+
 	"cloud.google.com/go/datastore"
-	"github.com/SlothNinja/slothninja-games/sn/restful"
 	gType "github.com/SlothNinja/slothninja-games/sn/type"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/net/context"
 )
 
 const kind = "Contest"
@@ -19,8 +19,8 @@ type Contest struct {
 	RD        float64
 	Outcome   float64
 	Applied   bool
-	CreatedAt restful.CTime
-	UpdatedAt restful.UTime
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 type Result struct {
@@ -35,8 +35,8 @@ type Results []*Result
 type ResultsMap map[*datastore.Key]Results
 type Places []ResultsMap
 
-func New(pk *datastore.Key, gid int64, t gType.Type, r, rd, outcome float64) *Contest {
-	return &Contest{
+func New(pk *datastore.Key, gid int64, t gType.Type, r, rd, outcome float64) Contest {
+	return Contest{
 		Key:     datastore.IncompleteKey(kind, pk),
 		GameID:  gid,
 		Type:    t,
@@ -46,7 +46,7 @@ func New(pk *datastore.Key, gid int64, t gType.Type, r, rd, outcome float64) *Co
 	}
 }
 
-func GenContests(ctx context.Context, places Places) (cs []*Contest) {
+func GenContests(c *gin.Context, places Places) (cs []Contest) {
 	for _, rmap := range places {
 		for ukey, rs := range rmap {
 			for _, r := range rs {
@@ -81,7 +81,7 @@ func GenContests(ctx context.Context, places Places) (cs []*Contest) {
 //	}, nil)
 //}
 
-func UnappliedFor(c *gin.Context, ukey *datastore.Key, t gType.Type) ([]*Contest, error) {
+func UnappliedFor(c *gin.Context, ukey *datastore.Key, t gType.Type) ([]Contest, error) {
 	q := datastore.NewQuery(kind).
 		Ancestor(ukey).
 		Filter("Applied=", false).
@@ -92,7 +92,7 @@ func UnappliedFor(c *gin.Context, ukey *datastore.Key, t gType.Type) ([]*Contest
 		return nil, err
 	}
 
-	var cs []*Contest
+	var cs []Contest
 	_, err = dsClient.GetAll(c, q, cs)
 	if err != nil {
 		return nil, err
@@ -101,7 +101,7 @@ func UnappliedFor(c *gin.Context, ukey *datastore.Key, t gType.Type) ([]*Contest
 	return cs, nil
 }
 
-type ContestMap map[gType.Type][]*Contest
+type ContestMap map[gType.Type][]Contest
 
 func Unapplied(c *gin.Context, ukey *datastore.Key) (ContestMap, error) {
 	q := datastore.NewQuery(kind).
@@ -113,7 +113,7 @@ func Unapplied(c *gin.Context, ukey *datastore.Key) (ContestMap, error) {
 		return nil, err
 	}
 
-	var cs []*Contest
+	var cs []Contest
 	_, err = dsClient.GetAll(c, q, cs)
 	if err != nil {
 		return nil, err

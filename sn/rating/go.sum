@@ -1,3 +1,4 @@
+bitbucket.org/SlothNinja/glicko v0.0.0-20130425132718-9615bf559204/go.mod h1:7L4W/30wUL1MwT6Y7XEZkZ88kUfMNBheG5AwQdt0+ig=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.34.0 h1:eOI3/cP2VTU6uZLDYAoic+eyzzB9YyGmJ7eIjl8rOPg=
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
@@ -52,6 +53,7 @@ github.com/SlothNinja/slothninja-games/sn/misc v0.0.0-20200212040712-1ee26e37e1e
 github.com/SlothNinja/slothninja-games/sn/misc v0.0.0-20200213013905-9431a99919ae/go.mod h1:QHCWeplLK/e7HHB6oj3JDygf1TGJEI7qahn1kb6bBt8=
 github.com/SlothNinja/slothninja-games/sn/name v0.0.0-20200213013905-9431a99919ae/go.mod h1:LPeegyP3TZ9b6beQ++tYeHk2QrZpEwQWPHL96EzmHrE=
 github.com/SlothNinja/slothninja-games/sn/rating v0.0.0-20200212040712-1ee26e37e1e4/go.mod h1:zLaygbcMUvq+bQ7Iu5eX7Yo8tDWWLrI8RBe53Q23osw=
+github.com/SlothNinja/slothninja-games/sn/rating v0.0.0-20200212041301-c78b1da4fcdb/go.mod h1:zLaygbcMUvq+bQ7Iu5eX7Yo8tDWWLrI8RBe53Q23osw=
 github.com/SlothNinja/slothninja-games/sn/restful v0.0.0-20200212021403-c6bfda9a8e85/go.mod h1:kVwR2wfUlCqER4eVILWd142rGrloINaYytFMCjjGedA=
 github.com/SlothNinja/slothninja-games/sn/restful v0.0.0-20200212035419-aab4d8765789/go.mod h1:kVwR2wfUlCqER4eVILWd142rGrloINaYytFMCjjGedA=
 github.com/SlothNinja/slothninja-games/sn/restful v0.0.0-20200212035615-29d0ccf53fcb/go.mod h1:kVwR2wfUlCqER4eVILWd142rGrloINaYytFMCjjGedA=
@@ -68,10 +70,17 @@ github.com/SlothNinja/slothninja-games/sn/type v0.0.0-20200212040002-f57bad0ae25
 github.com/SlothNinja/slothninja-games/sn/type v0.0.0-20200212040002-f57bad0ae251/go.mod h1:NlcCA6niH66SnUaDsr2aumqGSehDE3tKUWpKVJuRr5A=
 github.com/SlothNinja/slothninja-games/sn/type v0.0.0-20200212040712-1ee26e37e1e4 h1:/WXz2BfCpCUKJpC5Bj5sUJ/NAFNn2Ib++Ppa0efiUpA=
 github.com/SlothNinja/slothninja-games/sn/type v0.0.0-20200212040712-1ee26e37e1e4/go.mod h1:NlcCA6niH66SnUaDsr2aumqGSehDE3tKUWpKVJuRr5A=
+github.com/SlothNinja/slothninja-games/sn/type v0.0.0-20200212041301-c78b1da4fcdb h1:7Z37BT5uVkkDpdlP2HzqFweR12tOcKEaBcwK7H/CyYE=
+github.com/SlothNinja/slothninja-games/sn/type v0.0.0-20200212041301-c78b1da4fcdb/go.mod h1:NlcCA6niH66SnUaDsr2aumqGSehDE3tKUWpKVJuRr5A=
 github.com/SlothNinja/slothninja-games/sn/user v0.0.0-20200212040002-f57bad0ae251 h1:7TngLWSsMF6QQNeZcEDfuESsmoKqJjCh5mcaAbQgXEE=
 github.com/SlothNinja/slothninja-games/sn/user v0.0.0-20200212040002-f57bad0ae251/go.mod h1:EwA04AepmCZslZhX6arjxee3NJyzX3BqhfB262Z3ka4=
 github.com/SlothNinja/slothninja-games/sn/user/stats v0.0.0-20200212040712-1ee26e37e1e4/go.mod h1:FHUvQ9EMGH3B6i396j6Nh/6CRKICUg6gPOddPsUQA04=
+github.com/SlothNinja/slothninja-games/sn/user/stats v0.0.0-20200212041301-c78b1da4fcdb/go.mod h1:FHUvQ9EMGH3B6i396j6Nh/6CRKICUg6gPOddPsUQA04=
+github.com/SlothNinja/slothninja-games/sn/user/stats v0.0.0-20200213013905-9431a99919ae/go.mod h1:FHUvQ9EMGH3B6i396j6Nh/6CRKICUg6gPOddPsUQA04=
+github.com/SlothNinja/slothninja-games/sn/user/stats v0.0.0-20200217151912-ca6570104a61/go.mod h1:FHUvQ9EMGH3B6i396j6Nh/6CRKICUg6gPOddPsUQA04=
+github.com/SlothNinja/slothninja-games/sn/user_controller v0.0.0-20200217151912-ca6570104a61/go.mod h1:8fsvNyHBaJtYd5mt0j3BtX7ZE4wRsFeMiAbfbxmTnmI=
 github.com/SlothNinja/slothninja-games/welcome v0.0.0-20200213013905-9431a99919ae/go.mod h1:kaTAl8n9TtU33W+6rLFQmKBUMRUqy1M1PJ4uj8h3oHQ=
+github.com/SlothNinja/slothninja-games/welcome v0.0.0-20200217151912-ca6570104a61/go.mod h1:27u9VD56UPZ/t4IvJWqWELpwa1p2oPF+Qr432kbjKEM=
 github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff/go.mod h1:+RTT1BOk5P97fT2CiHkbFQwkK3mjsFAP6zCYV2aXtjw=
 github.com/bradfitz/gomemcache v0.0.0-20190329173943-551aad21a668/go.mod h1:H0wQNHz2YrLsuXOZozoeDmnHXkNCRmMW0gwFWDfEZDA=
 github.com/bradleypeabody/gorilla-sessions-memcache v0.0.0-20181103040241-659414f458e1/go.mod h1:dkChI7Tbtx7H1Tj7TqGSZMOeGpMP5gLHtjroHd4agiI=
@@ -200,6 +209,7 @@ github.com/smartystreets/assertions v1.0.1/go.mod h1:kHHU4qYBaI3q23Pp3VPrmWhuIUr
 github.com/smartystreets/goconvey v1.6.4 h1:fv0U8FUIMPNf1L9lnHLvLhgicrIVChEkdzIKYqbNC9s=
 github.com/smartystreets/goconvey v1.6.4/go.mod h1:syvi0/a8iFYH4r/RixwvyeAJjdLS9QV7WQ/tjFTllLA=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJyk=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
