@@ -3,25 +3,29 @@ package welcome
 import (
 	"net/http"
 
-	"bitbucket.org/SlothNinja/slothninja-games/sn/log"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/restful"
-	"bitbucket.org/SlothNinja/slothninja-games/sn/user"
+	"github.com/SlothNinja/log"
+	"github.com/SlothNinja/slothninja-games/sn/user"
 	"github.com/gin-gonic/gin"
-	"go.chromium.org/gae/service/info"
+	"google.golang.org/appengine"
 )
 
 func Index(c *gin.Context) {
-	ctx := restful.ContextFrom(c)
-	log.Debugf(ctx, "Entering welcome#Index")
-	defer log.Debugf(ctx, "Exiting welcome#Index")
+	log.Debugf("Entering welcome#Index")
+	defer log.Debugf("Exiting welcome#Index")
 
-	if cu, gu := user.CurrentFrom(ctx), user.GUserFrom(ctx); cu == nil && gu != nil {
-		c.Redirect(http.StatusSeeOther, "/user/new")
-	} else {
-		log.Debugf(ctx, "cu: %#v", cu)
-		c.HTML(http.StatusOK, "welcome/index", gin.H{
-			"VersionID": info.VersionID(ctx),
-			"CUser":     cu,
-			"Context":   ctx})
-	}
+	cu := user.CurrentFrom(c)
+	log.Debugf("cu: %#v", cu)
+	c.HTML(http.StatusOK, "welcome/index", gin.H{
+		"VersionID": appengine.VersionID(c),
+		"CUser":     cu,
+		"Context":   c})
+	// if cu, gu := user.CurrentFrom(c), user.GUserFrom(c); cu == nil && gu != nil {
+	// 	c.Redirect(http.StatusSeeOther, "/user/new")
+	// } else {
+	// 	log.Debugf("cu: %#v", cu)
+	// 	c.HTML(http.StatusOK, "welcome/index", gin.H{
+	// 		"VersionID": appengine.VersionID(c),
+	// 		"CUser":     cu,
+	// 		"Context":   c})
+	// }
 }
